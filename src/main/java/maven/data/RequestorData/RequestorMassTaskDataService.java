@@ -25,6 +25,20 @@ public interface RequestorMassTaskDataService {
      */
     List<MassTaskDetail> getAllMassTaskDetailOfThisRequestor(UserId requestorId);
 
+    /**
+     * 判断该任务是否为大任务
+     * @param taskId 任务ID
+     * @return 该任务是否为大任务
+     */
+    boolean isMassTask(TaskId taskId);
+
+    /**
+     * 获得该大任务的细节
+     * @param taskId 大任务ID
+     * @return 该大任务的细节；若ID不是大任务，则返回null
+     */
+    MassTaskDetail getMassTaskDetailOfThisTask(TaskId taskId);
+
     /*                  工人                   */
     /**
     /**

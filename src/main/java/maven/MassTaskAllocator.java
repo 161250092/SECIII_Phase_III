@@ -2,9 +2,6 @@ package maven;
 
 import maven.businessLogic.allocateMassTaskBL.AllocateMassTaskBLImpl;
 import maven.businessLogic.allocateMassTaskBL.AllocateMassTaskBLService;
-import maven.exception.util.SuccessException;
-
-import java.util.Date;
 
 public class MassTaskAllocator implements Runnable {
     private Thread t;
