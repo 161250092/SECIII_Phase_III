@@ -4,6 +4,8 @@ import maven.model.primitiveType.Cash;
 import maven.model.primitiveType.MessageId;
 import maven.model.primitiveType.UserId;
 
+import java.util.Date;
+
 public class BillMessage {
     //消息Id
     private MessageId messageId;
@@ -17,6 +19,9 @@ public class BillMessage {
     private Cash cash;
     //是否被用户确认查看过
     private boolean isConfirmed;
+    //消息生成的时间
+    private Date date;
+
 
     public UserId getUserId() {
         return userId;
@@ -42,12 +47,27 @@ public class BillMessage {
         return isConfirmed;
     }
 
+    public Date getDate(){
+        return date;
+    }
+
     public BillMessage(MessageId messageId, UserId userId, BillType billType, BillReason billReason, Cash cash) {
         this.messageId = messageId;
         this.userId = userId;
         this.billType = billType;
         this.billReason = billReason;
         this.cash = cash;
+        this.date = new Date();
+        this.isConfirmed = false;
+    }
+
+    public BillMessage(MessageId messageId, UserId userId, BillType billType, BillReason billReason, Cash cash, Date date) {
+        this.messageId = messageId;
+        this.userId = userId;
+        this.billType = billType;
+        this.billReason = billReason;
+        this.cash = cash;
+        this.date = date;
         this.isConfirmed = false;
     }
 }

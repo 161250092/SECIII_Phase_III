@@ -1,5 +1,7 @@
 package maven.data.MessageData;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import maven.data.MySQL.MySQLConnector;
 import maven.model.message.*;
 import maven.model.primitiveType.*;
@@ -9,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MessageDataImpl implements  MessageDataService{
@@ -131,17 +134,21 @@ public class MessageDataImpl implements  MessageDataService{
         PreparedStatement stmt;
         String sql;
 
+        Gson gson = new GsonBuilder().create();
         try{
-            sql = "insert into BillMessage values (?,?,?,?,?,?)";
+            sql = "insert into BillMessage values (?,?,?,?,?,?,?)";
 
             stmt = conn.prepareStatement(sql);
+
+            String date = gson.toJson(billMessage.getDate());
 
             stmt.setString(1,billMessage.getMessageId().value);
             stmt.setString(2,billMessage.getUserId().value);
             stmt.setString(3,billMessage.getBillType().toString());
             stmt.setString(4,billMessage.getBillReason().toString());
             stmt.setDouble(5,billMessage.getCash().value);
-            stmt.setBoolean(6,billMessage.isConfirmed());
+            stmt.setString(6,date);
+            stmt.setBoolean(7,billMessage.isConfirmed());
 
             stmt.executeUpdate();
 
@@ -322,7 +329,7 @@ public class MessageDataImpl implements  MessageDataService{
         ResultSet rs;
 
         try{
-            sql = "select * from BillMessage where UserId = ? and Confirm = ?";
+            sql = "select * from BillMessage where UserId = ? and isChecked = ?";
 
             stmt = conn.prepareStatement(sql);
 
@@ -331,13 +338,14 @@ public class MessageDataImpl implements  MessageDataService{
 
             rs = stmt.executeQuery();
 
+            Gson gson = new GsonBuilder().create();
             while(rs.next()){
                 MessageId messageId = new MessageId(rs.getString("MessageId"));
                 BillType billType = BillType.valueOf(rs.getString("Type"));
                 BillReason billReason = BillReason.valueOf(rs.getString("Reason"));
                 Cash cash = new Cash(rs.getDouble("Cash"));
-
-                BillMessage billMessage = new BillMessage(messageId,userId,billType,billReason,cash);
+                Date date = gson.fromJson(rs.getString("Date"), Date.class);
+                BillMessage billMessage = new BillMessage(messageId,userId,billType,billReason,cash,date);
 
                 billMessages.add(billMessage);
             }
@@ -496,7 +504,7 @@ public class MessageDataImpl implements  MessageDataService{
         String sql;
 
         try{
-            sql = "update BillMessage set Confirm  = ? where MessageId = ?";
+            sql = "update BillMessage set isChecked  = ? where MessageId = ?";
 
             stmt = conn.prepareStatement(sql);
 
@@ -560,6 +568,8 @@ public class MessageDataImpl implements  MessageDataService{
         String sql;
         ResultSet rs;
 
+
+        Gson gson = new GsonBuilder().create();
         try{
             sql = "select * from BillMessage";
 
@@ -573,9 +583,10 @@ public class MessageDataImpl implements  MessageDataService{
                 BillType billType = BillType.valueOf(rs.getString("Type"));
                 BillReason billReason = BillReason.valueOf(rs.getString("Reason"));
                 Cash cash = new Cash(rs.getDouble("Cash"));
-                boolean confirm = new Boolean(rs.getBoolean("Confirm"));
+                Date date = gson.fromJson(rs.getString("Date"), Date.class);
+                boolean confirm = new Boolean(rs.getBoolean("isChecked"));
 
-                BillMessage billMessage = new BillMessage(messageId,userId,billType,billReason,cash);
+                BillMessage billMessage = new BillMessage(messageId,userId,billType,billReason,cash,date);
 
                 billMessageList.add(billMessage);
             }
