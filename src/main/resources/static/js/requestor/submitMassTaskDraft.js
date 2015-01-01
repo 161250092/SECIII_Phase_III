@@ -52,11 +52,12 @@ new Vue({
         size: 0,
         budget:0.0,
         givenUnitPrice:0.0,
-        endDate: undefined
+        endDate: undefined,
     },
     mounted:function(){
         this.$nextTick(function () {
             this.requestorId = getUserId();
+            this.endDate = this.getMinEndTimeStr();
             this.refreshTaskId();
             // this.getMinImageUnitPriceList();
         });
@@ -213,6 +214,18 @@ new Vue({
             this.taskId = this.requestorId + '_' + this.selectedLabelType +
                 '_' + time + "MASS";
         },
+        getMinEndTimeStr : function () {
+            let date = new Date();
+            date = new Date(date.setDate(date.getDate() + 1));
+
+            let monthStr, dateStr;
+            if (date.getMonth()+1 < 10){monthStr = "0" + (date.getMonth()+1);}
+            else {monthStr = (date.getMonth()+1);}
+            if (date.getDate() < 10){dateStr = "0" + (date.getDate());}
+            else {dateStr = (date.getMonth()+1);}
+
+            return date.getFullYear() + "-" + monthStr + "-"  + dateStr;
+        }
         // getMinUnitPrice: function() {
         //     let imageNum = this.imgList.length;
         //     let minImageUnitPrice;
@@ -240,6 +253,21 @@ new Vue({
                 this.requiredWorkerNum = 1;
             }
         },
+        endDate: function (newEndDate, oldEndDate) {
+            if (Date.parse(newEndDate) < Date.parse(this.getMinEndTimeStr())) {
+                this.endDate = this.getMinEndTimeStr();
+            }
+        },
+        budget: function (newBudget, oldBudget) {
+            if (newBudget < 0){
+                this.budget = 0;
+            }
+        },
+        givenUnitPrice: function (newGivenUnitPrice, oldGivenUnitPrice) {
+            if (newGivenUnitPrice < 0){
+                this.givenUnitPrice = 0;
+            }
+        }
         // imgList: function (newImgList, oldImgList) {
         //     this.imageUnitPrice = this.getMinUnitPrice();
         // },
