@@ -155,7 +155,7 @@ public class RequestorBLImpl implements RequestorBLService{
                         return new CashNotEnoughException();
                     }else {
                         //发布者需要支付的金额
-                        Cash payment = new Cash(requestor.getCash().value);
+                        Cash payment = new Cash(massTaskDetail.getBudget().value);
 
                         //从发布者的账户里扣除金额
                         if(!manageUserBLService.reduceCash(userId, payment))
