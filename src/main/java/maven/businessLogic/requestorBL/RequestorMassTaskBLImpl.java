@@ -33,17 +33,10 @@ public class RequestorMassTaskBLImpl implements RequestorMassTaskBLService{
 
     @Override
     public Exception uploadMassTaskDetail(UserId requestorId, MassTaskDetail massTaskDetail) {
-        Requestor requestor = (Requestor)manageUserBL.getUserByUserId(requestorId);
+        boolean r1 = requestorMassTaskData.saveMassTaskDetail(massTaskDetail);
+        //boolean r2 = manageUserBL.reduceCash(requestorId, massTaskDetail.getBudget());
 
-        boolean r1, r2;
-        if(requestor.getCash().value >= massTaskDetail.getBudget().value){
-            r1 = requestorMassTaskData.saveMassTaskDetail(massTaskDetail);
-            r2 = manageUserBL.reduceCash(requestorId, massTaskDetail.getBudget());
-        }else {
-            return new CashNotEnoughException();
-        }
-
-        if (r1 && r2){
+        if (r1){
             return new SuccessException();
         }else {
             return new FailureException();
