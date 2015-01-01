@@ -68,14 +68,14 @@
 			<th>是否接受</th>
 		</tr>
         <tr v-for="(task, index) in availableTaskList">
-            <th>{{task.taskId}}</th>
-            <th>{{task.labelType}}</th>
-			<th>{{task.imageNum}}</th>
-            <th>{{task.requiredWorkerNum}}</th>
-            <th>{{task.finishedWorkerNum}}</th>
-            <th>{{task.taskDescription}}</th>
-            <th>{{task.taskPrice}}</th>
-            <th><input type="checkbox" v-on:click="operateOnTaskIdSet(index)"><br></th>
+            <td>{{task.taskId}}</td>
+            <td>{{task.labelType}}</td>
+			<td>{{task.imageNum}}</td>
+            <td>{{task.requiredWorkerNum}}</td>
+            <td>{{task.finishedWorkerNum}}</td>
+            <td>{{task.taskDescription}}</td>
+            <td>{{task.taskPrice}}</td>
+            <td><input type="checkbox" v-on:click="operateOnTaskIdSet(index)"><br></td>
         </tr>
 	</table>
     <br>

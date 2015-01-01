@@ -56,11 +56,11 @@
             <th>确认</th>
         </tr>
         <tr v-for="(info, index) in taskMessageInfo">
-            <th>{{info.messageId.value}}</th>
-            <th>{{info.taskId.value}}</th>
-            <th>{{info.acceptedTaskState}}</th>
-            <th>{{info.cash.value}}</th>
-            <th><input type="button" v-on:click="confirmTaskMessageInfo(index)" value="确认"></th>
+            <td>{{info.messageId.value}}</td>
+            <td>{{info.taskId.value}}</td>
+            <td>{{info.acceptedTaskState}}</td>
+            <td>{{info.cash.value}}</td>
+            <td><input type="button" v-on:click="confirmTaskMessageInfo(index)" value="确认"></td>
         </tr>
 
 
@@ -96,11 +96,11 @@
             <th>确认</th>
         </tr>
         <tr v-for="(info,index) in billMessageInfo">
-            <th>{{info.messageId.value}}</th>
-            <th>{{info.billType}}</th>
-            <th>{{info.cash.value}}</th>
-            <th>{{info.billReason}}
-            <th><input type="button" v-on:click="confirmCashMessageInfo(index)" value="确认"></th>
+            <td>{{info.messageId.value}}</td>
+            <td>{{info.billType}}</td>
+            <td>{{info.cash.value}}</td>
+            <td>{{info.billReason}}
+            <td><input type="button" v-on:click="confirmCashMessageInfo(index)" value="确认"></td>
         </tr>
     </table>
 <hr>
@@ -113,9 +113,9 @@
         </tr>
 <!--成就类还没有定义-->
         <tr v-for="(info,index) in achievementMessageInfo">
-            <th>{{info.messageId.value}}</th>
-            <th>{{info.achievementId}}</th>
-            <th><input type="button" v-on:click="confirmAchievementMessageInfo(index)" value="确认"></th>
+            <td>{{info.messageId.value}}</td>
+            <td>{{info.achievementId}}</td>
+            <td><input type="button" v-on:click="confirmAchievementMessageInfo(index)" value="确认"></td>
 
 
     </table>
