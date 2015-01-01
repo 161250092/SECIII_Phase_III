@@ -82,8 +82,7 @@
 	<br>
 	<label>
 		任务描述
-		<textarea type="text" v-model="taskDescription" id="taskDescription" disabled="disabled"
-                  placeholder="请点击要查看的任务"></textarea>
+		<textarea type="text" v-model="taskDescription" id="taskDescription" disabled="disabled"></textarea>
 	</label>
 		<br>
 
@@ -113,15 +112,19 @@
 			<th>总人数</th>
 			<th>撤销</th>
 		</tr>
-		<tr v-for="(item, index) in AllUnfinishedMassTasks">
+		<tr v-for="(item, index) in allUnfinishedMassTasks">
 			<td>{{item.taskId}}</td>
 			<td>{{getChineseLabelType(item.labelType)}}</td>
-			<td><button v-on:click="detailedInfo(index)">查看</button></td>
+			<td><button v-on:click="massTaskDetailedInfo(index)">查看</button></td>
 			<td>{{item.finishedWorkerNum}}</td>
 			<td>{{item.requiredWorkerNum}}</td>
-			<td><button v-on:click="recallTask(index)">撤销</button></td>
+			<td><button v-on:click="recallMassTask(index)">撤销</button></td>
 		</tr>
 	</table>
+    <label>
+        任务描述
+        <textarea type="text" v-model="massTaskDescription" id="massTaskDescription" disabled="disabled"></textarea>
+    </label>
 
 </div>
 

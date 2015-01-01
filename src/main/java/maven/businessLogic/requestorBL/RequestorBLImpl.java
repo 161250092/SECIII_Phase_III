@@ -10,10 +10,13 @@ import maven.data.MessageData.MessageDataImpl;
 import maven.data.MessageData.MessageDataService;
 import maven.data.RequestorData.RequestorDataImpl;
 import maven.data.RequestorData.RequestorDataService;
+import maven.data.RequestorData.RequestorMassTaskDataImpl;
+import maven.data.RequestorData.RequestorMassTaskDataService;
 import maven.data.WorkerData.WorkerDataImpl;
 import maven.data.WorkerData.WorkerDataService;
 import maven.exception.AssignException.*;
 import maven.exception.util.*;
+import maven.model.massTask.MassTaskDetail;
 import maven.model.message.AcceptedTaskMessage;
 import maven.model.message.BillMessage;
 import maven.model.message.BillReason;
@@ -30,6 +33,7 @@ import java.util.*;
 public class RequestorBLImpl implements RequestorBLService{
 
     private RequestorDataService requestorDataService;
+    private RequestorMassTaskDataService requestorMassTaskData;
     private WorkerDataService workerDataService;
     private MapDataService mapDataService;
     private MessageDataService messageDataService;
@@ -39,6 +43,7 @@ public class RequestorBLImpl implements RequestorBLService{
 
     public RequestorBLImpl(){
         requestorDataService = new RequestorDataImpl();
+        requestorMassTaskData = new RequestorMassTaskDataImpl();
         workerDataService = new WorkerDataImpl();
         mapDataService = new MapDataImpl();
         messageDataService = new MessageDataImpl();
@@ -143,27 +148,51 @@ public class RequestorBLImpl implements RequestorBLService{
                 return new PrestigeNotEnoughException();
             }
             else {
-                if(requestor.getCash().value < taskPrice.value * requiredWorkerNum.value)
-                    return new CashNotEnoughException();
-                else{
-                    //发布者需要支付的金额
-                    Cash payment = new Cash(taskPrice.value * requiredWorkerNum.value);
+                //该任务是大任务
+                if (requestorMassTaskData.isMassTask(taskId)){
+                    MassTaskDetail massTaskDetail = requestorMassTaskData.getMassTaskDetailOfThisTask(taskId);
+                    if (requestor.getCash().value < massTaskDetail.getBudget().value){
+                        return new CashNotEnoughException();
+                    }else {
+                        //发布者需要支付的金额
+                        Cash payment = new Cash(requestor.getCash().value);
 
-                    //从发布者的账户里扣除金额
-                    if(!manageUserBLService.reduceCash(userId, payment))
-                        return new FailureException();
+                        //从发布者的账户里扣除金额
+                        if(!manageUserBLService.reduceCash(userId, payment))
+                            return new FailureException();
 
-                    //将该任务状态修改为 正在进行中（未完成）
-                    requestorDataService.revisePublishedTaskState(taskId, PublishedTaskState.INCOMPLETE);
+                        //将该任务状态修改为 正在进行中（未完成）
+                        requestorDataService.revisePublishedTaskState(taskId, PublishedTaskState.INCOMPLETE);
 
-                    //生成账单消息，提醒发布者 因发布任务而支出
-                    BillMessage billMessage = new BillMessage(messageDataService.getMessageIdForCreateMessage(),
-                            userId, BillType.OUT, BillReason.ASSIGN_TASK, payment);
-                    messageDataService.saveBillMessage(billMessage);
+                        //生成账单消息，提醒发布者 因发布任务而支出
+                        BillMessage billMessage = new BillMessage(messageDataService.getMessageIdForCreateMessage(),
+                                userId, BillType.OUT, BillReason.ASSIGN_TASK, payment);
+                        messageDataService.saveBillMessage(billMessage);
 
-                    return new AssignSuccessException();
+                        return new AssignSuccessException();
+                    }
+                }else {
+                    if(requestor.getCash().value < taskPrice.value * requiredWorkerNum.value)
+                        return new CashNotEnoughException();
+                    else{
+                        //发布者需要支付的金额
+                        Cash payment = new Cash(taskPrice.value * requiredWorkerNum.value);
+
+                        //从发布者的账户里扣除金额
+                        if(!manageUserBLService.reduceCash(userId, payment))
+                            return new FailureException();
+
+                        //将该任务状态修改为 正在进行中（未完成）
+                        requestorDataService.revisePublishedTaskState(taskId, PublishedTaskState.INCOMPLETE);
+
+                        //生成账单消息，提醒发布者 因发布任务而支出
+                        BillMessage billMessage = new BillMessage(messageDataService.getMessageIdForCreateMessage(),
+                                userId, BillType.OUT, BillReason.ASSIGN_TASK, payment);
+                        messageDataService.saveBillMessage(billMessage);
+
+                        return new AssignSuccessException();
+                    }
                 }
-
             }
         }
     }
