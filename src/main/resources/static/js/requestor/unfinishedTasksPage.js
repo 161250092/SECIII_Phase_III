@@ -2,8 +2,10 @@ new Vue({
     el:"#taskInfoContainer",
     data:{
         AllUnfinishedTasks:[],
-        taskDescription:"请点击要查看的任务",
-        reviseTaskId:"无",
+        AllUnfinishedMassTasks:[],
+
+        taskDescription:"",
+        reviseTaskId:"",
         reviseTaskPrice:0,
     },
     mounted: function () {
@@ -16,10 +18,17 @@ new Vue({
     methods:{
         getAssignedButIncompleteTaskList: function () {
             const _this = this;
-            axios.get("/requestor/getAssignedButIncompleteTaskList",
-                { params:{ userId: getUserId() } })
+            axios.get("/requestor/getAssignedButIncompleteTaskList", { params:{ userId: getUserId() } })
                 .then(function (response) {
-                    _this.AllUnfinishedTasks = response.data;
+                    _this.AllUnfinishedTasks = [];
+                    _this.AllUnfinishedMassTasks = [];
+                    response.data.forEach(function (item, index) {
+                        if (item.taskId.indexOf("MASS") === -1) {
+                            _this.AllUnfinishedTasks.push(item);
+                        }else {
+                            _this.AllUnfinishedMassTasks.push(item);
+                        }
+                    });
                 });
         },
         getChineseLabelType: function (labelType) {
