@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>标注</title>
+        <link rel="stylesheet" href="../../../../../../../Desktop/guide.css">
+        <link rel="stylesheet" href="../../../../../../../Desktop/布局.css">
+        <link rel="stylesheet" href="../../../../../../../Desktop/background.css">
+    </head>
+
+        <body  bgcolor=#F0F0F0>
+
+        <div  class="parent"> 
+
+            <div class = "top">
+                <ul>
+                    <li><a class="active" href="#home">图片标注</a></li>
+                    <li><a href="#news">结果查看</a></li>
+                </ul>
+            </div>
+
+            <div class="left">
+                <div class="btn-group">
+                    <p>文件查看</p>
+                    <select id="File" onchange="selectTag()">
+                           <option value = "null">   图1</option>
+                            <option value = "tag1">  图2</option>
+                            <option value = "tag2">  图3</option>
+                            <option value = "tag3">  图3</option>
+                    </select>   
+                    <br></br>
+
+                    <button>框</button>
+                    <button>笔</button>
+                    <button>橡皮</button>
+                    <br></br>
+                    <button>重置</button>
+                    <br></br>
+                    <button>前一张</button>
+                    <button>后一张</button>
+                </div>
+
+            </div>    
+
+            <div class="center" >      
+                    <center class = "tableRow"  >
+                        <p>要标注的图片:</p>                               
+                    </center>
+           
+                    <div class = "imageDiv" style="cursor:crosshair" >
+                        <img id = "sourceImage" src = "../../../../../../../Desktop/picture.jpg" alt = "null" width="500px" height="420px" />
+                    </div>
+            
+                    <div class = "canvasDiv">
+                        <canvas id = "drawingCanvas">
+                    浏览器不支持Canvas！
+                        </canvas>
+                    </div>
+            </div>
+
+
+            <div class="right">
+                    <div>
+                        <p> 它 的 标 签 : </p>
+                        <select id="tagSelector1" onchange="selectTag()">
+                           <option value = "null">   无</option>
+                            <option value = "tag1">   1</option>
+                            <option value = "tag2">   2</option>
+                            <option value = "tag3">   3</option>
+                        </select>   
+                     </div>      
+            </div>
+
+
+                <div class="bottom"> 
+                    <center>
+                        <p>填写标签：
+                        <input type = "text" name = "tag">          
+                        <input type = "submit" class="buttonGrey" value = "提交标注">                         
+                    </center> 
+                </div>    
+
+        </div>     
+            
+</body>
+</html>
