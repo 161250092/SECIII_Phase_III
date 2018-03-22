@@ -173,11 +173,12 @@ function removeRecInCanvas(recArray) {
 }
 
 $("#sendButton").click(function(){
+    console.log(recArray)
     $.ajax({
         type: "GET",
         url: "/sendRec",
         data: {
-            recFrame: JSON.stringify(recArray[0])
+            recFrame: JSON.stringify(recArray)
         },
         success:function (result) {
             $("div").html(result);
@@ -191,10 +192,14 @@ $("#getButton").click(function(){
         url: "/getRec",
 
         success:function (result) {
-            tempRec = JSON.parse(result);
-            console.log(tempRec);
-            putTagIntoCanvas(tempRec.startX, tempRec.startY, tempRec.tag);
-            context.strokeRect(tempRec.startX, tempRec.startY, tempRec.width, tempRec.height);
+            recArray = JSON.parse(result);
+            console.log(recArray);
+            for(var i = 0; i < recArray.length; i++){
+                console.log(recArray[i])
+                putTagIntoCanvas(recArray[i].startX, recArray[i].startY, recArray[i].tag);
+                context.strokeRect(recArray[i].startX, recArray[i].startY, recArray[i].width, recArray[i].height);
+            }
+
         }
     });
 });
