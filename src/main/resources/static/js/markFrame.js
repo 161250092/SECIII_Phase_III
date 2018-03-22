@@ -198,6 +198,7 @@ $("#getButton").click(function(){
                 console.log(recArray[i])
                 putTagIntoCanvas(recArray[i].startX, recArray[i].startY, recArray[i].tag);
                 context.strokeRect(recArray[i].startX, recArray[i].startY, recArray[i].width, recArray[i].height);
+                
             }
 
         }
