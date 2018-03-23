@@ -4,29 +4,29 @@
         
 .top{position: absolute; top: 0; left: 0; right: 0; height: 0; background-color: black; height: 50px;}
 
-.left{position: absolute; top: 50px; left: 0;bottom: 100px; width: 200px; background-color: white;
-	background-image: url(http://pic3.16pic.com/00/34/29/16pic_3429950_b.jpg);
+.left{position: absolute; top: 50px; left: 0;bottom: 140px; width: 200px; background-color: white;
+	background-image: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521816807147&di=ce49756fd6291a1b1f177450f6f81513&imgtype=0&src=http%3A%2F%2Fpic.shejiben.com%2Fcaizhi%2Fday_151020%2F20151020_d44cf028bda77c339b546Au4uWIxSqus.jpg);
 	background-repeat:none;
 }
 
 
 .center{
-	position: absolute; top: 50px; left: 200px; right: 100px; bottom: 100px; background-color: white; overflow: hidden;
-	background-image: url(http://pic.58pic.com/58pic/13/76/87/95m58PICXaY_1024.jpg);
+	position: absolute; top: 50px; left: 200px; right: 100px; bottom: 140px; background-color: white; overflow: hidden;
+	/*background-image: url(http://pic.58pic.com/58pic/13/76/87/95m58PICXaY_1024.jpg);*/
 	background-repeat:none;
 }
 
 
 
-.right{position: absolute; top: 50px;;right: 0;bottom:100px; width: 150px; background-color: white;
-	background-image: url(http://pic3.16pic.com/00/34/29/16pic_3429950_b.jpg);
+.right{position: absolute; top: 50px;;right: 0;bottom:140px; width: 150px; background-color: white;
+	background-image: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521816807147&di=ce49756fd6291a1b1f177450f6f81513&imgtype=0&src=http%3A%2F%2Fpic.shejiben.com%2Fcaizhi%2Fday_151020%2F20151020_d44cf028bda77c339b546Au4uWIxSqus.jpg);
 	background-repeat:none;
 }
 
 
 
-.bottom{position: absolute; left: 0; right: 0; bottom: 0; height: 100px; background-color: white;
-	background-image: url(http://img1.3lian.com/2015/w1/76/d/86.jpg);
+.bottom{position: absolute; left: 0; right: 0; bottom: 0; height: 140px; background-color: white;
+	background-image: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521816807147&di=ce49756fd6291a1b1f177450f6f81513&imgtype=0&src=http%3A%2F%2Fpic.shejiben.com%2Fcaizhi%2Fday_151020%2F20151020_d44cf028bda77c339b546Au4uWIxSqus.jpg);
 	background-repeat:none;
 
 }

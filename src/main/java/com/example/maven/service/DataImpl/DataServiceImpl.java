@@ -1,10 +1,8 @@
 package com.example.maven.service.Impl;
 
-import com.example.maven.service.ImageDataService;
-
 import java.io.*;
 
-public class ImageDataServiceImpl implements ImageDataService {
+public class DataServiceImpl implements com.example.maven.service.DataService {
     //存IMG
     public  boolean  storeImg(){
 

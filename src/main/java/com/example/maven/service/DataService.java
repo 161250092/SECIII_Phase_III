@@ -1,6 +1,6 @@
 package com.example.maven.service;
 
-public interface ImageDataService {
+public interface DataService {
     //存IMG
     public  boolean  storeImg();
 

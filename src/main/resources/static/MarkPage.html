@@ -3,9 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <title>标注</title>
-        <link rel="stylesheet" href="css/guide.css">
+        <link rel="stylesheet" href="css/guide.css">游戏人生 Zero
         <link rel="stylesheet" href="css/布局.css">
         <link rel="stylesheet" href="css/background.css">
+        <link rel="stylesheet" href="css/paint.css">
+        <script src="js/jquery-1.11.0.min.js"></script>
     </head>
 
         <body  bgcolor=#F0F0F0>
@@ -13,39 +15,36 @@
         <div  class="parent"> 
 
             <div class = "top">
+
                 <ul>
                     <li><a class="active" href="#home">图片标注</a></li>
-                    <li><a href="#news">结果查看</a></li>
+                    <li><a href="CheckPage.html">结果查看</a></li>
                 </ul>
+
             </div>
 
             <div class="left">
                 <div class="btn-group">
-                    <button>框</button>
-                    <button>笔</button>
-                    <button>橡皮</button>
+                    <button id="rectangle">框</button>
+                    <button id="line">笔</button>
                     <br></br>
                     <button>重置</button>
                     <br></br>
-                    <button>前一张</button>
-                    <button>后一张</button>
+                    <button id="beforeButton">前一张</button>
+                    <button id="nextButton">后一张</button>
                 </div>
             </div>    
 
-            <div class="center" >      
-                    <center class = "tableRow"  >
-                        <p>要标注的图片:</p>                               
-                    </center>
-           
-                    <div class = "imageDiv" style="cursor:crosshair" >
-                        <img id = "sourceImage" src = "../../../../../../../Desktop/picture.jpg" alt = "null" width="500px" height="420px" />
+            <div class="center">
+
+                    <div id="partOfTagInCanvas">
+
                     </div>
-            
-                    <div class = "canvasDiv">
-                        <canvas id = "drawingCanvas">
-                    浏览器不支持Canvas！
-                        </canvas>
+
+                    <div id="canvasContainer">
+                        <canvas id="drawingCanvas"></canvas>
                     </div>
+
             </div>
 
 
@@ -54,9 +53,9 @@
                         <p>  标 签 1: </p>
                         <select id="tagSelector1" onchange="selectTag()">
                            <option value = "null">   无</option>
-                            <option value = "tag1">   1</option>
-                            <option value = "tag2">   2</option>
-                            <option value = "tag3">   3</option>
+                            <option value = "tag1">   人</option>
+                            <option value = "tag2">   花</option>
+                            <option value = "tag3">   草</option>
                         </select>   
                      </div>      
 
@@ -64,9 +63,9 @@
                             <p>  标 签 2: </p> 
                             <select id = "tagSelector2" onchange = "selectTag()" >
                                 <option value = "null">   无</option>
-                                <option value = "tag1">   1</option>
-                                <option value = "tag2">   2</option>
-                                <option value = "tag3">   3</option>
+                                <option value = "tag1">   鸟</option>
+                                <option value = "tag2">   虫</option>
+                                <option value = "tag3">   云</option>
                             </select>   
                     </div>
 
@@ -74,23 +73,35 @@
                             <p>  标 签 3: </p> 
                             <select id = "tagSelector2" onchange = "selectTag()" >
                                 <option value = "null">   无</option>
-                                <option value = "tag1">   1</option>
-                                <option value = "tag2">   2</option>
-                                <option value = "tag3">   3</option>
+                                <option value = "tag1">   车</option>
+                                <option value = "tag2">   船</option>
+                                <option value = "tag3">   飞机</option>
                             </select>   
                     </div>
             </div>
 
 
-                <div class="bottom"> 
+                <div class="bottom">
                     <center>
+                    <div id="toolBar">
                         <p>填写标签：
-                        <input type = "text" name = "tag">          
-                        <input type = "submit" class="buttonGrey" value = "提交标注">
-                    </center> 
+                            <input type="text" id="tagInput" name="tag" value="">
+                            <button id="confirmButton" class="buttonGrey">确认</button>
+                            <button id="sendButton" class="buttonGrey">发送</button>
+                            <button id="getButton" class="buttonGrey">获取</button>
+                    </div>
+
+                    <div>
+                        <ul id="tagList">
+                        </ul>
+                    </div>
+
+                    </center>
+
                 </div>    
 
-        </div>     
-            
+        </div>
+
+<script src="js/markFrame.js"></script>
 </body>
 </html>

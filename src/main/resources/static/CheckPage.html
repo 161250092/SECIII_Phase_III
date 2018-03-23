@@ -12,9 +12,10 @@
 
         <div  class="parent"> 
 
+
             <div class = "top">
                 <ul>
-                    <li><a class="active" href="#home">图片标注</a></li>
+                    <li><a class="active" href="MarkPage.html">图片标注</a></li>
                     <li><a href="#news">结果查看</a></li>
                 </ul>
             </div>
@@ -72,13 +73,23 @@
             </div>
 
 
-                <div class="bottom"> 
-                    <center>
+            <div class="bottom">
+                <center>
+                    <div id="toolBar">
                         <p>填写标签：
-                        <input type = "text" name = "tag">          
-                        <input type = "submit" class="buttonGrey" value = "提交标注">                         
-                    </center> 
-                </div>    
+                            <input type = "text" name = "tag">
+                            <button id="confirmButton" class="buttonGrey">confirm</button>
+                            <button id="sendButton" class="buttonGrey">send</button>
+                            <button id="getButton" class="buttonGrey">get</button>
+                    </div>
+
+                    <div>
+                        <ul id="tagList">
+                        </ul>
+                    </div>
+                </center>
+            </div>
+
 
         </div>     
             
