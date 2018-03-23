@@ -6,6 +6,8 @@
         <link rel="stylesheet" href="css/guide.css">
         <link rel="stylesheet" href="css/布局.css">
         <link rel="stylesheet" href="css/background.css">
+        <link rel="stylesheet" href="css/paint.css">
+        <script src="js/jquery-1.11.0.min.js"></script>
     </head>
 
         <body  bgcolor=#F0F0F0>
@@ -34,29 +36,21 @@
                     <button>框</button>
                     <button>笔</button>
                     <button>橡皮</button>
-                    <br></br>
                     <button>重置</button>
-                    <br></br>
                     <button>前一张</button>
-                    <button>后一张</button>
+                    <button id="nextButton">后一张</button>
                 </div>
 
             </div>    
 
-            <div class="center" >      
-                    <center class = "tableRow"  >
-                        <p>要标注的图片:</p>                               
-                    </center>
-           
-                    <div class = "imageDiv" style="cursor:crosshair" >
-                        <img id = "sourceImage" src = "../../../../../../../Desktop/picture.jpg" alt = "null" width="500px" height="420px" />
-                    </div>
-            
-                    <div class = "canvasDiv">
-                        <canvas id = "drawingCanvas">
-                    浏览器不支持Canvas！
-                        </canvas>
-                    </div>
+            <div class="center" >
+                <div id="partOfTagInCanvas">
+
+                </div>
+
+                <div id="canvasContainer">
+                    <canvas id="drawingCanvas"></canvas>
+                </div>
             </div>
 
 
@@ -77,21 +71,22 @@
                 <center>
                     <div id="toolBar">
                         <p>填写标签：
-                            <input type = "text" name = "tag">
-                            <button id="confirmButton" class="buttonGrey">confirm</button>
-                            <button id="sendButton" class="buttonGrey">send</button>
-                            <button id="getButton" class="buttonGrey">get</button>
+                            <input type="text" id="tagInput" name="tag" value="">
+                            <button id="confirmButton" class="buttonGrey">确认</button>
+                            <button id="sendButton" class="buttonGrey">发送</button>
+                            <button id="getButton" class="buttonGrey">获取</button>
                     </div>
 
                     <div>
                         <ul id="tagList">
                         </ul>
                     </div>
+
                 </center>
+
             </div>
 
-
-        </div>     
-            
+        </div>
+        <script src="js/markFrame.js"></script>
 </body>
 </html>
