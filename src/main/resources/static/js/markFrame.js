@@ -15,11 +15,6 @@ function RectangleFrame(startX, startY, width, height){
     this.tag = '';
 }
 
-//坐标类
-function coordinate(x, y){
-    this.x = x;
-    this.y = y;
-}
 //获得坐标的函数
 function getX(e){
     const rect = canvas.getBoundingClientRect();
@@ -65,7 +60,7 @@ function startDrawing(e) {
     }
 }
 
-function stopDrawing(e) {
+function stopDrawing() {
     isDrawing = false;
     isConfirmed = false;
     img = context.getImageData(0, 0, canvas.width, canvas.height);
@@ -104,7 +99,6 @@ function addNewTag() {
     putTagIntoCanvas(x, y, tag);
 
     tempRec.tag = tag;
-    console.log(tempRec)
     recArray[index] = tempRec;
     index += 1;
 }
@@ -123,18 +117,14 @@ function putTagIntoCanvas(x, y, tag) {
 }
 //删除画布中的标签
 function removeTagFromCanvas(tag) {
-    console.log(tag)
     var tagItemList = document.getElementsByClassName('tagInCanvas');
     var tagItem;
-    console.log(tagItemList)
     for(var i = 0; i < tagItemList.length; i++){
-        console.log(tagItemList[i])
         if(tagItemList[i].textContent === tag){
             tagItem = tagItemList[i];
             break;
         }
     }
-    console.log(tagItem)
     var elParent = tagItem.parentNode;
     elParent.removeChild(tagItem);
 }
@@ -149,7 +139,7 @@ function deleteTag(e){
 
         delete recArray[removedTagIndex];
         removeRecInCanvas(recArray);
-        removeTagFromCanvas(target.textContent)
+        removeTagFromCanvas(target.textContent);
 
         elList = target.parentNode;
         elList.removeChild(target);
@@ -164,9 +154,7 @@ el.addEventListener('dblclick', function (e) {
 function removeRecInCanvas(recArray) {
     context.clearRect(0, 0, canvas.width, canvas.height);
     for(var i = 0; i < recArray.length; i++){
-        if(recArray[i] === undefined){
-            continue
-        }else{
+        if(recArray[i] !== undefined){
             context.strokeRect(recArray[i].startX, recArray[i].startY, recArray[i].width, recArray[i].height);
         }
     }
@@ -181,7 +169,8 @@ $("#sendButton").click(function(){
             recFrame: JSON.stringify(recArray)
         },
         success:function (result) {
-            $("div").html(result);
+            // $("div").html(result);
+            alert(result);
         }
     });
 });
@@ -198,9 +187,34 @@ $("#getButton").click(function(){
                 console.log(recArray[i])
                 putTagIntoCanvas(recArray[i].startX, recArray[i].startY, recArray[i].tag);
                 context.strokeRect(recArray[i].startX, recArray[i].startY, recArray[i].width, recArray[i].height);
-                
+            }
+        }
+    });
+});
+
+$("#nextButton").click(function(){
+    $.ajax({
+        type: "GET",
+        url: "/getPhoto",
+
+        success:function (result) {
+            document.getElementById("drawingCanvas").style.backgroundImage = result;
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            console.log(recArray)
+            //清空数组
+            recArray.length = 0;
+            console.log(recArray)
+            //删除子节点
+            var parentOfRemoveEl = document.getElementById("partOfTagInCanvas");
+            while (parentOfRemoveEl.hasChildNodes()){
+                parentOfRemoveEl.removeChild(parentOfRemoveEl.firstChild);
+            }
+            parentOfRemoveEl = document.getElementById("tagList");
+            while (parentOfRemoveEl.hasChildNodes()){
+                parentOfRemoveEl.removeChild(parentOfRemoveEl.firstChild);
             }
 
+            isDrawing = false;
         }
     });
 });

@@ -2,6 +2,8 @@ package com.example.maven.service.Impl;
 
 import com.example.maven.service.ImageDataService;
 
+import java.io.*;
+
 public class ImageDataServiceImpl implements ImageDataService {
     //存IMG
     public  boolean  storeImg(){
@@ -49,9 +51,9 @@ public class ImageDataServiceImpl implements ImageDataService {
         try {
             writer=new BufferedWriter(new FileWriter(file));
 
-            writer.write(a);
-            writer.flush();
-            writer.close();
+            //writer.write();
+            //writer.flush();
+            //writer.close();
             return true;
 
         } catch (IOException e) {
