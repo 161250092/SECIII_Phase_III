@@ -1,4 +1,5 @@
-ul {
+
+#UI {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -6,32 +7,25 @@ ul {
     background-color: #f1f1f1;
 }
 
-li.navLI {
+li.LI {
     float: left;
 }
 
-li.navLI a {
+.LI a {
     display: block;
     color: #000;
     padding: 14px 16px;
     text-decoration: none;
 }
 /*所处页面*/
-li.navLI a.active {
+.LI a.active {
     background-color: #4CAF50;
     color: white;
 }
 
-li.navLI a:hover {
-    background-color: #111;
+.LI a:hover {
+    background-color: #FFE6D9;
 }
-
-li.navLI a:hover:not(.active) {
-    background-color: #555;
-    color: white;
-}
-
-
 
 
 img {
