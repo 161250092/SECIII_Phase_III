@@ -6,6 +6,9 @@
         <link rel="stylesheet" href="css/guide.css">
         <link rel="stylesheet" href="css/布局.css">
         <link rel="stylesheet" href="css/background.css">
+        <link rel="stylesheet" href="css/lineMark.css">
+        <script src="js/jquery-1.11.0.min.js"></script>
+
     </head>
 
         <body  bgcolor=#F0F0F0>
@@ -24,7 +27,7 @@
 
             <div class="left">
                 <div class="btn-group">
-                    <button>重置</button>
+                    <button name = "resetButton"  onclick = "showImage('reset')" >重置标注区域</button>
                     <br></br>
                     <button id="beforeButton">前一张</button>
                     <button id="nextButton">后一张</button>
@@ -33,15 +36,19 @@
 
             <div class="center">
 
-                    <div id="partOfTagInCanvas">
+                <div class = "imageDiv">
+                    <img id = "sourceImage" src="http://dl.renzhemao.com/d/file/dlzj_new/sgdq/ts/2014-03-11/8d60a184ccb59b8b6852d29aa5e968ec.jpg"
+                         alt = "null">
+                </div>
 
-                    </div>
-
-                    <div id="canvasContainer">
-                        <canvas id="drawingCanvas"></canvas>
-                    </div>
+                <div class = "canvasDiv">
+                    <canvas id = "drawingCanvas" width = "400" height = "400">
+                        浏览器不支持Canvas！
+                    </canvas>
+                </div>
 
             </div>
+
 
 
             <div class="right">
@@ -97,5 +104,7 @@
                 </div>    
 
         </div>
+
+        <script src = "js/markArea.js"></script>
 </body>
 </html>
