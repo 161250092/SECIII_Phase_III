@@ -23,11 +23,51 @@ var canvas;
 //绘图环境
 var context;
 
+//区域标注类
+function AreaLabel(imageId, userId, label, lineList) {
+    this.imageId = imageId;
+    this.userId = userId;
+    this.label = label;
+    this.lineList = lineList;
+}
+
 //标线类
 function Line(cordinateOfX, cordinateOfY){
     this.cordinateOfX = cordinateOfX;
     this.cordinateOfY = cordinateOfY;
 }
+
+//获取标线类转换的字符串
+function getStringOfLine(line){
+    var cordinateOfX = line.cordinateOfX;
+    var cordinateOfY = line.cordinateOfY;
+    var stringOfLine = "";
+    for(var i = 0; i < cordinateOfX.length; i++){
+        stringOfLine += cordinateOfX[i];
+        stringOfLine += ",";
+        stringOfLine += cordinateOfY[i];
+        stringOfLine += ";";
+    }
+
+    return stringOfLine;
+}
+
+//解析字符串得到的标线类
+function getLineFromString(stringOfLine) {
+    var arrX = new Array();
+    var arrY = new Array();
+    var pairs = stringOfLine.split(";");
+    var temp = new Array();
+    for(var i = 0; i < pairs.length - 1; i++){
+        temp = pairs[i].split(",");
+        arrX[i] = temp[0];
+        arrY[i] = temp[1];
+    }
+
+    var ret = new Line(arrX, arrY);
+    return ret;
+}
+
 
 window.onload = function(){
 
@@ -92,7 +132,7 @@ function stop() {
     //将鼠标落点的数组存入标线类
     var tempLine = new Line(arrayOfX, arrayOfY);
     //将标线存入标线数组
-    arrayOfLine[indexOfLine] = tempLine;
+    arrayOfLine[indexOfLine] = getStringOfLine(tempLine);
 
     //重置数组
     arrayOfX = new Array();
@@ -120,7 +160,7 @@ function resetPainting() {
 }
 
 //还原标注图像
-function restoreCanvas(myarray){
+function restore(myarray){
     resetPainting();
     arrayOfLine = myarray;
     indexOfLine = myarray.length - 1;
@@ -187,7 +227,7 @@ function selectImage(){
     var arr = new Array();
     //arr[0] = new Line([0,15], [0,15]);
     //arr[1] = new Line([200,300], [400,300]);
-    //restoreCanvas(arr);
+    //restore(arr);
 }
 //选取标签
 function selectTag(){
@@ -196,25 +236,46 @@ function selectTag(){
 
 
 //提交按钮的动作
-$("#submitButton").click(function(){
-    var tag = $("#tagText").val();
-    //alert(JSON.stringify(arrayOfLine) + tag);
-    /*
+$("#sendButton").click(function(){
+    var label = $("#tagText").val();
+    var areaLabel = new AreaLabel("000", "admin", label, arrayOfLine);
+    alert(JSON.stringify(areaLabel));
+
     $.ajax({
         type : "POST",
-        url : "/saveCanvasServlet", //利用ajax发起请求，这里写servlet的路径
+        url : "/saveAreaLabel", //利用ajax发起请求，这里写servlet的路径
 
         data : {
-            recFrame: JSON.stringify(arrayOfLine),
-            "tag": tag
+            areaLabelJson: JSON.stringify(areaLabel)
         },
         success: function(data) {
-            alert("Success Commit!");
+            alert("Success!");
         },
 
         error: function () {
             alert("Wrong!");
         }
     });
-    */
+
 })
+
+$("#getButton").click(function(){
+    $.ajax({
+        type: "GET",
+        url: "/getAreaLabel",
+
+        data : {
+            imageId: "001"
+        },
+        success: function(data) {
+            alert("Success!");
+        },
+
+        error: function () {
+            alert("Wrong!");
+        }
+
+    });
+    getFrameLabel(userId, imageId);
+});
+

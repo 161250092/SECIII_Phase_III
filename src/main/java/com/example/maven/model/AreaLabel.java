@@ -9,6 +9,13 @@ public class AreaLabel {
     private String label;
     private ArrayList<String> lineList;
 
+    public AreaLabel(){
+        this.imageId = "";
+        this.userId = "";
+        this.label = "";
+        this.lineList = null;
+    }
+
     public AreaLabel(String imageId, String userId, String label, ArrayList<String> lineList) {
         this.imageId = imageId;
         this.userId = userId;
