@@ -1,7 +1,7 @@
 var canvas, context;
 var img;
 
-var imageId, userId;
+var imageId = '1', userId = 'test';
 var frameLabelTagItemList = [];
 var tempFrameLabelTagItem;
 var index = 0;
@@ -37,6 +37,8 @@ window.addEventListener('load', function () {
     canvas.onmousemove = draw;
 
     addTagButton.onclick = addNewTag;
+
+    getFrameLabel(userId, imageId);
 }, false);
 
 var isDrawing = false;
@@ -44,7 +46,6 @@ var isConfirmed = true;
 var x, y, width, height;
 
 function startDrawing(e) {
-    console.log(isDrawing)
     if(isConfirmed === true){
         isDrawing = true;
         x = getX(e);
@@ -115,8 +116,8 @@ function deleteTag(e){
     if(target.nodeName.toLowerCase() === 'li'){
         removedTagIndex = target.value;
 
-        delete recArray[removedTagIndex];
-        removeRecInCanvas(recArray);
+        delete tempFrameLabelTagItem[removedTagIndex];
+        removeRecInCanvas(tempFrameLabelTagItem);
         removeTagFromCanvas(target.textContent);
 
         elList = target.parentNode;
@@ -161,11 +162,9 @@ function removeRecInCanvas(recArray) {
 //标签栏和画布上的标签
 function purgeLabels(){
     context.clearRect(0, 0, canvas.width, canvas.height);
-    console.log(frameLabelTagItemList)
     index = 0;
     //清空数组
     frameLabelTagItemList.length = 0;
-    console.log(frameLabelTagItemList)
     //删除子节点
     var parentOfRemoveEl = document.getElementById("partOfTagInCanvas");
     while (parentOfRemoveEl.hasChildNodes()){
@@ -177,6 +176,59 @@ function purgeLabels(){
     }
 
     isDrawing = false;
+}
+
+//获得标框数据
+function getFrameLabel(userId, imageId) {
+    var frameLabel;
+    $.ajax({
+        type: "GET",
+        url: "/markFrameLabel/getFrameLabel",
+        data: {
+            userId: userId,
+            imageId: imageId
+        },
+
+        success:function (frameLabelJson) {
+            frameLabel = JSON.parse(frameLabelJson);
+
+            this.imageId = frameLabel.imageId;
+            this.userId = frameLabel.userId;
+            frameLabelTagItemList = frameLabel.frameLabelTagItemList;
+
+            /*通过图片ID获得图片*/
+            $.ajax({
+                type: "GET",
+                url: "/markFrameLabel/getImageById",
+                data: {
+                    imageId: imageId
+                },
+                success: function (imageURL) {
+                    document.getElementById("drawingCanvas").style.backgroundImage = imageURL;
+                }
+            });
+
+            for(var i = 0; i < frameLabelTagItemList.length; i++){
+                putTagIntoCanvas(frameLabelTagItemList[i].startX, frameLabelTagItemList[i].startY, frameLabelTagItemList[i].tag);
+                context.strokeRect(frameLabelTagItemList[i].startX, frameLabelTagItemList[i].startY, frameLabelTagItemList[i].width, frameLabelTagItemList[i].height);
+            }
+        }
+    });
+}
+
+//获得下一个图片ID
+function getNextImageId(currentImageId) {
+    $.ajax({
+        type: "GET",
+        url: "/markFrameLabel/getNextImageId",
+        data: {
+            currentImageId: currentImageId
+        },
+
+        success:function (nextImageId) {
+            imageId = nextImageId;
+        }
+    });
 }
 
 //双击标签栏
@@ -204,52 +256,16 @@ $("#saveButton").click(function(){
     });
 });
 
-$("#getButton").click(function(){
-    var frameLabel;
-    $.ajax({
-        type: "GET",
-        url: "/markFrameLabel/getFrameLabel",
-
-        success:function (result) {
-            frameLabel = JSON.parse(result);
-
-            console.log(frameLabel);
-            imageId = frameLabel.imageId;
-            userId = frameLabel.userId;
-            frameLabelTagItemList = frameLabel.frameLabelTagItemList;
-
-            /*通过图片ID获得图片*/
-            $.ajax({
-                type: "GET",
-                url: "/markFrameLabel/getImageById",
-                data: {
-                    imageId: 'imageId'
-                },
-                success: function (imageURL) {
-                    document.getElementById("drawingCanvas").style.backgroundImage = imageURL;
-                }
-            });
-
-            for(var i = 0; i < frameLabelTagItemList.length; i++){
-                console.log(frameLabelTagItemList[i])
-                putTagIntoCanvas(frameLabelTagItemList[i].startX, frameLabelTagItemList[i].startY, frameLabelTagItemList[i].tag);
-                context.strokeRect(frameLabelTagItemList[i].startX, frameLabelTagItemList[i].startY, frameLabelTagItemList[i].width, frameLabelTagItemList[i].height);
-            }
-        }
-    });
-});
+// $("#getButton").click(function(){
+//     $.ajax({
+//         type: "GET",
+//         url: "/markFrameLabel/saveFrameLabel",
+//     });
+//     getFrameLabel(userId, imageId);
+// });
 
 $("#nextButton").click(function(){
-    $.ajax({
-        type: "GET",
-        url: "/markFrameLabel/getImageById",
-        data: {
-            imageId: '222'
-        },
-
-        success:function (result) {
-            document.getElementById("drawingCanvas").style.backgroundImage = result;
-            purgeLabels();
-        }
-    });
+    purgeLabels();
+    getNextImageId(imageId);
+    getFrameLabel(userId, imageId);
 });
