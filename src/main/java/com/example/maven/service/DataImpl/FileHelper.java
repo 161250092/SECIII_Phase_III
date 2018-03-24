@@ -1,4 +1,4 @@
-package src.main.java.com.example.maven.service.DataImpl;
+package com.example.maven.service.DataImpl;
 
 import java.io.*;
 
