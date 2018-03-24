@@ -1,6 +1,6 @@
 package com.example.maven.controller;
 
-import com.example.maven.model.RectangleFrame;
+import com.example.maven.model.FrameLabel;
 import com.google.gson.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,23 +24,23 @@ public class Controller {
         //将JSON的String 转成一个JsonArray对象
         JsonArray jsonArray = parser.parse(recFrame).getAsJsonArray();
 
-        ArrayList<RectangleFrame> rectangleFrameList = new ArrayList<>();
+        ArrayList<FrameLabel> frameLabelList = new ArrayList<>();
         //加强for循环遍历JsonArray
         for (JsonElement user : jsonArray) {
             //使用GSON，直接转成Bean对象
-            RectangleFrame tempRecFrame = gson.fromJson(user, RectangleFrame.class);
+            FrameLabel tempRecFrame = gson.fromJson(user, FrameLabel.class);
             if (tempRecFrame != null) {
-                rectangleFrameList.add(tempRecFrame);
+                frameLabelList.add(tempRecFrame);
             }
         }
 
-        System.out.println(rectangleFrameList.size());
-        System.out.println(rectangleFrameList.get(0).getTag());
+        System.out.println(frameLabelList.size());
+        System.out.println(frameLabelList.get(0).getTag());
         //String objectToJson = gson.toJson(null);
 
 
         //处理单个对象
-        //RectangleFrame rec = gson.fromJson(recFrame, RectangleFrame.class);
+        //FrameLabel rec = gson.fromJson(recFrame, FrameLabel.class);
         //
         //System.out.println(rec.getTag());
         return "sdsfsd"+recFrame;
@@ -48,12 +48,12 @@ public class Controller {
 
     @RequestMapping(value = "/getRec", method = RequestMethod.GET)
     public String getRec(){
-        //RectangleFrame rec = new RectangleFrame(50, 50, 100, 50, "sdga");
+        //FrameLabel rec = new FrameLabel(50, 50, 100, 50, "sdga");
 
-        ArrayList<RectangleFrame> list = new ArrayList<>();
+        ArrayList<FrameLabel> list = new ArrayList<>();
 
-        list.add(new RectangleFrame(50, 50, 100, 50, "sdga"));
-        list.add(new RectangleFrame(150, 150, 200, 200, "hhhh"));
+        list.add(new FrameLabel(50, 50, 100, 50, "sdga"));
+        list.add(new FrameLabel(150, 150, 200, 200, "hhhh"));
 
         Gson gson = new GsonBuilder().create();
         String objectToJson = gson.toJson(list);

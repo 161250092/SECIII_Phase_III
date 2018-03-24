@@ -2,11 +2,11 @@ package com.example.maven.model;
 
 import java.io.Serializable;
 
-public class RectangleFrame implements Serializable{
+public class FrameLabel implements Serializable{
     private int startX, startY, width, height;
     private String tag;
 
-    public RectangleFrame(int startX, int startY, int width, int height, String tag){
+    public FrameLabel(int startX, int startY, int width, int height, String tag){
         this.startX = startX;
         this.startY = startY;
         this.width = width;
@@ -17,19 +17,15 @@ public class RectangleFrame implements Serializable{
     public int getStartX() {
         return startX;
     }
-
     public int getStartY() {
         return startY;
     }
-
     public int getWidth() {
         return width;
     }
-
     public int getHeight() {
         return height;
     }
-
     public String getTag() {
         return tag;
     }

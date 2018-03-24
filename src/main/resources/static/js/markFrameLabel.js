@@ -3,26 +3,16 @@ var confirmButton;
 var img;
 
 var recArray = new Array();
-var tempRec;
+var tempFrameLabel;
 var index = 0;
 
 //矩形类
-function RectangleFrame(startX, startY, width, height){
+function FrameLabel(startX, startY, width, height){
     this.startX = startX;
     this.startY = startY;
     this.width = width;
     this.height = height;
     this.tag = '';
-}
-
-//获得坐标的函数
-function getX(e){
-    const rect = canvas.getBoundingClientRect();
-    return e.clientX - rect.left;
-}
-function getY(e){
-    const rect = canvas.getBoundingClientRect();
-    return e.clientY - rect.top;
 }
 
 window.addEventListener('load', function () {
@@ -43,12 +33,12 @@ window.addEventListener('load', function () {
     confirmButton.onclick = addNewTag;
 }, false);
 
-
 var isDrawing = false;
 var isConfirmed = true;
 var x, y, width, height;
 
 function startDrawing(e) {
+    console.log(isDrawing)
     if(isConfirmed === true){
         isDrawing = true;
         x = getX(e);
@@ -59,14 +49,12 @@ function startDrawing(e) {
         alert("请输入标签");
     }
 }
-
 function stopDrawing() {
     isDrawing = false;
     isConfirmed = false;
     img = context.getImageData(0, 0, canvas.width, canvas.height);
-    tempRec = new RectangleFrame(x, y, width, height);
+    tempFrameLabel = new FrameLabel(x, y, width, height);
 }
-
 function draw(e) {
     if(isDrawing === true){
         context.putImageData(img, 0, 0);
@@ -78,6 +66,17 @@ function draw(e) {
     }
 }
 
+//获得坐标的函数
+function getX(e){
+    const rect = canvas.getBoundingClientRect();
+    return e.clientX - rect.left;
+}
+function getY(e){
+    const rect = canvas.getBoundingClientRect();
+    return e.clientY - rect.top;
+}
+
+//在标签栏增加标签
 function addNewTag() {
     isConfirmed = true;
     //获得标签
@@ -98,9 +97,25 @@ function addNewTag() {
     //在画布上放置标签
     putTagIntoCanvas(x, y, tag);
 
-    tempRec.tag = tag;
-    recArray[index] = tempRec;
+    tempFrameLabel.tag = tag;
+    recArray[index] = tempFrameLabel;
     index += 1;
+}
+//删除标签栏中的标签
+function deleteTag(e){
+    var target, elList, removedTagIndex;
+    target = e.target;
+
+    if(target.nodeName.toLowerCase() === 'li'){
+        removedTagIndex = target.value;
+
+        delete recArray[removedTagIndex];
+        removeRecInCanvas(recArray);
+        removeTagFromCanvas(target.textContent);
+
+        elList = target.parentNode;
+        elList.removeChild(target);
+    }
 }
 //放置画布上的标签
 function putTagIntoCanvas(x, y, tag) {
@@ -128,28 +143,6 @@ function removeTagFromCanvas(tag) {
     var elParent = tagItem.parentNode;
     elParent.removeChild(tagItem);
 }
-
-//删除标签栏
-function deleteTag(e){
-    var target, elList, removedTagIndex;
-    target = e.target;
-
-    if(target.nodeName.toLowerCase() === 'li'){
-        removedTagIndex = target.value;
-
-        delete recArray[removedTagIndex];
-        removeRecInCanvas(recArray);
-        removeTagFromCanvas(target.textContent);
-
-        elList = target.parentNode;
-        elList.removeChild(target);
-    }
-}
-var el = document.getElementById("tagList");
-el.addEventListener('dblclick', function (e) {
-    deleteTag(e);
-}, false);
-
 //删掉选中的框
 function removeRecInCanvas(recArray) {
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -159,9 +152,37 @@ function removeRecInCanvas(recArray) {
         }
     }
 }
-
-$("#sendButton").click(function(){
+//标签栏和画布上的标签
+function purgeLabels(){
+    context.clearRect(0, 0, canvas.width, canvas.height);
     console.log(recArray)
+    //清空数组
+    recArray.length = 0;
+    console.log(recArray)
+    //删除子节点
+    var parentOfRemoveEl = document.getElementById("partOfTagInCanvas");
+    while (parentOfRemoveEl.hasChildNodes()){
+        parentOfRemoveEl.removeChild(parentOfRemoveEl.firstChild);
+    }
+    parentOfRemoveEl = document.getElementById("tagList");
+    while (parentOfRemoveEl.hasChildNodes()){
+        parentOfRemoveEl.removeChild(parentOfRemoveEl.firstChild);
+    }
+
+    isDrawing = false;
+}
+
+//双击标签栏
+$("#tagList").dblclick(function () {
+    deleteTag(e);
+});
+
+$("#purgeButton").click(function () {
+    purgeLabels();
+});
+
+//发送标签数组
+$("#sendButton").click(function(){
     $.ajax({
         type: "GET",
         url: "/sendRec",
@@ -199,22 +220,7 @@ $("#nextButton").click(function(){
 
         success:function (result) {
             document.getElementById("drawingCanvas").style.backgroundImage = result;
-            context.clearRect(0, 0, canvas.width, canvas.height);
-            console.log(recArray)
-            //清空数组
-            recArray.length = 0;
-            console.log(recArray)
-            //删除子节点
-            var parentOfRemoveEl = document.getElementById("partOfTagInCanvas");
-            while (parentOfRemoveEl.hasChildNodes()){
-                parentOfRemoveEl.removeChild(parentOfRemoveEl.firstChild);
-            }
-            parentOfRemoveEl = document.getElementById("tagList");
-            while (parentOfRemoveEl.hasChildNodes()){
-                parentOfRemoveEl.removeChild(parentOfRemoveEl.firstChild);
-            }
-
-            isDrawing = false;
+            purgeLabels();
         }
     });
 });
