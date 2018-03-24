@@ -17,6 +17,11 @@ public class FrameLabel implements Serializable {
         this.frameLabelTagItemList = frameLabelTagItemList;
     }
 
+    public FrameLabel(){
+
+    }
+
+
     public String getImageId() { return imageId; }
     public String getUserId() { return userId; }
     public ArrayList<FrameLabelTagItem> getFrameLabelTagItemList() { return frameLabelTagItemList; }
