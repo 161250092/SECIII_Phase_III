@@ -7,23 +7,23 @@
     background-color: #f1f1f1;
 }
 
-li.LI {
+li.navLI {
     float: left;
 }
 
-.LI a {
+li.navLI a {
     display: block;
     color: #000;
     padding: 14px 16px;
     text-decoration: none;
 }
 /*所处页面*/
-.LI a.active {
+li.navLI a.active {
     background-color: #4CAF50;
     color: white;
 }
 
-.LI a:hover {
+li.navLI a:hover {
     background-color: #FFE6D9;
 }
 
