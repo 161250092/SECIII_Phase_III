@@ -15,14 +15,27 @@ public class AreaLabelDataImpl implements AreaLabelDataService{
     @Override
     public boolean saveAreaLabel(AreaLabel label) {
 
-        Gson gson = new GsonBuilder().create();
-        String content = gson.toJson(label);
+        ArrayList<AreaLabel> list = getAllAreaLabel();
+
+        if(list.size()==0) {
+            fh.writeTxtFile(content, path, true);
+            return true;
+        }
 
 
-        fh.writeTxtFile(content,path,true);
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).getImageId().equals(label.getImageId())){
+                list.set(i,label);
+            }
+        }
+
+
+        for(int i=0;i<list.size();i++) {
+            content = gson.toJson(list.get(i));
+            fh.writeTxtFile(content, path, true);
+        }
 
         return true;
-
     }
 
     @Override

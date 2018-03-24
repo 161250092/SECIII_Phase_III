@@ -17,10 +17,30 @@ public class ImageLabelDataImpl implements ImageLabelDataService{
     @Override
     public boolean saveImageLabel(ImageLabel label) {
 
+
         Gson gson = new GsonBuilder().create();
         String content = gson.toJson(label);
 
-        fh.writeTxtFile(content,path,true);
+
+        ArrayList<ImageLabel> list = getAllImageLabel();
+
+        if(list.size()==0) {
+            fh.writeTxtFile(content, path, true);
+            return true;
+        }
+
+
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).getImageId().equals(label.getImageId())){
+                list.set(i,label);
+            }
+        }
+
+
+        for(int i=0;i<list.size();i++) {
+            content = gson.toJson(list.get(i));
+            fh.writeTxtFile(content, path, true);
+        }
 
         return true;
     }

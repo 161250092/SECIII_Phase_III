@@ -22,8 +22,25 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
         Gson gson = new GsonBuilder().create();
         String content = gson.toJson(frameLabel);
 
+        ArrayList<FrameLabel> list = getAllFrameLabel();
 
-        fh.writeTxtFile(content,path,true);
+        if(list.size()==0) {
+            fh.writeTxtFile(content, path, true);
+            return true;
+        }
+
+
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).getImageId().equals(frameLabel.getImageId())){
+                list.set(i,frameLabel);
+            }
+        }
+
+
+        for(int i=0;i<list.size();i++) {
+            content = gson.toJson(list.get(i));
+            fh.writeTxtFile(content, path, true);
+        }
 
 
         return true;
