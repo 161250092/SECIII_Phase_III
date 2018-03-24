@@ -5,7 +5,7 @@ canvas#drawingCanvas {
     border-width: 2px;
     border-style: solid;
     background-repeat: no-repeat;
-    background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521639514661&di=9e04cf69a7d903dec78f6920566a7da1&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Ff2deb48f8c5494eeedc9563026f5e0fe99257e2b.jpg");
+    //background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521639514661&di=9e04cf69a7d903dec78f6920566a7da1&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Ff2deb48f8c5494eeedc9563026f5e0fe99257e2b.jpg");
 }
 
 li.tagListItem{

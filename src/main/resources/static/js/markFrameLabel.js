@@ -1,12 +1,19 @@
 var canvas, context;
 var img;
 
-var recArray = new Array();
-var tempFrameLabel;
+var imageId, userId;
+var frameLabelTagItemList = [];
+var tempFrameLabelTagItem;
 var index = 0;
 
-//矩形类
-function FrameLabel(startX, startY, width, height){
+//标框类
+function FrameLabel(imageId, userId, frameLabelTagItemList) {
+    this.imageId = imageId;
+    this.userId = userId;
+    this.frameLabelTagItemList = frameLabelTagItemList;
+}
+//框中的标签类
+function FrameLabelTagItem(startX, startY, width, height){
     this.startX = startX;
     this.startY = startY;
     this.width = width;
@@ -52,7 +59,7 @@ function stopDrawing() {
     isDrawing = false;
     isConfirmed = false;
     img = context.getImageData(0, 0, canvas.width, canvas.height);
-    tempFrameLabel = new FrameLabel(x, y, width, height);
+    tempFrameLabelTagItem = new FrameLabelTagItem(x, y, width, height);
 }
 function draw(e) {
     if(isDrawing === true){
@@ -96,8 +103,8 @@ function addNewTag() {
     //在画布上放置标签
     putTagIntoCanvas(x, y, tag);
 
-    tempFrameLabel.tag = tag;
-    recArray[index] = tempFrameLabel;
+    tempFrameLabelTagItem.tag = tag;
+    frameLabelTagItemList[index] = tempFrameLabelTagItem;
     index += 1;
 }
 //删除标签栏中的标签
@@ -154,10 +161,11 @@ function removeRecInCanvas(recArray) {
 //标签栏和画布上的标签
 function purgeLabels(){
     context.clearRect(0, 0, canvas.width, canvas.height);
-    console.log(recArray)
+    console.log(frameLabelTagItemList)
+    index = 0;
     //清空数组
-    recArray.length = 0;
-    console.log(recArray)
+    frameLabelTagItemList.length = 0;
+    console.log(frameLabelTagItemList)
     //删除子节点
     var parentOfRemoveEl = document.getElementById("partOfTagInCanvas");
     while (parentOfRemoveEl.hasChildNodes()){
@@ -182,11 +190,12 @@ $("#purgeButton").click(function () {
 
 //发送标签数组
 $("#saveButton").click(function(){
+    var frameLabel = new FrameLabel(imageId, userId, frameLabelTagItemList);
     $.ajax({
         type: "GET",
-        url: "/sendRec",
+        url: "/markFrameLabel/saveFrameLabel",
         data: {
-            recFrame: JSON.stringify(recArray)
+            frameLabelJson: JSON.stringify(frameLabel)
         },
         success:function (result) {
             // $("div").html(result);
@@ -196,17 +205,35 @@ $("#saveButton").click(function(){
 });
 
 $("#getButton").click(function(){
+    var frameLabel;
     $.ajax({
         type: "GET",
-        url: "/getRec",
+        url: "/markFrameLabel/getFrameLabel",
 
         success:function (result) {
-            recArray = JSON.parse(result);
-            console.log(recArray);
-            for(var i = 0; i < recArray.length; i++){
-                console.log(recArray[i])
-                putTagIntoCanvas(recArray[i].startX, recArray[i].startY, recArray[i].tag);
-                context.strokeRect(recArray[i].startX, recArray[i].startY, recArray[i].width, recArray[i].height);
+            frameLabel = JSON.parse(result);
+
+            console.log(frameLabel);
+            imageId = frameLabel.imageId;
+            userId = frameLabel.userId;
+            frameLabelTagItemList = frameLabel.frameLabelTagItemList;
+
+            /*通过图片ID获得图片*/
+            $.ajax({
+                type: "GET",
+                url: "/markFrameLabel/getImageById",
+                data: {
+                    imageId: 'imageId'
+                },
+                success: function (imageURL) {
+                    document.getElementById("drawingCanvas").style.backgroundImage = imageURL;
+                }
+            });
+
+            for(var i = 0; i < frameLabelTagItemList.length; i++){
+                console.log(frameLabelTagItemList[i])
+                putTagIntoCanvas(frameLabelTagItemList[i].startX, frameLabelTagItemList[i].startY, frameLabelTagItemList[i].tag);
+                context.strokeRect(frameLabelTagItemList[i].startX, frameLabelTagItemList[i].startY, frameLabelTagItemList[i].width, frameLabelTagItemList[i].height);
             }
         }
     });
@@ -215,7 +242,10 @@ $("#getButton").click(function(){
 $("#nextButton").click(function(){
     $.ajax({
         type: "GET",
-        url: "/getPhoto",
+        url: "/markFrameLabel/getImageById",
+        data: {
+            imageId: '222'
+        },
 
         success:function (result) {
             document.getElementById("drawingCanvas").style.backgroundImage = result;
