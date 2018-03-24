@@ -2,7 +2,9 @@ package com.example.maven.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class ImageController {
     @RequestMapping(value = "/imageController/getImageById", method = RequestMethod.GET)
     public String getImageById(String imageId){
@@ -14,15 +16,15 @@ public class ImageController {
     }
 
     @RequestMapping(value = "/imageController/getNextImageId", method = RequestMethod.GET)
-    public String getNextImageId(String currentImageId){
-        System.out.println(currentImageId);
-        return String.valueOf(Integer.parseInt(currentImageId) + 1);
-    }
-
-    @RequestMapping(value = "/imageController/getNextImageId", method = RequestMethod.GET)
     public String getPreviousImageId(String currentImageId){
         System.out.println(currentImageId);
         return String.valueOf(Integer.parseInt(currentImageId) - 1);
+    }
+
+    @RequestMapping(value = "/imageController/getNextImageId", method = RequestMethod.GET)
+    public String getNextImageId(String currentImageId){
+        System.out.println(currentImageId);
+        return String.valueOf(Integer.parseInt(currentImageId) + 1);
     }
 
 }

@@ -3,14 +3,13 @@ package com.example.maven.controller;
 import com.example.maven.model.AreaLabel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
 
+@RestController
 public class MarkAreaLabelController {
     @RequestMapping(value = "/saveAreaLabel", method = RequestMethod.GET)
     public String saveAreaLabel(@RequestParam(defaultValue="null") String areaLabelJson){
