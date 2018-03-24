@@ -7,13 +7,13 @@ import java.util.ArrayList;
  * 标框标注类
  */
 public class FrameLabel implements Serializable {
-    private String imageId;
     private String userId;
+    private String imageId;
     private ArrayList<FrameLabelTagItem> frameLabelTagItemList;
 
-    public FrameLabel(String imageId, String userId, ArrayList<FrameLabelTagItem> frameLabelTagItemList){
+    public FrameLabel(String userId, String imageId, ArrayList<FrameLabelTagItem> frameLabelTagItemList){
+        this.userId = userId;
         this.imageId = imageId;
-        this.userId = userId;;
         this.frameLabelTagItemList = frameLabelTagItemList;
     }
 
