@@ -36,29 +36,25 @@ window.addEventListener('load', function () {
     canvas.onmouseout = stopDrawing;
     canvas.onmousemove = draw;
 
-    addTagButton.onclick = addNewTag;
+    addTagButton.onclick = addNewTagByButton;
 
-    getFrameLabel(userId, imageId);
+    // getFrameLabel(userId, imageId);
 }, false);
 
 var isDrawing = false;
-var isConfirmed = true;
 var x, y, width, height;
 
 function startDrawing(e) {
-    if(isConfirmed === true){
+    if(isDrawing === false){
         isDrawing = true;
         x = getX(e);
         y = getY(e);
         context.moveTo(x, y);
         img = context.getImageData(0, 0, canvas.width, canvas.height);
-    }else{
-        alert("请输入标签");
     }
 }
 function stopDrawing() {
     isDrawing = false;
-    isConfirmed = false;
     img = context.getImageData(0, 0, canvas.width, canvas.height);
     tempFrameLabelTagItem = new FrameLabelTagItem(x, y, width, height);
 }
@@ -84,29 +80,19 @@ function getY(e){
 }
 
 //在标签栏增加标签
-function addNewTag() {
-    isConfirmed = true;
+function addNewTagByButton() {
     //获得标签
     var tag = document.getElementById('tagInput').value;
     //标签清零
     document.getElementById('tagInput').value = '';
 
-    //创建新的标签栏
-    var newTagItem = document.createElement('li');
-    var newTagContext = document.createTextNode(tag);
-    newTagItem.appendChild(newTagContext);
-    newTagItem.setAttribute('class', 'tagListItem');
-    newTagItem.value = index;
-    //放置标签栏
-    var tagPosition = document.getElementById('tagList');
-    tagPosition.appendChild(newTagItem);
-
-    //在画布上放置标签
-    putTagIntoCanvas(x, y, tag);
-
     tempFrameLabelTagItem.tag = tag;
     frameLabelTagItemList[index] = tempFrameLabelTagItem;
-    index += 1;
+
+    //创建新的标签栏(index已加一)
+    addNewTagAndAddIndex(tag);
+    //在画布上放置标签
+    putTagIntoCanvas(x, y, tag);
 }
 //删除标签栏中的标签
 function deleteTag(e){
@@ -151,14 +137,31 @@ function removeTagFromCanvas(tag) {
     elParent.removeChild(tagItem);
 }
 //删掉选中的框
-function removeRecInCanvas(recArray) {
+function removeRecInCanvas(tempFrameLabelTagItem) {
     context.clearRect(0, 0, canvas.width, canvas.height);
-    for(var i = 0; i < recArray.length; i++){
-        if(recArray[i] !== undefined){
-            context.strokeRect(recArray[i].startX, recArray[i].startY, recArray[i].width, recArray[i].height);
+    for(var i = 0; i < tempFrameLabelTagItem.length; i++){
+        if(tempFrameLabelTagItem[i] !== undefined){
+            context.strokeRect(tempFrameLabelTagItem[i].startX, tempFrameLabelTagItem[i].startY, tempFrameLabelTagItem[i].width, tempFrameLabelTagItem[i].height);
         }
     }
 }
+
+function addNewTagAndAddIndex(tag) {
+    //创建新的标签栏
+    var newTagItem = document.createElement('li');
+    var newTagContext = document.createTextNode(tag);
+    newTagItem.appendChild(newTagContext);
+    newTagItem.setAttribute('class', 'tagListItem');
+    newTagItem.value = index;
+    //注册事件
+    newTagItem.ondblclick = deleteTag;
+    //放置标签栏
+    var tagPosition = document.getElementById('tagList');
+    tagPosition.appendChild(newTagItem);
+
+    index += 1;
+}
+
 //标签栏和画布上的标签
 function purgeLabels(){
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -199,7 +202,7 @@ function getFrameLabel(userId, imageId) {
             /*通过图片ID获得图片*/
             $.ajax({
                 type: "GET",
-                url: "/markFrameLabel/getImageById",
+                url: "/imageController/getImageById",
                 data: {
                     imageId: imageId
                 },
@@ -208,7 +211,9 @@ function getFrameLabel(userId, imageId) {
                 }
             });
 
+            index = 0;
             for(var i = 0; i < frameLabelTagItemList.length; i++){
+                addNewTagAndAddIndex(frameLabelTagItemList[i].tag);
                 putTagIntoCanvas(frameLabelTagItemList[i].startX, frameLabelTagItemList[i].startY, frameLabelTagItemList[i].tag);
                 context.strokeRect(frameLabelTagItemList[i].startX, frameLabelTagItemList[i].startY, frameLabelTagItemList[i].width, frameLabelTagItemList[i].height);
             }
@@ -217,10 +222,25 @@ function getFrameLabel(userId, imageId) {
 }
 
 //获得下一个图片ID
+function getPreviousImageId(currentImageId) {
+    $.ajax({
+        type: "GET",
+        url: "/imageController/getPreviousImageId",
+        data: {
+            currentImageId: currentImageId
+        },
+
+        success:function (previousImageId) {
+            imageId = previousImageId;
+        }
+    });
+}
+
+//获得下一个图片ID
 function getNextImageId(currentImageId) {
     $.ajax({
         type: "GET",
-        url: "/markFrameLabel/getNextImageId",
+        url: "/imageController/getNextImageId",
         data: {
             currentImageId: currentImageId
         },
@@ -231,10 +251,6 @@ function getNextImageId(currentImageId) {
     });
 }
 
-//双击标签栏
-$("#tagListItem").dblclick(function () {
-    deleteTag(e);
-});
 
 $("#purgeButton").click(function () {
     purgeLabels();
@@ -256,13 +272,11 @@ $("#saveButton").click(function(){
     });
 });
 
-// $("#getButton").click(function(){
-//     $.ajax({
-//         type: "GET",
-//         url: "/markFrameLabel/saveFrameLabel",
-//     });
-//     getFrameLabel(userId, imageId);
-// });
+$("#previousButton").click(function(){
+    purgeLabels();
+    getPreviousImageId(imageId);
+    getFrameLabel(userId, imageId);
+});
 
 $("#nextButton").click(function(){
     purgeLabels();

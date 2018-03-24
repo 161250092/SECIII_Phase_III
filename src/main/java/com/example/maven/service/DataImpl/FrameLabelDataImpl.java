@@ -4,7 +4,6 @@ import com.example.maven.model.frameLabel.FrameLabel;
 import com.example.maven.service.DataService.FrameLabelDataService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import src.main.java.com.example.maven.service.DataImpl.FileHelper;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
      * path是存储路径
      */
     FileHelper fh = new FileHelper();
-    String path = System.getProperty("user.dir").toString() + "/src/FrameLabel.txt";
+    String path = System.getProperty("user.dir").toString() + "/src/main/Label/FrameLabel.txt";
 
     @Override
     public boolean saveFrameLabel(FrameLabel frameLabel) {

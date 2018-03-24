@@ -4,7 +4,6 @@ import com.example.maven.model.ImageLabel;
 import com.example.maven.service.DataService.ImageLabelDataService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import src.main.java.com.example.maven.service.DataImpl.FileHelper;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 public class ImageLabelDataImpl implements ImageLabelDataService{
 
     FileHelper fh = new FileHelper();
-    String path = System.getProperty("user.dir").toString() + "/src/ImageLabel.txt";
+    String path = System.getProperty("user.dir").toString() + "/src/main/Label/ImageLabel.txt";
 
 
     @Override
