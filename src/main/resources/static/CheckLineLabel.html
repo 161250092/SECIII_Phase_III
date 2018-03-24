@@ -2,40 +2,51 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>线标注</title>
+        <title>查看</title>
         <link rel="stylesheet" href="css/guide.css">
         <link rel="stylesheet" href="css/布局.css">
         <link rel="stylesheet" href="css/background.css">
-        <link rel="stylesheet" href="css/lineMark.css">
+        <link rel="stylesheet" href="css/markFrameLabel.css">
         <script src="js/jquery-1.11.0.min.js"></script>
-
     </head>
 
         <body  bgcolor=#F0F0F0>
 
         <div  class="parent"> 
 
+
             <div class = "top">
 
                 <ul id="UI">
                     <li class="LI"><a href="OverAllPage.html">整体标注</a></li>
                     <li class="LI"><a href="markFrameLabel.html">方框标注</a></li>
-                    <li class="LI"><a class="active" href="#home">区域标注</a></li>
-                    <li class="LI"><a href="CheckFrameLabel.html">结果查看</a></li>
+                    <li class="LI"><a href="LineMarkPage.html">区域标注</a></li>
+                    <li class="LI"><a href="CheckFrameLabel.html">方框标注查看</a></li>
+                    <li class="LI"><a href="CheckOverAllLabel.html">整体标注查看</a></li>
+                    <li class="LI"><a href="#home" class="active">区域标注查看</a></li>
                 </ul>
 
             </div>
 
             <div class="left">
                 <div class="btn-group">
-                    <button name = "resetButton"  onclick = "showImage('reset')" >重置标注区域</button>
+                    <p>文件查看</p>
+                    <select id="File" onchange="selectTag()">
+                           <option value = "null">   图1</option>
+                            <option value = "tag1">  图2</option>
+                            <option value = "tag2">  图3</option>
+                            <option value = "tag3">  图3</option>
+                    </select>   
                     <br></br>
+
+                    <button>重置</button>
                     <button id="beforeButton">前一张</button>
                     <button id="nextButton">后一张</button>
                 </div>
+
             </div>    
 
-            <div class="center">
+            <div class="center" >
 
                 <div class = "imageDiv">
                     <img id = "sourceImage" src="http://dl.renzhemao.com/d/file/dlzj_new/sgdq/ts/2014-03-11/8d60a184ccb59b8b6852d29aa5e968ec.jpg"
@@ -51,42 +62,21 @@
             </div>
 
 
-
             <div class="right">
                     <div>
-                        <p>  标 签 1: </p>
+                        <p> 它 的 标 签 : </p>
                         <select id="tagSelector1" onchange="selectTag()">
                            <option value = "null">   无</option>
-                            <option value = "tag1">   人</option>
-                            <option value = "tag2">   花</option>
-                            <option value = "tag3">   草</option>
+                            <option value = "tag1">   1</option>
+                            <option value = "tag2">   2</option>
+                            <option value = "tag3">   3</option>
                         </select>   
                      </div>      
-
-                    <div>
-                            <p>  标 签 2: </p> 
-                            <select id = "tagSelector2" onchange = "selectTag()" >
-                                <option value = "null">   无</option>
-                                <option value = "tag1">   鸟</option>
-                                <option value = "tag2">   虫</option>
-                                <option value = "tag3">   云</option>
-                            </select>   
-                    </div>
-
-                    <div>
-                            <p>  标 签 3: </p> 
-                            <select id = "tagSelector3" onchange = "selectTag()" >
-                                <option value = "null">   无</option>
-                                <option value = "tag1">   车</option>
-                                <option value = "tag2">   船</option>
-                                <option value = "tag3">   飞机</option>
-                            </select>   
-                    </div>
             </div>
 
 
-                <div class="bottom">
-                    <center>
+            <div class="bottom">
+                <center>
                     <div id="toolBar">
                         <p>填写标签：
                             <input type="text" id="tagInput" name="tag" value="">
@@ -100,12 +90,13 @@
                         </ul>
                     </div>
 
-                    </center>
 
-                </div>    
+                </center>
+
+            </div>
 
         </div>
+        <script src="js/markArea.js"></script>
 
-        <script src = "js/markArea.js"></script>
 </body>
 </html>
