@@ -6,8 +6,17 @@ import java.util.ArrayList;
 public class AreaLabel {
     private String imageId;
     private String userId;
-    private ArrayList<Line> lineSet;
     private String label;
+    private ArrayList<String> lineList;
+
+    public AreaLabel(String imageId, String userId, String label, ArrayList<String> lineList) {
+        this.imageId = imageId;
+        this.userId = userId;
+        this.label = label;
+        this.lineList = lineList;
+    }
+
+
 
     public void setImageId(String imageId) {
         this.imageId = imageId;
@@ -17,13 +26,12 @@ public class AreaLabel {
         this.userId = userId;
     }
 
-    public void setLineSet(ArrayList<Line> lineSet) {
-        this.lineSet = lineSet;
-    }
-
     public void setLabel(String label) {
         this.label = label;
     }
+
+    public void setLineList(ArrayList<String> lineList) { this.lineList = lineList; }
+
 
     public String getImageId() {
         return imageId;
@@ -33,13 +41,10 @@ public class AreaLabel {
         return userId;
     }
 
-    public ArrayList<Line> getLineSet() {
-        return lineSet;
-    }
-
     public String getLabel() {
         return label;
     }
 
+    public ArrayList<String> getLineList() { return lineList; }
 
 }
