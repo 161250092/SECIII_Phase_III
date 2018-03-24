@@ -2,7 +2,7 @@ package com.example.maven.model;
 
 import java.util.ArrayList;
 
-//区域标注类
+//对图片进行区域标注的标注类
 public class AreaLabel {
     private String imageId;
     private String userId;
