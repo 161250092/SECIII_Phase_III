@@ -42,7 +42,7 @@ window.onload = function(){
     canvas.onmousedown = function(){
         indexOfPoint = -1;
         indexOfLine++;
-        arrayOfLine[indexOfLine] = new Array();
+        //arrayOfLine[indexOfLine] = new Array();
         // 在鼠标按下后触发鼠标移动事件
         canvas.onmousemove = move;
     }
@@ -56,7 +56,7 @@ window.onload = function(){
     // 鼠标移出画布时 移动事件也要取消。
     canvas.onmouseout = function(){
         canvas.onmousemove = null;
-        stop();
+        //stop();
     }
 
 }
@@ -93,6 +93,10 @@ function stop() {
     var tempLine = new Line(arrayOfX, arrayOfY);
     //将标线存入标线数组
     arrayOfLine[indexOfLine] = tempLine;
+
+    //重置数组
+    arrayOfX = new Array();
+    arrayOfY = new Array();
 
     //重置last
     last = null;
@@ -194,6 +198,8 @@ function selectTag(){
 //提交按钮的动作
 $("#submitButton").click(function(){
     var tag = $("#tagText").val();
+    //alert(JSON.stringify(arrayOfLine) + tag);
+    /*
     $.ajax({
         type : "POST",
         url : "/saveCanvasServlet", //利用ajax发起请求，这里写servlet的路径
@@ -210,5 +216,5 @@ $("#submitButton").click(function(){
             alert("Wrong!");
         }
     });
-
+    */
 })
