@@ -11,7 +11,7 @@ public class FrameLabel implements Serializable {
     private String imageId;
     private ArrayList<FrameLabelTagItem> frameLabelTagItemList;
 
-    public FrameLabel(String userId, String imageId, ArrayList<FrameLabelTagItem> frameLabelTagItemList){
+    public FrameLabel(String userId, String imageId, ArrayList<com.example.maven.model.frameLabel.FrameLabelTagItem> frameLabelTagItemList){
         this.userId = userId;
         this.imageId = imageId;
         this.frameLabelTagItemList = frameLabelTagItemList;

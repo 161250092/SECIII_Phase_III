@@ -20,11 +20,7 @@ public class ImageLabelDataImpl implements ImageLabelDataService{
         Gson gson = new GsonBuilder().create();
         String content = gson.toJson(label);
 
-        //若整体标注包为空
-        if(fh.readTxtFile(path )==null)
-            fh.writeTxtFile(content,path,true,true);
-        else
-            fh.writeTxtFile(content,path,true,false);
+        fh.writeTxtFile(content,path,true,true);
 
         return true;
     }

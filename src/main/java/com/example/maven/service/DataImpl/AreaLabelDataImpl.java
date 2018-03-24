@@ -18,10 +18,8 @@ public class AreaLabelDataImpl implements AreaLabelDataService{
         Gson gson = new GsonBuilder().create();
         String content = gson.toJson(label);
 
-        if(fh.readTxtFile(path )==null)
-            fh.writeTxtFile(content,path,true,true);
-        else
-            fh.writeTxtFile(content,path,true,false);
+
+        fh.writeTxtFile(content,path,true,true);
 
         return true;
 

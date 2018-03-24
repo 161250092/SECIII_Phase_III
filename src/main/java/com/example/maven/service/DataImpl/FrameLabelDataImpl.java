@@ -23,10 +23,8 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
         String content = gson.toJson(frameLabel);
 
 
-        if(fh.readTxtFile(path )==null)
-            fh.writeTxtFile(content,path,true,true);
-        else
-            fh.writeTxtFile(content,path,true,false);
+        fh.writeTxtFile(content,path,true,true);
+
 
         return true;
 
@@ -64,6 +62,7 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
                 break;
             }
         }
+
 
         return label;
     }

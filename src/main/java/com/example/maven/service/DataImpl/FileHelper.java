@@ -50,11 +50,7 @@ public class FileHelper {
                 thisFile.createNewFile();
             }
             FileWriter fw = new FileWriter(filePath,append);
-            if(order == true)
-                fw.write(content);
-            else
-                fw.write("\n"+content);
-
+            fw.write(content+"\n");
             fw.close();
         }catch(IOException e){
             e.printStackTrace();
