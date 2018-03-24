@@ -12,6 +12,7 @@ public class ImageLabelDataImpl implements ImageLabelDataService{
     FileHelper fh = new FileHelper();
     String path = "整体标注"+ File.separator+"整标.txt";
 
+
     @Override
     public boolean saveImageLabel(ImageLabel label) {
 
@@ -45,6 +46,7 @@ public class ImageLabelDataImpl implements ImageLabelDataService{
     public ImageLabel getAreaLabelByImageId(String ImageId) {
         ImageLabel image = new ImageLabel();
         ArrayList<ImageLabel> list = getAllImageLabel();
+
         for(int i=0;i<list.size();i++){
             if(list.get(i).getImageId().equals(ImageId))
             {

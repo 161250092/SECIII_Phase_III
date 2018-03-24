@@ -56,7 +56,7 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
     public FrameLabel getFrameLabelByImageId(String imageId) {
 
         ArrayList<FrameLabel>  list = getAllFrameLabel();
-        FrameLabel label= new FrameLabel();
+        FrameLabel label= null;
 
         for(int i=0;i<list.size();i++){
             if(list.get(i).getImageId().equals(imageId))

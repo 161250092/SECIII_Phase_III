@@ -45,7 +45,7 @@ public class AreaLabelDataImpl implements AreaLabelDataService{
     @Override
     public AreaLabel getAreaLabelByImageId(String ImageId) {
         ArrayList<AreaLabel>  list = getAllAreaLabel();
-        AreaLabel label= new AreaLabel();
+        AreaLabel label= null;
 
         for(int i=0;i<list.size();i++){
             if(list.get(i).getImageId().equals(ImageId))
