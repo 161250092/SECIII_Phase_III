@@ -17,6 +17,13 @@ public class AreaLabelDataImpl implements AreaLabelDataService{
 
         ArrayList<AreaLabel> list = getAllAreaLabel();
 
+        /**
+         * 原来未声明content
+         * @雷诚
+         */
+        Gson gson = new GsonBuilder().create();
+        String content = gson.toJson(label);
+
         if(list.size()==0) {
             fh.writeTxtFile(content, path, true);
             return true;
