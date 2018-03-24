@@ -172,7 +172,7 @@ function purgeLabels(){
 }
 
 //双击标签栏
-$("#tagList").dblclick(function () {
+$("#tagListItem").dblclick(function () {
     deleteTag(e);
 });
 
