@@ -21,8 +21,6 @@ public class FileHelper {
         return flag;
     }
 
-
-
     public  String readTxtFile(String filepath) {
         String result = "";
         String thisLine = null;
