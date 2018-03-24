@@ -2,6 +2,8 @@ package com.example.maven.service.DataImpl;
 
 import com.example.maven.model.AreaLabel;
 import com.example.maven.service.DataService.AreaLabelDataService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import src.main.java.com.example.maven.service.DataImpl.FileHelper;
 
 import java.io.File;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 
 public class AreaLabelDataImpl implements AreaLabelDataService{
     FileHelper fh = new FileHelper();
-    String path = "线标注"+ File.separator+"线标.txt";
+    String path = System.getProperty("user.dir").toString() + "/src/AreaLabel.txt";
 
     @Override
     public boolean saveAreaLabel(AreaLabel label) {

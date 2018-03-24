@@ -2,6 +2,8 @@ package com.example.maven.service.DataImpl;
 
 import com.example.maven.model.frameLabel.FrameLabel;
 import com.example.maven.service.DataService.FrameLabelDataService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import src.main.java.com.example.maven.service.DataImpl.FileHelper;
 
 import java.io.File;
@@ -14,7 +16,7 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
      * path是存储路径
      */
     FileHelper fh = new FileHelper();
-    String path = "框标注"+ File.separator+"框标.txt";
+    String path = System.getProperty("user.dir").toString() + "/src/FrameLabel.txt";
 
     @Override
     public boolean saveFrameLabel(FrameLabel frameLabel) {
@@ -29,14 +31,12 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
 
         return true;
 
-
-        return false;
     }
 
     @Override
     public FrameLabel getFrameLabelByUserId(String userId) {
         ArrayList<FrameLabel>  list = getAllFrameLabel();
-        FrameLabel label= new FrameLabel();
+        FrameLabel label= null;
 
         for(int i=0;i<list.size();i++){
             if(list.get(i).getUserId().equals(userId))
