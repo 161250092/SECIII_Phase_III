@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/guide.css">游戏人生 Zero
     <link rel="stylesheet" href="css/布局.css">
     <link rel="stylesheet" href="css/background.css">
-    <link rel="stylesheet" href="css/paint.css">
+    <link rel="stylesheet" href="css/markFrameLabel.css">
     <script src="js/jquery-1.11.0.min.js"></script>
 </head>
 
@@ -20,22 +20,23 @@
         </ul>
     </nav>
 
-    <div class="left">
+    <section class="left">
         <div class="btn-group">
-            <button>重置</button>
+            <button id="purgeButton">重置</button>
+            <button id="saveButton">保存</button>
             <button id="beforeButton">前一张</button>
             <button id="nextButton">后一张</button>
         </div>
-    </div>
+    </section>
 
-    <div class="center">
+    <section class="center">
         <div id="partOfTagInCanvas"></div>
         <div id="canvasContainer">
             <canvas id="drawingCanvas"></canvas>
         </div>
-    </div>
+    </section>
 
-    <div class="right">
+    <section class="right">
         <div>
             <p>  标 签 1: </p>
             <select id="tagSelector1" onchange="selectTag()">
@@ -65,21 +66,20 @@
                 <option value = "tag3">   飞机</option>
             </select>
         </div>
-    </div>
+    </section>
 
-    <div class="bottom">
+    <section class="bottom">
         <div id="toolBar">
             <p>填写标签：</p>
             <input type="text" id="tagInput" name="tag" value="">
-            <button id="confirmButton" class="buttonGrey">确认</button>
-            <button id="sendButton" class="buttonGrey">发送</button>
+            <button id="addTagButton" class="buttonGrey">添加标签</button>
             <button id="getButton" class="buttonGrey">获取</button>
         </div>
 
         <div>
             <ul id="tagList"></ul>
         </div>
-    </div>
+    </section>
 </div>
 <script src="js/markFrameLabel.js"></script>
 </body>

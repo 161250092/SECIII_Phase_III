@@ -1,5 +1,4 @@
 var canvas, context;
-var confirmButton;
 var img;
 
 var recArray = new Array();
@@ -18,7 +17,7 @@ function FrameLabel(startX, startY, width, height){
 window.addEventListener('load', function () {
     canvas = document.getElementById("drawingCanvas");
     context = canvas.getContext("2d");
-    confirmButton = document.getElementById("confirmButton");
+    var addTagButton = document.getElementById("addTagButton");
     img = context.createImageData(canvas.width, canvas.height);
 
     const rect = canvas.getBoundingClientRect();
@@ -30,7 +29,7 @@ window.addEventListener('load', function () {
     canvas.onmouseout = stopDrawing;
     canvas.onmousemove = draw;
 
-    confirmButton.onclick = addNewTag;
+    addTagButton.onclick = addNewTag;
 }, false);
 
 var isDrawing = false;
@@ -182,7 +181,7 @@ $("#purgeButton").click(function () {
 });
 
 //发送标签数组
-$("#sendButton").click(function(){
+$("#saveButton").click(function(){
     $.ajax({
         type: "GET",
         url: "/sendRec",
