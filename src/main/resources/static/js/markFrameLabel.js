@@ -102,8 +102,8 @@ function deleteTag(e){
     if(target.nodeName.toLowerCase() === 'li'){
         removedTagIndex = target.value;
 
-        delete tempFrameLabelTagItem[removedTagIndex];
-        removeRecInCanvas(tempFrameLabelTagItem);
+        delete frameLabelTagItemList[removedTagIndex];
+        removeRecInCanvas(frameLabelTagItemList);
         removeTagFromCanvas(target.textContent);
 
         elList = target.parentNode;
@@ -137,11 +137,11 @@ function removeTagFromCanvas(tag) {
     elParent.removeChild(tagItem);
 }
 //删掉选中的框
-function removeRecInCanvas(tempFrameLabelTagItem) {
+function removeRecInCanvas(frameLabelTagItemList) {
     context.clearRect(0, 0, canvas.width, canvas.height);
-    for(var i = 0; i < tempFrameLabelTagItem.length; i++){
-        if(tempFrameLabelTagItem[i] !== undefined){
-            context.strokeRect(tempFrameLabelTagItem[i].startX, tempFrameLabelTagItem[i].startY, tempFrameLabelTagItem[i].width, tempFrameLabelTagItem[i].height);
+    for(var i = 0; i < frameLabelTagItemList.length; i++){
+        if(frameLabelTagItemList[i] !== undefined){
+            context.strokeRect(frameLabelTagItemList[i].startX, frameLabelTagItemList[i].startY, frameLabelTagItemList[i].width, frameLabelTagItemList[i].height);
         }
     }
 }
@@ -164,6 +164,7 @@ function addNewTagAndAddIndex(tag) {
 
 //标签栏和画布上的标签
 function purgeLabels(){
+    console.log(context)
     context.clearRect(0, 0, canvas.width, canvas.height);
     index = 0;
     //清空数组
@@ -197,7 +198,9 @@ function getFrameLabel(userId, imageId) {
 
             this.imageId = frameLabel.imageId;
             this.userId = frameLabel.userId;
-            frameLabelTagItemList = frameLabel.frameLabelTagItemList;
+            console.log(this.frameLabelTagItemList)
+            this.frameLabelTagItemList = frameLabel.frameLabelTagItemList;
+            console.log(this.frameLabelTagItemList)
 
             /*通过图片ID获得图片*/
             $.ajax({

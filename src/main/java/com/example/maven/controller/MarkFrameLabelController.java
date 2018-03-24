@@ -35,13 +35,7 @@ public class MarkFrameLabelController {
 
     @RequestMapping(value = "/markFrameLabel/getFrameLabel", method = RequestMethod.GET)
     public String getFrameLabel(String userId, String imageId){
-        String nextImageID = "2";
-
-        ArrayList<FrameLabelTagItem> frameLabelTagItemList = new ArrayList<>();
-        frameLabelTagItemList.add(new FrameLabelTagItem(50, 50, 100, 50, "sdga"));
-        frameLabelTagItemList.add(new FrameLabelTagItem(150, 150, 200, 200, "hhhh"));
-
-        FrameLabel frameLabel = new FrameLabel("test",nextImageID, frameLabelTagItemList);
+        FrameLabel frameLabel = frameLabelData.getFrameLabelByImageId(imageId);
 
         Gson gson = new GsonBuilder().create();
         String objectToJson = gson.toJson(frameLabel);
