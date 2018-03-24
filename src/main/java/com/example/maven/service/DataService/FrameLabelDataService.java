@@ -8,7 +8,6 @@ import java.util.ArrayList;
  * 标框标注模块数据层接口
  */
 public interface FrameLabelDataService {
-
     /**
      * 保存标框的数据
      * @param frameLabel 标框的数据
