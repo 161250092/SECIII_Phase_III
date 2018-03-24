@@ -15,7 +15,7 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
      * path是存储路径
      */
     FileHelper fh = new FileHelper();
-    String path = System.getProperty("user.dir").toString() + "/src/FrameLabel.txt";
+    String path = System.getProperty("user.dir").toString() + "/src/main/Label/FrameLabel.txt";
 
     @Override
     public boolean saveFrameLabel(FrameLabel frameLabel) {

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class ImageLabelDataImpl implements ImageLabelDataService{
 
     FileHelper fh = new FileHelper();
-    String path = System.getProperty("user.dir").toString() + "/src/ImageLabel.txt";
+    String path = System.getProperty("user.dir").toString() + "/src/main/Label/ImageLabel.txt";
 
 
     @Override

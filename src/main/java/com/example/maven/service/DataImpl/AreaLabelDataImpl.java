@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class AreaLabelDataImpl implements AreaLabelDataService{
     FileHelper fh = new FileHelper();
-    String path = System.getProperty("user.dir").toString() + "/src/AreaLabel.txt";
+    String path = System.getProperty("user.dir").toString() + "/src/main/Label/AreaLabel.txt";
 
     @Override
     public boolean saveAreaLabel(AreaLabel label) {
