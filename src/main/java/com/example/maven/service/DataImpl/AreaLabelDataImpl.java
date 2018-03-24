@@ -19,7 +19,7 @@ public class AreaLabelDataImpl implements AreaLabelDataService{
         String content = gson.toJson(label);
 
 
-        fh.writeTxtFile(content,path,true,true);
+        fh.writeTxtFile(content,path,true);
 
         return true;
 
@@ -28,6 +28,9 @@ public class AreaLabelDataImpl implements AreaLabelDataService{
     @Override
     public ArrayList<AreaLabel> getAllAreaLabel() {
         String[] all = fh.readTxtFile(path).split("\n");
+
+        if(all.length==1&&all[0].equals(""))
+            return new ArrayList<AreaLabel>();
 
         ArrayList<AreaLabel> list = new ArrayList<AreaLabel>();
 

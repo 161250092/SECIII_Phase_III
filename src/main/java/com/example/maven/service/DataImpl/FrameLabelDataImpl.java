@@ -23,7 +23,7 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
         String content = gson.toJson(frameLabel);
 
 
-        fh.writeTxtFile(content,path,true,true);
+        fh.writeTxtFile(content,path,true);
 
 
         return true;
@@ -53,6 +53,7 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
     public FrameLabel getFrameLabelByImageId(String imageId) {
 
         ArrayList<FrameLabel>  list = getAllFrameLabel();
+
         FrameLabel label= null;
 
         for(int i=0;i<list.size();i++){
@@ -71,6 +72,9 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
     public ArrayList<FrameLabel> getAllFrameLabel(){
 
         String[] all = fh.readTxtFile(path).split("\n");
+
+        if(all.length==1&&all[0].equals(""))
+            return  new ArrayList<FrameLabel>();
 
         ArrayList<FrameLabel> list = new ArrayList<FrameLabel>();
 

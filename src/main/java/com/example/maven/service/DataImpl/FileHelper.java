@@ -42,7 +42,7 @@ public class FileHelper {
     }
 
 
-    public boolean writeTxtFile(String content,String filePath,boolean append,boolean order){
+    public boolean writeTxtFile(String content,String filePath,boolean append){
         boolean flag = false;
         File thisFile = new File(filePath);
         try{

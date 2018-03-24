@@ -20,7 +20,7 @@ public class ImageLabelDataImpl implements ImageLabelDataService{
         Gson gson = new GsonBuilder().create();
         String content = gson.toJson(label);
 
-        fh.writeTxtFile(content,path,true,true);
+        fh.writeTxtFile(content,path,true);
 
         return true;
     }
@@ -28,6 +28,10 @@ public class ImageLabelDataImpl implements ImageLabelDataService{
     @Override
     public ArrayList<ImageLabel> getAllImageLabel() {
         String[] all = fh.readTxtFile(path).split("\n");
+
+        if(all.length==1&&all[0].equals(""))
+            return  new ArrayList<ImageLabel>();
+
         ArrayList<ImageLabel> list = new ArrayList<ImageLabel>();
         Gson gson = new GsonBuilder().create();
 
@@ -42,6 +46,7 @@ public class ImageLabelDataImpl implements ImageLabelDataService{
     @Override
     public ImageLabel getAreaLabelByImageId(String ImageId) {
         ImageLabel image = new ImageLabel();
+
         ArrayList<ImageLabel> list = getAllImageLabel();
 
         for(int i=0;i<list.size();i++){
