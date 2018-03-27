@@ -19,5 +19,48 @@ public class User {
         this.userName = userName;
     }
 
+    public String getUserID(){
+        return userID;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public ArrayList<ImageSet> getAssignments() {
+        return assignments;
+    }
+
+    public ArrayList<String> getTaggedImages() {
+        return taggedImages;
+    }
+
+    public void setUserID(String id){
+        userID =id;
+    }
+
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+
+    public void setAssignments(ArrayList<ImageSet> assignments) {
+        this.assignments = assignments;
+    }
+
+    public void setTaggedImages(ArrayList<String> taggedImages) {
+        this.taggedImages = taggedImages;
+    }
+
 
 }
