@@ -178,6 +178,8 @@ function resetPainting() {
     arrayOfLine = new Array();
     arrayOfX = new Array();
     arrayOfY = new Array();
+    //重置标签栏
+    $("#tagInput").val("");
     //重置选择标注的下拉框
     // var selectT = document.getElementById("selectOfTags");
     // selectT.value = "null";
@@ -219,8 +221,8 @@ function showImage(type){
     resetPainting();
 
     //重置选择标注的下拉框
-    var selectT = document.getElementById("selectOfTags");
-    selectT.value = "null";
+    //var selectT = document.getElementById("selectOfTags");
+    //selectT.value = "null";
 
     if(type == 'before'){
         if(index <= 0){
@@ -259,14 +261,15 @@ function selectTag(){
 }
 
 
+
 //提交按钮的动作
 $("#sendButton").click(function(){
-    var label = $("#tagText").val();
+    var label = $("#tagInput").val();
     var areaLabel = new AreaLabel(index, "test", label, arrayOfLine);
     //alert(JSON.stringify(areaLabel));
 
     $.ajax({
-        type : "GET",
+        type : "POST",
         url : "/markAreaLabel/saveAreaLabel", //利用ajax发起请求，这里写servlet的路径
 
         data : {
@@ -282,7 +285,7 @@ $("#sendButton").click(function(){
         }
     });
 
-})
+});
 
 //获取按钮的动作
 $("#getButton").click(function(){
@@ -305,9 +308,10 @@ $("#getButton").click(function(){
             }
             //还原图像
             restore(myLineArray);
-            //$("#tagInput").val = areaLabel.label;
+            console.log(areaLabel.label.toString());
+            $("#tagInput").val(areaLabel.label.toString());
 
-            alert("Success!");
+            //alert("Success!");
         },
 
         error: function () {
@@ -317,11 +321,11 @@ $("#getButton").click(function(){
     });
 });
 
-//
+/*
 $("#confirmButton").click(function(){
     var arr = new Array();
     arr[0] = new Line(["0","15"], ["0","15"]);
     arr[1] = new Line([200,300], [400,300]);
     restore(arr);
 });
-
+*/

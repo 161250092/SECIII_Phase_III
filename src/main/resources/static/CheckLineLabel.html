@@ -41,8 +41,8 @@
 
             <button name = "resetButton"  onclick = "showImage('reset')" >重置标注区域</button>
             <br></br>
-            <button id="beforeButton">前一张</button>
-            <button id="nextButton">后一张</button>
+            <button id="beforeButton"  onclick = "showImage('before')">前一张</button>
+            <button id="nextButton"  onclick = "showImage('next')">后一张</button>
         </div>
     </div>
 
@@ -101,7 +101,7 @@
             <div id="toolBar">
                 <p>填写标签：
                     <input type="text" id="tagInput" name="tag" value="">
-                    <button id="confirmButton" class="buttonGrey">确认</button>
+                    <!--<button id="confirmButton" class="buttonGrey">确认</button>-->
                     <button id="sendButton" class="buttonGrey">发送</button>
                     <button id="getButton" class="buttonGrey">获取</button>
             </div>
