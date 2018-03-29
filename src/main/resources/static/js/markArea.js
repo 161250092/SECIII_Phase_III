@@ -1,4 +1,4 @@
-//记录图片的数量
+//记录图片的最大索引值
 const maxN = 2;
 //当前图片的编号
 var index = 0;
@@ -56,7 +56,8 @@ function getStringOfLine(line){
 function getLineFromString(stringOfLine) {
     var arrX = new Array();
     var arrY = new Array();
-    var pairs = stringOfLine.split(";");
+    var str = "" + stringOfLine;
+    var pairs = str.split(";");
     var temp = new Array();
     for(var i = 0; i < pairs.length - 1; i++){
         temp = pairs[i].split(",");
@@ -69,6 +70,7 @@ function getLineFromString(stringOfLine) {
 }
 
 
+//页面加载时
 window.onload = function(){
 
     //获取画布 绘图的对象
@@ -98,6 +100,28 @@ window.onload = function(){
         canvas.onmousemove = null;
         //stop();
     }
+
+
+    // $.ajax({
+    //     type: "GET",
+    //     url: "/imageController/getInitialImage",
+    //     dataType : "text",
+    //
+    //     data : {
+    //
+    //     },
+    //     success: function(data) {
+    //         //alert("success");
+    //         console.log(data);
+    //         image.src = data;
+    //         //image.src = "../Images/0.jpg";
+    //     },
+    //
+    //     error: function () {
+    //         alert("Wrong!");
+    //     }
+    //
+    // });
 
 }
 
@@ -155,8 +179,8 @@ function resetPainting() {
     arrayOfX = new Array();
     arrayOfY = new Array();
     //重置选择标注的下拉框
-    var selectT = document.getElementById("selectOfTags");
-    selectT.value = "null";
+    // var selectT = document.getElementById("selectOfTags");
+    // selectT.value = "null";
 }
 
 //还原标注图像
@@ -171,8 +195,8 @@ function restore(myarray){
         var xArray = arrayOfLine[i].cordinateOfX;
         var yArray = arrayOfLine[i].cordinateOfY;
 
-        var xx = xArray[0];
-        var yy = yArray[0];
+        var xx = parseInt(xArray[0]);
+        var yy = parseInt(yArray[0]);
 
         //开始作图
         context.beginPath();
@@ -180,8 +204,8 @@ function restore(myarray){
 
         //按照落点数组作图
         for(var j = 1; j < xArray.length; j++){
-            xx = xArray[j];
-            yy = xArray[j];
+            xx = parseInt(xArray[j]);
+            yy = parseInt(yArray[j]);
             context.lineTo(xx, yy);
             context.stroke();
             context.moveTo(xx,yy);
@@ -224,10 +248,10 @@ function selectImage(){
     var selectI = document.getElementById('selectOfImages');
     index = selectI.selectedIndex;
     image.src = "images/"+index+".jpg";
-    var arr = new Array();
-    //arr[0] = new Line([0,15], [0,15]);
+    // var arr = new Array();
+    // arr[0] = new Line(["0","15"], ["0","15"]);
     //arr[1] = new Line([200,300], [400,300]);
-    //restore(arr);
+    // restore(arr);
 }
 //选取标签
 function selectTag(){
@@ -238,15 +262,16 @@ function selectTag(){
 //提交按钮的动作
 $("#sendButton").click(function(){
     var label = $("#tagText").val();
-    var areaLabel = new AreaLabel("000", "admin", label, arrayOfLine);
-    alert(JSON.stringify(areaLabel));
+    var areaLabel = new AreaLabel(index, "test", label, arrayOfLine);
+    //alert(JSON.stringify(areaLabel));
 
     $.ajax({
-        type : "POST",
-        url : "/saveAreaLabel", //利用ajax发起请求，这里写servlet的路径
+        type : "GET",
+        url : "/markAreaLabel/saveAreaLabel", //利用ajax发起请求，这里写servlet的路径
 
         data : {
             areaLabelJson: JSON.stringify(areaLabel)
+            //areaLabelJson: "Hello"
         },
         success: function(data) {
             alert("Success!");
@@ -259,15 +284,29 @@ $("#sendButton").click(function(){
 
 })
 
+//获取按钮的动作
 $("#getButton").click(function(){
+    var areaLabel;
+    var myLineArray = new Array();
     $.ajax({
-        type: "GET",
-        url: "/getAreaLabel",
+        type: "POST",
+        url: "/markAreaLabel/getAreaLabel",
 
         data : {
-            imageId: "001"
+            imageId: index
         },
-        success: function(data) {
+        success: function(areaLabelJson) {
+            areaLabel = JSON.parse(areaLabelJson);
+            //从areaLabel对象中获得 表示标线的字符串数组
+            var arrayOfLineString = areaLabel.lineList;
+            //将字符串数组转化为 标线类Line对象的数组
+            for(var i = 0; i < arrayOfLineString.length; i++){
+                myLineArray[i] = getLineFromString(arrayOfLineString[i]);
+            }
+            //还原图像
+            restore(myLineArray);
+            //$("#tagInput").val = areaLabel.label;
+
             alert("Success!");
         },
 
@@ -276,6 +315,13 @@ $("#getButton").click(function(){
         }
 
     });
-    getFrameLabel(userId, imageId);
+});
+
+//
+$("#confirmButton").click(function(){
+    var arr = new Array();
+    arr[0] = new Line(["0","15"], ["0","15"]);
+    arr[1] = new Line([200,300], [400,300]);
+    restore(arr);
 });
 

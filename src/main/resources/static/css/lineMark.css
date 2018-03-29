@@ -1,10 +1,9 @@
  .imageDiv, .canvasDiv{
             position:absolute;
-            width:400px;
-            height:400px;
+            width:800px;
+            height:500px;
             top:0px;
             left:200px;
-            border:0px solid #000;
         }
 
 .imageDiv{
@@ -15,13 +14,6 @@
 }
 
 #sourceImage{
-            width:600px;
+            width:800px;
             height:500px;
-}
-
-.footRow{
-            font-size:15px;
-            position:absolute;
-            top:550px;
-            left:200px;
 }

@@ -1,6 +1,7 @@
 package com.example.maven.controller;
 
 import com.example.maven.model.AreaLabel;
+import com.example.maven.service.DataImpl.AreaLabelDataImpl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.springframework.web.bind.annotation.*;
@@ -11,28 +12,34 @@ import java.util.ArrayList;
 
 @RestController
 public class MarkAreaLabelController {
-    @RequestMapping(value = "/saveAreaLabel", method = RequestMethod.GET)
+    private AreaLabelDataImpl areaLabelDataImpl = new AreaLabelDataImpl();
+
+    @RequestMapping(value = "/markAreaLabel/saveAreaLabel", method = RequestMethod.GET)
     public String saveAreaLabel(@RequestParam(defaultValue="null") String areaLabelJson){
-        System.out.println(areaLabelJson);
+//        System.out.println("aaaa"+areaLabelJson);
 
         Gson gson = new GsonBuilder().create();
 
         AreaLabel areaLabel = gson.fromJson(areaLabelJson, AreaLabel.class);
 
+        areaLabelDataImpl.saveAreaLabel(areaLabel);
+
+
         return "success";
     }
 
-    @RequestMapping(value = "/getAreaLabel", method = RequestMethod.GET)
-    public String getAreaLabel(String imageID){
+    @RequestMapping(value = "/markAreaLabel/getAreaLabel", method = RequestMethod.POST)
+    public String getAreaLabel(String imageId){
 
-        ArrayList<String> s = new ArrayList<>();
-        s.add("1,20;30,50;");
-        s.add("1,20;30,50;");
-
-        AreaLabel areaLabel = new AreaLabel("0001", "admin", "myLabel", s);
+        ArrayList<AreaLabel> list = areaLabelDataImpl.getAllAreaLabel();
         Gson gson = new GsonBuilder().create();
-        String objectToJson = gson.toJson(areaLabel);
-        System.out.println(objectToJson);
+        String objectToJson = gson.toJson(list.get(Integer.parseInt(imageId)));
+//        System.out.println(list.get(0).getLabel());
+//        ArrayList<String> s = new ArrayList<>();
+//        s.add("1,20;30,50;");
+//        s.add("1,20;30,50;");
+//
+//        AreaLabel areaLabel = new AreaLabel("0001", "admin", "myLabel", s);
 
         return objectToJson;
     }
