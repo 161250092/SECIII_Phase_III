@@ -36,7 +36,7 @@ window.addEventListener('load', function () {
     canvas.onmouseout = stopDrawing;
     canvas.onmousemove = draw;
 
-    addTagButton.onclick = addNewTagByButton;
+    // addTagButton.onclick = addNewTagByButton;
 
     // getFrameLabel(userId, imageId);
 }, false);
@@ -80,15 +80,7 @@ function getY(e){
 }
 
 //在标签栏增加标签
-function addNewTagByButton() {
-    //获得标签
-    var tag = document.getElementById('tagInput').value;
-    //标签清零
-    document.getElementById('tagInput').value = '';
-
-    tempFrameLabelTagItem.tag = tag;
-    frameLabelTagItemList[index] = tempFrameLabelTagItem;
-
+function addTag(x, y, tag) {
     //创建新的标签栏(index已加一)
     addNewTagAndAddIndex(tag);
     //在画布上放置标签
@@ -97,7 +89,7 @@ function addNewTagByButton() {
 //删除标签栏中的标签
 function deleteTag(e){
     var target, elList, removedTagIndex;
-    target = e.target;
+    target = e.target.parentNode;
 
     if(target.nodeName.toLowerCase() === 'li'){
         removedTagIndex = target.value;
@@ -149,12 +141,13 @@ function removeRecInCanvas(frameLabelTagItemList) {
 function addNewTagAndAddIndex(tag) {
     //创建新的标签栏
     var newTagItem = document.createElement('li');
-    var newTagContext = document.createTextNode(tag);
-    newTagItem.appendChild(newTagContext);
+    newTagItem.innerHTML = '<a>' + tag + '</a>';
+    // var newTagContext = document.createTextNode(tag);
+    // newTagItem.appendChild(newTagContext);
     newTagItem.setAttribute('class', 'tagListItem');
     newTagItem.value = index;
     //注册事件
-    newTagItem.ondblclick = deleteTag;
+    // newTagItem.ondblclick = deleteTag;
     //放置标签栏
     var tagPosition = document.getElementById('tagList');
     tagPosition.appendChild(newTagItem);
@@ -164,7 +157,6 @@ function addNewTagAndAddIndex(tag) {
 
 //标签栏和画布上的标签
 function purgeLabels(){
-    console.log(context)
     context.clearRect(0, 0, canvas.width, canvas.height);
     index = 0;
     //清空数组
@@ -198,9 +190,7 @@ function getFrameLabel(userId, imageId) {
 
             this.imageId = frameLabel.imageId;
             this.userId = frameLabel.userId;
-            console.log(this.frameLabelTagItemList)
             this.frameLabelTagItemList = frameLabel.frameLabelTagItemList;
-            console.log(this.frameLabelTagItemList)
 
             /*通过图片ID获得图片*/
             $.ajax({
@@ -254,6 +244,21 @@ function getNextImageId(currentImageId) {
     });
 }
 
+$("#tagList").dblclick(function (e) {
+    deleteTag(e);
+});
+
+$("#addTagButton").click(function (x, y) {
+    //获得标签
+    var tag = document.getElementById('tagInput').value;
+    //标签清零
+    document.getElementById('tagInput').value = '';
+
+    tempFrameLabelTagItem.tag = tag;
+    frameLabelTagItemList[index] = tempFrameLabelTagItem;
+
+    addTag(window.x, window.y ,tag);
+});
 
 $("#purgeButton").click(function () {
     purgeLabels();

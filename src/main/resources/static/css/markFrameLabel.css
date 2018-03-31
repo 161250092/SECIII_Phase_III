@@ -1,6 +1,6 @@
 canvas#drawingCanvas {
-    width: 1500px;
-    height: 1000px;
+    width: 700px;
+    height: 600px;
     border-color: black;
     border-width: 2px;
     border-style: solid;
@@ -17,6 +17,10 @@ ul#tagList li.tagListItem {
     color: #fff;
     border-top: 1px solid #666;
     border-bottom: 1px solid #b0b0b0;
+    background-image: url("../images/icon-trash.png");
+    background-position: right, center;
+    background-repeat: no-repeat;
+    text-decoration: none;
 }
 
 p.tagInCanvas {
