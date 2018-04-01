@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<title>发布任务</title>
+
+
+</head>
+
+	<body>
+<!--
+1.labelType 标注类型 
+2.taskId 任务Id
+3.String[]imageName 图片名称数组
+4.requiredNumber 需要多少人批注
+5.finishedNumber 完成的人数
+6.description 任务描述
+7.score 积分奖励
+-->
+		<div>
+			<span>标注类型:</span>
+            <select id="File" onchange="selectTag()">
+                    <option value = "tag1">  整体标注</option>
+                    <option value = "tag2">  区域标注</option>
+                    <option value = "tag3">  方框标注</option>
+            </select> 
+		</div>
+		
+		<div>
+			<span>任务名称:</span>
+			<input type="text" id="TaskId" name="tag" value=""></input>
+		</div>
+
+		<div>
+			<span>批注人数:</span>
+			<input type="text" id="TaskId" name="tag" value=""></input>
+		</div>
+
+
+		<div>
+			<span>任务描述:</span>
+			<input type="text" id="TaskId" name="tag" value=""></input>
+		</div>
+
+
+		<div>
+			<span>积分奖励:</span>
+			<input type="text" id="TaskId" name="tag" value=""></input>
+		</div>
+
+
+<!--https://blog.csdn.net/a4307515/article/details/50505167
+	这个可以实现上传图片
+-->
+		<div>
+			<span>图片上传:</span>
+			<textarea rows="3" cols="20">
+				
+			</textarea>
+			
+		</div>
+
+
+		<div>
+			<button id="upload"> 提交</button>
+		</div>
+
+
+	</body>
+
+
+</html>
