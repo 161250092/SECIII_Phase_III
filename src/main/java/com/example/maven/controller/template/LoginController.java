@@ -6,14 +6,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class LoginController {
-
     /*
     判断是否登陆成功
     */
-    @RequestMapping(value = "/SignInController/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/LoginController/login", method = RequestMethod.GET)
     public boolean login(String userId, String password){
         return false;
     }
-
 
 }
