@@ -287,6 +287,8 @@ $("#sendButton").click(function(){
 
 });
 
+
+
 //获取按钮的动作
 $("#getButton").click(function(){
     var areaLabel;
