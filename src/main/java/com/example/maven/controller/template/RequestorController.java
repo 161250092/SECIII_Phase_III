@@ -33,21 +33,21 @@ public class RequestorController {
 
     /**
      * 获取发布且已完成任务的列表
-     * @param userID 用户ID
+     * @param userId 用户Id
      * @return 发布且已完成任务的列表
      */
     @RequestMapping(value = "/RequestorController/getAssignedAndAccomplishedTaskList", method = RequestMethod.GET)
-    public List<Task> getAssignedAndAccomplishedTaskList(String userID){
+    public List<Task> getAssignedAndAccomplishedTaskList(String userId){
         return null;
     }
 
     /**
      * 获取发布但未完成任务的列表
-     * @param userID 用户ID
+     * @param userId 用户Id
      * @return 发布但未完成任务的列表
      */
     @RequestMapping(value = "/RequestorController/getAssignedButIncompleteTaskList", method = RequestMethod.GET)
-    public List<Task> getAssignedButIncompleteTaskList(String userID){
+    public List<Task> getAssignedButIncompleteTaskList(String userId){
         return null;
     }
 

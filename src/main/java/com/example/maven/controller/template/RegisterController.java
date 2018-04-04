@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegisterController {
     /**
      * 判断是否重名
-     * @param userId 用户ID
+     * @param userId 用户Id
      * @return 是否重名
      */
     @RequestMapping(value = "/RegisterController/isExist", method = RequestMethod.GET)

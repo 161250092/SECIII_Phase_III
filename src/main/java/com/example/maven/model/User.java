@@ -3,24 +3,41 @@ package com.example.maven.model;
 import java.util.ArrayList;
 
 public class User {
-    //账户信息
-    private String userID;
+    //用户Id
+    private String userId;
+    //用户密码
     private String password;
+    //用户昵称
     private String userName;
-
     //发布的标注任务 数组
-    private ArrayList<ImageSet> assignments;
+    private ArrayList<Task> publishedTask;
     //已标注的图片编号 数组
-    private ArrayList<String> taggedImages;
+    private ArrayList<Task> taggedTask;
 
-    public User(String userID, String password, String userName) {
-        this.userID = userID;
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    public String getUserID(){
-        return userID;
+    public void setPublishedTask(ArrayList<Task> publishedTask) {
+        this.publishedTask = publishedTask;
+    }
+
+    public void setTaggedTask(ArrayList<Task> taggedTask) {
+        this.taggedTask = taggedTask;
+    }
+
+
+    public String getUserId() {
+        return userId;
     }
 
     public String getPassword() {
@@ -31,35 +48,20 @@ public class User {
         return userName;
     }
 
-    public ArrayList<ImageSet> getAssignments() {
-        return assignments;
+    public ArrayList<Task> getPublishedTask() {
+        return publishedTask;
     }
 
-    public ArrayList<String> getTaggedImages() {
-        return taggedImages;
+    public ArrayList<Task> getTaggedTask() {
+        return taggedTask;
     }
 
-    public void setUserID(String id){
-        userID =id;
-    }
-
-
-    public void setPassword(String password) {
+    public User(String userId, String password, String userName, ArrayList<Task> publishedTask, ArrayList<Task> taggedTask) {
+        this.userId = userId;
         this.password = password;
-    }
-
-
-    public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-
-    public void setAssignments(ArrayList<ImageSet> assignments) {
-        this.assignments = assignments;
-    }
-
-    public void setTaggedImages(ArrayList<String> taggedImages) {
-        this.taggedImages = taggedImages;
+        this.publishedTask = publishedTask;
+        this.taggedTask = taggedTask;
     }
 
 

@@ -6,9 +6,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class LoginController {
-    /*
-    判断是否登陆成功
-    */
+    /**
+     * 判断是否登陆成功
+     * @param userId 用户Id
+     * @param password 用户密码
+     * @return 是否登陆成功
+     */
     @RequestMapping(value = "/LoginController/login", method = RequestMethod.GET)
     public boolean login(String userId, String password){
         return false;
