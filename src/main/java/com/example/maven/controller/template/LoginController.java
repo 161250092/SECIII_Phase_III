@@ -17,4 +17,15 @@ public class LoginController {
         return false;
     }
 
+    /**
+     * 获取用户昵称
+     * @param userId 用户Id
+     * @return 用户昵称
+     */
+
+    @RequestMapping(value = "/LoginController/getUserName", method = RequestMethod.GET)
+    public boolean login(String userId){
+        return false;
+    }
+
 }
