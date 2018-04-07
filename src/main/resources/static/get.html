@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--页面跳转并传递参数试验 跳转后的页面-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="js/jquery-1.11.0.min.js"></script>
+<script src = "js/pageJump.js"></script>
+<script>
+    $(function(){
+        getData();
+    });
+
+    function getData(){
+        var url = window.location.href;
+        var temp = url.split("?");
+        var infor = temp[1].split("&");
+
+
+        var name = infor[0];
+        var age = infor[1];
+
+        var data = userId;
+
+        $("#name").text(name);
+
+        $("#age").text(age);
+
+        $("#test").text(data);
+    }
+</script>
+
+<body>
+<div id="name"></div>
+<div id="age"></div>
+<div id="test"></div>
+
+
+</body>
+</html>
