@@ -1,5 +1,7 @@
 package com.example.maven.model;
 
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.util.ArrayList;
 
 public class User {
@@ -9,10 +11,12 @@ public class User {
     private String password;
     //用户昵称
     private String userName;
-    //发布的标注任务 数组
-    private ArrayList<Task> publishedTask;
-    //已标注的图片编号 数组
-    private ArrayList<Task> taggedTask;
+    //发布的标注任务的Id 数组
+    private ArrayList<String> publishedTask;
+    //已标注的任务的Id 数组
+    private ArrayList<String> taggedTask;
+    //用户积分
+    private int score;
 
 
     public void setUserId(String userId) {
@@ -27,13 +31,15 @@ public class User {
         this.userName = userName;
     }
 
-    public void setPublishedTask(ArrayList<Task> publishedTask) {
+    public void setPublishedTask(ArrayList<String> publishedTask) {
         this.publishedTask = publishedTask;
     }
 
-    public void setTaggedTask(ArrayList<Task> taggedTask) {
+    public void setTaggedTask(ArrayList<String> taggedTask) {
         this.taggedTask = taggedTask;
     }
+
+    public void setScore(int score) { this.score = score; }
 
 
     public String getUserId() {
@@ -48,20 +54,23 @@ public class User {
         return userName;
     }
 
-    public ArrayList<Task> getPublishedTask() {
+    public ArrayList<String> getPublishedTask() {
         return publishedTask;
     }
 
-    public ArrayList<Task> getTaggedTask() {
+    public ArrayList<String> getTaggedTask() {
         return taggedTask;
     }
 
-    public User(String userId, String password, String userName, ArrayList<Task> publishedTask, ArrayList<Task> taggedTask) {
+    public int getScore() { return score; }
+
+    public User(String userId, String password, String userName, ArrayList<String> publishedTask, ArrayList<String> taggedTask, int score) {
         this.userId = userId;
         this.password = password;
         this.userName = userName;
         this.publishedTask = publishedTask;
         this.taggedTask = taggedTask;
+        this.score = score;
     }
 
 
