@@ -1,3 +1,6 @@
+document.write("<script language=javascript src='js/pageJump.js'></script>");
+document.write("<script language=javascript src='js/user/user.js'></script>");
+
 var $userNameEl = $("#userName");
 var $passwordEl = $("#password");
 var $confPasswordEl = $("#conf-password");
@@ -49,7 +52,12 @@ $("#registerButton").click(function (ev) {
         },
         // data: loginForm,
         success:function (result) {
-            alert(result);
+            if(result === true){
+                var userId = getUserId(userName);
+                jumpToAnotherPage(mainPageUrl, userId);
+            }else {
+                alert("注册失败");
+            }
         }
     });
 });
