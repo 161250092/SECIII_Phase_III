@@ -18,8 +18,10 @@ this.finishedNumber = finishedNumber;
 this.score = score;
 }
 
+
+
 function login(user){
-	userId = user;
+    userId = sessionStorage.getItem('userId');
 }
 
 
@@ -106,9 +108,10 @@ $("#check").click(function (){
 		addRow(AssignedIncompletedTaskList[i],"incompleted");
         }
 
-        for(var i=0;i<AssignedCompletedTaskList.length;i++){
-                addRow(AssignedCompletedTaskList[i],"accomplished");
-        }
+    for(var i=0;i<AssignedCompletedTaskList.length;i++){
+            addRow(AssignedCompletedTaskList[i],"accomplished");
+    }
+
 });
 
 
