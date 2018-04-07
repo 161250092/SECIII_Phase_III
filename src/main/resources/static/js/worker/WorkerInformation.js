@@ -1,6 +1,4 @@
 
-var userId;
-
 var AllUnfinishedTasks = new Array();
 
 var AllFinishedTasks = new Array();
@@ -8,23 +6,6 @@ var AllFinishedTasks = new Array();
 var score;
 
 var ranking;
-
-function login(user){
-	userId = user;
-}
-
-
-//task class defination
-function Task(taskId,labelType,imageName,introduction,requiredNumber,finishedNumber,score)
-{
-this.taskId = taskId;
-this.labelType = labelType;
-this.imageName = imageName;
-this.introduction = introduction;
-this.requiredNumber = requiredNumber;
-this.finishedNumber = finishedNumber;
-this.score = score;
-}
 
 
 function getAllUnfinishedTasks(userId){
