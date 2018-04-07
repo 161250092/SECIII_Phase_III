@@ -39,6 +39,8 @@ function getMyIntroductionTask(userId){
 	});
 }
 
+
+
 function addRow(singleTask){
         
 		var z =$("mytable").rows.length
@@ -126,25 +128,3 @@ $("#send").click(function(){
     });
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
