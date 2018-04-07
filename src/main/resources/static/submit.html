@@ -17,12 +17,12 @@
             age = $("#age").val();
 
            //sessionStorage.setItem('userId',name);
-            sendUserId(name);
+
 
             console.log(name);
             console.log(age);
             url = "get.html?name="+name+"&age="+age;//此处拼接内容
-            window.location.href = url;
+            jumpToAnotherPage(url,name);
 
         });
 
