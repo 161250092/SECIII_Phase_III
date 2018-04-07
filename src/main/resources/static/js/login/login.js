@@ -3,7 +3,7 @@ $("#loginButton").click(function (ev) {
     var password = document.getElementById("password").value;
     // var loginForm = new FormData(document.getElementById("loginForm"));
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: "/LoginController/login",
         data: {
             userId: userId,
