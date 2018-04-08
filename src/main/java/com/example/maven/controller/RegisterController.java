@@ -1,11 +1,19 @@
 package com.example.maven.controller;
 
+import com.example.maven.businessLogic.RegisterBL;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class RegisterController {
+
+    private RegisterBL registerBL;
+
+    public RegisterController(){
+        registerBL = new RegisterBL();
+    }
+
     /**
      * 判断是否重名
      * @param userName 用户昵称
@@ -13,7 +21,7 @@ public class RegisterController {
      */
     @RequestMapping(value = "/RegisterController/isExist", method = RequestMethod.GET)
     public boolean isExist(String userName){
-        return false;
+        return registerBL.isExist(userName);
     }
 
     /**
@@ -24,8 +32,7 @@ public class RegisterController {
      */
     @RequestMapping(value = "/RegisterController/register", method = RequestMethod.GET)
     public boolean register(String userName, String password){
-        return false;
+        return registerBL.register(userName, password);
     }
-
 
 }
