@@ -1,5 +1,5 @@
-document.write("<script language=javascript src='js/pageJump.js'></script>");
-document.write("<script language=javascript src='js/user/user.js'></script>");
+document.write("<script language=javascript src='../../js/pageJump.js'></script>");
+document.write("<script language=javascript src='../../js/user/user.js'></script>");
 
 var $userNameEl = $("#userName");
 var $passwordEl = $("#password");

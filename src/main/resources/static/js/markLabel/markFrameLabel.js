@@ -38,7 +38,7 @@ window.addEventListener('load', function () {
 
     // addTagButton.onclick = addNewTagByButton;
 
-    // getFrameLabel(userId, imageId);
+    getFrameLabel(userId, imageId);
 }, false);
 
 var isDrawing = false;
@@ -194,6 +194,7 @@ function getFrameLabel(userId, imageId) {
 
             /*通过图片ID获得图片*/
             $.ajax({
+                async: false,
                 type: "GET",
                 url: "/imageController/getImageById",
                 data: {

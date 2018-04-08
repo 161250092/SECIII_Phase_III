@@ -16,9 +16,9 @@ function jumpToAnotherPage(url,userId){
 
 
 //各页面URL
-var mainPageUrl = "MainPage.html";
-var loginPageUrl = "login.html";
-var registerPageUrl = "register.html";
+var mainPageUrl = "../../MainPage.html";
+var loginPageUrl = "../login/index.html";
+var registerPageUrl = "../register/register.html";
 
 var doTaskPageUrl = "doTask.html";
 var getTaskPageUrl = "getTask.html";

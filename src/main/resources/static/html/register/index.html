@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+</head>
+<body>
+<div id="container">
+    <div id="register">
+        <h2>注册</h2>
+
+        <div>
+            <label for="userName">用户名：</label>
+            <input type="text" placeholder="请输入你的用户名" name="userName" id="userName">
+            <div id="userNameFeedback"></div>
+        </div>
+
+        <div>
+            <label for="password">密码：</label>
+            <input type="password" name="password" id="password">
+        </div>
+
+        <div>
+            <label for="conf-password">请再次输入密码：</label>
+            <input type="password" name="conf-password" id="conf-password">
+            <div id="confPasswordFeedback"></div>
+        </div>
+
+        <button id="registerButton">注册</button>
+    </div>
+</div>
+<a href="/html/login/login.html">登陆</a>
+<script src="../../js/jquery-1.11.0.min.js"></script>
+<script src="../../js/register/register.js"></script>
+</body>
+</html>
