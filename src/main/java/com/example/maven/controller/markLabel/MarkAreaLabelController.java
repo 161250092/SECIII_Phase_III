@@ -1,4 +1,4 @@
-package com.example.maven.controller;
+package com.example.maven.controller.markLabel;
 
 import com.example.maven.model.AreaLabel;
 import com.example.maven.service.DataImpl.AreaLabelDataImpl;

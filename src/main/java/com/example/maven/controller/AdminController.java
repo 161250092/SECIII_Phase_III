@@ -1,4 +1,4 @@
-package com.example.maven.controller.template;
+package com.example.maven.controller;
 
 import com.example.maven.model.WebsiteStatistics;
 import com.google.gson.Gson;

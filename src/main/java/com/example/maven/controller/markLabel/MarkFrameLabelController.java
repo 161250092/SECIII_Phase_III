@@ -1,4 +1,4 @@
-package com.example.maven.controller;
+package com.example.maven.controller.markLabel;
 
 import com.example.maven.model.frameLabel.FrameLabel;
 import com.example.maven.model.frameLabel.FrameLabelTagItem;

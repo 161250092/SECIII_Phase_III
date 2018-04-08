@@ -1,4 +1,4 @@
-package com.example.maven.controller.template;
+package com.example.maven.controller;
 
 import com.example.maven.model.Task;
 import org.springframework.web.bind.annotation.RequestMapping;
