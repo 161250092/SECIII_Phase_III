@@ -1,13 +1,4 @@
 
-var AllUnfinishedTasks = new Array();
-
-var AllFinishedTasks = new Array();
-
-var score;
-
-var ranking;
-
-
 function getAllUnfinishedTasks(userId){
 	$.ajax({
 			type: "GET",
@@ -93,7 +84,7 @@ function addRow(singleTask,id){
     Cell_2.innerHTML='<input value="'+singleTask.introduction+'"  readonly="true"/>';
     Cell_2.className="s3";
 
-    var Cell_3=tableRow.insertCell(5);
+    var Cell_3=tableRow.insertCell(3);
     Cell_3.innerHTML='<input value="'+singleTask.score+'"  readonly="true"/>';
     Cell_3.className="s4";
 }
