@@ -27,7 +27,7 @@ public class Task {
         this.labelType = labelType;
     }
 
-    public void setImageName(String[] imageInformation) {
+    public void setImageInformation(String[] imageInformation) {
         this.imageInformation = imageInformation;
     }
 
@@ -47,7 +47,6 @@ public class Task {
         this.score = score;
     }
 
-
     public String getTaskId() {
         return taskId;
     }
@@ -56,7 +55,7 @@ public class Task {
         return labelType;
     }
 
-    public String[] getimageInformation() {
+    public String[] getImageInformation() {
         return imageInformation;
     }
 
