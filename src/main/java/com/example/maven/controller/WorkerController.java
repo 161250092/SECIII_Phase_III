@@ -8,26 +8,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * 众包工人控制器
+ */
 @RestController
 public class WorkerController {
 
     /**
-     * 获取所有未完成的任务
+     * 获取所有接受且已完成的任务
      * @param userId 用户Id
-     * @return 所有未完成的任务
+     * @return 所有已完成的任务
      */
-    @RequestMapping(value = "/WorkerController/getAllUnfinishedTasks", method = RequestMethod.GET)
-    public List<Task> getAllUnfinishedTasks(String userId){
+    @RequestMapping(value = "/WorkerController/getAcceptedAndAccomplishedTaskList", method = RequestMethod.GET)
+    public List<Task> getAcceptedAndAccomplishedTaskList(String userId){
         return null;
     }
 
     /**
-     * 获取所有已完成的任务
+     * 获取所有接受但未完成的任务
      * @param userId 用户Id
-     * @return 所有已完成的任务
+     * @return 所有未完成的任务
      */
-    @RequestMapping(value = "/WorkerController/getAllFinishedTasks", method = RequestMethod.GET)
-    public List<Task> getAllFinishedTasks(String userId){
+    @RequestMapping(value = "/WorkerController/getAcceptedButIncompleteTaskList", method = RequestMethod.GET)
+    public List<Task> getAcceptedButIncompleteTaskList(String userId){
         return null;
     }
 
@@ -53,11 +56,11 @@ public class WorkerController {
 
     /**
      * 提交一次完成的任务
-     * @param task
+     * @param task 任务
      * @return 是否提交成功
      */
-    @RequestMapping(value = "/WorkerController/submitFinishedTask", method = RequestMethod.GET)
-    public boolean submitFinishedTask(Task task){
+    @RequestMapping(value = "/WorkerController/submitAccomplishedTask", method = RequestMethod.GET)
+    public boolean submitAccomplishedTask(Task task){
         return false;
     }
 
