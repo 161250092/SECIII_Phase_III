@@ -1,29 +1,23 @@
 package com.example.maven.model;
 
-//对图片整体标注的标注类
-public class ImageLabel {
-    private String imageId;
-    private String userId;
+import java.io.Serializable;
+
+/**
+ * 整体标注类
+ */
+public class ImageLabel extends Label implements Serializable{
+
     private String label;
 
-    public String getImageId() {
-        return imageId;
+    public ImageLabel(String taskId, String imageId, String userId, String label) {
+        super(taskId, imageId, userId);
+        setType("ImageLabel");
+        this.label = label;
     }
 
-    public String getUserId() {
-        return userId;
-    }
 
     public String getLabel() {
         return label;
-    }
-
-    public void setImageId(String imageId) {
-        this.imageId = imageId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public void setLabel(String label) {

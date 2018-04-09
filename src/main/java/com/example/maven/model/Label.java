@@ -1,9 +1,11 @@
 package com.example.maven.model;
 
+import java.io.Serializable;
+
 /**
  * 所有标签类的父类
  */
-public class Label {
+public class Label implements Serializable{
     //任务Id
     private String taskId;
     //图片Id
@@ -44,10 +46,16 @@ public class Label {
         return type;
     }
 
-    public Label(String taskId, String imageId, String userId, String type) {
+
+    /**
+     * 父类构造方法
+     * @param taskId 任务Id
+     * @param imageId 图片Id
+     * @param userId 用户Id
+     */
+    public Label(String taskId, String imageId, String userId) {
         this.taskId = taskId;
         this.imageId = imageId;
         this.userId = userId;
-        this.type = type;
     }
 }
