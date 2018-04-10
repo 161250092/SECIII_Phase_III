@@ -1,4 +1,4 @@
-package com.example.maven.service.DataService;
+package com.example.maven.data.imageLabelData;
 
 import com.example.maven.model.ImageLabel;
 import java.util.ArrayList;

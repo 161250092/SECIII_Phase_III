@@ -39,8 +39,8 @@ const adminPageUrl = "../admin/index.html";
 
 
 // const mainPageUrl = "../../MainPage.html";
-// const loginPageUrl = "../login/index.html";
-// const registerPageUrl = "../register/register.html";
+// const loginPageUrl = "../loginBL/index.html";
+// const registerPageUrl = "../registerBL/registerBL.html";
 //
 // const doTaskPageUrl = "doTask.html";
 // const getTaskPageUrl = "getTask.html";

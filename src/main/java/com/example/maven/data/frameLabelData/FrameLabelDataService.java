@@ -1,8 +1,6 @@
-package com.example.maven.service.DataService;
+package com.example.maven.data.frameLabelData;
 
 import com.example.maven.model.frameLabel.FrameLabel;
-
-import java.util.ArrayList;
 
 /**
  * 标框标注模块数据层接口

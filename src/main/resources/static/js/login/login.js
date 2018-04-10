@@ -10,7 +10,7 @@ new Vue({
     methods:{
         login:function () {
             const _this = this;
-            axios.get("/LoginController/login", { params:{ userName: _this.userName, password: _this.password } }).then(function (response) {
+            axios.get("/LoginController/loginBL", { params:{ userName: _this.userName, password: _this.password } }).then(function (response) {
                 if(response.data === true){
                     /**
                      * 未完成
@@ -36,7 +36,7 @@ new Vue({
 //     $.ajax({
 //         async: false,
 //         type: "GET",
-//         url: "/LoginController/login",
+//         url: "/LoginController/loginBL",
 //         data: {
 //             userName: userName,
 //             password: password

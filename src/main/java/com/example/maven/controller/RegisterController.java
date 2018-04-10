@@ -1,17 +1,18 @@
 package com.example.maven.controller;
 
-import com.example.maven.businessLogic.RegisterBL;
+import com.example.maven.businessLogic.registerBL.RegisterBLImpl;
+import com.example.maven.businessLogic.registerBL.RegisterBLService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class RegisterController {
+public class RegisterController implements RegisterBLService {
 
-    private RegisterBL registerBL;
+    private RegisterBLService registerBL;
 
     public RegisterController(){
-        registerBL = new RegisterBL();
+        registerBL = new RegisterBLImpl();
     }
 
     /**

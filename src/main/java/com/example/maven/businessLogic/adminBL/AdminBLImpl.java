@@ -1,10 +1,10 @@
-package com.example.maven.businessLogic;
+package com.example.maven.businessLogic.adminBL;
 
 import com.example.maven.model.WebsiteStatistics;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class AdminBL {
+public class AdminBLImpl implements AdminBLService {
 
     public String getWebsiteStatistics(){
         Gson gson = new GsonBuilder().create();

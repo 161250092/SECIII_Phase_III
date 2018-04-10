@@ -1,17 +1,18 @@
 package com.example.maven.controller;
 
-import com.example.maven.businessLogic.LoginBL;
+import com.example.maven.businessLogic.loginBL.LoginBLImpl;
+import com.example.maven.businessLogic.loginBL.LoginBLService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class LoginController {
+public class LoginController implements LoginBLService {
 
-    private LoginBL loginBL;
+    private LoginBLService loginBL;
 
     public LoginController(){
-        loginBL = new LoginBL();
+        loginBL = new LoginBLImpl();
     }
 
     /**

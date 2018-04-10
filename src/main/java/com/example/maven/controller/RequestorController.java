@@ -1,5 +1,6 @@
 package com.example.maven.controller;
 
+import com.example.maven.businessLogic.requestorBL.RequestorBLService;
 import com.example.maven.model.Task;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,7 +12,7 @@ import java.util.List;
  * 众包发起者控制器
  */
 @RestController
-public class RequestorController {
+public class RequestorController implements RequestorBLService {
 
     /**
      * 上传图片集

@@ -1,6 +1,6 @@
-package com.example.maven.businessLogic.markFrame;
+package com.example.maven.businessLogic.markLabel.imageBL;
 
-public class ImageBL {
+public class ImageBLImpl implements ImageBLService {
 
     public String getImageById(String imageId){
         System.out.println("imageId=" + imageId);

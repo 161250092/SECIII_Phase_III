@@ -1,6 +1,6 @@
-package com.example.maven.businessLogic;
+package com.example.maven.businessLogic.registerBL;
 
-public class RegisterBL {
+public class RegisterBLImpl implements RegisterBLService {
 
     public boolean isExist(String userName){
         System.out.println(userName);

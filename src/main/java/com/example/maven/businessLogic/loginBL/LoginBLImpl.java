@@ -1,6 +1,6 @@
-package com.example.maven.businessLogic;
+package com.example.maven.businessLogic.loginBL;
 
-public class LoginBL {
+public class LoginBLImpl implements LoginBLService {
     public boolean login(String userName, String password){
         System.out.println(userName);
         System.out.println(password);

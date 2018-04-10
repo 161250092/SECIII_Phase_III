@@ -1,4 +1,4 @@
-package com.example.maven.service.DataService;
+package com.example.maven.data.areaLabelData;
 
 import com.example.maven.model.AreaLabel;
 

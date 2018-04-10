@@ -1,29 +1,22 @@
 package com.example.maven.controller.markLabel;
 
-import com.example.maven.businessLogic.markFrame.MarkFrameLabelBL;
-import com.example.maven.model.frameLabel.FrameLabel;
-import com.example.maven.model.frameLabel.FrameLabelTagItem;
-import com.example.maven.service.DataImpl.FrameLabelDataImpl;
-import com.example.maven.service.DataService.FrameLabelDataService;
-import com.google.gson.*;
+import com.example.maven.businessLogic.markLabel.markFrameLabelBL.MarkFrameLabelBLImpl;
+import com.example.maven.businessLogic.markLabel.markFrameLabelBL.MarkFrameLabelBLService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-
 @RestController
-public class MarkFrameLabelController {
+public class MarkFrameLabelController implements MarkFrameLabelBLService {
 
-    private MarkFrameLabelBL markFrameLabelBL;
+    private MarkFrameLabelBLService markFrameLabelBL;
 
     public MarkFrameLabelController(){
-        markFrameLabelBL = new MarkFrameLabelBL();
+        markFrameLabelBL = new MarkFrameLabelBLImpl();
     }
 
     @RequestMapping(value = "/markFrameLabel/saveFrameLabel", method = RequestMethod.GET)
-    public String saveFrameLabel(@RequestParam(defaultValue="null") String frameLabelJson){
+    public String saveFrameLabel(String frameLabelJson){
         return markFrameLabelBL.saveFrameLabel(frameLabelJson);
     }
 

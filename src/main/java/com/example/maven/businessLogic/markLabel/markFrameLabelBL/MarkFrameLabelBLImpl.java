@@ -1,20 +1,16 @@
-package com.example.maven.businessLogic.markFrame;
+package com.example.maven.businessLogic.markLabel.markFrameLabelBL;
 
-import com.example.maven.model.AreaLabel;
 import com.example.maven.model.frameLabel.FrameLabel;
-import com.example.maven.service.DataImpl.FrameLabelDataImpl;
-import com.example.maven.service.DataService.FrameLabelDataService;
+import com.example.maven.data.frameLabelData.FrameLabelDataImpl;
+import com.example.maven.data.frameLabelData.FrameLabelDataService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-
-public class MarkFrameLabelBL {
+public class MarkFrameLabelBLImpl implements MarkFrameLabelBLService {
 
     private FrameLabelDataService frameLabelData;
 
-    public MarkFrameLabelBL(){
+    public MarkFrameLabelBLImpl(){
         frameLabelData = new FrameLabelDataImpl();
     }
 

@@ -23,7 +23,7 @@ new Vue({
         register: function () {
             const _this = this;
             if(!this.isUserNameExisted && this.isPasswordCorrect){
-                axios.get("/RegisterController/register", { params:{ userName: _this.userName, password: _this.password } }).then(function (response) {
+                axios.get("/RegisterController/registerBL", { params:{ userName: _this.userName, password: _this.password } }).then(function (response) {
                     if(response.data === true){
                         /**
                          * 未完成

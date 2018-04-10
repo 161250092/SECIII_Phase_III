@@ -1,7 +1,7 @@
 package com.example.maven.controller.markLabel;
 
 import com.example.maven.model.AreaLabel;
-import com.example.maven.service.DataImpl.AreaLabelDataImpl;
+import com.example.maven.data.areaLabelData.AreaLabelDataImpl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +39,7 @@ public class MarkAreaLabelController {
 //        s.add("1,20;30,50;");
 //        s.add("1,20;30,50;");
 //
-//        AreaLabel areaLabel = new AreaLabel("0001", "admin", "myLabel", s);
+//        AreaLabel areaLabel = new AreaLabel("0001", "adminBL", "myLabel", s);
 
         return objectToJson;
     }

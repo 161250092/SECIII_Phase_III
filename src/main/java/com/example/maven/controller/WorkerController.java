@@ -1,5 +1,6 @@
 package com.example.maven.controller;
 
+import com.example.maven.businessLogic.workerBL.WorkerBLService;
 import com.example.maven.model.Label;
 import com.example.maven.model.Task;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +13,7 @@ import java.util.List;
  * 众包工人控制器
  */
 @RestController
-public class WorkerController {
+public class WorkerController implements WorkerBLService {
 
     /**
      * 获取所有接受且已完成的任务

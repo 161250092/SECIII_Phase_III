@@ -1,9 +1,7 @@
 package com.example.maven.controller;
 
-import com.example.maven.businessLogic.AdminBL;
-import com.example.maven.model.WebsiteStatistics;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.example.maven.businessLogic.adminBL.AdminBLImpl;
+import com.example.maven.businessLogic.adminBL.AdminBLService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,18 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
  * 管理员控制器
  */
 @RestController
-public class AdminController {
+public class AdminController implements AdminBLService {
 
-    private AdminBL adminBL;
+    private AdminBLService adminBL;
 
     public AdminController(){
-        adminBL = new AdminBL();
+        adminBL = new AdminBLImpl();
     }
 
-    /**
-     * 获得站点统计信息
-     * @return 站点统计信息类Json字符串
-     */
     @RequestMapping(value = "/AdministerController/uploadImages", method = RequestMethod.GET)
     public String getWebsiteStatistics(){
         return adminBL.getWebsiteStatistics();
