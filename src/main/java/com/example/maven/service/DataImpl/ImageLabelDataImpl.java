@@ -65,7 +65,7 @@ public class ImageLabelDataImpl implements ImageLabelDataService{
 
     @Override
     public ImageLabel getAreaLabelByImageId(String ImageId) {
-        ImageLabel image = new ImageLabel();
+        ImageLabel image = new ImageLabel("","","","");
 
         ArrayList<ImageLabel> list = getAllImageLabel();
 
@@ -90,7 +90,7 @@ public class ImageLabelDataImpl implements ImageLabelDataService{
     //String 变ImageLabel
     public static ImageLabel stringToLabel(String str){
         String[]  image= str.split("@#");
-        ImageLabel  label = new ImageLabel();
+        ImageLabel  label = new ImageLabel("","","","");
         label.setImageId(image[0]);
         label.setLabel(image[1]);
         label.setUserId(image[2]);

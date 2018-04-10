@@ -16,13 +16,13 @@ public class LoginController {
 
     /**
      * 判断是否登陆成功
-     * @param userName 用户昵称
+     * @param userId 用户ID
      * @param password 用户密码
      * @return 是否登陆成功
      */
     @RequestMapping(value = "/LoginController/login", method = RequestMethod.GET)
-    public boolean login(String userName, String password){
-        return loginBL.login(userName, password);
+    public boolean login(String userId, String password){
+        return loginBL.login(userId, password);
     }
 
 }

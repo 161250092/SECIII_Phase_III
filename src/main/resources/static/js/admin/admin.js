@@ -1,4 +1,4 @@
-var vm = new Vue({
+new Vue({
     el:"#statisticsTable",
     data:{
         numOfUsers: 0,
@@ -14,11 +14,11 @@ var vm = new Vue({
     methods:{
         getWebsiteStatistics:function () {
             var _this = this;
-            axios.get("/AdministerController/uploadImages").then(function (value) {
-                _this.numOfUsers = value.data.numOfUsers;
-                _this.numOfTasks = value.data.numOfTasks;
-                _this.numOfIncompleteTasks = value.data.numOfIncompleteTasks;
-                _this.numOfAccomplishedTask = value.data.numOfAccomplishedTask;
+            axios.get("/AdministerController/uploadImages").then(function (response) {
+                _this.numOfUsers = response.data.numOfUsers;
+                _this.numOfTasks = response.data.numOfTasks;
+                _this.numOfIncompleteTasks = response.data.numOfIncompleteTasks;
+                _this.numOfAccomplishedTask = response.data.numOfAccomplishedTask;
             })
         }
     }

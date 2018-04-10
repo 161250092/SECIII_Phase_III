@@ -16,25 +16,67 @@ function jumpToAnotherPage(url,userId){
 
 
 //各页面URL
-var mainPageUrl = "../../MainPage.html";
-var loginPageUrl = "../login/index.html";
-var registerPageUrl = "../register/register.html";
+const mainPageUrl = "../../MainPage.html";
+const loginPageUrl = "../login/index.html";
+const registerPageUrl = "../register/index.html";
 
-var doTaskPageUrl = "doTask.html";
-var getTaskPageUrl = "getTask.html";
-var workerCheckTaskPageUrl = "WorkerCheckTask.html";
+const doTaskPageUrl = "doTask.html";
+const getTaskPageUrl = "getTask.html";
+const workerCheckTaskPageUrl = "WorkerCheckTask.html";
 
-var checkMyTaskPageUrl = "CheckMyTask.html";
-var uploadTaskPageUrl = "UploadTask.html";
+const checkMyTaskPageUrl = "CheckMyTask.html";
+const uploadTaskPageUrl = "UploadTask.html";
 
-var lineMarkPageUrl = "LineMarkPage.html";
-var markFrameLabelPageUrl = "markFrameLabel.html";
-var overAllPageUrl = "OverAllPage.html";
+const lineMarkPageUrl = "LineMarkPage.html";
+const markFrameLabelPageUrl = "markFrameLabel.html";
+const overAllPageUrl = "OverAllPage.html";
 
-var checkFrameLabelPageUrl = "CheckFrameLabel.html";
-var checkLineLabelPageUrl = "CheckLineLabel.html";
-var checkOverAllLabelPageUrl = "CheckOverAllLabel.html";
+const checkFrameLabelPageUrl = "CheckFrameLabel.html";
+const checkLineLabelPageUrl = "CheckLineLabel.html";
+const checkOverAllLabelPageUrl = "CheckOverAllLabel.html";
 
+const adminPageUrl = "../admin/index.html";
+
+
+// const mainPageUrl = "../../MainPage.html";
+// const loginPageUrl = "../login/index.html";
+// const registerPageUrl = "../register/register.html";
+//
+// const doTaskPageUrl = "doTask.html";
+// const getTaskPageUrl = "getTask.html";
+// const workerCheckTaskPageUrl = "WorkerCheckTask.html";
+//
+// const checkMyTaskPageUrl = "CheckMyTask.html";
+// const uploadTaskPageUrl = "UploadTask.html";
+//
+// const lineMarkPageUrl = "LineMarkPage.html";
+// const markFrameLabelPageUrl = "markFrameLabel.html";
+// const overAllPageUrl = "OverAllPage.html";
+//
+// const checkFrameLabelPageUrl = "CheckFrameLabel.html";
+// const checkLineLabelPageUrl = "CheckLineLabel.html";
+// const checkOverAllLabelPageUrl = "CheckOverAllLabel.html";
+//
+// export default {
+//     mainPageUrl,
+//     loginPageUrl,
+//     registerPageUrl,
+//
+//     doTaskPageUrl,
+//     getTaskPageUrl,
+//     workerCheckTaskPageUrl,
+//
+//     checkMyTaskPageUrl,
+//     uploadTaskPageUrl,
+//
+//     lineMarkPageUrl,
+//     markFrameLabelPageUrl,
+//     overAllPageUrl,
+//
+//     checkFrameLabelPageUrl,
+//     checkLineLabelPageUrl,
+//     checkOverAllLabelPageUrl
+// };
 
 
 
