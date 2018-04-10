@@ -4,15 +4,18 @@ document.write("<script language=javascript src='../../js/pageJump.js'></script>
 new Vue({
     el: "#loginContainer",
     data:{
-        userId: "",
+        userName: "",
         password: ""
     },
     methods:{
         login:function () {
             const _this = this;
-            axios.get("/LoginController/login", { params:{ userId: _this.userId, password: _this.password } }).then(function (response) {
+            axios.get("/LoginController/login", { params:{ userName: _this.userName, password: _this.password } }).then(function (response) {
                 if(response.data === true){
-                    jumpToAnotherPage(mainPageUrl, _this.userId);
+                    /**
+                     * 未完成
+                     */
+                    jumpToAnotherPage(mainPageUrl, "testID");
                 }else {
                     alert("登录失败");
                 }

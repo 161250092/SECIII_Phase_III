@@ -1,12 +1,12 @@
 package com.example.maven.businessLogic;
 
 public class LoginBL {
-    public boolean login(String userId, String password){
-        System.out.println(userId);
+    public boolean login(String userName, String password){
+        System.out.println(userName);
         System.out.println(password);
-        if(userId == null) return false;
+        if(userName == null) return false;
         //test
-        if (userId.equals("2333"))
+        if (userName.equals("2333"))
             return true;
         else
             return false;
