@@ -11,8 +11,8 @@
 
         <div>
             <label for="userName">用户名：</label>
-            <input type="text" id="userName" placeholder="请输入你的用户名" v-model="userName" v-on:blur="checkUserName">
-            <p>{{userName}}</p>
+            <input type="text" id="userName" placeholder="请输入你的用户名" v-model="userName" v-on:input="checkUserName">
+            <p>userName ::= {{userName}}</p>
             <template v-if="isUserNameExisted">
                 <p>该用户名已存在</p>
             </template>
@@ -20,19 +20,24 @@
 
         <div>
             <label for="password">密码：</label>
-            <input type="password" name="password" id="password">
+            <input type="password" id="password" placeholder="请输入你的密码" v-model="password">
+            <p>password ::= {{password}}</p>
         </div>
 
         <div>
-            <label for="conf-password">请再次输入密码：</label>
-            <input type="password" name="conf-password" id="conf-password">
-            <div id="confPasswordFeedback"></div>
+            <label for="confirmedPassword">请再次输入密码：</label>
+            <input type="password" id="confirmedPassword" placeholder="请再次输入你的密码" v-model="confirmedPassword" v-on:input="checkPassword">
+            <p>confirmedPassword ::= {{confirmedPassword}}</p>
+            <template v-if="!isPasswordCorrect">
+                <p>密码不一致</p>
+            </template>
         </div>
 
-        <button id="registerButton">注册</button>
+        <button v-on:click="register">注册</button>
     </div>
+
+    <a href="../login/index.html">登陆</a>
 </div>
-<a href="../login/index.html">登陆</a>
 
 <script src="../../js/lib/vue.js"></script>
 <script src="../../js/lib/axios.js"></script>

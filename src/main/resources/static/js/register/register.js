@@ -1,97 +1,41 @@
 document.write("<script language=javascript src='../../js/pageJump.js'></script>");
 document.write("<script language=javascript src='../../js/user/user.js'></script>");
 
-
 new Vue({
     el:"#registerContainer",
     data:{
         userName:"",
         password:"",
-        confPassword:"",
+        confirmedPassword:"",
         isUserNameExisted: false,
         isPasswordCorrect: true,
     },
-    method:{
+    methods:{
         checkUserName: function () {
             const _this = this;
-            axios.get("/RegisterController/register", { params:{ userName: _this.userName, password: _this.password } }).then(function (response) {
+            axios.get("/RegisterController/isExist", { params:{ userName: _this.userName} }).then(function (response) {
                 _this.isUserNameExisted = response.data;
             });
         },
+        checkPassword: function () {
+            this.isPasswordCorrect = (this.password === this.confirmedPassword);
+        },
         register: function () {
             const _this = this;
-            axios.get("/RegisterController/register", { params:{ userName: _this.userName, password: _this.password } }).then(function (response) {
-                if(response.data === true){
-                    /**
-                     * 未完成
-                     */
-                    jumpToAnotherPage(mainPageUrl, "testID");
-                } else{
-                    alert("注册失败");
-                }
-            });
+            if(!this.isUserNameExisted && this.isPasswordCorrect){
+                axios.get("/RegisterController/register", { params:{ userName: _this.userName, password: _this.password } }).then(function (response) {
+                    if(response.data === true){
+                        /**
+                         * 未完成
+                         */
+                        jumpToAnotherPage(mainPageUrl, "testID");
+                    } else{
+                        alert("注册失败");
+                        _this.password = "";
+                        _this.confirmedPassword = "";
+                    }
+                });
+            }
         }
     }
 });
-
-
-// var $userNameEl = $("#userName");
-// var $passwordEl = $("#password");
-// var $confPasswordEl = $("#conf-password");
-//
-// var $userNameFeedbackEl = $("#userNameFeedback");
-// var $confPasswordFeedbackEl = $("#confPasswordFeedback");
-//
-//
-// $userNameEl.blur(function (ev) {
-//     var userName = $userNameEl.val();
-//
-//     $.ajax({
-//         type: "GET",
-//         url: "/RegisterController/isExist" ,
-//         data: {
-//             userName: userName
-//         },
-//
-//         success:function (result) {
-//             if(result === false){
-//                 $userNameFeedbackEl.text("该用户名已存在");
-//             }
-//         }
-//     });
-// });
-//
-// $confPasswordEl.blur(function (ev) {
-//     var password = $passwordEl.val();
-//     var confPassword = $confPasswordEl.val();
-//
-//     if(password !== confPassword){
-//         $confPasswordFeedbackEl.text("密码不一致");
-//     }else{
-//         $confPasswordFeedbackEl.text("");
-//     }
-// });
-//
-//
-// $("#registerButton").click(function (ev) {
-//     var userName = $userNameEl.val();
-//     var password = $passwordEl.val();
-//
-//     $.ajax({
-//         type: "GET",
-//         url: "/",
-//         data: {
-//             userId: userName,
-//             password: password
-//         },
-//         // data: loginForm,
-//         success:function (result) {
-//             if(result === true){
-//                 var userId = getUserId(userName);
-//                 jumpToAnotherPage(mainPageUrl, userId);
-//             }else {
-//                 alert("注册失败");
-//             }
-//         }
-//     });
-// });
