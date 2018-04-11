@@ -1,6 +1,6 @@
 package com.example.maven.service.DataService;
 
-import com.example.maven.model.Label;
+import com.example.maven.model.po.Label;
 import java.util.List;
 
 public interface LabelDataService {

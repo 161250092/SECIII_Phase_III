@@ -1,6 +1,6 @@
 package com.example.maven.data.LabelData;
 
-import com.example.maven.model.Label;
+import com.example.maven.model.po.Label;
 import com.example.maven.service.DataService.LabelDataService;
 
 import java.util.List;
