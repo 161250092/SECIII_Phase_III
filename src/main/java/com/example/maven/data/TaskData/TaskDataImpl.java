@@ -39,14 +39,6 @@ public class TaskDataImpl implements TaskDataService{
     }
 
     /**
-     * 任务发布前获取任务ID
-     * @param userId 用户ID
-     */
-    public String getTaskID(String userId){
-        return null;
-    }
-
-    /**
      * 任务发布时保存任务信息
      */
     public Boolean saveTask(String userId,Task task){
