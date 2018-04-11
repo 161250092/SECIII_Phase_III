@@ -26,5 +26,5 @@ public interface UserDataService {
     *修改用户积分
     * @param score 积分更改数值
      */
-    public Boolean reviseScore(String userId,int score);
+    public boolean reviseScore(String userId,int score);
 }
