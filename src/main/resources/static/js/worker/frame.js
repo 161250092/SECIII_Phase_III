@@ -1,3 +1,4 @@
+//下拉框获取任务名
 window.onload=function(){
 
     for(var i=0;i<AllUnfinishedTasks.length;i++){
@@ -5,3 +6,5 @@ window.onload=function(){
             insertOption(AllUnfinishedTasks[i].taskId,type3);
     }
 };
+
+

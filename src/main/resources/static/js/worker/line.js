@@ -1,7 +1,6 @@
 //下拉框获取任务信息
 
 window.onload=function(){
-
     for(var i=0;i<AllUnfinishedTasks.length;i++){
         if(AllUnfinishedTasks[i].labelType==type1)
         insertOption(AllUnfinishedTasks[i].taskId,type2);
@@ -16,9 +15,12 @@ function insertOption(taskId,type)
     var x;
 
     if(type==type1)
+    //整体标注
         x=document.getElementById("overallTask");
+
     else if(type==type2)
         x=document.getElementById("frameTask");
+
     else if(type==type3)
         x=document.getElementById("lineTask");
 
@@ -33,7 +35,7 @@ function insertOption(taskId,type)
 }
 
 //改变图片源
-$("#send").click(function(){
+$("#startMytask").click(function(){
 
 
 

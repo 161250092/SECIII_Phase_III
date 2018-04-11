@@ -1,6 +1,6 @@
 package com.example.maven.businessLogic.requestorBL;
 
-import com.example.maven.model.Task;
+import com.example.maven.model.po.Task;
 
 import java.util.List;
 

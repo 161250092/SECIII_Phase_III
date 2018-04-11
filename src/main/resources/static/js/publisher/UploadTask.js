@@ -1,7 +1,7 @@
 
 var tasId;
 
-var labelType;
+var labelType="";
 
 var iamge=[];
 
@@ -11,16 +11,23 @@ var finishedNumber;
 var score1;
 
 
-//get value
+
 function getInforMation(){
     taskId = $("TaskId").val();
-    var index= $("LabelType").selectedIndex;
-    labelType = $("LabelType").options[index].val();
+    getType();
     introduction = $("Introduction").val();
     requiredNumber = parseInt($("RequiredNumber").val());
     finishedNumber = parseInt($("FinishedNumber").val());
     score1= parseInt($("Score").val());
 
+}
+
+function getType(){
+    // var index= $("LabelType").selectedIndex;
+    // labelType = $("LabelType").options[index].val();
+
+    var selectObj = document.getElementById("LabelType");
+    labelType = selectObj.value;
 }
 
 
@@ -43,83 +50,83 @@ window.onload = function(){
     }　　　　　//handler
 
 
-    function readFile(){
-        fd = new FormData();
-        var iLen = this.files.length;
-        var index = 0;
-        for(var i=0;i<iLen;i++){
-            if (!input['value'].match(/.jpg|.gif|.png|.jpeg|.bmp/i)){　　//判断上传文件格式
-                return alert("上传的图片格式不正确，请重新选择");
+function readFile(){
+    fd = new FormData();
+    var iLen = this.files.length;
+    var index = 0;
+    for(var i=0;i<iLen;i++){
+        if (!input['value'].match(/.jpg|.gif|.png|.jpeg|.bmp/i)){　　//判断上传文件格式
+            return alert("上传的图片格式不正确，请重新选择");
+        }
+        var reader = new FileReader();
+        reader.index = i;
+        fd.append(i,this.files[i]);
+        reader.readAsDataURL(this.files[i]);  //转成base64
+        reader.fileName = this.files[i].name;
+
+
+        reader.onload = function(e){
+            var imgMsg = {
+                name : this.fileName,//获取文件名
+                base64 : this.result   //reader.readAsDataURL方法执行完后，base64数据储存在reader.result里
             }
-            var reader = new FileReader();
-            reader.index = i;
-            fd.append(i,this.files[i]);
-            reader.readAsDataURL(this.files[i]);  //转成base64
-            reader.fileName = this.files[i].name;
-
-
-            reader.onload = function(e){
-                var imgMsg = {
-                    name : this.fileName,//获取文件名
-                    base64 : this.result   //reader.readAsDataURL方法执行完后，base64数据储存在reader.result里
+            dataArr.push(imgMsg);
+            result = '<div class="delete">delete</div><div class="result"><img src="'+this.result+'" alt=""/></div>';
+            var div = document.createElement('div');
+            div.innerHTML = result;
+            div['className'] = 'float';
+            div['index'] = index;
+            document.getElementsByTagName('body')[0].appendChild(div);  　　//插入dom树
+            var img = div.getElementsByTagName('img')[0];
+            img.onload = function(){
+                var nowHeight = ReSizePic(this); //设置图片大小
+                this.parentNode.style.display = 'block';
+                var oParent = this.parentNode;
+                if(nowHeight){
+                    oParent.style.paddingTop = (oParent.offsetHeight - nowHeight)/2 + 'px';
                 }
-                dataArr.push(imgMsg);
-                result = '<div class="delete">delete</div><div class="result"><img src="'+this.result+'" alt=""/></div>';
-                var div = document.createElement('div');
-                div.innerHTML = result;
-                div['className'] = 'float';
-                div['index'] = index;
-                document.getElementsByTagName('body')[0].appendChild(div);  　　//插入dom树
-                var img = div.getElementsByTagName('img')[0];
-                img.onload = function(){
-                    var nowHeight = ReSizePic(this); //设置图片大小
-                    this.parentNode.style.display = 'block';
-                    var oParent = this.parentNode;
-                    if(nowHeight){
-                        oParent.style.paddingTop = (oParent.offsetHeight - nowHeight)/2 + 'px';
-                    }
-                }
-
-
-                div.onclick = function(){
-                    this.remove();                  // 在页面中删除该图片元素
-                    delete dataArr[this.index];  // 删除dataArr对应的数据
-                }
-                index++;
             }
+
+
+            div.onclick = function(){
+                this.remove();                  // 在页面中删除该图片元素
+                delete dataArr[this.index];  // 删除dataArr对应的数据
+            }
+            index++;
         }
     }
+}
 
 
-    function send(){
+function send(){
 
 
-        var submitArr = [];
-        for (var i = 0; i < dataArr.length; i++) {
-            if (dataArr[i]) {
-                submitArr.push(dataArr[i]);
-            }
+    var submitArr = [];
+    for (var i = 0; i < dataArr.length; i++) {
+        if (dataArr[i]) {
+            submitArr.push(dataArr[i]);
         }
-        //全局变量赋值
-        getInformation();
-
-        var task = new Task(taskId,labelType,submitArr,introduction,requiredNumber,finishedNumber,score1);
-
-        // console.log('提交的数据：'+JSON.stringify(submitArr))
-        $.ajax({
-            url : "/RequestorController/assignTask",
-            type : 'post',
-            data : JSON.stringify(task),
-            dataType: 'json',
-            processData: false,
-            // 用FormData传fd时需有这两项
-            contentType: false,
-            success : function(data){
-                console.log('返回的数据：'+JSON.stringify(data))
-            }
-
-        })
     }
+    //全局变量赋值
+    getInformation();
+
+    var task = new Task(taskId,labelType,submitArr,introduction,requiredNumber,finishedNumber,score1);
+
+    // console.log('提交的数据：'+JSON.stringify(submitArr))
+    $.ajax({
+        url : "/RequestorController/assignTask",
+        type : 'post',
+        data : JSON.stringify(task),
+        dataType: 'json',
+        processData: false,
+        // 用FormData传fd时需有这两项
+        contentType: false,
+        success : function(data){
+            console.log('返回的数据：'+JSON.stringify(data))
+        }
+
+    })
+}
 
 
 
@@ -175,3 +182,16 @@ function ReSizePic(ThisPic) {
 }
 
 
+function getTaskId(){
+    var time = Date.parse(new Date());
+   // var time = "2018";
+    getType();
+
+    document.getElementById("TaskId").value ="_"+labelType+"_"+time;
+}
+
+
+$("#getTaskId").click(function () {
+    getTaskId();
+
+});

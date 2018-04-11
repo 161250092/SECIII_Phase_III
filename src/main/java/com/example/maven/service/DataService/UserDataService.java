@@ -1,6 +1,7 @@
 package com.example.maven.service.DataService;
 
-import com.example.maven.model.User;
+import com.example.maven.model.po.User;
+
 import java.util.List;
 
 public interface UserDataService {
