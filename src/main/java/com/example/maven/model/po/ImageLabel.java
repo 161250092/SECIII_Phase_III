@@ -1,4 +1,4 @@
-package com.example.maven.model;
+package com.example.maven.model.po;
 
 import java.io.Serializable;
 
@@ -15,6 +15,9 @@ public class ImageLabel extends Label implements Serializable{
         this.label = label;
     }
 
+    public ImageLabel(){
+        setType("ImageLabel");
+    }
 
     public String getLabel() {
         return label;

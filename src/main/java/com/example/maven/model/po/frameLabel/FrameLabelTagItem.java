@@ -1,4 +1,4 @@
-package com.example.maven.model.frameLabel;
+package com.example.maven.model.po.frameLabel;
 
 import java.io.Serializable;
 

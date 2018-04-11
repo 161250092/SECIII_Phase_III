@@ -1,6 +1,6 @@
 package com.example.maven.businessLogic.markLabel.markFrameLabelBL;
 
-import com.example.maven.model.frameLabel.FrameLabel;
+import com.example.maven.model.po.frameLabel.FrameLabel;
 import com.example.maven.data.frameLabelData.FrameLabelDataImpl;
 import com.example.maven.data.frameLabelData.FrameLabelDataService;
 import com.google.gson.Gson;
@@ -32,6 +32,16 @@ public class MarkFrameLabelBLImpl implements MarkFrameLabelBLService {
         String objectToJson = gson.toJson(frameLabel);
 
         return objectToJson;
+    }
+
+    @Override
+    public int getTaskImageNumber(String taskId) {
+        return 0;
+    }
+
+    @Override
+    public String getImageInfo(int imageIndex, String taskId, String userId) {
+        return null;
     }
 
 }

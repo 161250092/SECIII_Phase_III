@@ -25,4 +25,14 @@ public class MarkFrameLabelController implements MarkFrameLabelBLService {
        return markFrameLabelBL.getFrameLabel(userId, imageId);
     }
 
+    @Override
+    public int getTaskImageNumber(String taskId) {
+        return 0;
+    }
+
+    @Override
+    public String getImageInfo(int imageIndex, String taskId, String userId) {
+        return null;
+    }
+
 }

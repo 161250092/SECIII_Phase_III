@@ -1,6 +1,6 @@
 package com.example.maven.controller.markLabel;
 
-import com.example.maven.model.AreaLabel;
+import com.example.maven.model.po.AreaLabel;
 import com.example.maven.data.areaLabelData.AreaLabelDataImpl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

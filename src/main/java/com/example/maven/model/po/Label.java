@@ -1,4 +1,4 @@
-package com.example.maven.model;
+package com.example.maven.model.po;
 
 import java.io.Serializable;
 
@@ -57,5 +57,8 @@ public class Label implements Serializable{
         this.taskId = taskId;
         this.imageId = imageId;
         this.userId = userId;
+    }
+
+    public Label(){
     }
 }
