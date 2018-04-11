@@ -1,6 +1,8 @@
 
 window.onload=function(){
-
+    //清空表格内容
+    clearRow("TaskTable");
+    //添加表格任务
     for(var i=0;i<AllUnfinishedTasks.length;i++){
         addTask(AllUnfinishedTasks[i],"TaskTable");
     }
@@ -31,13 +33,32 @@ function addTask(singleTask,id){
     Cell_3.className="s4";
 
 
-    var Cell_4=tableRow.insertCell(4);
+    if(singleTask.labelType==type1) {
+        var Cell_4 = tableRow.insertCell(4);
+        Cell_4.innerHTML = '<a href="OverAllPage.html"  readonly="true"/>';
+        Cell_4.className = "s5";
+    }
 
-    Cell_4.innerHTML='<a href="OverAllPage.html"  readonly="true"/>';
-    Cell_4.className="s5";
+    else if(singleTask.labelType==type2){
+        var Cell_4 = tableRow.insertCell(4);
+        Cell_4.innerHTML = '<a href="markFrameLabel.html"  readonly="true"/>';
+        Cell_4.className = "s5";
+    }
+
+    else if(singleTask.labelType==type3){
+        var Cell_4 = tableRow.insertCell(4);
+        Cell_4.innerHTML = '<a href="LineMarkPage.html"  readonly="true"/>';
+        Cell_4.className = "s5";
+    }
+
 
 }
 
+function clearRow(trid){
+    var t=document.getElementById(trid);
+//删除所有行
+    t.firstChild.removeNode(true)
+}
 
 
 
