@@ -1,55 +1,41 @@
-var $userNameEl = $("#userName");
-var $passwordEl = $("#password");
-var $confPasswordEl = $("#conf-password");
+document.write("<script language=javascript src='../../js/pageJump.js'></script>");
+document.write("<script language=javascript src='../../js/user/user.js'></script>");
 
-var $userNameFeedbackEl = $("#userNameFeedback");
-var $confPasswordFeedbackEl = $("#confPasswordFeedback");
-
-
-$userNameEl.blur(function (ev) {
-    var userName = $userNameEl.val();
-
-    $.ajax({
-        type: "GET",
-        url: "/RegisterController/isExist" ,
-        data: {
-            userName: userName
+new Vue({
+    el:"#registerContainer",
+    data:{
+        userName:"",
+        password:"",
+        confirmedPassword:"",
+        isUserNameExisted: false,
+        isPasswordCorrect: true,
+    },
+    methods:{
+        checkUserName: function () {
+            const _this = this;
+            axios.get("/RegisterController/isExist", { params:{ userName: _this.userName} }).then(function (response) {
+                _this.isUserNameExisted = response.data;
+            });
         },
-
-        success:function (result) {
-            if(result === false){
-                $userNameFeedbackEl.text("该用户名已存在");
+        checkPassword: function () {
+            this.isPasswordCorrect = (this.password === this.confirmedPassword);
+        },
+        register: function () {
+            const _this = this;
+            if(!this.isUserNameExisted && this.isPasswordCorrect){
+                axios.get("/RegisterController/registerBL", { params:{ userName: _this.userName, password: _this.password } }).then(function (response) {
+                    if(response.data === true){
+                        /**
+                         * 未完成
+                         */
+                        jumpToAnotherPage(mainPageUrl, "testID");
+                    } else{
+                        alert("注册失败");
+                        _this.password = "";
+                        _this.confirmedPassword = "";
+                    }
+                });
             }
         }
-    });
-});
-
-$confPasswordEl.blur(function (ev) {
-    var password = $passwordEl.val();
-    var confPassword = $confPasswordEl.val();
-
-    if(password !== confPassword){
-        $confPasswordFeedbackEl.text("密码不一致");
-    }else{
-        $confPasswordFeedbackEl.text("");
     }
-});
-
-
-$("#registerButton").click(function (ev) {
-    var userName = $userNameEl.val();
-    var password = $passwordEl.val();
-
-    $.ajax({
-        type: "GET",
-        url: "/",
-        data: {
-            userId: userName,
-            password: password
-        },
-        // data: loginForm,
-        success:function (result) {
-            alert(result);
-        }
-    });
 });

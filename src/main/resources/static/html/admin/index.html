@@ -1,57 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-    <title>扁平化可伸展导航[原创]</title>
-	
-    <link rel="stylesheet" type="text/css" href="css/nav.css">
-    <link rel="stylesheet" type="text/css" href="font/iconfont.css">
-	
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/nav.js"></script>
-	
+    <meta charset="UTF-8">
+    <title>网站管理员</title>
 </head>
 <body>
-    <div class="nav">
-        <div class="nav-top">
-            <div id="mini" style="border-bottom:1px solid rgba(255,255,255,.1)"><img src="images/mini.png" ></div>
-        </div>
-        <ul>
-            <li class="nav-item">
-                <a href="javascript:;"><i class="my-icon nav-icon icon_1"></i><span>用户管理</span><i class="my-icon nav-more"></i></a>
-                <ul>
-                    <li><a href="javascript:;"><span>注册新用户</span></a></li>
-                    <li><a href="javascript:;"><span>修改密码</span></a></li>
-                    <li><a href="javascript:;"><span>积分管理</span></a></li>
-                    
-                </ul>
-            </li>
+<div>
+    <h1>众包情况</h1>
 
-            <li class="nav-item">
-                <a href="javascript:;"><i class="my-icon nav-icon icon_2"></i><span>众包管理</span><i class="my-icon nav-more"></i></a>
-                <ul>
-                    <li><a href="javascript:;"><span>分配任务</span></a></li>
-                </ul>       
-            </li>
+    <table id="statisticsTable" border="1">
+        <tr>
+            <th>用户数</th>
+            <th>任务数</th>
+            <th>进行中</th>
+            <th>已完成</th>
+        </tr>
 
+        <tr>
+            <td>{{numOfUsers}}</td>
+            <td>{{numOfTasks}}</td>
+            <td>{{numOfIncompleteTasks}}</td>
+            <td>{{numOfAccomplishedTask}}</td>
+        </tr>
+    </table>
 
-            <li class="nav-item">
-                <a href="javascript:;"><i class="my-icon nav-icon icon_3"></i><span>数据分析</span><i class="my-icon nav-more"></i></a>
-                <ul>
-                    <li><a href="javascript:;"><span>个人任务</span></a></li>
-                    <li><a href="javascript:;"><span>众包发起方</span></a></li>
-                    <li><a href="javascript:;"><span>管理员任务</span></a></li>
-                </ul>
-            </li>
+    <a href="../login/index.html">登出</a>
+</div>
 
-
-        </ul>
-    </div>
-
-
-
-
+<script src="../../js/lib/vue.js"></script>
+<script src="../../js/lib/axios.js"></script>
+<script src="../../js/lib/jquery-1.11.0.min.js"></script>
+<script src="../../js/admin/admin.js"></script>
 </body>
 </html>
-
-

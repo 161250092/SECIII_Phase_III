@@ -1,27 +1,3 @@
-var userId;
-//推送的任务
-var introductionTask = new Array();
-//接受的任务
-var addedTask = new Array();
-
-
-//task class defination
-function Task(taskId,labelType,imageName,introduction,requiredNumber,finishedNumber,score)
-{
-this.taskId = taskId;
-this.labelType = labelType;
-this.imageName = imageName;
-this.introduction = introduction;
-this.requiredNumber = requiredNumber;
-this.finishedNumber = finishedNumber;
-this.score = score;
-}
-
-
-function login(user){
-	userId = user;
-}
-
 
 function getMyIntroductionTask(userId){
 

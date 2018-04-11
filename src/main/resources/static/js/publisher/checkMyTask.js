@@ -3,29 +3,6 @@ var AssignedIncompletedTaskList = new Array();
 
 var AssignedCompletedTaskList = new Array();
 
-//用户名
-var userId;
-
-//task class defination
-function Task(taskId,labelType,imageName,introduction,requiredNumber,finishedNumber,score)
-{
-this.taskId = taskId;
-this.labelType = labelType;
-this.imageName = imageName;
-this.introduction = introduction;
-this.requiredNumber = requiredNumber;
-this.finishedNumber = finishedNumber;
-this.score = score;
-}
-
-
-
-function login(user){
-    userId = sessionStorage.getItem('userId');
-}
-
-
-
 //从服务器获取一个user 的 incompleted task
 function getAssignedIncompletedTaskList(userId){
 

@@ -1,4 +1,3 @@
-var userId;
 
 var tasId;
 
@@ -9,23 +8,8 @@ var iamge=[];
 var introduction;
 var requiredNumber;
 var finishedNumber;
-var score;
+var score1;
 
-//task class defination
-function Task(taskId,labelType,image,introduction,requiredNumber,finishedNumber,score)
-{
-    this.taskId = taskId;
-    this.labelType = labelType;
-    this.image = image;
-    this.introduction = introduction;
-    this.requiredNumber = requiredNumber;
-    this.finishedNumber = finishedNumber;
-    this.score = score;
-}
-
-function login(user){
-    userId = user;
-}
 
 //get value
 function getInforMation(){
@@ -35,7 +19,7 @@ function getInforMation(){
     introduction = $("Introduction").val();
     requiredNumber = parseInt($("RequiredNumber").val());
     finishedNumber = parseInt($("FinishedNumber").val());
-    score= parseInt($("Score").val());
+    score1= parseInt($("Score").val());
 
 }
 
@@ -119,7 +103,7 @@ window.onload = function(){
         //全局变量赋值
         getInformation();
 
-        var task = new Task(taskId,labelType,submitArr,introduction,requiredNumber,finishedNumber,score);
+        var task = new Task(taskId,labelType,submitArr,introduction,requiredNumber,finishedNumber,score1);
 
         // console.log('提交的数据：'+JSON.stringify(submitArr))
         $.ajax({
