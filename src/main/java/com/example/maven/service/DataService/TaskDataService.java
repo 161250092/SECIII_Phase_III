@@ -30,7 +30,7 @@ public interface TaskDataService {
 
     /**
      * 任务发布前获取任务ID
-     * @param ID 用户ID
+     * @param userId 用户ID
      */
     public String getTaskID(String userId);
 
