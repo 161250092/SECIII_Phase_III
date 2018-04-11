@@ -1,6 +1,6 @@
 package com.example.maven.data.frameLabelData;
 
-import com.example.maven.model.frameLabel.FrameLabel;
+import com.example.maven.model.po.frameLabel.FrameLabel;
 
 /**
  * 标框标注模块数据层接口

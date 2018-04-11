@@ -1,7 +1,7 @@
 package com.example.maven.data.frameLabelData;
 
 import com.example.maven.data.fileHelper.FileHelper;
-import com.example.maven.model.frameLabel.FrameLabel;
+import com.example.maven.model.po.frameLabel.FrameLabel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

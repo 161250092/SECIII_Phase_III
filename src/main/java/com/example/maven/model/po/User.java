@@ -17,6 +17,9 @@ public class User {
     private ArrayList<String> taggedTask;
     //用户积分
     private int score;
+    //判断用户是否具有管理员权限
+    private boolean isAdmin;
+
 
 
     public void setUserId(String userId) {
@@ -41,6 +44,9 @@ public class User {
 
     public void setScore(int score) { this.score = score; }
 
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
 
     public String getUserId() {
         return userId;
@@ -64,13 +70,18 @@ public class User {
 
     public int getScore() { return score; }
 
-    public User(String userId, String password, String userName, ArrayList<String> publishedTask, ArrayList<String> taggedTask, int score) {
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public User(String userId, String password, String userName, ArrayList<String> publishedTask, ArrayList<String> taggedTask, int score, boolean isAdmin) {
         this.userId = userId;
         this.password = password;
         this.userName = userName;
         this.publishedTask = publishedTask;
         this.taggedTask = taggedTask;
         this.score = score;
+        this.isAdmin = isAdmin;
     }
 
 

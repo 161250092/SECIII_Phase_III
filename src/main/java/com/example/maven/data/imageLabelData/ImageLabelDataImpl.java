@@ -1,7 +1,7 @@
 package com.example.maven.data.imageLabelData;
 
 import com.example.maven.data.fileHelper.FileHelper;
-import com.example.maven.model.ImageLabel;
+import com.example.maven.model.po.ImageLabel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

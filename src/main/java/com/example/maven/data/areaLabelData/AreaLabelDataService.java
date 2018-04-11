@@ -1,6 +1,6 @@
 package com.example.maven.data.areaLabelData;
 
-import com.example.maven.model.AreaLabel;
+import com.example.maven.model.po.AreaLabel;
 
 import java.util.ArrayList;
 

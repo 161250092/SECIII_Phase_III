@@ -1,7 +1,7 @@
 package com.example.maven.data.areaLabelData;
 
 import com.example.maven.data.fileHelper.FileHelper;
-import com.example.maven.model.AreaLabel;
+import com.example.maven.model.po.AreaLabel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

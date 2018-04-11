@@ -1,6 +1,6 @@
 package com.example.maven.data.imageLabelData;
 
-import com.example.maven.model.ImageLabel;
+import com.example.maven.model.po.ImageLabel;
 import java.util.ArrayList;
 
 public interface ImageLabelDataService {

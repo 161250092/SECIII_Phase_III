@@ -1,7 +1,7 @@
 package com.example.maven.businessLogic.workerBL;
 
-import com.example.maven.model.Label;
-import com.example.maven.model.Task;
+import com.example.maven.model.po.Label;
+import com.example.maven.model.po.Task;
 
 import java.util.List;
 

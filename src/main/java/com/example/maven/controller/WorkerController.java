@@ -1,8 +1,8 @@
 package com.example.maven.controller;
 
 import com.example.maven.businessLogic.workerBL.WorkerBLService;
-import com.example.maven.model.Label;
-import com.example.maven.model.Task;
+import com.example.maven.model.po.Label;
+import com.example.maven.model.po.Task;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
