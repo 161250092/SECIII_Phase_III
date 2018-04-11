@@ -1,4 +1,4 @@
-package com.example.maven.data.DataService;
+package com.example.maven.service.DataService;
 
 import com.example.maven.model.Label;
 import java.util.List;
