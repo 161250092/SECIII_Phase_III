@@ -1,4 +1,4 @@
-package com.example.maven.model;
+package com.example.maven.model.po;
 
 /**
  * 站点统计信息类

@@ -1,4 +1,4 @@
-package com.example.maven.model;
+package com.example.maven.model.po;
 
 /**
  * 众包标注任务类

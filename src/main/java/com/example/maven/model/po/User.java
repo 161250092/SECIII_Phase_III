@@ -1,4 +1,4 @@
-package com.example.maven.model;
+package com.example.maven.model.po;
 
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
