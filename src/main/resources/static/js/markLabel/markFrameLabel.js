@@ -1,5 +1,11 @@
+//标框类
+function FrameLabelVO(taskId, userId, labelList) {
+    this.taskId = taskId;
+    this.userId = userId;
+    this.labelList = labelList;
+}
 //框中的标签类
-function FrameLabelTagItem(startX, startY, width, height, tag){
+function FrameLabelListItem(startX, startY, width, height, tag){
     this.startX = startX;
     this.startY = startY;
     this.width = width;
@@ -24,24 +30,79 @@ new Vue({
     },
     mounted: function () {
         this.$nextTick(function () {
-            this.getFrameLabel(this.currentImageIndex);
+            const _this = this;
+            //获得这个任务的图片数目
+            axios.get("/markFrameLabel/getTaskImageNumber", { params: { taskId: this.taskId } }).then(function (response) {
+                _this.taskImageNum = response.data;
+            });
+            //获得第一张图片
+            this.getFrameLabel();
         });
     },
     methods: {
-        getFrameLabel: function (imageIndex) {
+        getFrameLabel: function () {
             const _this = this;
-            axios.get("../../userData.json", { params:
-                    { imageIndex: imageIndex, taskId: _this.taskId, userId: _this.userId} })
+            axios.get("/markFrameLabel/getFrameLabel", { params:
+                    { imageIndex: this.currentImageIndex, taskId: _this.taskId, userId: _this.userId} })
                 .then(function (response) {
                     _this.currentImage = response.data.image;
                     _this.currentFrameLabelList = response.data.labelList;
                 });
         },
+        resetCurrentFrameLabel: function () {
+            this.currentFrameLabelList = [];
+            this.currentStartX = 0;
+            this.currentStartY = 0;
+            this.currentWidth = 0;
+            this.currentHeight = 0;
+        },
+        saveCurrentFrameLabel: function () {
+            var frameLabelVO = new FrameLabelVO(this.taskId, this.userId, this.currentFrameLabelList);
+            var frameLabelVOJson = JSON.stringify(frameLabelVO);
+            const _this = this;
+            axios.get("/markFrameLabel/saveFrameLabel", { params: { frameLabelVOJson: frameLabelVOJson } })
+                .then(function (response) {
+
+            });
+        },
+        getPreviousFrameLabel: function () {
+            this.saveCurrentFrameLabel();
+            //第一张图片时没有前一张图片
+            if(this.currentImageIndex > 0){
+                this.resetCurrentFrameLabel();
+                this.currentImageIndex--;
+                this.getFrameLabel();
+            }else{
+                alert("当前是第一张图片");
+            }
+        },
+        getNextFrameLabel: function () {
+            this.saveCurrentFrameLabel();
+            //最后一张图片时没有后一张图片
+            if(this.currentImageIndex < (this.taskImageNum - 1)){
+                this.resetCurrentFrameLabel();
+                this.currentImageIndex++;
+                this.getFrameLabel();
+            }else{
+                alert("当前是最后一张图片");
+            }
+        },
         addTag: function () {
             var tag = this.$refs.inputTag.value;
-            var temp = new FrameLabelTagItem(this.currentStartX, this.currentStartY, this.currentWidth, this.currentHeight, tag);
+            var temp = new FrameLabelListItem(this.currentStartX, this.currentStartY, this.currentWidth, this.currentHeight, tag);
             this.currentFrameLabelList.push(temp);
-        }
+        },
+        //画板
+        startDrawing: function () {
+
+        },
+        stopDrawing: function () {
+
+        },
+        draw: function (ev) {
+
+        },
+        //获取坐标
     },
 });
 

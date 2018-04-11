@@ -1,29 +1,8 @@
-package com.example.maven.model.vo;
+package com.example.maven.model.vo.frameLabel;
 
-import java.util.List;
+import java.io.Serializable;
 
-/**
- * 标框标注所用的VO
- */
-public class FrameLabelVO {
-    private String image;
-    private List<FrameLabelListItem> labelList;
-
-    public FrameLabelVO(String image, List<FrameLabelListItem> labelList){
-        this.image = image;
-        this.labelList = labelList;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public List<FrameLabelListItem> getLabelList() {
-        return labelList;
-    }
-}
-
-class FrameLabelListItem {
+public class FrameLabelListItem implements Serializable {
     private int startX;
     private int startY;
     private int width;
@@ -44,3 +23,4 @@ class FrameLabelListItem {
     public int getHeight() { return height; }
     public String getTag() { return tag; }
 }
+

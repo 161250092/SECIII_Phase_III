@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>框标注</title>
@@ -21,15 +21,18 @@
 
     <section class="left">
         <div class="btn-group">
-            <button id="purgeButton">重置</button>
-            <button id="saveButton">保存</button>
-            <button id="previousButton">前一张</button>
-            <button id="nextButton">后一张</button>
+            <button v-on:click="resetCurrentFrameLabel">重置</button>
+            <button v-on:click="saveCurrentFrameLabel">保存</button>
+            <button v-on:click="getPreviousFrameLabel">前一张</button>
+            <button v-on:click="getNextFrameLabel">后一张</button>
         </div>
     </section>
 
     <section class="center">
-        <div id="partOfTagInCanvas"></div>
+        <div id="tagsInCanvas">
+            <p v-for="listItem in currentFrameLabelList"
+               v-bind:style="{position: 'absolute', left: listItem.startX+'px', top: listItem.startY+'px'}">{{listItem.tag}}</p>
+        </div>
         <div id="canvasContainer">
             <canvas id="drawingCanvas"></canvas>
         </div>
@@ -48,6 +51,7 @@
     <section class="bottom">
 
         <div>
+            <p>当前图片：{{currentImageIndex+1}}     总图片数：{{taskImageNum}}</p>
             <table id="tagTable">
                 <tr>
                     <th>标签</th>

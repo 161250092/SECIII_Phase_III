@@ -1,7 +1,8 @@
 package com.example.maven.controller.markLabel;
 
-import com.example.maven.businessLogic.markLabel.markFrameLabelBL.MarkFrameLabelBLImpl;
+//import com.example.maven.businessLogic.markLabel.markFrameLabelBL.MarkFrameLabelBLImpl;
 import com.example.maven.businessLogic.markLabel.markFrameLabelBL.MarkFrameLabelBLService;
+import com.example.maven.businessLogic.markLabel.markFrameLabelBL.MarkFrameLabelBLStub;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,27 +13,25 @@ public class MarkFrameLabelController implements MarkFrameLabelBLService {
     private MarkFrameLabelBLService markFrameLabelBL;
 
     public MarkFrameLabelController(){
-        markFrameLabelBL = new MarkFrameLabelBLImpl();
-    }
-
-    @RequestMapping(value = "/markFrameLabel/saveFrameLabel", method = RequestMethod.GET)
-    public String saveFrameLabel(String frameLabelJson){
-        return markFrameLabelBL.saveFrameLabel(frameLabelJson);
-    }
-
-    @RequestMapping(value = "/markFrameLabel/getFrameLabel", method = RequestMethod.GET)
-    public String getFrameLabel(String userId, String imageId){
-       return markFrameLabelBL.getFrameLabel(userId, imageId);
+        //STUB
+        markFrameLabelBL = new MarkFrameLabelBLStub();
     }
 
     @Override
+    @RequestMapping(value = "/markFrameLabel/getTaskImageNumber", method = RequestMethod.GET)
     public int getTaskImageNumber(String taskId) {
-        return 0;
+        return markFrameLabelBL.getTaskImageNumber(taskId);
     }
 
     @Override
-    public String getImageInfo(int imageIndex, String taskId, String userId) {
-        return null;
+    @RequestMapping(value = "/markFrameLabel/getFrameLabel", method = RequestMethod.GET)
+    public String getFrameLabel(int imageIndex, String taskId, String userId){
+       return markFrameLabelBL.getFrameLabel(imageIndex, taskId, userId);
     }
 
+    @Override
+    @RequestMapping(value = "/markFrameLabel/saveFrameLabel", method = RequestMethod.GET)
+    public String saveFrameLabel(String frameLabelVOJson){
+        return markFrameLabelBL.saveFrameLabel(frameLabelVOJson);
+    }
 }

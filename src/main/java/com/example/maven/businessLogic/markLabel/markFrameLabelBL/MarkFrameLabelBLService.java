@@ -2,34 +2,25 @@ package com.example.maven.businessLogic.markLabel.markFrameLabelBL;
 
 public interface MarkFrameLabelBLService {
     /**
-     * 保存标框标注的结果
-     * @param frameLabelJson 标框标注的结果
-     * @return
-     */
-    String saveFrameLabel(String frameLabelJson);
-
-    /**
-     * 获得标框标注的结果
-     * @param userId 用户ID
-     * @param imageId 图片ID
-     * @return 标框标注的结果Json
-     */
-    String getFrameLabel(String userId, String imageId);
-
-
-    /**
-     * @param taskId
+     * 获得任务的图片总数
+     * @param taskId 任务ID
      * @return 某次任务的图片总数
      */
     int getTaskImageNumber(String taskId);
 
+    /**
+     * 获得标框标注的结果
+     * @param imageIndex 图片下标
+     * @param taskId 任务ID
+     * @param userId 用户ID
+     * @return 所需图片的标框标注结果(JSON)
+     */
+    String getFrameLabel(int imageIndex, String taskId, String userId);
 
     /**
-     * @param imageIndex 图片下标
-     * @param taskId 任务Id
-     * @param userId 用户Id
-     * @return 图片源信息+已有标注 JSON
+     * 保存标框标注的结果
+     * @param frameLabelVOJson 标框标注的结果
+     * @return
      */
-
-    String getImageInfo(int imageIndex, String taskId, String userId);
+    String saveFrameLabel(String frameLabelVOJson);
 }
