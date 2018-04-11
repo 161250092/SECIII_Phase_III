@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>框标注</title>
@@ -10,7 +10,7 @@
 </head>
 
 <body  bgcolor=#F0F0F0>
-<div  class="parent">
+<div id="markFrameLabelContainer" class="parent">
     <nav class = "top">
         <ul id="UI">
             <li class="LI"><a class="active" href="#home">方框标注</a></li>
@@ -39,8 +39,8 @@
 
         <div id="toolBar">
             <p>填写标签：</p>
-            <input type="text" id="tagInput" name="tag" value="">
-            <button id="addTagButton" class="buttonGrey">添加标签</button>
+            <input type="text" id="inputTag" placeholder="请输入标签" ref="inputTag">
+            <button class="buttonGrey" v-on:click="addTag">添加标签</button>
         </div>
 
     </section>
@@ -48,10 +48,22 @@
     <section class="bottom">
 
         <div>
-            <ul id="tagList"></ul>
+            <table id="tagTable">
+                <tr>
+                    <th>标签</th>
+                    <th>操作</th>
+                </tr>
+                <tr v-for="listItem in currentFrameLabelList">
+                    <td>{{listItem.tag}}</td>
+                    <td>删除</td>
+                </tr>
+            </table>
         </div>
     </section>
 </div>
+
+<script src="../../js/lib/vue.js"></script>
+<script src="../../js/lib/axios.js"></script>
 <script src="../../js/lib/jquery-1.11.0.min.js"></script>
 <script src="../../js/markLabel/markFrameLabel.js"></script>
 </body>
