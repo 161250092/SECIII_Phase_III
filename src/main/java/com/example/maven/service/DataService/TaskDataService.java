@@ -1,6 +1,7 @@
 package com.example.maven.service.DataService;
 
-import com.example.maven.model.Task;
+import com.example.maven.model.po.Task;
+
 import java.util.List;
 
 public interface TaskDataService {
