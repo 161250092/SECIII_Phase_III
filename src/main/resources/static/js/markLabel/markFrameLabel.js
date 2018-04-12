@@ -81,8 +81,8 @@ new Vue({
         },
         //保存当前图片的标注记录
         saveCurrentFrameLabel: function () {
-            var frameLabelVO = new FrameLabelVO(this.taskId, this.userId, this.currentFrameLabelList);
-            var frameLabelVOJson = JSON.stringify(frameLabelVO);
+            let frameLabelVO = new FrameLabelVO(this.taskId, this.userId, this.currentFrameLabelList);
+            let frameLabelVOJson = JSON.stringify(frameLabelVO);
             const _this = this;
             axios.get("/markLabel/saveLabel", { params:
                     { taskId: _this.taskId, userId: _this.userId, labelType: _this.labelType, labelVOJson: frameLabelVOJson } })
@@ -132,14 +132,14 @@ new Vue({
         //对标签的操作
         addTag: function () {
             if (this.canInputTag === true){
-                var inputTagEl = this.$refs.inputTag;
+                let inputTagEl = this.$refs.inputTag;
                 //获得输入
-                var tag = inputTagEl.value;
+                let tag = inputTagEl.value;
                 //清空输入
                 inputTagEl.value = "";
 
                 //加到数组中
-                var temp = new FrameLabelListItem(this.currentStartX, this.currentStartY, this.currentWidth, this.currentHeight, tag);
+                let temp = new FrameLabelListItem(this.currentStartX, this.currentStartY, this.currentWidth, this.currentHeight, tag);
                 this.currentFrameLabelList.push(temp);
 
                 this.canInputTag = false;
