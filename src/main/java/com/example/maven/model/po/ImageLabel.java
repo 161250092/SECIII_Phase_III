@@ -9,8 +9,7 @@ public class ImageLabel extends Label implements Serializable{
 
     private String label;
 
-    public ImageLabel(String taskId, String imageId, String userId, String label) {
-        super(taskId, imageId, userId);
+    public ImageLabel(String label) {
         setType("ImageLabel");
         this.label = label;
     }

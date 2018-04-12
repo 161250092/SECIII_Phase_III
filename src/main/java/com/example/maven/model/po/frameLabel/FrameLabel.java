@@ -12,8 +12,7 @@ public class FrameLabel extends Label implements Serializable {
 
     private ArrayList<FrameLabelTagItem> frameLabelTagItemList;
 
-    public FrameLabel(String taskId, String imageId, String userId, ArrayList<FrameLabelTagItem> frameLabelTagItemList) {
-        super(taskId, imageId, userId);
+    public FrameLabel(ArrayList<FrameLabelTagItem> frameLabelTagItemList) {
         setType("FrameLabel");
         this.frameLabelTagItemList = frameLabelTagItemList;
     }

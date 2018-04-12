@@ -11,8 +11,7 @@ public class AreaLabel extends Label implements Serializable{
     private String label;
     private ArrayList<String> lineList;
 
-    public AreaLabel(String taskId, String imageId, String userId, String label, ArrayList<String> lineList) {
-        super(taskId, imageId, userId);
+    public AreaLabel(String label, ArrayList<String> lineList) {
         setType("AreaLabel");
         this.label = label;
         this.lineList = lineList;
