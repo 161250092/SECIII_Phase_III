@@ -1,7 +1,6 @@
 package com.example.maven.data.LabelData;
 
 import com.example.maven.model.po.Label;
-import com.example.maven.service.DataService.LabelDataService;
 
 import java.util.List;
 
@@ -16,16 +15,16 @@ public class LabelDataImpl implements LabelDataService{
 
     /**
      * 保存用户标注信息
-     * @param number 对应的图片的位置
+     * @param imageIndex 对应的图片的位置
      */
-    public boolean saveLabel(String userId,String taskId,int number,Label label){
+    public boolean saveLabel(String userId,String taskId,int imageIndex,Label label){
         return false;
     }
 
     /**
      * 判断是否完成标注
      */
-    public boolean completedLabel(String userId,String taskId){
+    public boolean isCompletedTask(String userId,String taskId){
         return false;
     }
 

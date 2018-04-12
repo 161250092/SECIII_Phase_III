@@ -2,7 +2,6 @@ package com.example.maven.data.UserData;
 
 
 import com.example.maven.model.po.User;
-import com.example.maven.service.DataService.UserDataService;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class UserDataImpl implements UserDataService{
 
     /**
      *创建单个用户
-     *创建文件夹
+     *创建存储数据需要的文件夹
      * @return 用户ID
      */
     public String newUser(String userName,String password){
