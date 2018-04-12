@@ -24,12 +24,6 @@ public interface TaskDataService {
     public List<String> getAllIncompleteAcceptedTaskID(String userId);
 
     /**
-     * 获取用户接受的所有完成任务的ID
-     * @return 所有任务的IDList
-     */
-    public List<String> getAllAccomplishedAcceptedTaskID(String userId);
-
-    /**
      * 任务发布时保存任务信息
      */
     public Boolean saveTask(String userId,Task task);
