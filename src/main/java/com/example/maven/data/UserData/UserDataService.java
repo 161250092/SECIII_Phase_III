@@ -1,4 +1,4 @@
-package com.example.maven.service.DataService;
+package com.example.maven.data.UserData;
 
 import com.example.maven.model.po.User;
 

@@ -1,4 +1,4 @@
-package com.example.maven.service.DataService;
+package com.example.maven.data.TaskData;
 
 import com.example.maven.model.po.Task;
 
@@ -22,6 +22,12 @@ public interface TaskDataService {
      * @return 所有任务的IDList
      */
     public List<String> getAllIncompleteAcceptedTaskID(String userId);
+
+    /**
+     * 获取用户接受的所有完成任务的ID
+     * @return 所有任务的IDList
+     */
+    public List<String> getAllAccomplishedAcceptedTaskID(String userId);
 
     /**
      * 任务发布时保存任务信息
