@@ -4,7 +4,7 @@ package com.example.maven.model.po;
  * 众包标注任务类
  */
 public class Task {
-    //任务Id
+    //任务Id  用户昵称_标注类型_创建时间
     String taskId;
     //标注类型
     String labelType;
