@@ -13,10 +13,10 @@ function FrameLabelListItem(startX, startY, width, height, tag){
     this.tag = tag;
 }
 
-
 new Vue({
     el: "#markFrameLabelContainer",
     data: {
+        labelType: "frame",
         userId: "",
         taskId: "",
         taskImageNum: 0,
@@ -47,7 +47,7 @@ new Vue({
 
             const _this = this;
             //获得这个任务的图片数目
-            axios.get("/markFrameLabel/getTaskImageNumber", { params: { taskId: this.taskId } }).then(function (response) {
+            axios.get("/markLabel/getTaskImageNumber", { params: { taskId: this.taskId } }).then(function (response) {
                 _this.taskImageNum = response.data;
             });
             //获得第一张图片
@@ -58,8 +58,8 @@ new Vue({
         //获得当前图片的标注记录
         getFrameLabel: function () {
             const _this = this;
-            axios.get("/markFrameLabel/getFrameLabel", { params:
-                    { imageIndex: this.currentImageIndex, taskId: _this.taskId, userId: _this.userId} })
+            axios.get("/markLabel/getLabel", { params:
+                    { taskId: _this.taskId, userId: _this.userId, labelType: _this.labelType, imageIndex: this.currentImageIndex,} })
                 .then(function (response) {
                     _this.currentImage = response.data.image;
                     _this.currentFrameLabelList = response.data.labelList;
@@ -84,7 +84,8 @@ new Vue({
             var frameLabelVO = new FrameLabelVO(this.taskId, this.userId, this.currentFrameLabelList);
             var frameLabelVOJson = JSON.stringify(frameLabelVO);
             const _this = this;
-            axios.get("/markFrameLabel/saveFrameLabel", { params: { frameLabelVOJson: frameLabelVOJson } })
+            axios.get("/markLabel/saveLabel", { params:
+                    { taskId: _this.taskId, userId: _this.userId, labelType: _this.labelType, labelVOJson: frameLabelVOJson } })
                 .then(function (response) {
 
             });
@@ -112,6 +113,21 @@ new Vue({
             }else{
                 alert("当前是最后一张图片");
             }
+        },
+        //提交任务
+        setTaskAccomplished: function () {
+            const _this = this;
+            axios.get("/markLabel/setTaskAccomplished", { params:
+                    { taskId: _this.taskId, userId: _this.userId } })
+                .then(function (response) {
+                    if(response.data === true){
+                        /**
+                         * 未完成
+                         */
+                    }else {
+                        alert("提交失败");
+                    }
+                });
         },
         //对标签的操作
         addTag: function () {
@@ -153,11 +169,14 @@ new Vue({
             }
         },
         stopDrawing: function () {
-            this.tempImageData = this.canvasContext.getImageData(0, 0, this.canvas.width, this.canvas.height);
-            this.isDrawing = false;
-            //要求添加标签内容，不允许再画
-            this.canDraw = false;
-            this.canInputTag = true;
+            //防止鼠标只是经过canvas
+            if(this.isDrawing === true){
+                this.tempImageData = this.canvasContext.getImageData(0, 0, this.canvas.width, this.canvas.height);
+                this.isDrawing = false;
+                //要求添加标签内容，不允许再画
+                this.canDraw = false;
+                this.canInputTag = true;
+            }
         },
         draw: function (ev) {
             // this.currentStartX = this.getX(ev);
