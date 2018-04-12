@@ -13,7 +13,7 @@ public interface LabelDataService {
 
     /**
      * 保存用户标注信息
-     * @param imageIndex 对应的图片的位置
+     *@param imageIndex 图片位置
      */
     public boolean saveLabel(String userId,String taskId,int imageIndex,Label label);
 
