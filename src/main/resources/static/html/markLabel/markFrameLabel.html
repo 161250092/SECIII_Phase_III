@@ -25,6 +25,7 @@
             <button v-on:click="saveCurrentFrameLabel">保存</button>
             <button v-on:click="getPreviousFrameLabel">前一张</button>
             <button v-on:click="getNextFrameLabel">后一张</button>
+            <button v-if="currentImageIndex == (taskImageNum-1)">保存并提交</button>
         </div>
         <p>currentStartX = {{currentStartX}}</p>
         <p>currentStartY = {{currentStartY}}</p>
