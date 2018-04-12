@@ -31,3 +31,14 @@ function Task(taskId,labelType,image,introduction,requiredNumber,finishedNumber,
     this.score = score;
 }
 
+
+function TaskVO(taskId,labelType,ntroduction,requiredNumber,finishedNumber,score) {
+    this.taskId = taskId;
+    this.labelType = labelType;
+    this.introduction = introduction;
+    this.requiredNumber = requiredNumber;
+    this.finishedNumber = finishedNumber;
+    this.score = score;
+}
+
+

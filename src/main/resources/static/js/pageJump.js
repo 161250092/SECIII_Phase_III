@@ -14,6 +14,17 @@ function jumpToAnotherPage(url,userId){
     window.location.href = url;
 }
 
+function sendTaskId(taskId){
+    sessionStorage.setItem('taskId',taskId);
+}
+
+function jumToTask(url,userId,taskId){
+    sendUserId(taskId);
+    sendUserId(userId);
+    window.location.href = url;
+}
+
+
 
 //各页面URL
 const mainPageUrl = "../../MainPage.html";

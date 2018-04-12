@@ -1,5 +1,5 @@
 //记录图片的最大索引值
-const maxN = 2;
+var maxN = 2;
 //当前图片的编号
 var index = 0;
 //当前展示的图片
@@ -331,3 +331,4 @@ $("#confirmButton").click(function(){
     restore(arr);
 });
 */
+

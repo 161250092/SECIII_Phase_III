@@ -35,22 +35,25 @@ function addTask(singleTask,id){
 
     if(singleTask.labelType==type1) {
         var Cell_4 = tableRow.insertCell(4);
-        Cell_4.innerHTML = '<a href="OverAllPage.html"  readonly="true"/>';
+        var url = "OverAllPage.html?userId="+userId+"&taskId="+singleTask.id;
+        Cell_4.innerHTML = '< href=url  readonly="true">do it</a>';
         Cell_4.className = "s5";
     }
 
     else if(singleTask.labelType==type2){
         var Cell_4 = tableRow.insertCell(4);
-        Cell_4.innerHTML = '<a href="markFrameLabel.html"  readonly="true"/>';
+        var url = "markFrameLabel.html?userId="+userId+"&taskId="+singleTask.id;
+        Cell_4.innerHTML = '<a href=url  readonly="true">do it</a>';
         Cell_4.className = "s5";
     }
 
     else if(singleTask.labelType==type3){
         var Cell_4 = tableRow.insertCell(4);
-        Cell_4.innerHTML = '<a href="LineMarkPage.html"  readonly="true"/>';
+        var url = "LineMarkPage.html?userId="+userId+"&taskId="+singleTask.id;
+
+        Cell_4.innerHTML = '<a href=url readonly="true">do it</a>>';
         Cell_4.className = "s5";
     }
-
 
 }
 

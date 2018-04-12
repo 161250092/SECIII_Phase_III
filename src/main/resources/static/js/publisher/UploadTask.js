@@ -1,31 +1,27 @@
 
-var tasId;
+var taskId;
 
 var labelType="";
 
-var iamge=[];
+var image=[];
 
-var introduction;
+var description;
 var requiredNumber;
-var finishedNumber;
+
 var score1;
 
 
 
-function getInforMation(){
-    taskId = $("TaskId").val();
+function getInformation(){
+    taskId = $("#TaskId").val();
     getType();
-    introduction = $("Introduction").val();
-    requiredNumber = parseInt($("RequiredNumber").val());
-    finishedNumber = parseInt($("FinishedNumber").val());
-    score1= parseInt($("Score").val());
+    description = $("#Introduction").val();
+    requiredNumber = parseInt($("#RequiredNumbers").val());
+    score1= parseInt($("#Score").val());
 
 }
 
 function getType(){
-    // var index= $("LabelType").selectedIndex;
-    // labelType = $("LabelType").options[index].val();
-
     var selectObj = document.getElementById("LabelType");
     labelType = selectObj.value;
 }
@@ -67,7 +63,7 @@ function readFile(){
 
         reader.onload = function(e){
             var imgMsg = {
-                name : this.fileName,//获取文件名
+                //name : this.fileName,//获取文件名
                 base64 : this.result   //reader.readAsDataURL方法执行完后，base64数据储存在reader.result里
             }
             dataArr.push(imgMsg);
@@ -107,26 +103,32 @@ function send(){
             submitArr.push(dataArr[i]);
         }
     }
+
+    if(!dataArr.length){
+        return alert('请先选择文件');
+    }
+
     //全局变量赋值
     getInformation();
+    console.log("task生成前");
+    var task = new Task(taskId,labelType,submitArr,description,requiredNumber,0,score1);
 
-    var task = new Task(taskId,labelType,submitArr,introduction,requiredNumber,finishedNumber,score1);
-
-    // console.log('提交的数据：'+JSON.stringify(submitArr))
+    console.log('提交的数据：'+JSON.stringify(task));
     $.ajax({
         url : "/RequestorController/assignTask",
-        type : 'post',
-        data : JSON.stringify(task),
-        dataType: 'json',
-        processData: false,
-        // 用FormData传fd时需有这两项
-        contentType: false,
+        type : 'POST',
+        data : {myStr : JSON.stringify(task)},
+        //dataType: 'json',
+        // processData: false,
+        //  用FormData传fd时需有这两项
+        // contentType: false,
         success : function(data){
             console.log('返回的数据：'+JSON.stringify(data))
         }
 
     })
 }
+
 
 
 
@@ -146,7 +148,6 @@ function send(){
         oInput.click();
     }
 
-
     oSubmit.onclick=function(){
         if(!dataArr.length){
             return alert('请先选择文件');
@@ -154,6 +155,11 @@ function send(){
         send();
     }
 }
+
+
+
+
+
 /*
  用ajax发送fd参数时要告诉jQuery不要去处理发送的数据，
  不要去设置Content-Type请求头才可以发送成功，否则会报“Illegal invocation”的错误，
@@ -182,16 +188,19 @@ function ReSizePic(ThisPic) {
 }
 
 
+
+
 function getTaskId(){
     var time = Date.parse(new Date());
    // var time = "2018";
     getType();
 
-    document.getElementById("TaskId").value ="_"+labelType+"_"+time;
+    document.getElementById("TaskId").value ="00000000"+"_"+labelType+"_"+time;
 }
 
 
-$("#getTaskId").click(function () {
+$("#getTaskId").click(function(){
     getTaskId();
+})
 
-});
+

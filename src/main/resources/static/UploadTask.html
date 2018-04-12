@@ -74,7 +74,7 @@
 
 		<div>
 			<span>标注类型:</span>
-            <select id="LabelType" onchange="selectTag()">
+            <select id="LabelType">
                     <option value = "ImageLabel">  整体标注</option>
                     <option value = "AreaLabel">  区域标注</option>
                     <option value = "FrameLabel">  方框标注</option>
@@ -87,11 +87,7 @@
 			<input type="text" id="TaskId" value=""></input>
 			<button id="getTaskId">getTaskId</button>
 		</div>
-		
-		<div>
-			<span>任务名称:</span>
-			<input type="text" id="TaskName"  value=""></input>
-		</div>
+
 
 		<div>
 			<span>批注人数:</span>
@@ -127,6 +123,6 @@
 	</body>
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 <script src="js/publisher/UploadTask.js"></script>
-
+<script src="js/worker/wokerGlobalVariable.js"></script>
 
     </html>
