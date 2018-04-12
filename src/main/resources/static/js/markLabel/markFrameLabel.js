@@ -20,16 +20,31 @@ new Vue({
         userId: "",
         taskId: "",
         taskImageNum: 0,
+
         currentImageIndex: 0,
         currentImage: "",
         currentFrameLabelList: [],
+
+        canvas: undefined,
+        canvasContext: undefined,
+        tempImageData: undefined,
+
         currentStartX: 0,
         currentStartY: 0,
         currentWidth: 0,
         currentHeight: 0,
+        isDrawing: false,
+        canDraw: true,
+        canInputTag: false,
     },
     mounted: function () {
         this.$nextTick(function () {
+            this.canvas = this.$refs.canvas;
+            this.canvasContext = this.canvas.getContext('2d');
+            const rect = this.canvas.getBoundingClientRect();
+            this.canvas.width = rect.width;
+            this.canvas.height = rect.height;
+
             const _this = this;
             //获得这个任务的图片数目
             axios.get("/markFrameLabel/getTaskImageNumber", { params: { taskId: this.taskId } }).then(function (response) {
@@ -40,6 +55,7 @@ new Vue({
         });
     },
     methods: {
+        //获得当前图片的标注记录
         getFrameLabel: function () {
             const _this = this;
             axios.get("/markFrameLabel/getFrameLabel", { params:
@@ -49,6 +65,7 @@ new Vue({
                     _this.currentFrameLabelList = response.data.labelList;
                 });
         },
+        //重置当前图片的标注记录
         resetCurrentFrameLabel: function () {
             this.currentFrameLabelList = [];
             this.currentStartX = 0;
@@ -56,6 +73,7 @@ new Vue({
             this.currentWidth = 0;
             this.currentHeight = 0;
         },
+        //保存当前图片的标注记录
         saveCurrentFrameLabel: function () {
             var frameLabelVO = new FrameLabelVO(this.taskId, this.userId, this.currentFrameLabelList);
             var frameLabelVOJson = JSON.stringify(frameLabelVO);
@@ -65,6 +83,7 @@ new Vue({
 
             });
         },
+        //转到前一张图片
         getPreviousFrameLabel: function () {
             this.saveCurrentFrameLabel();
             //第一张图片时没有前一张图片
@@ -76,6 +95,7 @@ new Vue({
                 alert("当前是第一张图片");
             }
         },
+        //转到后一张图片
         getNextFrameLabel: function () {
             this.saveCurrentFrameLabel();
             //最后一张图片时没有后一张图片
@@ -87,27 +107,91 @@ new Vue({
                 alert("当前是最后一张图片");
             }
         },
+        //对标签的操作
         addTag: function () {
-            var tag = this.$refs.inputTag.value;
-            var temp = new FrameLabelListItem(this.currentStartX, this.currentStartY, this.currentWidth, this.currentHeight, tag);
-            this.currentFrameLabelList.push(temp);
+            if (this.canInputTag === true){
+                var inputTagEl = this.$refs.inputTag;
+                //获得输入
+                var tag = inputTagEl.value;
+                //清空输入
+                inputTagEl.value = "";
+
+                //加到数组中
+                var temp = new FrameLabelListItem(this.currentStartX, this.currentStartY, this.currentWidth, this.currentHeight, tag);
+                this.currentFrameLabelList.push(temp);
+
+                this.canInputTag = false;
+                this.canDraw = true;
+            }
+        },
+        removeTag: function (tagIndex) {
+            this.currentFrameLabelList.splice(tagIndex, 1);
+            this.removeRecInCanvas();
+        },
+        //将画布上的矩形标框移除
+        removeRecInCanvas: function () {
+            this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            const _this = this;
+            this.currentFrameLabelList.forEach(function (currentValue, index) {
+                _this.canvasContext.strokeRect(currentValue.startX, currentValue.startY, currentValue.width, currentValue.height);
+            });
         },
         //画板
-        startDrawing: function () {
-
+        startDrawing: function (ev) {
+            if(this.isDrawing === false && this.canDraw === true){
+                this.isDrawing = true;
+                this.currentStartX = this.getX(ev);
+                this.currentStartY = this.getY(ev);
+                this.canvasContext.moveTo(this.currentStartX, this.currentStartY);
+                this.tempImageData = this.canvasContext.getImageData(0, 0, this.canvas.width, this.canvas.height);
+            }
         },
         stopDrawing: function () {
-
+            this.tempImageData = this.canvasContext.getImageData(0, 0, this.canvas.width, this.canvas.height);
+            this.isDrawing = false;
+            //要求添加标签内容，不允许再画
+            this.canDraw = false;
+            this.canInputTag = true;
         },
         draw: function (ev) {
-
+            // this.currentStartX = this.getX(ev);
+            // this.currentStartY = this.getY(ev);
+            if(this.isDrawing === true){
+                this.canvasContext.putImageData(this.tempImageData, 0, 0);
+                this.currentWidth = Math.abs(this.getX(ev) - this.currentStartX);
+                this.currentHeight = Math.abs(this.getY(ev) - this.currentStartY);
+                this.canvasContext.strokeRect(this.currentStartX, this.currentStartY, this.currentWidth, this.currentHeight);
+            }
         },
         //获取坐标
+        getX: function (ev) {
+            const rect = this.$refs.canvas.getBoundingClientRect();
+            return ev.clientX - rect.left;
+        },
+        getY: function (ev) {
+            const rect = this.$refs.canvas.getBoundingClientRect();
+            return ev.clientY - rect.top;
+        }
     },
 });
 
 
+// function removeRecInCanvas(frameLabelTagItemList) {
+//     context.clearRect(0, 0, canvas.width, canvas.height);
+//     for(var i = 0; i < frameLabelTagItemList.length; i++){
+//         if(frameLabelTagItemList[i] !== undefined){
+//             context.strokeRect(frameLabelTagItemList[i].startX, frameLabelTagItemList[i].startY, frameLabelTagItemList[i].width, frameLabelTagItemList[i].height);
+//         }
+//     }
 
+// function getX(e){
+//     const rect = canvas.getBoundingClientRect();
+//     return e.clientX - rect.left;
+// }
+// function getY(e){
+//     const rect = canvas.getBoundingClientRect();
+//     return e.clientY - rect.top;
+// }
 
 
 

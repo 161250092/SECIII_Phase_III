@@ -26,15 +26,28 @@
             <button v-on:click="getPreviousFrameLabel">前一张</button>
             <button v-on:click="getNextFrameLabel">后一张</button>
         </div>
+        <p>currentStartX = {{currentStartX}}</p>
+        <p>currentStartY = {{currentStartY}}</p>
+        <p>currentWidth = {{currentWidth}}</p>
+        <p>currentHeight = {{currentHeight}}</p>
+        <p>isDrawing = {{isDrawing}}</p>
+        <p>canDraw = {{canDraw}}</p>
+        <p>canInputTag = {{canInputTag}}</p>
     </section>
 
     <section class="center">
-        <div id="tagsInCanvas">
-            <p v-for="listItem in currentFrameLabelList"
-               v-bind:style="{position: 'absolute', left: listItem.startX+'px', top: listItem.startY+'px'}">{{listItem.tag}}</p>
-        </div>
         <div id="canvasContainer">
-            <canvas id="drawingCanvas"></canvas>
+            <canvas id="drawingCanvas" ref="canvas"
+                    v-on:mousedown="startDrawing"
+                    v-on:mouseup="stopDrawing"
+                    v-on:mouseout="stopDrawing"
+                    v-on:mousemove="draw"
+            ></canvas>
+        </div>
+        <div id="tagsInCanvas">
+            <p class="tagInCanvas"
+               v-for="(listItem,index) in currentFrameLabelList"
+               v-bind:style="{left: listItem.startX+'px', top: listItem.startY+'px'}">{{index+1}}. {{listItem.tag}}</p>
         </div>
     </section>
 
@@ -54,12 +67,14 @@
             <p>当前图片：{{currentImageIndex+1}}     总图片数：{{taskImageNum}}</p>
             <table id="tagTable">
                 <tr>
-                    <th>标签</th>
+                    <th>标签序号</th>
+                    <th>标签内容</th>
                     <th>操作</th>
                 </tr>
-                <tr v-for="listItem in currentFrameLabelList">
+                <tr v-for="(listItem,index) in currentFrameLabelList">
+                    <td>{{index+1}}</td>
                     <td>{{listItem.tag}}</td>
-                    <td>删除</td>
+                    <td><button v-on:click="removeTag(index)">删除</button></td>
                 </tr>
             </table>
         </div>
