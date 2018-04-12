@@ -72,6 +72,12 @@ new Vue({
             this.currentStartY = 0;
             this.currentWidth = 0;
             this.currentHeight = 0;
+
+            this.isDrawing = false;
+            this.canDraw = true;
+            this.canInputTag = false;
+
+            this.removeRecInCanvas();
         },
         //保存当前图片的标注记录
         saveCurrentFrameLabel: function () {
