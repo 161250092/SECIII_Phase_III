@@ -93,7 +93,7 @@ $("#next").click(function(){
             userId : user_Id
         },
         success: function(AreaLabelVOJSON) {
-            image.src =
+
         },
 
         error: function () {

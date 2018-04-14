@@ -62,11 +62,14 @@ function readFile(){
 
 
         reader.onload = function(e){
-            var imgMsg = {
-                //name : this.fileName,//获取文件名
-                base64 : this.result   //reader.readAsDataURL方法执行完后，base64数据储存在reader.result里
-            }
-            dataArr.push(imgMsg);
+            // var imgMsg = {
+            //     name : this.fileName,//获取文件名
+            //     base64 : this.result   //reader.readAsDataURL方法执行完后，base64数据储存在reader.result里
+            // }
+            //dataArr.push(imgMsg);
+
+            dataArr.push(this.result);
+
             result = '<div class="delete">delete</div><div class="result"><img src="'+this.result+'" alt=""/></div>';
             var div = document.createElement('div');
             div.innerHTML = result;
