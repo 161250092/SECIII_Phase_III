@@ -22,15 +22,14 @@ function sendTaskId(taskId){
 }
 
 function getTaskId(taskId) {
-    sessionStorage.getItem('taskId');
+    return sessionStorage.getItem('taskId');
 }
 
 function removeTaskId() {
     sessionStorage.removeItem('taskId');
 }
 
-function jumpToAnotherPage(url,userId){
-    sendUserId(userId);
+function jumpToAnotherPage(url){
     window.location.href = url;
 }
 
@@ -55,9 +54,9 @@ const workerCheckTaskPageUrl = "WorkerCheckTask.html";
 const checkMyTaskPageUrl = "CheckMyTask.html";
 const uploadTaskPageUrl = "UploadTask.html";
 
-const lineMarkPageUrl = "LineMarkPage.html";
+const lineMarkPageUrl = "markAreaLabel.html";
 const markFrameLabelPageUrl = "markFrameLabel.html";
-const overAllPageUrl = "OverAllPage.html";
+const overAllPageUrl = "markImageLabel.html";
 
 const checkFrameLabelPageUrl = "CheckFrameLabel.html";
 const checkLineLabelPageUrl = "CheckLineLabel.html";
@@ -77,9 +76,9 @@ const adminPageUrl = "../admin/index.html";
 // const checkMyTaskPageUrl = "CheckMyTask.html";
 // const uploadTaskPageUrl = "UploadTask.html";
 //
-// const lineMarkPageUrl = "LineMarkPage.html";
+// const lineMarkPageUrl = "markAreaLabel.html";
 // const markFrameLabelPageUrl = "markFrameLabel.html";
-// const overAllPageUrl = "OverAllPage.html";
+// const overAllPageUrl = "markImageLabel.html";
 //
 // const checkFrameLabelPageUrl = "CheckFrameLabel.html";
 // const checkLineLabelPageUrl = "CheckLineLabel.html";

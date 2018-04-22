@@ -1,7 +1,5 @@
 //标框类
-function FrameLabelVO(taskId, userId, labelList) {
-    this.taskId = taskId;
-    this.userId = userId;
+function FrameLabelVO(labelList) {
     this.labelList = labelList;
 }
 //框中的标签类
@@ -16,7 +14,7 @@ function FrameLabelListItem(startX, startY, width, height, tag){
 new Vue({
     el: "#markFrameLabelContainer",
     data: {
-        labelType: "frame",
+        labelType: "FrameLabel",
         userId: "",
         taskId: "",
         taskImageNum: 0,
@@ -29,16 +27,29 @@ new Vue({
         canvasContext: undefined,
         tempImageData: undefined,
 
+        //左上角的点
+        topLeftX: 0,
+        topLeftY: 0,
+        //起始点
         currentStartX: 0,
         currentStartY: 0,
-        currentWidth: 0,
-        currentHeight: 0,
+        //结束点
+        currentEndX: 0,
+        currentEndY: 0,
         isDrawing: false,
         canDraw: true,
         canInputTag: false,
     },
     mounted: function () {
         this.$nextTick(function () {
+            /**
+             * 临时用
+             */
+            //-------------------------------------
+            sessionStorage.setItem('userId',"testUserID");
+            sessionStorage.setItem('taskId',"testTaskID");
+            //-------------------------------------
+
             this.canvas = this.$refs.canvas;
             this.canvasContext = this.canvas.getContext('2d');
             const rect = this.canvas.getBoundingClientRect();
@@ -46,6 +57,7 @@ new Vue({
             this.canvas.height = rect.height;
 
             this.userId = getUserId();
+            this.taskId = getTaskId();
             const _this = this;
             //获得这个任务的图片数目
             axios.get("/markLabel/getTaskImageNumber", { params: { taskId: this.taskId } }).then(function (response) {
@@ -60,9 +72,11 @@ new Vue({
         getFrameLabel: function () {
             const _this = this;
             axios.get("/markLabel/getLabel", { params:
-                    { taskId: _this.taskId, userId: _this.userId, labelType: _this.labelType, imageIndex: this.currentImageIndex,} })
+                    { taskId: _this.taskId, userId: _this.userId,
+                        labelType: _this.labelType, imageIndex: this.currentImageIndex,} })
                 .then(function (response) {
-                    _this.currentImageUrl =  "url(" + response.data.image + ")";
+                    //图片传输未解决
+                    //_this.currentImageUrl =  "url(" + response.data.image + ")";
                     _this.currentFrameLabelList = response.data.labelList;
                     _this.removeRecInCanvas();
                 });
@@ -70,10 +84,13 @@ new Vue({
         //重置当前图片的标注记录
         resetCurrentFrameLabel: function () {
             this.currentFrameLabelList = [];
+
+            this.topLeftX = 0;
+            this.topLeftY = 0;
             this.currentStartX = 0;
             this.currentStartY = 0;
-            this.currentWidth = 0;
-            this.currentHeight = 0;
+            this.currentEndX = 0;
+            this.currentEndY = 0;
 
             this.isDrawing = false;
             this.canDraw = true;
@@ -83,11 +100,13 @@ new Vue({
         },
         //保存当前图片的标注记录
         saveCurrentFrameLabel: function () {
-            let frameLabelVO = new FrameLabelVO(this.taskId, this.userId, this.currentFrameLabelList);
+            let frameLabelVO = new FrameLabelVO(this.currentFrameLabelList);
             let frameLabelVOJson = JSON.stringify(frameLabelVO);
             const _this = this;
             axios.get("/markLabel/saveLabel", { params:
-                    { taskId: _this.taskId, userId: _this.userId, labelType: _this.labelType, labelVOJson: frameLabelVOJson } })
+                    { taskId: _this.taskId, userId: _this.userId,
+                        labelType: _this.labelType, imageIndex: _this.currentImageIndex,
+                        labelVOJson: frameLabelVOJson } })
                 .then(function (response) {
 
             });
@@ -118,12 +137,15 @@ new Vue({
         },
         //提交任务
         setTaskAccomplished: function () {
+            //保存最后一张照片的结果
+            this.saveCurrentFrameLabel();
+            //提交任务
             const _this = this;
             axios.get("/markLabel/setTaskAccomplished", { params:
                     { taskId: _this.taskId, userId: _this.userId } })
                 .then(function (response) {
                     if(response.data === true){
-                        jumpToAnotherPage(mainPageUrl, _this.userId);
+                        jumpToAnotherPage(mainPageUrl);
                     }else {
                         alert("提交失败");
                     }
@@ -139,7 +161,9 @@ new Vue({
                 inputTagEl.value = "";
 
                 //加到数组中
-                let temp = new FrameLabelListItem(this.currentStartX, this.currentStartY, this.currentWidth, this.currentHeight, tag);
+                let currentWidth = Math.abs(this.currentEndX - this.currentStartX);
+                let currentLength = Math.abs(this.currentEndY - this.currentStartY);
+                let temp = new FrameLabelListItem(this.topLeftX, this.topLeftY, currentWidth, currentLength, tag);
                 this.currentFrameLabelList.push(temp);
 
                 this.canInputTag = false;
@@ -181,9 +205,16 @@ new Vue({
         draw: function (ev) {
             if(this.isDrawing === true){
                 this.canvasContext.putImageData(this.tempImageData, 0, 0);
-                this.currentWidth = Math.abs(this.getX(ev) - this.currentStartX);
-                this.currentHeight = Math.abs(this.getY(ev) - this.currentStartY);
-                this.canvasContext.strokeRect(this.currentStartX, this.currentStartY, this.currentWidth, this.currentHeight);
+
+                this.currentEndX = this.getX(ev);
+                this.currentEndY = this.getY(ev);
+
+                this.topLeftX = (this.currentEndX < this.currentStartX)? this.currentEndX: this.currentStartX;
+                this.topLeftY = (this.currentEndY < this.currentStartY)? this.currentEndY: this.currentStartY;
+                let currentWidth = Math.abs(this.currentEndX - this.currentStartX);
+                let currentLength = Math.abs(this.currentEndY - this.currentStartY);
+
+                this.canvasContext.strokeRect(this.topLeftX, this.topLeftY, currentWidth, currentLength);
             }
         },
         //获取坐标

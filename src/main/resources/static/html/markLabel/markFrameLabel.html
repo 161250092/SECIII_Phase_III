@@ -14,8 +14,7 @@
     <nav class = "top">
         <ul id="UI">
             <li class="LI"><a class="active" href="#home">方框标注</a></li>
-            <li class="LI"><a href="../../CheckFrameLabel.html">结果查看</a></li>
-            <li class="LI"><a href="../../MainPage.html">返回</a></li>
+            <li class="LI"><a href="../mainPage/MainPage.html">返回</a></li>
         </ul>
     </nav>
 
@@ -33,10 +32,12 @@
         <p>userId = {{userId}}</p>
         <p>taskId = {{taskId}}</p>
         <p>labelType = {{labelType}}</p>
+        <p>topLeftX = {{topLeftX}}</p>
+        <p>topLeftY = {{topLeftY}}</p>
         <p>currentStartX = {{currentStartX}}</p>
         <p>currentStartY = {{currentStartY}}</p>
-        <p>currentWidth = {{currentWidth}}</p>
-        <p>currentHeight = {{currentHeight}}</p>
+        <p>currentEndX = {{currentEndX}}</p>
+        <p>currentEndY = {{currentEndY}}</p>
         <p>isDrawing = {{isDrawing}}</p>
         <p>canDraw = {{canDraw}}</p>
         <p>canInputTag = {{canInputTag}}</p>
@@ -60,17 +61,14 @@
     </section>
 
     <section class="right">
-
         <div id="toolBar">
             <p>填写标签：</p>
             <input type="text" id="inputTag" placeholder="请输入标签" ref="inputTag">
             <button class="buttonGrey" v-on:click="addTag">添加标签</button>
         </div>
-
     </section>
 
     <section class="bottom">
-
         <div>
             <p>当前图片：{{currentImageIndex+1}}     总图片数：{{taskImageNum}}</p>
             <table id="tagTable">
