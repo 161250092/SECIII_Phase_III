@@ -10,17 +10,17 @@ import java.util.ArrayList;
  */
 public class FrameLabel extends Label implements Serializable {
 
-    private ArrayList<FrameLabelTagItem> frameLabelTagItemList;
+    private ArrayList<FrameLabelListItem> frameLabelListItemList;
 
-    public FrameLabel(ArrayList<FrameLabelTagItem> frameLabelTagItemList) {
+    public FrameLabel(ArrayList<FrameLabelListItem> frameLabelListItemList) {
         setType("FrameLabel");
-        this.frameLabelTagItemList = frameLabelTagItemList;
+        this.frameLabelListItemList = frameLabelListItemList;
     }
 
     public FrameLabel(){
         setType("FrameLabel");
     }
 
-    public ArrayList<FrameLabelTagItem> getFrameLabelTagItemList() { return frameLabelTagItemList; }
+    public ArrayList<FrameLabelListItem> getFrameLabelListItemList() { return frameLabelListItemList; }
 }
 

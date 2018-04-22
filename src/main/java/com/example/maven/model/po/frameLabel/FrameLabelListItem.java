@@ -2,14 +2,14 @@ package com.example.maven.model.po.frameLabel;
 
 import java.io.Serializable;
 
-public class FrameLabelTagItem implements Serializable {
+public class FrameLabelListItem implements Serializable {
     private int startX;
     private int startY;
     private int width;
     private int height;
     private String tag;
 
-    public FrameLabelTagItem(int startX, int startY, int width, int height,String tag){
+    public FrameLabelListItem(int startX, int startY, int width, int height, String tag){
         this.startX = startX;
         this.startY = startY;
         this.width = width;
