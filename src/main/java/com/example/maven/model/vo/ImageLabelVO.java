@@ -1,23 +1,23 @@
 package com.example.maven.model.vo;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ImageLabelVO implements Serializable{
     private String image;
-    private String label;
+    private List<String> labelList;
 
-    public ImageLabelVO(String image, String label) {
+    public ImageLabelVO(String image, List<String> labelList) {
         this.image = image;
-        this.label = label;
+        this.labelList = labelList;
     }
 
     public String getImage() {
         return image;
     }
 
-    public String getLabel() {
-        return label;
+    public List<String> getLabel() {
+        return labelList;
     }
-
 
 }
