@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>整体标注</title>
+    <link rel="stylesheet" href="../../css/guide.css">
+    <link rel="stylesheet" href="../../css/布局.css">
+    <link rel="stylesheet" href="../../css/background.css">
+    <link rel="stylesheet" href="../../css/lineMark.css">
+</head>
+
+<body  bgcolor=#F0F0F0>
+<div id="markImageLabelContainer">
+    <nav class="top">
+        <ul id="UI">
+            <li class="LI"><a a class="active" href="#home">整体标注</a></li>
+            <li class="LI"><a href="../mainPage/MainPage.html">返回</a>></li>
+        </ul>
+    </nav>
+
+    <section class="left">
+        <div class="btn-group">
+            <button v-on:click="resetCurrentImageLabel">重置</button>
+            <button v-on:click="saveCurrentImageLabel">保存</button>
+            <button v-on:click="getPreviousImageLabel">前一张</button>
+            <button v-on:click="getNextImageLabel">后一张</button>
+            <button v-on:click="setTaskAccomplished"
+                    v-if="currentImageIndex == (taskImageNum-1)">
+                保存并提交
+            </button>
+        </div>
+    </section>
+
+    <section class="center">
+        <div>
+            <img v-bind:src=currentImageUrl>
+        </div>
+    </section>
+
+    <section class="right">
+    </section>
+
+
+    <section class="bottom">
+        <div id="toolBar">
+            <p>填写标签：
+                <input type="text" id="inputTag" placeholder="请输入标签" ref="inputTag">
+                <button class="buttonGrey" v-on:click="addTag">添加标签</button>
+            </p>
+        </div>
+        <div>
+            <p>当前图片：{{currentImageIndex+1}}     总图片数：{{taskImageNum}}</p>
+            <table id="tagTable">
+                <tr>
+                    <th>标签序号</th>
+                    <th>标签内容</th>
+                    <th>操作</th>
+                </tr>
+                <tr v-for="(listItem,index) in currentImageLabelList">
+                    <td>{{index+1}}</td>
+                    <td>{{listItem}}</td>
+                    <td><button v-on:click="removeTag(index)">删除</button></td>
+                </tr>
+            </table>
+        </div>
+    </section>
+</div>
+<script src="../../js/lib/vue.js"></script>
+<script src="../../js/lib/axios.js"></script>
+<script src="../../js/lib/jquery-1.11.0.min.js"></script>
+<script src="../../js/pageJump.js"></script>
+<script src="../../js/markLabel/markImageLabel.js"></script>
+<!--<script src = "../../js/worker/overall.js"></script>-->
+<!--<script src = "../../js/worker/allNeed.js"></script>-->
+</body>
