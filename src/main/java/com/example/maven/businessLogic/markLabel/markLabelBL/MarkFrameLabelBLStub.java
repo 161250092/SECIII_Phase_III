@@ -8,7 +8,7 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MarkLabelBLStub implements MarkLabelBLService {
+public class MarkFrameLabelBLStub implements MarkLabelBLService {
     @Override
     public int getTaskImageNumber(String taskId) {
         return 3;
@@ -44,7 +44,8 @@ public class MarkLabelBLStub implements MarkLabelBLService {
     public boolean saveLabel(String taskId, String userId, String type, int imageIndex, String labelVOJson) {
         System.out.println("taskId:" + taskId);
         System.out.println("userId:" + userId);
-        System.out.println("type:" + type);
+        System.out.println("labelType:" + type);
+        System.out.println("imageIndex:" + imageIndex);
         System.out.println("frameLabelJson:" + labelVOJson);
         return false;
     }
