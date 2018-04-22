@@ -9,13 +9,29 @@ function sendUserId(userId){
     sessionStorage.setItem('userId',userId);
 }
 
-function jumpToAnotherPage(url,userId){
-    sendUserId(userId);
-    window.location.href = url;
+function getUserId() {
+    return sessionStorage.getItem('userId');
+}
+
+function removeUserId() {
+    sessionStorage.removeItem('userId');
 }
 
 function sendTaskId(taskId){
     sessionStorage.setItem('taskId',taskId);
+}
+
+function getTaskId(taskId) {
+    sessionStorage.getItem('taskId');
+}
+
+function removeTaskId() {
+    sessionStorage.removeItem('taskId');
+}
+
+function jumpToAnotherPage(url,userId){
+    sendUserId(userId);
+    window.location.href = url;
 }
 
 function jumToTask(url,userId,taskId){
@@ -23,6 +39,7 @@ function jumToTask(url,userId,taskId){
     sendUserId(userId);
     window.location.href = url;
 }
+
 
 
 
