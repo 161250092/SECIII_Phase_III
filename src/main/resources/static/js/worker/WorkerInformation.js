@@ -1,4 +1,29 @@
 
+window.onload=function(){
+    //清空表格内容
+    clearRow("incompleted");
+    clearRow("accomplished");
+
+    getAllFinishedTasks(userId);
+    getAllUnfinishedTasks(userId);
+    getUserScore(userId);
+    getUserRanking(userId);
+    for(var i=0;i<AssignedIncompletedTaskList.length;i++){
+        addRow(AssignedIncompletedTaskList[i],"incompleted");
+    }
+
+    for(var i=0;i<AssignedCompletedTaskList.length;i++){
+        addRow(AssignedCompletedTaskList[i],"accomplished");
+    }
+
+
+    $("ranking").innerHTML = ranking;
+    $("score").innerHTML = score;
+
+}
+
+
+
 function getAllUnfinishedTasks(userId){
 	$.ajax({
 			type: "GET",
@@ -91,21 +116,7 @@ function addRow(singleTask,id){
 
 $("#check").click(function (){
 	//
-	getAllFinishedTasks(userId);
-	getAllUnfinishedTasks(userId);
-	getUserScore(userId);
-	getUserRanking(userId);
-	for(var i=0;i<AssignedIncompletedTaskList.length;i++){
-		addRow(AssignedIncompletedTaskList[i],"incompleted");
-        }
 
-    for(var i=0;i<AssignedCompletedTaskList.length;i++){
-            addRow(AssignedCompletedTaskList[i],"accomplished");
-    }
-
-
-    $("ranking").innerHTML = ranking;
-    $("score").innerHTML = score;
 
 
 

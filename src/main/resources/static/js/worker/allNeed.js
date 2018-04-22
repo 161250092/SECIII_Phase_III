@@ -31,7 +31,7 @@ function Task(taskId,labelType,image,introduction,requiredNumber,finishedNumber,
     this.score = score;
 }
 
-
+//TASKVO
 function TaskVO(taskId,labelType,ntroduction,requiredNumber,finishedNumber,score) {
     this.taskId = taskId;
     this.labelType = labelType;
@@ -39,6 +39,14 @@ function TaskVO(taskId,labelType,ntroduction,requiredNumber,finishedNumber,score
     this.requiredNumber = requiredNumber;
     this.finishedNumber = finishedNumber;
     this.score = score;
+}
+
+
+
+function AreaLabelVO(image,label,linelist){
+    this.iamge  = iamge;
+    this.label = label;
+    this.linelist = linelist;
 }
 
 

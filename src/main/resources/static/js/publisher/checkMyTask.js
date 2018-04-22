@@ -3,6 +3,26 @@ var AssignedIncompletedTaskList = new Array();
 
 var AssignedCompletedTaskList = new Array();
 
+
+window.onload = function(){
+
+    clearRow("incompleted");
+    clearRow("accomplished");
+
+    getAssignedIncompletedTaskList(userId);
+    getAssignedAndAccomplishedTaskList(userId);
+
+    for(var i=0;i<AssignedIncompletedTaskList.length;i++){
+        addRow(AssignedIncompletedTaskList[i],"incompleted");
+    }
+
+    for(var i=0;i<AssignedCompletedTaskList.length;i++){
+        addRow(AssignedCompletedTaskList[i],"accomplished");
+    }
+
+}
+
+
 //从服务器获取一个user 的 incompleted task
 function getAssignedIncompletedTaskList(userId){
 
@@ -74,21 +94,12 @@ function addRow(singleTask,id){
 
 }
 
+function clearRow(trid){
+    var t=document.getElementById(trid);
+//删除所有行
+    t.firstChild.removeNode(true)
+}
+function getUserId(){
 
-
-$("#check").click(function (){
-	//
-	getAssignedIncompletedTaskList(userId);
-        getAssignedAndAccomplishedTaskList(userId);
-
-	for(var i=0;i<AssignedIncompletedTaskList.length;i++){
-		addRow(AssignedIncompletedTaskList[i],"incompleted");
-        }
-
-    for(var i=0;i<AssignedCompletedTaskList.length;i++){
-            addRow(AssignedCompletedTaskList[i],"accomplished");
-    }
-
-});
-
+}
 

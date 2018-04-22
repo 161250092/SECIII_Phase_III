@@ -1,13 +1,17 @@
 //下拉框获取任务信息
+var line_user_Id;
+var line_task_Id;
 
+
+//加载页面时先获取该任务的图片数，首张图片
 window.onload=function(){
     var url = window.location.href;
     var temp = url.split("?");
     var infor = temp[1].split("&");
 
 
-    var user_Id = infor[0];
-    var task_Id = infor[1];
+    line_user_Id = infor[0];
+    line_task_Id = infor[1];
 //图片最大数
     $.ajax({
         type : "POST",
@@ -34,8 +38,8 @@ window.onload=function(){
         data : {
             //获得第一张图片，索引设为0
             imageIndex:0,
-            taskId: task_id,
-            userId : user_Id
+            taskId: line_task_Id,
+            userId : line_user_Id
 
         },
         success: function(picture) {
@@ -49,6 +53,14 @@ window.onload=function(){
     });
 
 };
+
+//恢复线条标记，如果没有则不显示
+function restoreLabel(AreaLabelVO){
+
+    restore();
+
+}
+
 
 
 // function insertOption(taskId,type)
@@ -77,8 +89,11 @@ window.onload=function(){
 //     }
 // }
 
-//改变图片源
+//下一张图片
 $("#next").click(function(){
+    //先保存
+    save();
+
     //索引值+1
     index++;
 
@@ -89,10 +104,12 @@ $("#next").click(function(){
         data : {
             //获得第一张图片，索引设为0
             imageIndex:index,
-            taskId: task_id,
-            userId : user_Id
+            taskId: line_task_Id,
+            userId : line_user_Id
         },
         success: function(AreaLabelVOJSON) {
+                var arealabel = JSON.parse(AreaLabelVOJSON);
+                restoreLabel(arealabel);
 
         },
 
@@ -101,6 +118,34 @@ $("#next").click(function(){
         }
     });
 
-
-
 });
+
+
+
+
+//保存
+function save(){
+
+    var label = $("#tagInput").val();
+    var areaLabel = new AreaLabel(index, "test", label, arrayOfLine);
+    //alert(JSON.stringify(areaLabel));
+
+    $.ajax({
+        type : "POST",
+        url : "/markAreaLabel/saveAreaLabel", //利用ajax发起请求，这里写servlet的路径
+
+        data : {
+            areaLabelJson: JSON.stringify(areaLabel)
+            //areaLabelJson: "Hello"
+        },
+        success: function(data) {
+            alert("Success!");
+        },
+
+        error: function () {
+            alert("Wrong!");
+        }
+    });
+
+}
+

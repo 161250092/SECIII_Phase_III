@@ -1,3 +1,14 @@
+window.onload=function(){
+    //清空表格内容
+    clearRow("TaskTable");
+    getMyIntroductionTask(userId);
+
+    for(var i=0;i<introductionTask.length;i++)
+        addRow(introductionTask[i]);
+
+}
+
+
 
 function getMyIntroductionTask(userId){
 
@@ -56,14 +67,6 @@ function addRow(singleTask){
 
 }
 
-$("#get").click(function (){
-
-	getMyIntroductionTask(userId);
-
-	for(var i=0;i<introductionTask.length;i++)
-		addRow(introductionTask[i]);
-
-});
 
 
 

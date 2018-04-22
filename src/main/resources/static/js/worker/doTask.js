@@ -6,8 +6,8 @@ window.onload=function(){
     for(var i=0;i<AllUnfinishedTasks.length;i++){
         addTask(AllUnfinishedTasks[i],"TaskTable");
     }
-
 }
+
 
 
 function addTask(singleTask,id){
