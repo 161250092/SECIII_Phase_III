@@ -1,10 +1,15 @@
 package com.example.maven.data.fileHelper;
 
-import java.io.*;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
 
 public class FileHelper {
 
-    public  boolean createdFile(String filePath) {
+    public  boolean createFile(String filePath) {
         boolean flag = false;
         File newF = new File(filePath);
 
@@ -21,63 +26,57 @@ public class FileHelper {
         return flag;
     }
 
-    public  String readTxtFile(String filepath) {
-        String result = "";
-        String thisLine = null;
-        File file = new File(filepath);
-        if (file.exists() && file.isFile()) {
-            try {
-                FileReader fr = new FileReader(file);
-                BufferedReader br = new BufferedReader(fr);
 
-                while ((thisLine = br.readLine()) != null) {
-                    result += thisLine + "\n";
-                }
-                br.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return result;
-    }
-
-
-    public boolean writeTxtFile(String content,String filePath,boolean append){
+    public boolean writeFile(String filePath,String content){
         boolean flag = false;
-        File thisFile = new File(filePath);
+
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+
         try{
-            if(!thisFile.exists()){
-                thisFile.createNewFile();
-            }
-            FileWriter fw = new FileWriter(filePath,append);
-            fw.write(content+"\n");
+
+            File file = new File(filePath);
+            file.delete();
+
+            file.createNewFile();
+
+            fw = new FileWriter(filePath);
+            bw = new BufferedWriter(fw);
+
+            bw.write(content);
+
+            bw.close();
             fw.close();
+
+            flag = true;
         }catch(IOException e){
             e.printStackTrace();
         }
-        flag= true;
 
         return flag;
     }
 
+    public String readFile(String filePath){
+        String result = "";
 
-    public String[] readFileList(String filePath) {
-
-        String result[];
-        String r[] ={"error"};
-        File file=new File(filePath);
-        File[] list=file.listFiles();
-        result = new String[list.length];
+        FileReader fr = null;
+        BufferedReader br = null;
 
         try{
-            for(int i=0;i<list.length;i++){
-                result[i]=list[i].getName();
-            }
-            return result;
-        }catch(Exception e){
+
+            fr = new FileReader(filePath);
+            br = new BufferedReader(fr);
+
+            result = br.readLine();
+
+            br.close();
+            fr.close();
+
+        }catch(IOException e){
             e.printStackTrace();
-            return r;
         }
+
+        return result;
     }
 
 
