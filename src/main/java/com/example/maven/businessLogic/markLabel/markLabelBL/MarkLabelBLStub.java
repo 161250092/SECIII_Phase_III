@@ -41,12 +41,12 @@ public class MarkLabelBLStub implements MarkLabelBLService {
     }
 
     @Override
-    public boolean saveLabel(String taskId, String userId, String type, String labelVOJson) {
+    public boolean saveLabel(String taskId, String userId, String type, int imageIndex, String labelVOJson) {
         System.out.println("taskId:" + taskId);
         System.out.println("userId:" + userId);
-        System.out.println("labelType:" + type);
+        System.out.println("type:" + type);
         System.out.println("frameLabelJson:" + labelVOJson);
-        return true;
+        return false;
     }
 
     @Override

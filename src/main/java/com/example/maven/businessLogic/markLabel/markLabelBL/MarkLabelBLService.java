@@ -27,11 +27,11 @@ public interface MarkLabelBLService {
      * 根据传入的参数决定标注类型
      * @param taskId 任务ID
      * @param userId 用户ID
-     * @param labelType　标注类型
+     * @param type　标注类型
      * @param labelVOJson 标注的内容
      * @return 是否保存成功
      */
-    boolean saveLabel(String taskId, String userId, String labelType, String labelVOJson);
+    boolean saveLabel(String taskId, String userId, String type, int imageIndex, String labelVOJson);
 
     /**
      * 将该任务设置为已完成
