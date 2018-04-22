@@ -2,7 +2,17 @@
 var overall_user_Id;
 var overall_task_Id;
 
+var labelInfo;
+//记录图片的最大索引值
+var maxN = 2;
+//当前图片的编号
+var index = 0;
+//当前展示的图片
+var image = null;
+
+
 window.onload=function(){
+
     var url = window.location.href;
     var temp = url.split("?");
     var infor = temp[1].split("&");
@@ -16,11 +26,13 @@ window.onload=function(){
         url : "/ImageBLImpl/getTaskImageNumber", //利用ajax发起请求，这里写servlet的路径
 
         data : {
-            userId : user_Id
+
+            userId : line_user_Id
+
+
         },
         success: function(num) {
             maxN = num;
-
         },
 
         error: function () {
@@ -28,20 +40,23 @@ window.onload=function(){
         }
     });
 
-    //图片信息
     $.ajax({
         type : "POST",
-        url : "/ImageBLImpl/getImageAndLabelnfo", //利用ajax发起请求，这里写servlet的路径
+        url : "/markLabel/getLabel", //利用ajax发起请求，这里写servlet的路径
 
         data : {
             //获得第一张图片，索引设为0
             imageIndex:0,
-            taskId: overall_task_Id,
-            userId : overall_user_Id
+            taskId: line_task_Id,
+            userId : line_user_Id,
+            labelType: type1
 
         },
         success: function(picture) {
-            image.src = picture;
+            var AreaInfo = JSON.parse(picture);
+            image.src = AreaInfo.image;
+            labelInfo = AreaInfo.label;
+
             index = 0;
         },
 
@@ -54,21 +69,35 @@ window.onload=function(){
 
 
 //改变图片源
+//下一张图片
 $("#next").click(function(){
+    //先保存
+    save();
+
     //索引值+1
     index++;
 
     $.ajax({
         type : "POST",
-        url : "/ImageBLImpl/getImageAndLabelnfo", //利用ajax发起请求，这里写servlet的路径
+        url : "/markLabel/getLabel", //利用ajax发起请求，这里写servlet的路径
 
         data : {
-            //获得第一张图片，索引设为0
+            //获得下一张图片
             imageIndex:index,
-            taskId: overall_task_Id,
-            userId : overall_user_Id
+            taskId: line_task_Id,
+            userId : line_user_Id,
+            labelType: type1
         },
-        success: function(AreaLabelVOJSON) {
+        success: function(ImageLabelVOJSON) {
+
+            var ImageInfo = JSON.parse(ImageLabelVOJSON);
+            image.src = ImageInfo.image;
+            labelInfo = ImageInfo.label;
+
+            if (!labelInfo.euqals("")){
+                console.log(labelInfo);
+                $("#tagInput").val(labelInfo.toString());
+            }
 
         },
 
@@ -77,6 +106,37 @@ $("#next").click(function(){
         }
     });
 
-
-
 });
+
+
+//保存
+function save(){
+
+    var label = $("#tagInput").val();
+
+    //alert(JSON.stringify(areaLabel));
+
+    $.ajax({
+        type : "POST",
+        url : "/markLabel/saveLabel", //利用ajax发起请求，这里写servlet的路径
+
+        data : {
+            taskId: line_task_Id,
+            userId : line_user_Id,
+            imageIndex :index,
+            type:type1,
+            labelJson: label.toString()
+
+        },
+        success: function(data) {
+            alert("Success!");
+        },
+
+        error: function () {
+            alert("Wrong!");
+        }
+    });
+
+}
+
+

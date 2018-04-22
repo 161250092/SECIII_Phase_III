@@ -1,68 +1,96 @@
 //下拉框获取任务信息
 var line_user_Id;
 var line_task_Id;
-
-
+//标签框的内容
+var labelInfo;
+var lineStringList = new Array();
 //加载页面时先获取该任务的图片数，首张图片
-window.onload=function(){
-    var url = window.location.href;
-    var temp = url.split("?");
-    var infor = temp[1].split("&");
+window.onload=function() {
 
 
-    line_user_Id = infor[0];
-    line_task_Id = infor[1];
+    //获取画布 绘图的对象
+    canvas = document.getElementById("drawingCanvas");
+    context = canvas.getContext("2d");
+
+    //获取图片对象
+    image = document.getElementById("sourceImage");
+
+    // 鼠标按下时的事件
+    canvas.onmousedown = function () {
+        indexOfPoint = -1;
+        indexOfLine++;
+        //arrayOfLine[indexOfLine] = new Array();
+        // 在鼠标按下后触发鼠标移动事件
+        canvas.onmousemove = move;
+    }
+
+    // 鼠标抬起取消鼠标移动的事件
+    canvas.onmouseup = function () {
+        canvas.onmousemove = null;
+        stop();
+    }
+
+    // 鼠标移出画布时 移动事件也要取消。
+    canvas.onmouseout = function () {
+        canvas.onmousemove = null;
+        //stop();
+
+        var url = window.location.href;
+        var temp = url.split("?");
+        var infor = temp[1].split("&");
+
+
+        line_user_Id = infor[0];
+        line_task_Id = infor[1];
 //图片最大数
-    $.ajax({
-        type : "POST",
-        url : "/ImageBLImpl/getTaskImageNumber", //利用ajax发起请求，这里写servlet的路径
+        $.ajax({
+            type: "POST",
+            url: "/ImageBLImpl/getTaskImageNumber", //利用ajax发起请求，这里写servlet的路径
 
-        data : {
-           userId : user_Id
-        },
-        success: function(num) {
-           maxN = num;
+            data: {
 
-        },
+                userId: line_user_Id
 
-        error: function () {
-            alert("Wrong!");
-        }
-    });
 
-    //图片信息
-    $.ajax({
-        type : "POST",
-        url : "/ImageBLImpl/getImageAndLabelnfo", //利用ajax发起请求，这里写servlet的路径
+            },
+            success: function (num) {
+                maxN = num;
+            },
 
-        data : {
-            //获得第一张图片，索引设为0
-            imageIndex:0,
-            taskId: line_task_Id,
-            userId : line_user_Id
+            error: function () {
+                alert("Wrong!");
+            }
+        });
 
-        },
-        success: function(picture) {
-            image.src = picture;
-            index = 0;
-        },
+        //图片信息
+        $.ajax({
+            type: "POST",
+            url: "/markLabel/getLabel", //利用ajax发起请求，这里写servlet的路径
 
-        error: function () {
-            alert("Wrong!");
-        }
-    });
+            data: {
+                //获得第一张图片，索引设为0
+                imageIndex: 0,
+                taskId: line_task_Id,
+                userId: line_user_Id,
+                labelType: type2
 
-};
+            },
+            success: function (picture) {
+                var AreaInfo = JSON.parse(picture);
+                image.src = AreaInfo.image;
+                labelInfo = AreaInfo.label;
+                lineStringList = AreaInfo.lineList;
+                index = 0;
+            },
 
-//恢复线条标记，如果没有则不显示
-function restoreLabel(AreaLabelVO){
+            error: function () {
+                alert("Wrong!");
+            }
+        });
 
-    restore();
 
+    };
 }
-
-
-
 // function insertOption(taskId,type)
 // {
 //     var y=document.createElement('option');
@@ -99,17 +127,34 @@ $("#next").click(function(){
 
     $.ajax({
         type : "POST",
-        url : "/ImageBLImpl/getImageAndLabelnfo", //利用ajax发起请求，这里写servlet的路径
+        url : "/markLabel/getLabel", //利用ajax发起请求，这里写servlet的路径
 
         data : {
-            //获得第一张图片，索引设为0
+            //获得下一张图片
             imageIndex:index,
             taskId: line_task_Id,
-            userId : line_user_Id
+            userId : line_user_Id,
+            labelType: type2
         },
         success: function(AreaLabelVOJSON) {
-                var arealabel = JSON.parse(AreaLabelVOJSON);
-                restoreLabel(arealabel);
+
+            var AreaInfo = JSON.parse(AreaLabelVOJSON);
+            image.src = AreaInfo.image;
+            labelInfo = AreaInfo.label;
+            lineStringList = AreaInfo.lineList;
+
+            if (!labelInfo.euqals("")){
+
+            var myLineArray = new Array();
+            //将字符串数组转化为 标线类Line对象的数组
+            for (var i = 0; i < lineStringList.length; i++) {
+                myLineArray[i] = getLineFromString(lineStringList[i]);
+            }
+            //还原图像
+            restore(myLineArray);
+            console.log(areaLabel.label.toString());
+            $("#tagInput").val(areaLabel.label.toString());
+            }
 
         },
 
@@ -124,21 +169,25 @@ $("#next").click(function(){
 
 
 //保存
-function save(){
+function save() {
 
     var label = $("#tagInput").val();
-    var areaLabel = new AreaLabel(index, "test", label, arrayOfLine);
+    var areaLabel = new AreaLabel(label, arrayOfLine);
     //alert(JSON.stringify(areaLabel));
 
     $.ajax({
-        type : "POST",
-        url : "/markAreaLabel/saveAreaLabel", //利用ajax发起请求，这里写servlet的路径
+        type: "POST",
+        url: "/markLabel/saveLabel", //利用ajax发起请求，这里写servlet的路径
 
-        data : {
+        data: {
+            taskId: line_task_Id,
+            userId: line_user_Id,
+            imageIndex: index,
+            type: type2,
             areaLabelJson: JSON.stringify(areaLabel)
             //areaLabelJson: "Hello"
         },
-        success: function(data) {
+        success: function (data) {
             alert("Success!");
         },
 
@@ -148,4 +197,5 @@ function save(){
     });
 
 }
+
 

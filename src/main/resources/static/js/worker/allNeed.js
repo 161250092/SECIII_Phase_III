@@ -14,9 +14,9 @@ var score;
 
 var ranking;
 
-var type1="整体标注";
-var type2="区域标注";
-var type3="方框标注";
+var type1="ImageLabel";
+var type2="AreaLabel";
+var type3="FrameLabel";
 
 
 //task class defination
@@ -44,7 +44,7 @@ function TaskVO(taskId,labelType,ntroduction,requiredNumber,finishedNumber,score
 
 
 function AreaLabelVO(image,label,linelist){
-    this.iamge  = iamge;
+    this.image  = iamge;
     this.label = label;
     this.linelist = linelist;
 }
