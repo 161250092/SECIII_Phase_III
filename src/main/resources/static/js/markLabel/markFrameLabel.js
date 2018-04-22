@@ -22,7 +22,7 @@ new Vue({
         taskImageNum: 0,
 
         currentImageIndex: 0,
-        currentImage: "",
+        currentImageUrl: "",
         currentFrameLabelList: [],
 
         canvas: undefined,
@@ -45,6 +45,7 @@ new Vue({
             this.canvas.width = rect.width;
             this.canvas.height = rect.height;
 
+            this.userId = getUserId();
             const _this = this;
             //获得这个任务的图片数目
             axios.get("/markLabel/getTaskImageNumber", { params: { taskId: this.taskId } }).then(function (response) {
@@ -61,7 +62,7 @@ new Vue({
             axios.get("/markLabel/getLabel", { params:
                     { taskId: _this.taskId, userId: _this.userId, labelType: _this.labelType, imageIndex: this.currentImageIndex,} })
                 .then(function (response) {
-                    _this.currentImage = response.data.image;
+                    _this.currentImageUrl =  "url(" + response.data.image + ")";
                     _this.currentFrameLabelList = response.data.labelList;
                 });
         },
@@ -121,9 +122,7 @@ new Vue({
                     { taskId: _this.taskId, userId: _this.userId } })
                 .then(function (response) {
                     if(response.data === true){
-                        /**
-                         * 未完成
-                         */
+                        jumpToAnotherPage(mainPageUrl, _this.userId);
                     }else {
                         alert("提交失败");
                     }

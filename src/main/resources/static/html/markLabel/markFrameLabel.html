@@ -47,6 +47,7 @@
                     v-on:mouseup="stopDrawing"
                     v-on:mouseout="stopDrawing"
                     v-on:mousemove="draw"
+                    v-bind:style="{backgroundImage: currentImageUrl}"
             ></canvas>
         </div>
         <div id="tagsInCanvas">
@@ -89,6 +90,7 @@
 <script src="../../js/lib/vue.js"></script>
 <script src="../../js/lib/axios.js"></script>
 <script src="../../js/lib/jquery-1.11.0.min.js"></script>
+<script src="../../js/pageJump.js"></script>
 <script src="../../js/markLabel/markFrameLabel.js"></script>
 </body>
 </html>

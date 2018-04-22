@@ -44,7 +44,7 @@ function jumToTask(url,userId,taskId){
 
 
 //各页面URL
-const mainPageUrl = "../../MainPage.html";
+const mainPageUrl = "../mainPage/MainPage.html";
 const loginPageUrl = "../login/index.html";
 const registerPageUrl = "../register/index.html";
 
