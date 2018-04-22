@@ -1,17 +1,67 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
-<meta name="viewport" content="width=device-width, initial-scale=1"> 
-<title>发布任务</title>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>发布任务</title>
+	<!--部分CSS-->
+	<style type="text/css">
+		.float{
+			float:left;
+			width : 200px;
+			height: 200px;
+			overflow: hidden;
+			border: 1px solid #CCCCCC;
+			border-radius: 10px;
+			padding: 5px;
+			margin: 5px;
+		}
+		img{
+			position: relative;
+		}
+		.result{
+			width: 200px;
+			height: 200px;
+			text-align: center;
+			box-sizing: border-box;
+		}
 
+
+		#file_input{
+			display: none;
+		}
+
+
+		.delete{
+			width: 200px;
+			height:200px;
+			position: absolute;
+			text-align: center;
+			line-height: 200px;
+			z-index: 10;
+			font-size: 30px;
+			background-color: rgba(255,255,255,0.8);
+			color: #777;
+			opacity: 0;
+			transition-duration :0.7s;
+			-webkit-transition-duration: 0.7s;
+		}
+
+
+		.delete:hover{
+			cursor: pointer;
+			opacity: 1;
+		}
+
+	</style>
 
 </head>
 
-	<body>
+
+<body>
 <!--
-1.labelType 标注类型 
+1.labelType 标注类型
 2.taskId 任务Id
 3.String[]imageName 图片名称数组
 4.requiredNumber 需要多少人批注
@@ -19,56 +69,93 @@
 6.description 任务描述
 7.score 积分奖励
 -->
-		<div>
-			<span>标注类型:</span>
-            <select id="File" onchange="selectTag()">
-                    <option value = "tag1">  整体标注</option>
-                    <option value = "tag2">  区域标注</option>
-                    <option value = "tag3">  方框标注</option>
-            </select> 
-		</div>
-		
-		<div>
-			<span>任务名称:</span>
-			<input type="text" id="TaskId" name="tag" value=""></input>
-		</div>
+<div id="home" class="header-wrapper header-top">
+	<header>
+		<script type="text/javascript" src="js/prefixfree.min.js"></script>
 
-		<div>
-			<span>批注人数:</span>
-			<input type="text" id="TaskId" name="tag" value=""></input>
-		</div>
+		<ul class="menu cf">
+			<li>
+				<a>众包发起人</a>
+				<ul class="submenu">
+					<li><a href="UploadTask.html">发布页面</a></li>
+					<li><a href="CheckMyTask.html">查询页面</a></li>
+				</ul>
+			</li>
 
-
-		<div>
-			<span>任务描述:</span>
-			<input type="text" id="TaskId" name="tag" value=""></input>
-		</div>
+			<li>
+				<a>众包工人</a>
+				<ul class="submenu">
+					<li><a href="getTask.html">接任务</a></li>
+					<li><a href="doTask.html">做任务</a></li>
+					<li><a href="WorkerCheckTask.html">查询界面(个人主页)</a></li>
+				</ul>
+			</li>
 
 
-		<div>
-			<span>积分奖励:</span>
-			<input type="text" id="TaskId" name="tag" value=""></input>
-		</div>
+			<li>
+				<a>用  户</a>
+				<ul class="submenu">
+					<li><a href="Login_in.html">登出</a></li>
+					<li><a href="WorkerCheckTask.html">个人主页</a></li>
+				</ul>
+			</li>
+
+		</ul>
+	</header>
+</div>
 
 
-<!--https://blog.csdn.net/a4307515/article/details/50505167
-	这个可以实现上传图片
+<div>
+	<span>标注类型:</span>
+	<select id="LabelType">
+		<option value = "ImageLabel">  整体标注</option>
+		<option value = "AreaLabel">  区域标注</option>
+		<option value = "FrameLabel">  方框标注</option>
+	</select>
+</div>
+
+
+<div>
+	<span>任务编号:</span>
+	<input type="text" id="TaskId" value=""></input>
+	<button id="getTaskId">getTaskId</button>
+</div>
+
+
+<div>
+	<span>批注人数:</span>
+	<input type="text" id="RequiredNumbers"  value=""></input>
+</div>
+
+
+<div>
+	<span>任务描述:</span>
+	<input type="text" id="Introduction" name="tag" value=""></input>
+</div>
+
+
+<div>
+	<span>积分奖励:</span>
+	<input type="text" id="Score" name="tag" value=""></input>
+</div>
+
+
+<!--实现上传图片
 -->
-		<div>
-			<span>图片上传:</span>
-			<textarea rows="3" cols="20">
-				
-			</textarea>
-			
-		</div>
+<div>
+	<label>请选择一个图像文件：</label>
+	<button id="select">(重新)选择图片</button>
+	<button id="add">(追加)图片</button>
+	<input type="file" id="file_input" multiple/> <!--用input标签并选择type=file，记得带上multiple，不然就只能单选图片了-->
+	<button id="submit">提交</button>
+</div>
 
 
-		<div>
-			<button id="upload"> 提交</button>
-		</div>
 
 
-	</body>
-
+</body>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="js/publisher/UploadTask.js"></script>
+<script src="js/worker/allNeed.js"></script>
 
 </html>
