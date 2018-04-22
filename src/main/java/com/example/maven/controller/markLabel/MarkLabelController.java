@@ -30,8 +30,8 @@ public class MarkLabelController implements MarkLabelBLService {
 
     @Override
     @RequestMapping(value = "/markLabel/saveLabel", method = RequestMethod.GET)
-    public boolean saveLabel(String taskId, String userId, String labelType, String labelVOJson) {
-        return markLabelBL.saveLabel(taskId, userId, labelType, labelVOJson);
+    public boolean saveLabel(String taskId, String userId, String type, int imageIndex, String labelVOJson) {
+        return markLabelBL.saveLabel(taskId, userId, type, imageIndex, labelVOJson);
     }
 
     @Override

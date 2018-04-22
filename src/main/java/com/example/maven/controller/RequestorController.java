@@ -24,11 +24,12 @@ public class RequestorController implements RequestorBLService {
 
     /**
      * 发布任务
-     * @param task 任务
+     * @param taskJSON 任务
      * @return 后端处理发布请求的结果
      */
     @RequestMapping(value = "/RequestorController/assignTask", method = RequestMethod.GET)
-    public Exception assignTask(Task task){
+    public Exception assignTask(String taskJSON){
+        System.out.println(taskJSON);
         return null;
     }
 

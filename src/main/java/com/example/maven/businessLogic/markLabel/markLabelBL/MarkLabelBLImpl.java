@@ -12,7 +12,7 @@ public class MarkLabelBLImpl implements MarkLabelBLService{
     }
 
     @Override
-    public boolean saveLabel(String taskId, String userId, String labelType, String labelVOJson) {
+    public boolean saveLabel(String taskId, String userId, String type, int imageIndex, String labelVOJson) {
         return false;
     }
 
