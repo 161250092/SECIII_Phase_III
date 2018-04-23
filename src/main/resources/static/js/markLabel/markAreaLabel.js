@@ -1,41 +1,31 @@
-//标框类
-function FrameLabelVO(labelList) {
-    this.labelList = labelList;
+//区域标注类
+function AreaLabelVO(label, lineList) {
+    this.label = label;
+    this.linelist = lineList;
 }
-//框中的标签类
-function FrameLabelListItem(startX, startY, width, height, tag){
-    this.startX = startX;
-    this.startY = startY;
-    this.width = width;
-    this.height = height;
-    this.tag = tag;
+//线中的像素点类
+function Pixel(x, y){
+    this.x = x;
+    this.y = y;
 }
 
 new Vue({
-    el: "#markFrameLabelContainer",
+    el: "#markAreaLabelContainer",
     data: {
-        labelType: "FrameLabel",
+        labelType: "AreaLabel",
         userId: "",
         taskId: "",
         taskImageNum: 0,
 
         currentImageIndex: 0,
-        currentImageUrl: "",
-        currentFrameLabelList: [],
+        currentImageUrl: 0,
+        currentTag: "",
+        currentAreaList: [],
 
         canvas: undefined,
         canvasContext: undefined,
-        tempImageData: undefined,
+        //tempImageData: undefined,
 
-        //左上角的点
-        topLeftX: 0,
-        topLeftY: 0,
-        //起始点
-        currentStartX: 0,
-        currentStartY: 0,
-        //结束点
-        currentEndX: 0,
-        currentEndY: 0,
         isDrawing: false,
         canDraw: true,
         canInputTag: false,
@@ -64,12 +54,33 @@ new Vue({
                 _this.taskImageNum = response.data;
             });
             //获得第一张图片
-            this.getFrameLabel();
+            this.getAreaLabel();
         });
     },
     methods: {
-        //获得当前图片的标注记录
-        getFrameLabel: function () {
+        getPixelListFromString: function (pixelListStr) {
+            let tempArr;
+            let pixelList = [];
+
+            let pixelStrArray = pixelListStr.split(';');
+            pixelStrArray = pixelStrArray.slice(0, pixelStrArray.length-1);
+
+            const _this = this;
+            pixelStrArray.forEach(function (currentPixelStr, index) {
+                tempArr = currentPixelStr.split(',');
+                pixelList.push(new Pixel(parseInt(tempArr[0]), parseInt(tempArr[1])));
+            });
+            return pixelList;
+        },
+        changePixelListIntoPixelString: function (pixelList) {
+            let pixelListStr = "";
+            pixelList.forEach(function (currentPixel, index) {
+                pixelListStr = pixelListStr +
+                    currentPixel.x + "," + currentPixel.y + ";";
+            });
+            return pixelListStr;
+        },
+        getAreaLabel: function () {
             const _this = this;
             axios.get("/markLabel/getLabel", { params:
                     { taskId: _this.taskId, userId: _this.userId,
@@ -77,37 +88,30 @@ new Vue({
                 .then(function (response) {
                     //图片传输未解决
                     //_this.currentImageUrl =  "url(" + response.data.image + ")";
-                    _this.currentFrameLabelList = response.data.labelList;
-                    _this.removeRecInCanvas();
+                    _this.currentTag = response.data.label;
+                    _this.currentAreaList = (_this.getPixelListFromString(response.data.lineList[0]));
+                    _this.removeAreaInCanvas();
                 });
         },
-        //重置当前图片的标注记录
-        resetCurrentFrameLabel: function () {
-            this.currentFrameLabelList = [];
-
-            this.topLeftX = 0;
-            this.topLeftY = 0;
-            this.currentStartX = 0;
-            this.currentStartY = 0;
-            this.currentEndX = 0;
-            this.currentEndY = 0;
+        resetCurrentAreaLabel: function () {
+            this.currentTag = "";
+            this.currentAreaList = [];
 
             this.isDrawing = false;
             this.canDraw = true;
             this.canInputTag = false;
 
-            this.removeRecInCanvas();
+            this.removeAreaInCanvas();
         },
-        //保存当前图片的标注记录
-        saveCurrentFrameLabel: function () {
+        saveCurrentAreaLabel: function () {
             if(this.canInputTag === false){
-                let frameLabelVO = new FrameLabelVO(this.currentFrameLabelList);
-                let frameLabelVOJson = JSON.stringify(frameLabelVO);
+                let currentAreaLabelVO = new AreaLabelVO(this.currentTag, this.changePixelListIntoPixelString(this.currentAreaList));
+                let areaLabelVOJson = JSON.stringify(currentAreaLabelVO);
                 const _this = this;
                 axios.get("/markLabel/saveLabel", { params:
                         { taskId: _this.taskId, userId: _this.userId,
                             labelType: _this.labelType, imageIndex: _this.currentImageIndex,
-                            labelVOJson: frameLabelVOJson } })
+                            labelVOJson: areaLabelVOJson } })
                     .then(function (response) {
                         if(response.data === true) {
                             alert("保存成功");
@@ -115,30 +119,30 @@ new Vue({
                             alert("保存失败");
                         }
                     });
-            }else {
+            }else{
                 alert("请输入标签");
             }
         },
         //转到前一张图片
-        getPreviousFrameLabel: function () {
-            this.saveCurrentFrameLabel();
+        getPreviousAreaLabel: function () {
+            this.saveCurrentAreaLabel();
             //第一张图片时没有前一张图片
             if(this.currentImageIndex > 0){
-                this.resetCurrentFrameLabel();
+                this.resetCurrentAreaLabel();
                 this.currentImageIndex--;
-                this.getFrameLabel();
+                this.getAreaLabel();
             }else{
                 alert("当前是第一张图片");
             }
         },
         //转到后一张图片
-        getNextFrameLabel: function () {
-            this.saveCurrentFrameLabel();
+        getNextAreaLabel: function () {
+            this.saveCurrentAreaLabel();
             //最后一张图片时没有后一张图片
             if(this.currentImageIndex < (this.taskImageNum - 1)){
-                this.resetCurrentFrameLabel();
+                this.resetCurrentAreaLabel();
                 this.currentImageIndex++;
-                this.getFrameLabel();
+                this.getAreaLabel();
             }else{
                 alert("当前是最后一张图片");
             }
@@ -146,7 +150,7 @@ new Vue({
         //提交任务
         setTaskAccomplished: function () {
             //保存最后一张照片的结果
-            this.saveCurrentFrameLabel();
+            this.saveCurrentAreaLabel();
             //提交任务
             const _this = this;
             axios.get("/markLabel/setTaskAccomplished", { params:
@@ -168,42 +172,47 @@ new Vue({
             inputTagEl.value = "";
 
             if (this.canInputTag === true){
-                //加到数组中
-                let currentWidth = Math.abs(this.currentEndX - this.currentStartX);
-                let currentLength = Math.abs(this.currentEndY - this.currentStartY);
-                let temp = new FrameLabelListItem(this.topLeftX, this.topLeftY, currentWidth, currentLength, tag);
-                this.currentFrameLabelList.push(temp);
-
+                this.currentTag = tag;
                 this.canInputTag = false;
-                this.canDraw = true;
             }
         },
-        removeTag: function (tagIndex) {
-            this.currentFrameLabelList.splice(tagIndex, 1);
-            this.removeRecInCanvas();
-        },
-        //将画布上的矩形标框移除
-        removeRecInCanvas: function () {
+        //将画布上的曲线移除
+        removeAreaInCanvas: function () {
             this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            const _this = this;
-            this.currentFrameLabelList.forEach(function (currentValue, index) {
-                _this.canvasContext.strokeRect(currentValue.startX, currentValue.startY, currentValue.width, currentValue.height);
-            });
+            if(this.currentAreaList.length > 0){
+                let currentStartX = this.currentAreaList[0].x;
+                let currentStartY = this.currentAreaList[0].y;
+                //开始作图
+                this.canvasContext.beginPath();
+                this.canvasContext.moveTo(currentStartX, currentStartY);
+                //逐点画线
+                for(let i = 1; i < this.currentAreaList.length; i++){
+                    currentStartX = this.currentAreaList[i].x;
+                    currentStartY = this.currentAreaList[i].y;
+                    this.canvasContext.lineTo(currentStartX, currentStartY);
+                    this.canvasContext.stroke();
+                }
+                this.canvasContext.closePath();
+            }
         },
         //画板
         startDrawing: function (ev) {
             if(this.isDrawing === false && this.canDraw === true){
+                this.canvasContext.beginPath();
+
                 this.isDrawing = true;
-                this.currentStartX = this.getX(ev);
-                this.currentStartY = this.getY(ev);
-                this.canvasContext.moveTo(this.currentStartX, this.currentStartY);
-                this.tempImageData = this.canvasContext.getImageData(0, 0, this.canvas.width, this.canvas.height);
+                let currentStartX = this.getX(ev);
+                let currentStartY = this.getY(ev);
+                this.canvasContext.moveTo(currentStartX, currentStartY);
+                //this.tempImageData = this.canvasContext.getImageData(0, 0, this.canvas.width, this.canvas.height);
             }
         },
         stopDrawing: function () {
             //防止鼠标只是经过canvas
             if(this.isDrawing === true){
-                this.tempImageData = this.canvasContext.getImageData(0, 0, this.canvas.width, this.canvas.height);
+                //this.tempImageData = this.canvasContext.getImageData(0, 0, this.canvas.width, this.canvas.height);
+                this.canvasContext.closePath();
+
                 this.isDrawing = false;
                 //要求添加标签内容，不允许再画
                 this.canDraw = false;
@@ -212,17 +221,13 @@ new Vue({
         },
         draw: function (ev) {
             if(this.isDrawing === true){
-                this.canvasContext.putImageData(this.tempImageData, 0, 0);
+                let currentStartX = this.getX(ev);
+                let currentStartY = this.getY(ev);
 
-                this.currentEndX = this.getX(ev);
-                this.currentEndY = this.getY(ev);
+                this.canvasContext.lineTo(currentStartX, currentStartY);
+                this.canvasContext.stroke();
 
-                this.topLeftX = (this.currentEndX < this.currentStartX)? this.currentEndX: this.currentStartX;
-                this.topLeftY = (this.currentEndY < this.currentStartY)? this.currentEndY: this.currentStartY;
-                let currentWidth = Math.abs(this.currentEndX - this.currentStartX);
-                let currentLength = Math.abs(this.currentEndY - this.currentStartY);
-
-                this.canvasContext.strokeRect(this.topLeftX, this.topLeftY, currentWidth, currentLength);
+                this.currentAreaList.push(new Pixel(currentStartX, currentStartY));
             }
         },
         //获取坐标
@@ -234,5 +239,5 @@ new Vue({
             const rect = this.$refs.canvas.getBoundingClientRect();
             return ev.clientY - rect.top;
         }
-    },
+    }
 });
