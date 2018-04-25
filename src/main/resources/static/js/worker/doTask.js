@@ -35,23 +35,23 @@ function addTask(singleTask,id){
 
     if(singleTask.labelType==type1) {
         var Cell_4 = tableRow.insertCell(4);
-        var url = "markImageLabel.html?userId="+userId+"&taskId="+singleTask.id;
-        Cell_4.innerHTML = '< href=url  readonly="true">do it</a>';
+        // var url = "markImageLabel.html?userId="+userId+"&taskId="+singleTask.id;
+
+        Cell_4.innerHTML = '<a href="javascript:void(0)"  readonly="true" onclick="jumToTask(overAllPageUrl,userId,singleTask.taskId)">do it</a>';
         Cell_4.className = "s5";
     }
 
     else if(singleTask.labelType==type2){
         var Cell_4 = tableRow.insertCell(4);
-        var url = "markFrameLabel.html?userId="+userId+"&taskId="+singleTask.id;
-        Cell_4.innerHTML = '<a href=url  readonly="true">do it</a>';
+        //var url = "markFrameLabel.html?userId="+userId+"&taskId="+singleTask.id;
+        Cell_4.innerHTML = '<a href="javascript:void(0)"  readonly="true" onclick="jumToTask(markFrameLabelPageUrl,userId,singleTask.taskId)">do it</a>';
         Cell_4.className = "s5";
     }
 
     else if(singleTask.labelType==type3){
         var Cell_4 = tableRow.insertCell(4);
         var url = "markAreaLabel.html?userId="+userId+"&taskId="+singleTask.id;
-
-        Cell_4.innerHTML = '<a href=url readonly="true">do it</a>>';
+        Cell_4.innerHTML = '<a href="javascript:void(0)"  readonly="true" onclick="jumToTask(lineMarkPageUrl,userId,singleTask.taskId)">do it</a>';
         Cell_4.className = "s5";
     }
 
