@@ -187,7 +187,14 @@ public class LabelDataImpl implements LabelDataService{
                 bw = new BufferedWriter(fw);
 
                 for(int i = 0;i < a.size();i++){
-                    bw.write(a.get(i) + "\r\n");
+                    if(i != imageIndex) {
+                        bw.write(a.get(i) + "\r\n");
+                    }
+                    else{
+                        Gson gson = new GsonBuilder().create();
+                        String content = gson.toJson(label);
+                        bw.write(content + "\r\n");
+                    }
                 }
 
                 bw.close();
@@ -205,7 +212,7 @@ public class LabelDataImpl implements LabelDataService{
     /**
      * 判断是否完成标注
      */
-    public boolean isCompletedTask(String userId,String taskId){
+    public boolean setTaskAccomplished(String userId,String taskId){
         boolean result = true;
 
         String filePath = System.getProperty("user.dir").toString() + "/src/main/User";

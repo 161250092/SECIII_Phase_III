@@ -26,7 +26,7 @@ public class LabelDataStub implements LabelDataService{
     /**
      * 判断是否完成标注
      */
-    public boolean isCompletedTask(String userId,String taskId){
+    public boolean setTaskAccomplished(String userId,String taskId){
         return true;
     }
 
