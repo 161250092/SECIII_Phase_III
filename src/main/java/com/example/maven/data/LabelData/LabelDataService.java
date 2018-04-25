@@ -27,5 +27,5 @@ public interface LabelDataService {
      * 创建文件夹
      * @param number 任务的图片数量
      */
-    public boolean accpetTask(String userId,String taskId,int number);
+    public boolean acceptTask(String userId,String taskId,int number);
 }

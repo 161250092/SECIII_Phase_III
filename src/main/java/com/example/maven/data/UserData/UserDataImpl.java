@@ -50,30 +50,37 @@ public class UserDataImpl implements UserDataService{
             File aITask = new File(AIncompleteTask);
             File[] AITask = aITask.listFiles();
 
-            for(int i = 0;i < PATask.length;i++) {
+            for(int i = 0; i < PATask.length;i++){
                 String name = PATask[i].getName();
-                String[] Name = name.split(".");
-                publishedTask.add(Name[0]);
+                if(!name.equals("null.txt")){
+                    String[] Name = name.split(",");
+                    publishedTask.add(Name[0]);
+                }
             }
 
-            for(int i = 0; i < PITask.length;i++) {
+            for(int i = 0; i < PITask.length;i++){
                 String name = PITask[i].getName();
-                String[] Name = name.split(".");
-                publishedTask.add(Name[0]);
+                if(!name.equals("null.txt")){
+                    String[] Name = name.split(",");
+                    publishedTask.add(Name[0]);
+                }
             }
 
-            for(int i = 0; i < AATask.length;i++){
+            for(int i = 0;i < AATask.length;i++){
                 String name = AATask[i].getName();
-                String[] Name = name.split(".");
-                acceptedTask.add(Name[0]);
+                if(!name.equals("null.txt")){
+                    String[] Name = name.split(",");
+                    acceptedTask.add(Name[0]);
+                }
             }
 
             for(int i = 0;i < AITask.length;i++){
                 String name = AITask[i].getName();
-                String[] Name = name.split(".");
-                acceptedTask.add(Name[0]);
+                if(!name.equals("null.txt")){
+                    String[] Name = name.split(",");
+                    acceptedTask.add(Name[0]);
+                }
             }
-
 
             FileHelper fh = new FileHelper();
             String useR = fh.readFile(userInformation);
@@ -139,6 +146,14 @@ public class UserDataImpl implements UserDataService{
         fh.createFile(PAccomplishedTask);
         fh.createFile(PIncompleteTask);
 
+        //保证文件夹正常创建
+        fh.createFile(AAccomplishedTask + "/null.txt");
+        fh.createFile(AIncompleteTask + "/null.txt");
+
+        fh.createFile(PAccomplishedTask + "/null.txt");
+        fh.createFile(PIncompleteTask + "/null.txt");
+
+
         //写用户数据
         //文件内容：用户ID，用户名，密码，积分，是否为管理员
         String user = userId + "," +  userName + "," + password + ",0,false\r\n";
@@ -194,26 +209,34 @@ public class UserDataImpl implements UserDataService{
 
             for (int i = 0; i < PATask.length; i++) {
                 String name = PATask[i].getName();
-                String[] Name = name.split(".");
-                publishedTask.add(Name[0]);
+                if(!PATask[i].getName().equals("null.txt")){
+                    String[] Name = name.split(".");
+                    publishedTask.add(Name[0]);
+                }
             }
 
             for (int i = 0; i < PITask.length; i++) {
                 String name = PITask[i].getName();
-                String[] Name = name.split(".");
-                publishedTask.add(Name[0]);
+                if(!PITask[i].getName().equals("null.txt")){
+                    String[] Name = name.split(".");
+                    publishedTask.add(Name[0]);
+                }
             }
 
             for (int i = 0; i < AATask.length; i++) {
                 String name = AATask[i].getName();
-                String[] Name = name.split(".");
-                acceptedTask.add(Name[0]);
+                if(!AATask[i].getName().equals("null.txt")){
+                    String[] Name = name.split(".");
+                    acceptedTask.add(Name[0]);
+                }
             }
 
             for (int i = 0; i < AITask.length; i++) {
                 String name = AITask[i].getName();
-                String[] Name = name.split(".");
-                acceptedTask.add(Name[0]);
+                if(!AITask[i].getName().equals("null.txt")){
+                    String[] Name = name.split(".");
+                    acceptedTask.add(Name[0]);
+                }
             }
 
             FileHelper fh = new FileHelper();

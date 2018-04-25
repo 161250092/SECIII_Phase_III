@@ -36,7 +36,9 @@ public class FileHelper {
         try{
 
             File file = new File(filePath);
-            file.delete();
+
+            if(file.isFile())
+                file.delete();
 
             file.createNewFile();
 
