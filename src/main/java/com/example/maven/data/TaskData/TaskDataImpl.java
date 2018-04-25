@@ -206,7 +206,7 @@ public class TaskDataImpl implements TaskDataService{
 
         filePath = filePath + "/PublishedTask/IncompleteTask";
 
-        //gson转化task对象
+        //Gson转化task对象
         Gson gson = new GsonBuilder().create();
         String content = gson.toJson(task);
 
