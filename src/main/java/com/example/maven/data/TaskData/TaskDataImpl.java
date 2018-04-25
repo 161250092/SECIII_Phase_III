@@ -18,11 +18,13 @@ public class TaskDataImpl implements TaskDataService{
     public List<String> getAllIncompleteAssignedTaskID(String userId){
         List<String> PITask = new ArrayList<String>();
 
+        //用户文件夹
         String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
 
         File user = new File(filePath);
         File[] User = user.listFiles();
 
+        //找用户
         boolean isFind = false;
 
         for(int i = 0;i < User.length;i++){
@@ -32,7 +34,9 @@ public class TaskDataImpl implements TaskDataService{
             }
         }
 
+        //找到用户
         if(isFind){
+            //加载任务
             filePath = filePath + "/PublishedTask/IncompleteTask";
 
             File piTask = new File(filePath);
@@ -58,8 +62,10 @@ public class TaskDataImpl implements TaskDataService{
     public List<String> getAllAccomplishedAssignedTaskID(String userId){
        List<String> PATask = new ArrayList<String>();
 
+       //用户文件夹
        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
 
+       //找用户
        File user = new File(filePath);
        File[] User = user.listFiles();
 
@@ -71,7 +77,9 @@ public class TaskDataImpl implements TaskDataService{
            }
        }
 
+       //找到用户
        if (isFind){
+           //加载任务数据
            filePath = filePath + "/PublishedTask/AccomplishedTask";
 
            File paTask = new File(filePath);
@@ -97,8 +105,10 @@ public class TaskDataImpl implements TaskDataService{
     public List<String> getAllIncompleteAcceptedTaskID(String userId){
         List<String> AITask = new ArrayList<String>();
 
+        //用户文件夹
         String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
 
+        //找用户
         File user = new File(filePath);
         File[] User = user.listFiles();
 
@@ -110,7 +120,9 @@ public class TaskDataImpl implements TaskDataService{
             }
         }
 
+        //找到用户
         if(isFind){
+            //加载任务数据
             filePath = filePath + "/AcceptedTask/IncompleteTask";
             File aiTask = new File(filePath);
 
@@ -135,8 +147,10 @@ public class TaskDataImpl implements TaskDataService{
     public List<String> getAllAccomplishedAcceptedTaskID(String userId){
         List<String> AATask = new ArrayList<String>();
 
+        //用户文件夹
         String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
 
+        //找用户
         File user = new File(filePath);
         File[] User = user.listFiles();
 
@@ -148,7 +162,9 @@ public class TaskDataImpl implements TaskDataService{
             }
         }
 
+        //找到用户
         if(isFind){
+            //加载任务数据
             filePath = filePath + "/AcceptTask/AccomplishedTask";
 
             File aaTask = new File(filePath);
@@ -173,8 +189,10 @@ public class TaskDataImpl implements TaskDataService{
     public Boolean saveTask(String userId,Task task){
         boolean result = false;
 
+        //用户文件夹
         String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
 
+        //找用户
         File user = new File(filePath);
         File[] User = user.listFiles();
 
@@ -188,6 +206,7 @@ public class TaskDataImpl implements TaskDataService{
 
         filePath = filePath + "/PublishedTask/IncompleteTask";
 
+        //gson转化task对象
         Gson gson = new GsonBuilder().create();
         String content = gson.toJson(task);
 
@@ -205,11 +224,14 @@ public class TaskDataImpl implements TaskDataService{
     public Boolean reviseTask(String taskId){
         boolean result = false;
 
+        //用户文件夹
         String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
 
+        //用户ID
         String[] taskInformation = taskId.split("_");
         String userId = taskInformation[0];
 
+        //找用户
         File user = new File(filePath);
         File[] User = user.listFiles();
 
@@ -222,7 +244,9 @@ public class TaskDataImpl implements TaskDataService{
             }
         }
 
+        //找到用户
         if(isFind){
+            //任务文件夹
             String PITaskFile = filePath + "/PublishedTask/IncompleteTask";
 
             PITaskFile = PITaskFile + "/" + taskId + ".txt";
@@ -233,19 +257,24 @@ public class TaskDataImpl implements TaskDataService{
 
             String PITaskInformation = fh.readFile(PITaskFile);
 
+            //gson读取task对象
             Gson gson = new GsonBuilder().create();
 
             Task task = gson.fromJson(PITaskInformation,Task.class);
 
+            //任务未完成
             if(task.getRequiredNumber() > task.getFinishedNumber()){
+
 
                 task.setFinishedNumber(task.getFinishedNumber() + 1);
                 PITaskInformation = gson.toJson(task);
 
+                //加一后还未完成
                 if(task.getFinishedNumber() < task.getRequiredNumber()){
 
                     fh.writeFile(PITaskInformation,PITaskFile);
                 }
+                //加一后完成
                 else{
                     String PATaskFile = filePath + "/PublishedTask/AccomplishedTask" + "/" + taskId  + ".txt";
 

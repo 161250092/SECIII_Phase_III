@@ -22,15 +22,20 @@ public class UserDataImpl implements UserDataService{
         List<User> User = new ArrayList<User>();
 
         for(int j = 0;j < listOfUser.length;j++){
-
+            //用户文件夹
             String filePath = FilePath + "/" + listOfUser[j].getName();
 
+            //用户信息文件
             String userInformation = filePath + "/" + listOfUser[j].getName() + ".txt";
 
+            //任务文件夹
+
+            //接受的任务
             String AcceptedTask = filePath + "/AcceptedTask";
             String AAccomplishedTask = AcceptedTask + "/AccomplishedTask";
             String AIncompleteTask = AcceptedTask + "/IncompleteTask";
 
+            //发布的任务
             String PublishedTask = filePath + "/PublishedTask";
             String PAccomplishedTask = PublishedTask + "/AccomplishedTask";
             String PIncompleteTask = PublishedTask + "/IncompleteTask";
@@ -38,6 +43,7 @@ public class UserDataImpl implements UserDataService{
             ArrayList<String> publishedTask = new ArrayList<String>();
             ArrayList<String> acceptedTask = new ArrayList<String>();
 
+            //加载任务ID
             File pATask = new File(PAccomplishedTask);
             File[] PATask = pATask.listFiles();
 
@@ -50,6 +56,7 @@ public class UserDataImpl implements UserDataService{
             File aITask = new File(AIncompleteTask);
             File[] AITask = aITask.listFiles();
 
+            //加载发布任务ID
             for(int i = 0; i < PATask.length;i++){
                 String name = PATask[i].getName();
                 if(!name.equals("null.txt")){
@@ -66,6 +73,7 @@ public class UserDataImpl implements UserDataService{
                 }
             }
 
+            //加载接受任务ID
             for(int i = 0;i < AATask.length;i++){
                 String name = AATask[i].getName();
                 if(!name.equals("null.txt")){
@@ -82,9 +90,11 @@ public class UserDataImpl implements UserDataService{
                 }
             }
 
+            //读取用户信息
             FileHelper fh = new FileHelper();
             String useR = fh.readFile(userInformation);
             String[] usER = useR.split(",");
+
             User user = new User(usER[0],usER[1],usER[2],publishedTask,acceptedTask,Integer.parseInt(usER[3]),Boolean.getBoolean(usER[4]));
 
             User.add(user);
@@ -128,6 +138,7 @@ public class UserDataImpl implements UserDataService{
         //创建用户数据txt文件
         String userInformation = filePath + "/" + userId + ".txt";
 
+        //创建任务文件夹
         String AcceptedTask = filePath + "/AcceptedTask";
         String AAccomplishedTask = AcceptedTask + "/AccomplishedTask";
         String AIncompleteTask = AcceptedTask + "/IncompleteTask";
@@ -167,13 +178,14 @@ public class UserDataImpl implements UserDataService{
      *获取单个用户信息
      */
     public User getUser(String userId){
-
+        //用户文件夹
         String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
 
         File User = new File(filePath);
         File[] listOfUser = User.listFiles();
 
 
+        //找用户
         boolean isFind = false;
         for(int i = 0; i < listOfUser.length;i++){
             if(userId.equals(listOfUser[i].getName())) {
@@ -182,6 +194,7 @@ public class UserDataImpl implements UserDataService{
             }
         }
 
+        //任务文件夹
         String AcceptedTask = filePath + "/AcceptedTask";
         String AAccomplishedTask = AcceptedTask + "/AccomplishedTask";
         String AIncompleteTask = AcceptedTask + "/IncompleteTask";
@@ -190,8 +203,9 @@ public class UserDataImpl implements UserDataService{
         String PAccomplishedTask = PublishedTask + "/AccomplishedTask";
         String PIncompleteTask = PublishedTask + "/IncompleteTask";
 
+        //用户被找到
         if(isFind) {
-
+            //加载任务数据
             ArrayList<String> publishedTask = new ArrayList<String>();
             ArrayList<String> acceptedTask = new ArrayList<String>();
 
@@ -239,10 +253,14 @@ public class UserDataImpl implements UserDataService{
                 }
             }
 
+            //读取用户数据
             FileHelper fh = new FileHelper();
+
             String userInformation = filePath + "/" + userId + ".txt";
+
             String useR = fh.readFile(filePath);
             String[] usER = useR.split(",");
+
             User user = new User(usER[0], usER[1], usER[2], publishedTask, acceptedTask, Integer.parseInt(usER[3]), Boolean.getBoolean(usER[4]));
 
             return user;
@@ -256,12 +274,14 @@ public class UserDataImpl implements UserDataService{
      * @param score 积分更改数值
      */
     public boolean reviseScore(String userId,int score){
+        //用户文件夹
         String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
 
         boolean result = false;
 
         boolean isFind = false;
 
+        //找用户
         File User = new File(filePath);
         File[] listOfUser = User.listFiles();
 
@@ -273,8 +293,9 @@ public class UserDataImpl implements UserDataService{
 
         }
 
+        //找到用户
         if(isFind){
-
+            //更改用户数据
             FileHelper fh = new FileHelper();
 
             filePath = filePath + "/" + userId + ".txt";
