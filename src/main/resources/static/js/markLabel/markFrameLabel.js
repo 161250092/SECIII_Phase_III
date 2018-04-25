@@ -75,8 +75,7 @@ new Vue({
                     { taskId: _this.taskId, userId: _this.userId,
                         labelType: _this.labelType, imageIndex: this.currentImageIndex,} })
                 .then(function (response) {
-                    //图片传输未解决
-                    //_this.currentImageUrl =  "url(" + response.data.image + ")";
+                    _this.currentImageUrl = 'url(' + '/getTaskImage/' + _this.taskId + '/' + response.data.image + ')';
                     _this.currentFrameLabelList = response.data.labelList;
                     _this.removeRecInCanvas();
                 });
@@ -84,6 +83,7 @@ new Vue({
         //重置当前图片的标注记录
         resetCurrentFrameLabel: function () {
             this.currentFrameLabelList = [];
+            this.currentImageUrl = "";
 
             this.topLeftX = 0;
             this.topLeftY = 0;

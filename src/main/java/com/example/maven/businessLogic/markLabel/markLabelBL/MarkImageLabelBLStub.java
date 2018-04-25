@@ -22,13 +22,15 @@ public class MarkImageLabelBLStub implements MarkLabelBLService {
         System.out.println("imageIndex:" + imageIndex);
 
         List<String> labelList  = new ArrayList<>();
-        ImageLabelVO vo = new ImageLabelVO("image", labelList);
+        ImageLabelVO vo = null;
 
         if(imageIndex == 0){
+            vo = new ImageLabelVO("F5F25A4A91A52AB03FB45F901968C557.jpg", labelList);
             labelList.add("tag0-1");
             labelList.add("tag0-2");
             labelList.add("tag0-3");
         }else if (imageIndex == 1){
+            vo = new ImageLabelVO("14829933001340406.png", labelList);
             labelList.add("tag1-1");
             labelList.add("tag2-2");
         }

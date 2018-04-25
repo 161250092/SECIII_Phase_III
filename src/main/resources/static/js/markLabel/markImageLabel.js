@@ -12,7 +12,7 @@ new Vue({
         taskImageNum: 0,
 
         currentImageIndex: 0,
-        currentImageUrl: "http://dl.renzhemao.com/d/file/dlzj_new/sgdq/ts/2014-03-11/8d60a184ccb59b8b6852d29aa5e968ec.jpg",
+        currentImageSrc: "",
         currentImageLabelList: [],
     },
     mounted: function () {
@@ -42,14 +42,13 @@ new Vue({
                     { taskId: _this.taskId, userId: _this.userId,
                         labelType: _this.labelType, imageIndex: this.currentImageIndex,} })
                 .then(function (response) {
-                    //图片传输未解决
-                    //_this.currentImageUrl =  "url(" + response.data.image + ")";
-                    //_this.currentImageLabelList = response.data.labelList;
+                    _this.currentImageSrc = '/getTaskImage/' + _this.taskId + '/' + response.data.image;
                     _this.currentImageLabelList = response.data.labelList;
                 });
         },
         resetCurrentImageLabel: function () {
             this.currentImageLabelList = [];
+            this.currentImageSrc = "";
         },
         saveCurrentImageLabel: function () {
             let imageLabelVO = new ImageLabelVO(this.currentImageLabelList);

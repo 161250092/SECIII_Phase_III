@@ -18,7 +18,7 @@ new Vue({
         taskImageNum: 0,
 
         currentImageIndex: 0,
-        currentImageUrl: 0,
+        currentImageUrl: "",
         currentTag: "",
         currentAreaList: [],
 
@@ -86,8 +86,7 @@ new Vue({
                     { taskId: _this.taskId, userId: _this.userId,
                         labelType: _this.labelType, imageIndex: this.currentImageIndex,} })
                 .then(function (response) {
-                    //图片传输未解决
-                    //_this.currentImageUrl =  "url(" + response.data.image + ")";
+                    _this.currentImageUrl = 'url(' + '/getTaskImage/' + _this.taskId + '/' + response.data.image + ')';
                     _this.currentTag = response.data.label;
                     _this.currentAreaList = (_this.getPixelListFromString(response.data.lineList[0]));
                     _this.removeAreaInCanvas();
@@ -96,6 +95,7 @@ new Vue({
         resetCurrentAreaLabel: function () {
             this.currentTag = "";
             this.currentAreaList = [];
+            this.currentImageUrl = "";
 
             this.isDrawing = false;
             this.canDraw = true;

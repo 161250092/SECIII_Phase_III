@@ -59,11 +59,13 @@ public class ImageController {
      * @param filename 图片名
      * @return 图片（字节数组）
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/getTaskImage/{filename:.+}", produces = MediaType.IMAGE_PNG_VALUE)
+    @RequestMapping(method = RequestMethod.GET, value = "/getTaskImage/{taskId:.+}/{filename:.+}", produces = MediaType.IMAGE_PNG_VALUE)
     @ResponseBody
-    public ResponseEntity<?> getTaskImage(@PathVariable String filename) {
+    public ResponseEntity<?> getTaskImage(@PathVariable String taskId, @PathVariable String filename) {
+        System.out.println(taskId);
+        System.out.println(filename);
         try{
-            return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(ROOT, filename).toString()));
+            return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get((ROOT + "/" + taskId), filename).toString()));
         }catch (Exception e){
             return ResponseEntity.notFound().build();
         }
