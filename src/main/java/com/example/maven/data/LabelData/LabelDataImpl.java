@@ -118,7 +118,7 @@ public class LabelDataImpl implements LabelDataService{
 
         }
 
-        return null;
+        return label;
     }
 
     /**
@@ -181,7 +181,6 @@ public class LabelDataImpl implements LabelDataService{
                 br.close();
                 fr.close();
 
-
             }catch(IOException e){
                 e.printStackTrace();
             }
@@ -215,6 +214,7 @@ public class LabelDataImpl implements LabelDataService{
                 bw.close();
                 fw.close();
 
+                result = true;
             }catch(IOException e){
                 e.printStackTrace();
             }
@@ -329,6 +329,7 @@ public class LabelDataImpl implements LabelDataService{
      * @param number 任务的图片数量
      */
     public boolean acceptTask(String userId,String taskId,int number){
+        boolean result = false;
         String filePath  = System.getProperty("user.dir").toString() + "/src/main/User";
 
         File user = new File(filePath);
@@ -368,12 +369,13 @@ public class LabelDataImpl implements LabelDataService{
                 bw.close();
                 fw.close();
 
+                result = true;
             }catch(IOException e){
                 e.printStackTrace();
             }
 
         }
 
-        return false;
+        return result;
     }
 }
