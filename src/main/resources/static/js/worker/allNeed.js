@@ -32,7 +32,7 @@ function Task(taskId,labelType,image,introduction,requiredNumber,finishedNumber,
 }
 
 //TASKVO
-function TaskVO(taskId,labelType,ntroduction,requiredNumber,finishedNumber,score) {
+function TaskVO(taskId,labelType,introduction,requiredNumber,finishedNumber,score) {
     this.taskId = taskId;
     this.labelType = labelType;
     this.introduction = introduction;
