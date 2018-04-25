@@ -19,8 +19,8 @@ public class UserDataStub implements UserDataService{
      *创建存储数据需要的文件夹
      * @return 用户ID
      */
-    public String newUser(String userName,String password){
-        return "99999999";
+    public boolean newUser(String userName,String password){
+        return true;
     }
 
     /**

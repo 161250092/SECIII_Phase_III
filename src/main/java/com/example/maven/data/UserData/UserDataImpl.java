@@ -108,7 +108,7 @@ public class UserDataImpl implements UserDataService{
      *创建存储数据需要的文件夹
      * @return 用户ID
      */
-    public String newUser(String userName,String password){
+    public boolean newUser(String userName,String password){
         //文件地址
         String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
 
@@ -171,7 +171,7 @@ public class UserDataImpl implements UserDataService{
 
         fh.writeFile(userInformation,user);
 
-        return userId;
+        return true;
     }
 
     /**
