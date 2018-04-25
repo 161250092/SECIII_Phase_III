@@ -9,6 +9,8 @@ window.onload = function(){
     clearRow("incompleted");
     clearRow("accomplished");
 
+
+
     getAssignedIncompletedTaskList(userId);
     getAssignedAndAccomplishedTaskList(userId);
 

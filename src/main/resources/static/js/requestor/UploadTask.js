@@ -18,13 +18,41 @@ function getInformation(){
     description = $("#Introduction").val();
     requiredNumber = parseInt($("#RequiredNumbers").val());
     score1= parseInt($("#Score").val());
-
 }
 
 function getType(){
     var selectObj = document.getElementById("LabelType");
     labelType = selectObj.value;
 }
+
+
+function sendTaskVO(){
+    //全局变量赋值
+    getInformation();
+    console.log("task生成前");
+    var task = new TaskVO(taskId,labelType,description,requiredNumber,0,score1);
+
+    console.log('提交的数据：'+JSON.stringify(task));
+    $.ajax({
+        url : "/RequestorController/assignTask",
+        type : 'POST',
+        data : {myStr : JSON.stringify(task)},
+        //dataType: 'json',
+        // processData: false,
+        //  用FormData传fd时需有这两项
+        // contentType: false,
+        success : function(data){
+            console.log('返回的数据：'+JSON.stringify(data))
+        }
+
+    })
+}
+
+
+
+
+
+
 
 
 //select image from host
@@ -64,16 +92,13 @@ function readFile(){
 
 
         reader.onload = function(e){
-            // var imgMsg = {
-            //     name : this.fileName,//获取文件名
-            //     base64 : this.result   //reader.readAsDataURL方法执行完后，base64数据储存在reader.result里
-            // }
-            //dataArr.push(imgMsg);
 
             dataArr.push(this.result);
 
             result = '<div class="delete">delete</div><div class="result"><img src="'+this.result+'" alt=""/></div>';
+
             var div = document.createElement('div');
+
             div.innerHTML = result;
             div['className'] = 'float';
             div['index'] = index;
@@ -100,8 +125,6 @@ function readFile(){
 
 
 function send(){
-
-
     var submitArr = [];
     for (var i = 0; i < dataArr.length; i++) {
         if (dataArr[i]) {
@@ -133,10 +156,6 @@ function send(){
 
     })
 }
-
-
-
-
 
     oSelect.onclick=function(){
         oInput.value = "";   // 先将oInput值清空，否则选择图片与上次相同时change事件不会触发
@@ -191,6 +210,8 @@ function ReSizePic(ThisPic) {
         ThisPic.height = reHeight;
     }
 }
+
+
 
 function createTaskId(){
     var time = Date.parse(new Date());

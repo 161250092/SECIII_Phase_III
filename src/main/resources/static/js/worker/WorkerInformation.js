@@ -17,8 +17,8 @@ window.onload=function(){
     }
 
 
-    $("ranking").innerHTML = ranking;
-    $("score").innerHTML = score;
+    document.getElementById("ranking").value = ranking;
+    document.getElementById("score").value = score;
 
 }
 
