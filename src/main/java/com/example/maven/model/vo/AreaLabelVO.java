@@ -1,14 +1,14 @@
 package com.example.maven.model.vo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 public class AreaLabelVO implements Serializable{
     private String image;
     private String label;
-    private ArrayList<String> lineList;
+    private List<String> lineList;
 
-    public AreaLabelVO(String image, String label, ArrayList<String> lineList) {
+    public AreaLabelVO(String image, String label, List<String> lineList) {
         this.image = image;
         this.label = label;
         this.lineList = lineList;
@@ -22,7 +22,7 @@ public class AreaLabelVO implements Serializable{
         return label;
     }
 
-    public ArrayList<String> getLineList() {
+    public List<String> getLineList() {
         return lineList;
     }
 
