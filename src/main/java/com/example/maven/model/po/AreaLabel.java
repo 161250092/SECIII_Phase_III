@@ -1,7 +1,7 @@
 package com.example.maven.model.po;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 区域标注类
@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 public class AreaLabel extends Label implements Serializable{
     private String label;
-    private ArrayList<String> lineList;
+    private List<String> lineList;
 
-    public AreaLabel(String label, ArrayList<String> lineList) {
+    public AreaLabel(String label, List<String> lineList) {
         setType("AreaLabel");
         this.label = label;
         this.lineList = lineList;
@@ -25,7 +25,7 @@ public class AreaLabel extends Label implements Serializable{
         return label;
     }
 
-    public ArrayList<String> getLineList() {
+    public List<String> getLineList() {
         return lineList;
     }
 

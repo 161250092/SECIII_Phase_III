@@ -8,9 +8,9 @@ import java.util.List;
  */
 public class FrameLabelVO implements Serializable {
     private String image;
-    private List<FrameLabelListItem> labelList;
+    private List<FrameLabelListItemVO> labelList;
 
-    public FrameLabelVO(String image, List<FrameLabelListItem> labelList){
+    public FrameLabelVO(String image, List<FrameLabelListItemVO> labelList){
         this.image = image;
         this.labelList = labelList;
     }
@@ -19,7 +19,7 @@ public class FrameLabelVO implements Serializable {
         return image;
     }
 
-    public List<FrameLabelListItem> getLabelList() {
+    public List<FrameLabelListItemVO> getLabelList() {
         return labelList;
     }
 }

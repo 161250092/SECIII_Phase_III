@@ -1,28 +1,30 @@
 package com.example.maven.model.po;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 整体标注类
  */
 public class ImageLabel extends Label implements Serializable{
 
-    private String label;
+    private List<String> labelList;
 
-    public ImageLabel(String label) {
+    public ImageLabel(List<String> labelList) {
         setType("ImageLabel");
-        this.label = label;
+        this.labelList = labelList;
     }
 
     public ImageLabel(){
         setType("ImageLabel");
     }
 
-    public String getLabel() {
-        return label;
+    public void setLabelList(List<String> labelList) {
+        this.labelList = labelList;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public List<String> getLabelList() {
+        return labelList;
     }
+
 }
