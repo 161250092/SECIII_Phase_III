@@ -22,7 +22,7 @@ public class LoginController implements LoginBLService {
      * @return 是否登陆成功
      */
     @RequestMapping(value = "/LoginController/login", method = RequestMethod.GET)
-    public boolean login(String userName, String password){
+    public Exception login(String userName, String password){
         return loginBL.login(userName, password);
     }
 

@@ -80,25 +80,6 @@ public class MarkLabelBLImpl implements MarkLabelBLService{
                     return  "TypeError!";
             }
 
-//            if (labelType.equals("ImageLabel")){
-//                ImageLabel imageLabel = (ImageLabel)label;
-//                ImageLabelVO vo = new ImageLabelVO(image, imageLabel.getLabelList());
-//                objectToJson = gson.toJson(vo);
-//            }else if(labelType.equals("AreaLabel")){
-//                AreaLabel areaLabel = (AreaLabel)label;
-//                AreaLabelVO vo = new AreaLabelVO(image, areaLabel.getLabel(), areaLabel.getLineList());
-//                objectToJson = gson.toJson(vo);
-//            }else{
-//                FrameLabel frameLabel = (FrameLabel)label;
-//                ArrayList<FrameLabelListItem> poList = frameLabel.getFrameLabelListItemList();
-//                ArrayList<com.example.maven.model.vo.frameLabel.FrameLabelListItem> voList = new ArrayList<>();
-//                for(FrameLabelListItem po : poList){
-////                    voList.add(new)
-//                }
-//                FrameLabelVO vo = new FrameLabelVO(image, frameLabel.getFrameLabelListItemList());
-//                objectToJson = gson.toJson(vo);
-//            }
-
             return objectToJson;
         }
 

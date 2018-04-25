@@ -1,23 +1,33 @@
 package com.example.maven.businessLogic.registerBL;
 
+import com.example.maven.data.UserData.UserDataImpl;
+import com.example.maven.data.UserData.UserDataService;
+import com.example.maven.model.po.User;
+
+import java.util.List;
+
 public class RegisterBLImpl implements RegisterBLService {
 
+    private UserDataService userDataService;
+
+    public RegisterBLImpl(){
+        userDataService = new UserDataImpl();
+    }
+
     public boolean isExist(String userName){
-        System.out.println(userName);
-        //test
-        if (userName.equals("2333")||userName.equals("wwww"))
-            return false;
-        else
-            return true;
+
+        List<User> userList = userDataService.getAllUser();
+        for(User user : userList){
+            if(user.getUserName().equals(userName))
+                return true;
+        }
+
+        return false;
     }
 
     public boolean register(String userName, String password){
-        //System.out.println(userName);
-        //System.out.println(password);
-        //test
-        if (userName.equals("wwww"))
-            return false;
-        else
-            return true;
+
+//        return userDataService.newUser(userName,password);
+        return true;
     }
 }
