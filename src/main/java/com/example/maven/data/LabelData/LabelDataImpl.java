@@ -73,28 +73,43 @@ public class LabelDataImpl implements LabelDataService{
 
                 String s;
                 while((s = br.readLine()) != null){
-                    if (s.equals("#"))
-                        label.add(null);
-                    else{
-                        Gson gson = new GsonBuilder().create();
+                    Gson gson = new GsonBuilder().create();
 
-                        String[] name = taskId.split("_");
+                    String[] name = taskId.split("_");
 
-                        String type = name[1];
+                    String type = name[1];
 
-                        if(type.equals("ImageLabel")){
-                            ImageLabel Label = gson.fromJson(s,ImageLabel.class);
-                            label.add(Label);
-                        }
-                        else if(type.equals("AreaLabel")){
-                            AreaLabel Label = gson.fromJson(s,AreaLabel.class);
+                    if(type.equals("ImageLabel")){
+                        if (s.equals("#")) {
+                            ImageLabel Label = new ImageLabel();
                             label.add(Label);
                         }
                         else{
-                            FrameLabel Label = gson.fromJson(s,FrameLabel.class);
+                            ImageLabel Label = gson.fromJson(s,ImageLabel.class);
                             label.add(Label);
                         }
                     }
+                    else if(type.equals("AreaLabel")){
+                        if (s.equals("#")) {
+                            AreaLabel Label = new AreaLabel();
+                            label.add(Label);
+                        }
+                        else {
+                            AreaLabel Label = gson.fromJson(s, AreaLabel.class);
+                            label.add(Label);
+                        }
+                    }
+                    else{
+                        if (s.equals("#")) {
+                            FrameLabel Label = new FrameLabel();
+                            label.add(Label);
+                        }
+                        else {
+                            FrameLabel Label = gson.fromJson(s, FrameLabel.class);
+                            label.add(Label);
+                        }
+                    }
+
                 }
 
             }catch(IOException e){
