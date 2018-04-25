@@ -35,7 +35,7 @@ function addTask(singleTask,id){
 
     if(singleTask.labelType==type1) {
         var Cell_4 = tableRow.insertCell(4);
-        var url = "OverAllPage.html?userId="+userId+"&taskId="+singleTask.id;
+        var url = "markImageLabel.html?userId="+userId+"&taskId="+singleTask.id;
         Cell_4.innerHTML = '< href=url  readonly="true">do it</a>';
         Cell_4.className = "s5";
     }
@@ -49,7 +49,7 @@ function addTask(singleTask,id){
 
     else if(singleTask.labelType==type3){
         var Cell_4 = tableRow.insertCell(4);
-        var url = "LineMarkPage.html?userId="+userId+"&taskId="+singleTask.id;
+        var url = "markAreaLabel.html?userId="+userId+"&taskId="+singleTask.id;
 
         Cell_4.innerHTML = '<a href=url readonly="true">do it</a>>';
         Cell_4.className = "s5";

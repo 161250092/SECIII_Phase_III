@@ -60,7 +60,11 @@ new Vue({
                         labelType: _this.labelType, imageIndex: _this.currentImageIndex,
                         labelVOJson: imageLabelVOJson } })
                 .then(function (response) {
-
+                    if(response.data === true) {
+                        alert("保存成功");
+                    }else{
+                        alert("保存失败");
+                    }
                 });
         },
         getPreviousImageLabel: function () {

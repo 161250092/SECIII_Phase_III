@@ -2,7 +2,7 @@
 <html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>框标注</title>
+    <title>区域标注</title>
     <link rel="stylesheet" href="../../css/guide.css">
     <link rel="stylesheet" href="../../css/布局.css">
     <link rel="stylesheet" href="../../css/background.css">
@@ -10,37 +10,29 @@
 </head>
 
 <body  bgcolor=#F0F0F0>
-<div id="markFrameLabelContainer" class="parent">
+<div id="markAreaLabelContainer" class="parent">
     <nav class="top">
         <ul id="UI">
-            <li class="LI"><a class="active" href="#home">方框标注</a></li>
+            <li class="LI"><a href="markImageLabel.html">整体标注</a></li>
             <li class="LI"><a href="../mainPage/MainPage.html">返回</a></li>
         </ul>
     </nav>
 
     <section class="left">
         <div class="btn-group">
-            <button v-on:click="resetCurrentFrameLabel">重置</button>
-            <button v-on:click="saveCurrentFrameLabel">保存</button>
-            <button v-on:click="getPreviousFrameLabel">前一张</button>
-            <button v-on:click="getNextFrameLabel">后一张</button>
+            <button v-on:click="resetCurrentAreaLabel">重置</button>
+            <button v-on:click="saveCurrentAreaLabel">保存</button>
+            <button v-on:click="getPreviousAreaLabel">前一张</button>
+            <button v-on:click="getNextAreaLabel">后一张</button>
             <button v-on:click="setTaskAccomplished"
                     v-if="currentImageIndex == (taskImageNum-1)">
                 保存并提交
             </button>
         </div>
-        <p>userId = {{userId}}</p>
-        <p>taskId = {{taskId}}</p>
-        <p>labelType = {{labelType}}</p>
-        <p>topLeftX = {{topLeftX}}</p>
-        <p>topLeftY = {{topLeftY}}</p>
-        <p>currentStartX = {{currentStartX}}</p>
-        <p>currentStartY = {{currentStartY}}</p>
-        <p>currentEndX = {{currentEndX}}</p>
-        <p>currentEndY = {{currentEndY}}</p>
         <p>isDrawing = {{isDrawing}}</p>
         <p>canDraw = {{canDraw}}</p>
         <p>canInputTag = {{canInputTag}}</p>
+        <p>currentPixelList: {{currentAreaList}}</p>
     </section>
 
     <section class="center">
@@ -53,22 +45,23 @@
                     v-bind:style="{backgroundImage: currentImageUrl}"
             ></canvas>
         </div>
-        <div id="tagsInCanvas">
-            <p class="tagInCanvas"
-               v-for="(listItem,index) in currentFrameLabelList"
-               v-bind:style="{left: listItem.startX+'px', top: listItem.startY+'px'}">{{index+1}}. {{listItem.tag}}</p>
-        </div>
+        <!--<div id="tagsInCanvas">-->
+            <!--<p class="tagInCanvas"-->
+               <!--v-for="(listItem,index) in currentFrameLabelList"-->
+               <!--v-bind:style="{left: listItem.startX+'px', top: listItem.startY+'px'}">{{index+1}}. {{listItem.tag}}</p>-->
+        <!--</div>-->
     </section>
 
     <section class="right">
-        <div id="toolBar">
-            <p>填写标签：</p>
-            <input type="text" id="inputTag" placeholder="请输入标签" ref="inputTag">
-            <button class="buttonGrey" v-on:click="addTag">添加标签</button>
-        </div>
     </section>
 
     <section class="bottom">
+        <div id="toolBar">
+            <p>填写标签：
+                <input type="text" id="tagInput" placeholder="请输入标签" ref="inputTag">
+                <button class="buttonGrey" v-on:click="addTag">添加标签</button>
+            </p>
+        </div>
         <div>
             <p>当前图片：{{currentImageIndex+1}}     总图片数：{{taskImageNum}}</p>
             <table id="tagTable">
@@ -77,20 +70,21 @@
                     <th>标签内容</th>
                     <th>操作</th>
                 </tr>
-                <tr v-for="(listItem,index) in currentFrameLabelList">
-                    <td>{{index+1}}</td>
-                    <td>{{listItem.tag}}</td>
-                    <td><button v-on:click="removeTag(index)">删除</button></td>
+                <tr>
+                    <td>1</td>
+                    <td>{{currentTag}}</td>
+                    <td></td>
                 </tr>
             </table>
         </div>
     </section>
 </div>
-
 <script src="../../js/lib/vue.js"></script>
 <script src="../../js/lib/axios.js"></script>
-<script src="../../js/lib/jquery-1.11.0.min.js"></script>
 <script src="../../js/pageJump.js"></script>
-<script src="../../js/markLabel/markFrameLabel.js"></script>
+<script src="../../js/markLabel/markAreaLabel.js"></script>
+<!--<script src = "../../js/worker/markArea.js"></script>-->
+<!--<script src = "../../js/worker/line.js"></script>-->
+<!--<script src = "../../js/worker/allNeed.js"></script>-->
 </body>
 </html>
