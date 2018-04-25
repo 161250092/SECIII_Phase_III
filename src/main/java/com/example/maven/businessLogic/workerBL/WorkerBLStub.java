@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorkerBLStub implements WorkerBLService {
-    private TaskDataService taskDataService;
 
     @Override
     public List<Task> getAcceptedAndAccomplishedTaskList(String userId) {

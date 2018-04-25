@@ -9,6 +9,8 @@ import com.example.maven.model.po.Task;
 import com.example.maven.model.po.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class WorkerBLImpl implements WorkerBLService {
@@ -44,10 +46,25 @@ public class WorkerBLImpl implements WorkerBLService {
     @Override
     public int getUserRanking(String userId) {
         List<User> userList = userDataService.getAllUser();
-//        List<>
 
+        //自定义Comparator，为User类提供排序的比较方法
+        Comparator comparator = new Comparator<User>() {
+            @Override
+            public int compare(User user1, User user2) {
+                //按照积分比较 进行排序
+                if((int)user1.getScore() <= user2.getScore())
+                    return 1;
+                else
+                    return -1;
+            }
+        };
 
-        return 0;
+        //排序
+        Collections.sort(userList, comparator);
+
+        User user = userDataService.getUser(userId);
+
+        return userList.indexOf(user)+1;
     }
 
     private List<Task> getTaskList(String userId, boolean isAccomplised){

@@ -15,7 +15,6 @@ public class RegisterBLImpl implements RegisterBLService {
     }
 
     public boolean isExist(String userName){
-
         List<User> userList = userDataService.getAllUser();
         for(User user : userList){
             if(user.getUserName().equals(userName))
@@ -26,8 +25,6 @@ public class RegisterBLImpl implements RegisterBLService {
     }
 
     public boolean register(String userName, String password){
-
-//        return userDataService.newUser(userName,password);
-        return true;
+        return userDataService.newUser(userName,password);
     }
 }
