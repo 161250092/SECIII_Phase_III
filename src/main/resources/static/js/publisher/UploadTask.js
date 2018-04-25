@@ -29,6 +29,8 @@ function getType(){
 
 //select image from host
 window.onload = function(){
+
+
     var input = document.getElementById("file_input");
     var result;
     var dataArr = []; // 储存所选图片的结果(文件名和base64数据)
@@ -190,20 +192,17 @@ function ReSizePic(ThisPic) {
     }
 }
 
-
-
-
-function getTaskId(){
+function createTaskId(){
     var time = Date.parse(new Date());
-   // var time = "2018";
+    console.log(time);
     getType();
-
     document.getElementById("TaskId").value ="00000000"+"_"+labelType+"_"+time;
+    console.log("00000000");
 }
 
 
-$("#getTaskId").click(function(){
-    getTaskId();
+$("#getTaskId").click(function () {
+    createTaskId();
 })
 
 
