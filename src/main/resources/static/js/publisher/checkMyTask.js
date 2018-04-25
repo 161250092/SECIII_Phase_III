@@ -99,7 +99,3 @@ function clearRow(trid){
 //删除所有行
     t.firstChild.removeNode(true)
 }
-function getUserId(){
-
-}
-
