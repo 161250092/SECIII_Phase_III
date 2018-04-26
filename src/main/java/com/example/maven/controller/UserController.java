@@ -13,7 +13,7 @@ public class UserController implements UserBLService {
      * @param userName 用户昵称
      * @return 用户Id
      */
-    @RequestMapping(value = "/UserController/getUserId", method = RequestMethod.GET)
+    @RequestMapping(value = "/getUserId", method = RequestMethod.GET)
     public String getUserId(String userName){
         return "123456";
     }

@@ -21,7 +21,7 @@ public class LoginController implements LoginBLService {
      * @param password 用户密码
      * @return 是否登陆成功
      */
-    @RequestMapping(value = "/LoginController/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public Exception login(String userName, String password){
         return loginBL.login(userName, password);
     }

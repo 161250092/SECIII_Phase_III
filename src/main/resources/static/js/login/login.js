@@ -10,44 +10,28 @@ new Vue({
     methods:{
         login:function () {
             const _this = this;
-            axios.get("/LoginController/loginBL", { params:{ userName: _this.userName, password: _this.password } }).then(function (response) {
-                if(response.data === true){
-                    /**
-                     * 未完成
-                     */
-                    jumpToAnotherPage(mainPageUrl, "testID");
-                }else {
-                    alert("登录失败");
-                }
-            });
+            axios.all([this.loginAxios(), this.getUserIdAxios()]).then(axios.spread(function (isLoginObj, userIdObj) {
+                let isLogin = isLoginObj.data;
+                let userId = userIdObj.data;
+            }));
+            // axios.get("/login", { params:{ userName: _this.userName, password: _this.password } }).then(function (response) {
+            //     if(response.data === true){
+            //         let userId;
+            //         axios.get("/getUserId", {params: {userName: this.userName}}).then(function (response) {
+            //             userId = response.data;
+            //         });
+            //         sendUserId(userId);
+            //         jumpToAnotherPage(mainPageUrl);
+            //     }else {
+            //         alert("登录失败");
+            //     }
+            // });
         },
+        loginAxios: function () {
+            return axios.get("/login", { params:{ userName: this.userName, password: this.password } });
+        },
+        getUserIdAxios: function () {
+            return axios.get("/getUserId", {params: {userName: this.userName}});
+        }
     }
 });
-
-
-
-
-
-// $("#loginButton").click(function (ev) {
-//     var userName = document.getElementById("userName").value;
-//     var password = document.getElementById("password").value;
-//     var userId = "";
-//     // var loginForm = new FormData(document.getElementById("loginForm"));
-//     $.ajax({
-//         async: false,
-//         type: "GET",
-//         url: "/LoginController/loginBL",
-//         data: {
-//             userName: userName,
-//             password: password
-//         },
-//         success:function (result) {
-//             if(result === false){
-//                 alert("登录失败");
-//             }else{
-//                 userId = getUserId(userName);
-//                 jumpToAnotherPage(mainPageUrl, userId);
-//             }
-//         }
-//     });
-// });
