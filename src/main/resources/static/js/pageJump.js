@@ -52,7 +52,7 @@ const getTaskPageUrl = "../worker/getTask.html";
 const workerCheckTaskPageUrl = "../worker/WorkerCheckTask.html";
 
 const checkMyTaskPageUrl = "../requestor/CheckMyTask.html";
-const uploadTaskPageUrl = "../requestor/UploadTask.html";
+const uploadTaskPageUrl = "../requestor/uploadTask.html";
 
 const lineMarkPageUrl = "../markLabel/markAreaLabel.html";
 const markFrameLabelPageUrl = "../markLabel/markFrameLabel.html";
@@ -71,7 +71,7 @@ const adminPageUrl = "../admin/index.html";
 // const workerCheckTaskPageUrl = "WorkerCheckTask.html";
 //
 // const checkMyTaskPageUrl = "CheckMyTask.html";
-// const uploadTaskPageUrl = "UploadTask.html";
+// const uploadTaskPageUrl = "uploadTask.html";
 //
 // const lineMarkPageUrl = "markAreaLabel.html";
 // const markFrameLabelPageUrl = "markFrameLabel.html";
