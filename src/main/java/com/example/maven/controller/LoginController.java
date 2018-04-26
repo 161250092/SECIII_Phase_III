@@ -20,8 +20,9 @@ public class LoginController implements LoginBLService {
      * 判断是否登陆成功
      * @param userName 用户昵称
      * @param password 用户密码
-     * @return 是否登陆成功
+     * @return 登录状态
      */
+    @Override
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public Exception login(String userName, String password){
         return loginBL.login(userName, password);

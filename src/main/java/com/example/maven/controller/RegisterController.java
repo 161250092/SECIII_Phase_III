@@ -21,7 +21,7 @@ public class RegisterController implements RegisterBLService {
      * @param userName 用户昵称
      * @return 是否重名
      */
-    @RequestMapping(value = "/RegisterController/isExist", method = RequestMethod.GET)
+    @RequestMapping(value = "/isUserNameExist", method = RequestMethod.GET)
     public boolean isExist(String userName){
         return registerBL.isExist(userName);
     }
@@ -30,9 +30,9 @@ public class RegisterController implements RegisterBLService {
      * 判断是否注册成功
      * @param userName 用户昵称
      * @param password 用户密码
-     * @return
+     * @return 是否注册成功
      */
-    @RequestMapping(value = "/RegisterController/register", method = RequestMethod.GET)
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
     public boolean register(String userName, String password){
         return registerBL.register(userName, password);
     }

@@ -1,4 +1,4 @@
-package com.example.maven.controller.markLabel;
+package com.example.maven.controller;
 
 import com.example.maven.businessLogic.markLabel.markLabelBL.*;
 import com.example.maven.businessLogic.markLabel.markLabelBL.MarkLabelBLService;

@@ -19,7 +19,8 @@ public class AdminController implements AdminBLService {
         adminBL = new AdminBLStub();
     }
 
-    @RequestMapping(value = "/AdministerController/uploadImages", method = RequestMethod.GET)
+    @Override
+    @RequestMapping(value = "/getWebsiteStatistics", method = RequestMethod.GET)
     public String getWebsiteStatistics(){
         return adminBL.getWebsiteStatistics();
     }

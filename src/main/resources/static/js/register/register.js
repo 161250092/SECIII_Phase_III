@@ -10,7 +10,7 @@ new Vue({
     methods:{
         checkUserName: function () {
             const _this = this;
-            axios.get("/RegisterController/isExist", { params:{ userName: _this.userName} }).then(function (response) {
+            axios.get("/isUserNameExist", { params:{ userName: _this.userName} }).then(function (response) {
                 _this.isUserNameExisted = response.data;
             });
         },
@@ -33,7 +33,7 @@ new Vue({
             }
         },
         registerAxios: function () {
-            return axios.get("/RegisterController/register", { params:{ userName: this.userName, password: this.password } });
+            return axios.get("/register", { params:{ userName: this.userName, password: this.password } });
         },
         getUserIdAxios: function () {
             return axios.get("/getUserId", {params: {userName: this.userName}});

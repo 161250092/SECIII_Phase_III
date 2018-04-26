@@ -14,7 +14,7 @@ new Vue({
     methods:{
         getWebsiteStatistics:function () {
             var _this = this;
-            axios.get("/AdministerController/uploadImages").then(function (response) {
+            axios.get("/getWebsiteStatistics").then(function (response) {
                 _this.numOfUsers = response.data.numOfUsers;
                 _this.numOfTasks = response.data.numOfTasks;
                 _this.numOfIncompleteTasks = response.data.numOfIncompleteTasks;

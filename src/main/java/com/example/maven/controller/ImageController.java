@@ -31,10 +31,8 @@ public class ImageController {
 
     /**
      * 向后端发送文件
-     * @param fileList
-     * @param redirectAttributes
-     * @param request
-     * @return
+     * @param taskId 任务ID
+     * @param fileList 图片列表
      */
     @RequestMapping(method = RequestMethod.POST, value = "/uploadTaskImage")
     public String uploadTaskImage(
@@ -62,9 +60,10 @@ public class ImageController {
                     e.printStackTrace();
                     //redirectAttributes.addFlashAttribute("message", "Fail to upload" + file.getOriginalFilename() + "=>" + e.getMessage());
                 }
-            }else {
-                //redirectAttributes.addFlashAttribute("message", "Fail to upload" + file.getOriginalFilename() + "=>" + "empty file");
             }
+            //else {
+            //    redirectAttributes.addFlashAttribute("message", "Fail to upload" + file.getOriginalFilename() + "=>" + "empty file");
+            //}
         }
 
         return "testImage.html";
