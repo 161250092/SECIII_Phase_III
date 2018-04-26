@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en" class="no-js" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -59,21 +59,9 @@
 
 </head>
 
-
 <body>
-<!--
-1.labelType 标注类型
-2.taskId 任务Id
-3.String[]imageName 图片名称数组
-4.requiredNumber 需要多少人批注
-5.finishedNumber 完成的人数
-6.description 任务描述
-7.score 积分奖励
--->
 <div id="home" class="header-wrapper header-top">
 	<header>
-
-
 		<ul class="menu cf">
 			<li>
 				<a>众包发起人</a>
@@ -92,7 +80,6 @@
 				</ul>
 			</li>
 
-
 			<li>
 				<a>用  户</a>
 				<ul class="submenu">
@@ -100,64 +87,94 @@
 					<li><a href="../worker/WorkerCheckTask.html">个人主页</a></li>
 				</ul>
 			</li>
-
 		</ul>
 	</header>
 </div>
 
+<section id="inputTaskInfo">
+	<div>
+		<label>
+			标注类型:
+			<select v-model="selectedLabelType">
+				<option
+						v-for="(item,index) in labelTypeList"
+						v-bind:value="item.labelType"
+				>{{item.labelTypeName}}</option>
+			</select>
+		</label>
+	</div>
 
-<div>
-	<span>标注类型:</span>
-	<select id="LabelType">
-		<option value = "ImageLabel">  整体标注</option>
-		<option value = "AreaLabel">  区域标注</option>
-		<option value = "FrameLabel">  方框标注</option>
-	</select>
-</div>
+	<div>
+		<label>
+			任务编号:
+			<input type="text"
+                   disabled="disabled"
+                   v-bind:value="taskId">
+		</label>
+        <p>taskId: {{taskId}}</p>
+	</div>
 
+	<div>
+		<label>
+			批注人数:
+			<input type="text"
+                   v-model="requiredWorkerNum"
+                   v-bind:value="requiredWorkerNum">
+		</label>
+        <p>requiredWorkerNum: {{requiredWorkerNum}}</p>
+	</div>
 
-<div>
-	<span>任务编号:</span>
-	<input type="text" id="TaskId" value="">
-	<button id="getTaskId">getTaskId</button>
-</div>
+	<div>
+		<label>
+			任务描述:
+			<input type="text"
+                   v-model="taskDescription"
+                   v-bind:value="taskDescription">
+		</label>
+        <p>taskDescription: {{taskDescription}}</p>
+	</div>
 
+	<div>
+		<label>
+			积分奖励:
+			<input type="text"
+                   v-model="score"
+                   v-bind:value="score">
+		</label>
+        <p>score: {{score}}</p>
+	</div>
 
-<div>
-	<span>批注人数:</span>
-	<input type="text" id="RequiredNumbers"  value="">
-</div>
-
-
-<div>
-	<span>任务描述:</span>
-	<input type="text" id="Introduction" name="tag" value="">
-</div>
-
-
-<div>
-	<span>积分奖励:</span>
-	<input type="text" id="Score" name="tag" value="">
-</div>
-
-
-<!--实现上传图片
--->
-<div>
-	<label>请选择一个图像文件：</label>
-	<button id="select">(重新)选择图片</button>
-	<button id="add">(追加)图片</button>
-	<input type="file" id="file_input" multiple/> <!--用input标签并选择type=file，记得带上multiple，不然就只能单选图片了-->
-	<button id="submit">提交</button>
-</div>
-
-
-
+    <div class="upload">
+        <div class="upload_warp">
+            <div class="upload_warp_left" @click="fileClick">
+                <img src="../../images/uploadTask/upload.png">
+            </div>
+            <div class="upload_warp_right" @drop="drop($event)" @dragenter="dragenter($event)" @dragover="dragover($event)">
+                或者将文件拖到此处
+            </div>
+        </div>
+        <div class="upload_warp_text">
+            选中{{imgList.length}}张文件，共{{bytesToSize(this.size)}}
+        </div>
+        <input @change="fileChange($event)" type="file" id="upload_file" multiple style="display: none"/>
+        <div class="upload_warp_img" v-show="imgList.length!=0">
+            <div class="upload_warp_img_div" v-for="(item,index) of imgList">
+                <div class="upload_warp_img_div_top">
+                    <div class="upload_warp_img_div_text">
+                        {{item.name}}
+                    </div>
+                    <img src="../../images/uploadTask/del.png" class="upload_warp_img_div_del" @click="fileDel(index)">
+                </div>
+                <img :src="item.src">
+            </div>
+        </div>
+		<button v-on:click="uploadImage">提交</button>
+    </div>
+</section>
 
 </body>
-<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-<script src="../../js/requestor/UploadTask.js"></script>
-<script src="../../js/worker/allNeed.js"></script>
+<script src="../../js/lib/vue.js"></script>
+<script src="../../js/lib/axios.js"></script>
+<script src="../../js/requestor/uploadTask.js"></script>
 <script src="../../js/pageJump.js"></script>
-
 </html>

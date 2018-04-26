@@ -1,229 +1,154 @@
-
-var taskId;
-
-var labelType="";
-
-var image=[];
-
-var description;
-var requiredNumber;
-
-var score1;
-
-
-
-function getInformation(){
-    taskId = $("#TaskId").val();
-    getType();
-    description = $("#Introduction").val();
-    requiredNumber = parseInt($("#RequiredNumbers").val());
-    score1= parseInt($("#Score").val());
+function TaskVO(taskId,labelType,introduction,requiredNumber,finishedNumber,score) {
+    this.taskId = taskId;
+    this.labelType = labelType;
+    this.introduction = introduction;
+    this.requiredNumber = requiredNumber;
+    this.finishedNumber = finishedNumber;
+    this.score = score;
 }
 
-function getType(){
-    var selectObj = document.getElementById("LabelType");
-    labelType = selectObj.value;
-}
+new Vue({
+    el:"#inputTaskInfo",
+    data:{
+        userId: "testUserId",
 
+        labelTypeList:[
+            {labelType: "ImageLabel", labelTypeName: "整体标注"},
+            {labelType: "FrameLabel", labelTypeName: "方框标注"},
+            {labelType: "AreaLabel", labelTypeName: "区域标注"}
+        ],
+        selectedLabelType: "",
+        taskId: "taskId",
+        requiredWorkerNum: 0,
+        taskDescription: "",
+        score: 0,
 
-function sendTaskVO(){
-    //全局变量赋值
-    getInformation();
-    console.log("task生成前");
-    var task = new TaskVO(taskId,labelType,description,requiredNumber,0,score1);
+        imgList: [],
+        size: 0,
+    },
+    mounted: function () {
+        this.$nextTick(function () {
+            this.selectedLabelType = "ImageLabel";
+        });
+    },
+    methods:{
+        uploadImage: function (ev) {
+            ev.preventDefault();
+            let formData = new FormData();
+            formData.append('taskId', this.taskId);
+            for(let i = 0; i < this.imgList.length; i++){
+                formData.append('fileList', this.imgList[i]);
+            }
+            let config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            };
+            axios.post('/uploadTaskImage', formData, config).then(function (res) {
 
-    console.log('提交的数据：'+JSON.stringify(task));
-    $.ajax({
-        url : "/RequestorController/assignTask",
-        type : 'POST',
-        data : {myStr : JSON.stringify(task)},
-        //dataType: 'json',
-        // processData: false,
-        //  用FormData传fd时需有这两项
-        // contentType: false,
-        success : function(data){
-            console.log('返回的数据：'+JSON.stringify(data))
-        }
+            })
 
-    })
-}
+            this.uploadTaskInfo();
+        },
+        uploadTaskInfo: function () {
+            let taskVO = new TaskVO(this.taskId, this.selectedLabelType,
+                this.taskDescription, this.requiredWorkerNum, 0,
+                this.score);
+            let taskVOJson = JSON.stringify(taskVO);
+            axios.get('/RequestorController/assignTask', {params: {taskJSON: taskVOJson}}).then(function (response) {
 
-
-
-
-
-
-
-
-//select image from host
-window.onload = function(){
-
-
-    var input = document.getElementById("file_input");
-    var result;
-    var dataArr = []; // 储存所选图片的结果(文件名和base64数据)
-    var fd;  //FormData方式发送请求
-    var oSelect = document.getElementById("select");
-    var oAdd = document.getElementById("add");
-    var oSubmit = document.getElementById("submit");
-    var oInput = document.getElementById("file_input");
-
-    if(typeof FileReader==='undefined'){
-        alert("抱歉，你的浏览器不支持 FileReader");
-        input.setAttribute('disabled','disabled');
-    }else{
-        input.addEventListener('change',readFile,false);
-    }　　　　　//handler
-
-
-function readFile(){
-    fd = new FormData();
-    var iLen = this.files.length;
-    var index = 0;
-    for(var i=0;i<iLen;i++){
-        if (!input['value'].match(/.jpg|.gif|.png|.jpeg|.bmp/i)){　　//判断上传文件格式
-            return alert("上传的图片格式不正确，请重新选择");
-        }
-        var reader = new FileReader();
-        reader.index = i;
-        fd.append(i,this.files[i]);
-        reader.readAsDataURL(this.files[i]);  //转成base64
-        reader.fileName = this.files[i].name;
-
-
-        reader.onload = function(e){
-
-            dataArr.push(this.result);
-
-            result = '<div class="delete">delete</div><div class="result"><img src="'+this.result+'" alt=""/></div>';
-
-            var div = document.createElement('div');
-
-            div.innerHTML = result;
-            div['className'] = 'float';
-            div['index'] = index;
-            document.getElementsByTagName('body')[0].appendChild(div);  　　//插入dom树
-            var img = div.getElementsByTagName('img')[0];
-            img.onload = function(){
-                var nowHeight = ReSizePic(this); //设置图片大小
-                this.parentNode.style.display = 'block';
-                var oParent = this.parentNode;
-                if(nowHeight){
-                    oParent.style.paddingTop = (oParent.offsetHeight - nowHeight)/2 + 'px';
+            });
+        },
+        fileClick() {
+            document.getElementById('upload_file').click()
+        },
+        fileChange(el) {
+            if (!el.target.files[0].size) return;
+            this.fileList(el.target);
+            el.target.value = ''
+        },
+        fileList(fileList) {
+            let files = fileList.files;
+            for (let i = 0; i < files.length; i++) {
+                //判断是否为文件夹
+                if (files[i].type !== '') {
+                    this.fileAdd(files[i]);
+                } else {
+                    //文件夹处理
+                    this.folders(fileList.items[i]);
                 }
             }
-
-
-            div.onclick = function(){
-                this.remove();                  // 在页面中删除该图片元素
-                delete dataArr[this.index];  // 删除dataArr对应的数据
+        },
+        //文件夹处理
+        folders(files) {
+            let _this = this;
+            //判断是否为原生file
+            if (files.kind) {
+                files = files.webkitGetAsEntry();
             }
-            index++;
+            files.createReader().readEntries(function (file) {
+                for (let i = 0; i < file.length; i++) {
+                    if (file[i].isFile) {
+                        _this.foldersAdd(file[i]);
+                    } else {
+                        _this.folders(file[i]);
+                    }
+                }
+            })
+        },
+        foldersAdd(entry) {
+            let _this = this;
+            entry.file(function (file) {
+                _this.fileAdd(file)
+            })
+        },
+        fileAdd(file) {
+            //总大小
+            this.size = this.size + file.size;
+            //判断是否为图片文件
+            if (file.type.indexOf('image') === -1) {
+                file.src = 'wenjian.png';
+                this.imgList.push({file});
+            } else {
+                let reader = new FileReader();
+                reader.vue = this;
+                reader.readAsDataURL(file);
+                reader.onload = function () {
+                    file.src = this.result;
+                    this.vue.imgList.push(file);
+                }
+            }
+        },
+        fileDel(index) {
+            this.size = this.size - this.imgList[index].file.size;//总大小
+            this.imgList.splice(index, 1);
+        },
+        bytesToSize(bytes) {
+            if (bytes === 0) return '0 B';
+            let k = 1000, // or 1024
+                sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+                i = Math.floor(Math.log(bytes) / Math.log(k));
+            return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+        },
+        dragenter(el) {
+            el.stopPropagation();
+            el.preventDefault();
+        },
+        dragover(el) {
+            el.stopPropagation();
+            el.preventDefault();
+        },
+        drop(el) {
+            el.stopPropagation();
+            el.preventDefault();
+            this.fileList(el.dataTransfer);
+        }
+    },
+    watch: {
+        selectedLabelType: function (newSelectedLabelType, oldSelectedLabelType) {
+            let time = Date.parse(new Date());
+            this.taskId = this.userId + '_' + this.selectedLabelType +
+                '_' + time;
         }
     }
-}
-
-
-function send(){
-    var submitArr = [];
-    for (var i = 0; i < dataArr.length; i++) {
-        if (dataArr[i]) {
-            submitArr.push(dataArr[i]);
-        }
-    }
-
-    if(!dataArr.length){
-        return alert('请先选择文件');
-    }
-
-    //全局变量赋值
-    getInformation();
-    console.log("task生成前");
-    var task = new Task(taskId,labelType,submitArr,description,requiredNumber,0,score1);
-
-    console.log('提交的数据：'+JSON.stringify(task));
-    $.ajax({
-        url : "/RequestorController/assignTask",
-        type : 'POST',
-        data : {myStr : JSON.stringify(task)},
-        //dataType: 'json',
-        // processData: false,
-        //  用FormData传fd时需有这两项
-        // contentType: false,
-        success : function(data){
-            console.log('返回的数据：'+JSON.stringify(data))
-        }
-
-    })
-}
-
-    oSelect.onclick=function(){
-        oInput.value = "";   // 先将oInput值清空，否则选择图片与上次相同时change事件不会触发
-        //清空已选图片
-        $('.float').remove();
-        dataArr = [];
-        index = 0;
-        oInput.click();
-    }
-
-
-    oAdd.onclick=function(){
-        oInput.value = "";   // 先将oInput值清空，否则选择图片与上次相同时change事件不会触发
-        oInput.click();
-    }
-
-    oSubmit.onclick=function(){
-        if(!dataArr.length){
-            return alert('请先选择文件');
-        }
-        send();
-    }
-}
-
-
-
-
-
-/*
- 用ajax发送fd参数时要告诉jQuery不要去处理发送的数据，
- 不要去设置Content-Type请求头才可以发送成功，否则会报“Illegal invocation”的错误，
- 也就是非法调用，所以要加上“processData: false,contentType: false,”
- * */
-
-
-function ReSizePic(ThisPic) {
-    var RePicWidth = 200; //这里修改为您想显示的宽度值
-
-    var TrueWidth = ThisPic.width; //图片实际宽度
-    var TrueHeight = ThisPic.height; //图片实际高度
-
-    if(TrueWidth>TrueHeight){
-        //宽大于高
-        var reWidth = RePicWidth;
-        ThisPic.width = reWidth;
-        //垂直居中
-        var nowHeight = TrueHeight * (reWidth/TrueWidth);
-        return nowHeight;  //将图片修改后的高度返回，供垂直居中用
-    }else{
-        //宽小于高
-        var reHeight = RePicWidth;
-        ThisPic.height = reHeight;
-    }
-}
-
-
-
-function createTaskId(){
-    var time = Date.parse(new Date());
-    console.log(time);
-    getType();
-    document.getElementById("TaskId").value ="00000000"+"_"+labelType+"_"+time;
-    console.log("00000000");
-}
-
-
-$("#getTaskId").click(function () {
-    createTaskId();
-})
-
-
+});

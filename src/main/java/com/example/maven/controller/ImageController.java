@@ -20,7 +20,7 @@ public class ImageController {
     private static final Logger log = LoggerFactory.getLogger(ImageController.class);
 
     //保存图片的文件夹路径
-    private static final String ROOT = "taskImage";
+    private static final String ROOT = "taskImage/";
 
     private final ResourceLoader resourceLoader;
 
@@ -31,26 +31,42 @@ public class ImageController {
 
     /**
      * 向后端发送文件
-     * @param file
+     * @param fileList
      * @param redirectAttributes
      * @param request
      * @return
      */
     @RequestMapping(method = RequestMethod.POST, value = "/uploadTaskImage")
     public String uploadTaskImage(
-            @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes, HttpServletRequest request){
-        if(!file.isEmpty()) {
-            try{
-                Files.copy(file.getInputStream(), Paths.get(ROOT, file.getOriginalFilename()));
-                redirectAttributes.addFlashAttribute("message", "successfully uploaded" + file.getOriginalFilename());
-            }catch (IOException | RuntimeException e){
-                redirectAttributes.addFlashAttribute("message", "Fail to upload" + file.getOriginalFilename() + "=>" + e.getMessage());
+            @RequestParam("taskId") String taskId,
+            @RequestParam("fileList") MultipartFile[] fileList,
+            RedirectAttributes redirectAttributes, HttpServletRequest request){
+
+        String filePath = ROOT + taskId;
+
+        //创建文件夹
+        if(!Files.isDirectory(Paths.get(filePath))){
+            try {
+                Files.createDirectory(Paths.get(filePath));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        }else {
-            redirectAttributes.addFlashAttribute("message", "Fail to upload" + file.getOriginalFilename() + "=>" + "empty file");
+        }
+        //复制文件
+        for(int i = 0; i < fileList.length; i++){
+            if(!fileList[i].isEmpty()) {
+                try{
+                    Files.copy(fileList[i].getInputStream(), Paths.get(filePath, fileList[i].getOriginalFilename()));
+                    //redirectAttributes.addFlashAttribute("message", "successfully uploaded" + file.getOriginalFilename());
+                }catch (IOException | RuntimeException e){
+                    e.printStackTrace();
+                    //redirectAttributes.addFlashAttribute("message", "Fail to upload" + file.getOriginalFilename() + "=>" + e.getMessage());
+                }
+            }else {
+                //redirectAttributes.addFlashAttribute("message", "Fail to upload" + file.getOriginalFilename() + "=>" + "empty file");
+            }
         }
 
-        //return "redirect:/";
         return "testImage.html";
     }
 
@@ -65,7 +81,7 @@ public class ImageController {
         System.out.println(taskId);
         System.out.println(filename);
         try{
-            return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get((ROOT + "/" + taskId), filename).toString()));
+            return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get((ROOT + taskId), filename).toString()));
         }catch (Exception e){
             return ResponseEntity.notFound().build();
         }
