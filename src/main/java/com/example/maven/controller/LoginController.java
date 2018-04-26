@@ -2,6 +2,7 @@ package com.example.maven.controller;
 
 import com.example.maven.businessLogic.loginBL.LoginBLImpl;
 import com.example.maven.businessLogic.loginBL.LoginBLService;
+import com.example.maven.businessLogic.loginBL.LoginBLStub;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +13,7 @@ public class LoginController implements LoginBLService {
     private LoginBLService loginBL;
 
     public LoginController(){
-        loginBL = new LoginBLImpl();
+        loginBL = new LoginBLStub();
     }
 
     /**

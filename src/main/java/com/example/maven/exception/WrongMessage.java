@@ -12,7 +12,7 @@ public class WrongMessage {
         return message;
     }
 
-    public String getNumber() {
+    public String getType() {
         return type;
     }
 }

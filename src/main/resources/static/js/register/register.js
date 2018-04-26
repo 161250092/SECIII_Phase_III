@@ -1,6 +1,3 @@
-document.write("<script language=javascript src='../../js/pageJump.js'></script>");
-document.write("<script language=javascript src='../../js/user/user.js'></script>");
-
 new Vue({
     el:"#registerContainer",
     data:{
@@ -23,19 +20,23 @@ new Vue({
         register: function () {
             const _this = this;
             if(!this.isUserNameExisted && this.isPasswordCorrect){
-                axios.get("/RegisterController/registerBL", { params:{ userName: _this.userName, password: _this.password } }).then(function (response) {
-                    if(response.data === true){
-                        /**
-                         * 未完成
-                         */
-                        jumpToAnotherPage(mainPageUrl, "testID");
+                axios.all([this.registerAxios(), this.getUserIdAxios()]).then(axios.spread(function (isSuccessObj, userIdObj) {
+                    if(isSuccessObj.data === true){
+                        sendUserId(userIdObj.data);
+                        jumpToAnotherPage(mainPageUrl);
                     } else{
                         alert("注册失败");
                         _this.password = "";
                         _this.confirmedPassword = "";
                     }
-                });
+                }));
             }
+        },
+        registerAxios: function () {
+            return axios.get("/RegisterController/register", { params:{ userName: this.userName, password: this.password } });
+        },
+        getUserIdAxios: function () {
+            return axios.get("/getUserId", {params: {userName: this.userName}});
         }
     }
 });

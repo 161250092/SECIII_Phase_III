@@ -2,6 +2,7 @@ package com.example.maven.controller;
 
 import com.example.maven.businessLogic.registerBL.RegisterBLImpl;
 import com.example.maven.businessLogic.registerBL.RegisterBLService;
+import com.example.maven.businessLogic.registerBL.RegisterBLStub;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +13,7 @@ public class RegisterController implements RegisterBLService {
     private RegisterBLService registerBL;
 
     public RegisterController(){
-        registerBL = new RegisterBLImpl();
+        registerBL = new RegisterBLStub();
     }
 
     /**
