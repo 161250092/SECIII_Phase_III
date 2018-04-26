@@ -13,12 +13,15 @@ public class WorkerBLStub implements WorkerBLService {
     @Override
     public List<Task> getAcceptedAndAccomplishedTaskList(String userId) {
         List<Task> taskList = new ArrayList<>();
-        String[] imageInfo = {"image000","image001"};
-        taskList.add(new Task("00000001_ImageLabel_1622440191000","ImageLabel",
+        String[] imageInfo = {"test1","test2"};
+        taskList.add(new Task("00000001_ImageLabel_1622440180000","ImageLabel",
                 imageInfo,"This is an accepted and accomplished task",
                 10,10,100 ));
-        taskList.add(new Task("00000002_AreaLabel_1623440181000","AreaLabel",
+        taskList.add(new Task("00000002_AreaLabel_1622440181000","AreaLabel",
                 imageInfo,"This is an accepted and accomplished task",
+                10,10,100 ));
+        taskList.add(new Task("00000003_FrameLabel_1622440200000","FrameLabel",
+                imageInfo,"This is an assigned and accomplished task",
                 10,10,100 ));
         return taskList;
     }
@@ -26,22 +29,25 @@ public class WorkerBLStub implements WorkerBLService {
     @Override
     public List<Task> getAcceptedButIncompleteTaskList(String userId) {
         List<Task> taskList = new ArrayList<>();
-        String[] imageInfo = {"image000","image001"};
-        taskList.add(new Task("00000001_ImageLabel_1622440191000","ImageLabel",
-                imageInfo,"This is an accepted and accomplished task",
+        String[] imageInfo = {"test3","test4"};
+        taskList.add(new Task("00000001_ImageLabel_1623440190000","ImageLabel",
+                imageInfo,"This is an accepted but incomplete task",
                 10,10,100 ));
-        taskList.add(new Task("00000002_AreaLabel_1623440181000","AreaLabel",
-                imageInfo,"This is an accepted but incompleted task",
+        taskList.add(new Task("00000002_AreaLabel_1623440201000","AreaLabel",
+                imageInfo,"This is an accepted but incomplete task",
+                10,10,100 ));
+        taskList.add(new Task("00000003_FrameLabel_1623440210000","FrameLabel",
+                imageInfo,"This is an accepted but incomplete task",
                 10,10,100 ));
         return taskList;
     }
 
     @Override
     public Task getTaskById(String taskId) {
-        String[] imageInfo = {"image000","image001"};
-        return new Task("00000002_AreaLabel_1628440181000","AreaLabel",
+        String[] imageInfo = {"test5","test6"};
+        return new Task("00000001_ImageLabel_1628440180000","ImageLabel",
                 imageInfo,"This is a task",
-                10,10,100 );
+                10,0,100 );
     }
 
     @Override

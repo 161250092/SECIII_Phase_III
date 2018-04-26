@@ -1,6 +1,7 @@
 package com.example.maven.controller;
 
 import com.example.maven.businessLogic.requestorBL.RequestorBLService;
+import com.example.maven.businessLogic.requestorBL.RequestorBLStub;
 import com.example.maven.model.po.Task;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +14,12 @@ import java.util.List;
  */
 @RestController
 public class RequestorController implements RequestorBLService {
+
+    private RequestorBLService requestorBLService;
+
+    public RequestorController(){
+        requestorBLService = new RequestorBLStub();
+    }
 
     /**
      * 上传图片集
@@ -29,8 +36,7 @@ public class RequestorController implements RequestorBLService {
      */
     @RequestMapping(value = "/RequestorController/assignTask", method = RequestMethod.GET)
     public Exception assignTask(String taskJSON){
-        System.out.println(taskJSON);
-        return null;
+        return requestorBLService.assignTask(taskJSON);
     }
 
     /**
@@ -40,7 +46,7 @@ public class RequestorController implements RequestorBLService {
      */
     @RequestMapping(value = "/RequestorController/getAssignedAndAccomplishedTaskList", method = RequestMethod.GET)
     public List<Task> getAssignedAndAccomplishedTaskList(String userId){
-        return null;
+        return requestorBLService.getAssignedAndAccomplishedTaskList(userId);
     }
 
     /**
@@ -50,7 +56,7 @@ public class RequestorController implements RequestorBLService {
      */
     @RequestMapping(value = "/RequestorController/getAssignedButIncompleteTaskList", method = RequestMethod.GET)
     public List<Task> getAssignedButIncompleteTaskList(String userId){
-        return null;
+        return requestorBLService.getAssignedButIncompleteTaskList(userId);
     }
 
     /**
@@ -59,6 +65,6 @@ public class RequestorController implements RequestorBLService {
      */
     @RequestMapping(value = "/RequestorController/getAssignedTaskNum", method = RequestMethod.GET)
     public int getAssignedTaskNum(){
-        return 0;
+        return requestorBLService.getAssignedTaskNum();
     }
 }

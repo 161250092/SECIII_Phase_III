@@ -1,6 +1,7 @@
 package com.example.maven.controller;
 
 import com.example.maven.businessLogic.workerBL.WorkerBLService;
+import com.example.maven.businessLogic.workerBL.WorkerBLStub;
 import com.example.maven.model.po.Label;
 import com.example.maven.model.po.Task;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,12 @@ import java.util.List;
 @RestController
 public class WorkerController implements WorkerBLService {
 
+    private WorkerBLService workerBLService;
+
+    public WorkerController(){
+        workerBLService = new WorkerBLStub();
+    }
+
     /**
      * 获取所有接受且已完成的任务
      * @param userId 用户Id
@@ -22,7 +29,7 @@ public class WorkerController implements WorkerBLService {
      */
     @RequestMapping(value = "/WorkerController/getAcceptedAndAccomplishedTaskList", method = RequestMethod.GET)
     public List<Task> getAcceptedAndAccomplishedTaskList(String userId){
-        return null;
+        return workerBLService.getAcceptedAndAccomplishedTaskList(userId);
     }
 
     /**
@@ -32,7 +39,7 @@ public class WorkerController implements WorkerBLService {
      */
     @RequestMapping(value = "/WorkerController/getAcceptedButIncompleteTaskList", method = RequestMethod.GET)
     public List<Task> getAcceptedButIncompleteTaskList(String userId){
-        return null;
+        return workerBLService.getAcceptedButIncompleteTaskList(userId);
     }
 
     /**
@@ -42,27 +49,7 @@ public class WorkerController implements WorkerBLService {
      */
     @RequestMapping(value = "/WorkerController/getTaskById", method = RequestMethod.GET)
     public Task getTaskById(String taskId){
-        return null;
-    }
-
-    /**
-     *  保存一次标注
-     *  @param label 一次标注
-     *  @return 是否保存成功
-     */
-    @RequestMapping(value = "/WorkerController/saveLabel", method = RequestMethod.GET)
-    public boolean saveLabel(Label label){
-        return false;
-    }
-
-    /**
-     * 提交一次完成的任务
-     * @param task 任务
-     * @return 是否提交成功
-     */
-    @RequestMapping(value = "/WorkerController/submitAccomplishedTask", method = RequestMethod.GET)
-    public boolean submitAccomplishedTask(Task task){
-        return false;
+        return workerBLService.getTaskById(taskId);
     }
 
     /**
@@ -72,7 +59,7 @@ public class WorkerController implements WorkerBLService {
      */
     @RequestMapping(value = "/WorkerController/getUserScore", method = RequestMethod.GET)
     public int getUserScore(String userId){
-        return 0;
+        return workerBLService.getUserScore(userId);
     }
 
     /**
@@ -82,6 +69,6 @@ public class WorkerController implements WorkerBLService {
      */
     @RequestMapping(value = "/WorkerController/getUserRanking", method = RequestMethod.GET)
     public int getUserRanking(String userId){
-        return 0;
+        return workerBLService.getUserRanking(userId);
     }
 }

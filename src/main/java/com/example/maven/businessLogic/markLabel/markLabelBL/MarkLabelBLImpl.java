@@ -112,6 +112,6 @@ public class MarkLabelBLImpl implements MarkLabelBLService{
 
     @Override
     public boolean setTaskAccomplished(String taskId, String userId) {
-        return false;
+        return taskDataService.reviseTask(taskId);
     }
 }
