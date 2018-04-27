@@ -14,6 +14,7 @@ new Vue({
     data: {
         labelType: "AreaLabel",
         userId: "",
+        username: "",
         taskId: "",
         taskImageNum: 0,
 
@@ -47,6 +48,7 @@ new Vue({
             this.canvas.height = rect.height;
 
             this.userId = getUserId();
+            this.username = getUsername();
             this.taskId = getTaskId();
             //获得这个任务的图片数目
             const _this = this;
@@ -54,7 +56,7 @@ new Vue({
                 _this.taskImageNum = response.data;
             });
             //获得第一张图片
-            this.getAreaLabel();
+            this.getLabel();
         });
     },
     methods: {
@@ -80,7 +82,7 @@ new Vue({
             });
             return pixelListStr;
         },
-        getAreaLabel: function () {
+        getLabel: function () {
             const _this = this;
             axios.get("/markLabel/getLabel", { params:
                     { taskId: _this.taskId, userId: _this.userId,
@@ -92,7 +94,7 @@ new Vue({
                     _this.removeAreaInCanvas();
                 });
         },
-        resetCurrentAreaLabel: function () {
+        resetCurrentLabel: function () {
             this.currentTag = "";
             this.currentAreaList = [];
 
@@ -102,7 +104,7 @@ new Vue({
 
             this.removeAreaInCanvas();
         },
-        saveCurrentAreaLabel: function () {
+        saveCurrentLabel: function () {
             if(this.canInputTag === false){
                 let currentAreaLabelVO = new AreaLabelVO(this.currentTag, this.changePixelListIntoPixelString(this.currentAreaList));
                 let areaLabelVOJson = JSON.stringify(currentAreaLabelVO);
@@ -124,25 +126,25 @@ new Vue({
             }
         },
         //转到前一张图片
-        getPreviousAreaLabel: function () {
+        getPreviousLabel: function () {
             //第一张图片时没有前一张图片
             if(this.currentImageIndex > 0){
                 this.currentImageUrl = "";
-                this.resetCurrentAreaLabel();
+                this.resetCurrentLabel();
                 this.currentImageIndex--;
-                this.getAreaLabel();
+                this.getLabel();
             }else{
                 alert("当前是第一张图片");
             }
         },
         //转到后一张图片
-        getNextAreaLabel: function () {
+        getNextLabel: function () {
             //最后一张图片时没有后一张图片
             if(this.currentImageIndex < (this.taskImageNum - 1)){
                 this.currentImageUrl = "";
-                this.resetCurrentAreaLabel();
+                this.resetCurrentLabel();
                 this.currentImageIndex++;
-                this.getAreaLabel();
+                this.getLabel();
             }else{
                 alert("当前是最后一张图片");
             }

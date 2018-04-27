@@ -14,7 +14,6 @@ div#markLabelContainer{
     left: 0;
     right: 0;
     height: 50px;
-    background-color: black;
 }
 
 
@@ -64,6 +63,41 @@ div#markLabelContainer{
 }
 
 
+/*导航栏*/
+header.top ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+
+header.top ul li.headerUsername {
+    float: right;
+}
+
+header.top ul li {
+    float: left;
+}
+
+header.top ul li a {
+    display: block;
+    color: #000;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+header.top ul li a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+header.top ul li a:hover {
+    background-color: #FFE6D9;
+}
+
+
+
 canvas#drawingCanvas {
     width: 1300px;
     height: 1000px;
@@ -92,4 +126,44 @@ p.tagInCanvas {
     position: absolute;
     margin-top: 6px;
     margin-left: 10px;
+}
+
+
+/*  按钮组  */
+.btn-group button {
+    background-color: #81DAF5; /* Green background */
+    border: 1px solid black; /* Green border */
+    color: #0B615E; /* White text */
+    padding: 14px 30px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    width: 80%; /* Set a width if needed */
+    display: block; /* Make the buttons appear below each other */
+}
+
+.btn-group button:not(:last-child) {
+    border-bottom: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+    background-color: #82D900;
+}
+
+
+/*  单个按钮*/
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 6px 4px;
+    cursor: pointer;
+}
+.buttonGrey{
+    background-color: #A9E2F3; color: black;
 }

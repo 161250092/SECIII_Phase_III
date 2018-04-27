@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>区域标注</title>
-    <link rel="stylesheet" href="../../css/guide.css">
-    <!--<link rel="stylesheet" href="../../css/background.css">-->
     <link rel="stylesheet" href="../../css/markLabel.css">
 </head>
 
@@ -15,25 +13,19 @@
             <ul id="UI">
                 <li class="LI"><a class="active" href="#">整体标注</a></li>
                 <li class="LI"><a href="../mainPage/MainPage.html">返回</a></li>
+                <li class="headerUsername"><a href="#">用户：{{username}}</a></li>
             </ul>
         </nav>
     </header>
 
     <section class="left">
         <div class="btn-group">
-            <button v-on:click="resetCurrentAreaLabel">重置</button>
-            <button v-on:click="saveCurrentAreaLabel">保存</button>
-            <button v-on:click="getPreviousAreaLabel">前一张</button>
-            <button v-on:click="getNextAreaLabel">后一张</button>
-            <button v-on:click="setTaskAccomplished"
-                    v-if="currentImageIndex == (taskImageNum-1)">
-                保存并提交
-            </button>
+            <button v-on:click="resetCurrentLabel">重置</button>
+            <button v-on:click="saveCurrentLabel">保存</button>
+            <button v-on:click="getPreviousLabel">前一张</button>
+            <button v-on:click="getNextLabel">后一张</button>
+            <button v-on:click="setTaskAccomplished" v-if="currentImageIndex == (taskImageNum-1)">保存并提交</button>
         </div>
-        <p>isDrawing = {{isDrawing}}</p>
-        <p>canDraw = {{canDraw}}</p>
-        <p>canInputTag = {{canInputTag}}</p>
-        <p>currentPixelList: {{currentAreaList}}</p>
     </section>
 
     <section class="center">
@@ -66,7 +58,7 @@
                 <tr>
                     <td>1</td>
                     <td>{{currentTag}}</td>
-                    <td><button v-on:click="resetCurrentAreaLabel">删除</button></td>
+                    <td><button v-on:click="resetCurrentLabel">删除</button></td>
                 </tr>
             </table>
         </div>

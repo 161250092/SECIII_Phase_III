@@ -13,7 +13,7 @@ public class MarkLabelController implements MarkLabelBLService {
 
     public MarkLabelController() {
         //stub
-        markLabelBL = new MarkImageLabelBLStub();
+        markLabelBL = new MarkFrameLabelBLStub();
     }
 
     @Override

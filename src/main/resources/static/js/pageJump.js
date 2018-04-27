@@ -29,6 +29,18 @@ function removeUserId() {
     sessionStorage.removeItem('userId');
 }
 
+function sendUsername(username){
+    sessionStorage.setItem('username', username);
+}
+
+function getUsername() {
+    return sessionStorage.getItem('username');
+}
+
+function removeUsername() {
+    sessionStorage.removeItem('username');
+}
+
 function sendTaskId(taskId){
     sessionStorage.setItem('taskId',taskId);
 }

@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>框标注</title>
-    <link rel="stylesheet" href="../../css/guide.css">
-    <!--<link rel="stylesheet" href="../../css/background.css">-->
     <link rel="stylesheet" href="../../css/markLabel.css">
 </head>
 
@@ -12,9 +10,10 @@
 <div id="markLabelContainer">
     <header class="top">
         <nav>
-            <ul id="UI">
-                <li class="LI"><a class="active" href="#">方框标注</a></li>
-                <li class="LI"><a href="../mainPage/MainPage.html">返回</a></li>
+            <ul>
+                <li><a class="active" href="#">方框标注</a></li>
+                <li><a href="../mainPage/MainPage.html">返回</a></li>
+                <li class="headerUsername"><a href="#">用户：{{username}}</a></li>
             </ul>
         </nav>
     </header>
@@ -22,14 +21,11 @@
 
     <section class="left">
         <div class="btn-group">
-            <button v-on:click="resetCurrentFrameLabel">重置</button>
-            <button v-on:click="saveCurrentFrameLabel">保存</button>
-            <button v-on:click="getPreviousFrameLabel">前一张</button>
-            <button v-on:click="getNextFrameLabel">后一张</button>
-            <button v-on:click="setTaskAccomplished"
-                    v-if="currentImageIndex == (taskImageNum-1)">
-                保存并提交
-            </button>
+            <button v-on:click="resetCurrentLabel">重置</button>
+            <button v-on:click="saveCurrentLabel">保存</button>
+            <button v-on:click="getPreviousLabel">前一张</button>
+            <button v-on:click="getNextLabel">后一张</button>
+            <button v-on:click="setTaskAccomplished" v-if="currentImageIndex == (taskImageNum-1)">提交</button>
         </div>
     </section>
 

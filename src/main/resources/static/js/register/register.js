@@ -1,7 +1,7 @@
 new Vue({
     el:"#registerContainer",
     data:{
-        userName:"",
+        username:"",
         password:"",
         confirmedPassword:"",
         isUserNameExisted: false,
@@ -10,7 +10,7 @@ new Vue({
     methods:{
         checkUserName: function () {
             const _this = this;
-            axios.get("/isUserNameExist", { params:{ userName: _this.userName} }).then(function (response) {
+            axios.get("/isUserNameExist", { params:{ username: _this.username} }).then(function (response) {
                 _this.isUserNameExisted = response.data;
             });
         },
@@ -23,6 +23,7 @@ new Vue({
                 axios.all([this.registerAxios(), this.getUserIdAxios()]).then(axios.spread(function (isSuccessObj, userIdObj) {
                     if(isSuccessObj.data === true){
                         sendUserId(userIdObj.data);
+                        sendUsername(_this.username);
                         jumpToAnotherPage(mainPageUrl);
                     } else{
                         alert("注册失败");
@@ -33,10 +34,10 @@ new Vue({
             }
         },
         registerAxios: function () {
-            return axios.get("/register", { params:{ userName: this.userName, password: this.password } });
+            return axios.get("/register", { params:{ username: this.username, password: this.password } });
         },
         getUserIdAxios: function () {
-            return axios.get("/getUserId", {params: {userName: this.userName}});
+            return axios.get("/getUserId", {params: {username: this.username}});
         }
     }
 });

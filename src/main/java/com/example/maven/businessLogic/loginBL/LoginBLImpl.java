@@ -16,10 +16,10 @@ public class LoginBLImpl implements LoginBLService {
         userDataService = new UserDataImpl();
     }
 
-    public Exception login(String userName, String password){
+    public Exception login(String username, String password){
         List<User> userList = userDataService.getAllUser();
         for(User user : userList){
-            if(user.getUserName().equals(userName)){
+            if(user.getUserName().equals(username)){
                  if(user.getPassword().equals(password)) {
                      if(user.isAdmin())
                          return new AdministerLoginException();

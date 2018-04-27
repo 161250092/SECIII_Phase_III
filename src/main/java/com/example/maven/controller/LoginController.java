@@ -18,14 +18,14 @@ public class LoginController implements LoginBLService {
 
     /**
      * 判断是否登陆成功
-     * @param userName 用户昵称
+     * @param username 用户昵称
      * @param password 用户密码
      * @return 登录状态
      */
     @Override
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public Exception login(String userName, String password){
-        return loginBL.login(userName, password);
+    public Exception login(String username, String password){
+        return loginBL.login(username, password);
     }
 
 }

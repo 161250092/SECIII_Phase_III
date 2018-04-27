@@ -1,7 +1,7 @@
 new Vue({
     el: "#loginContainer",
     data:{
-        userName: "",
+        username: "",
         password: ""
     },
     methods:{
@@ -14,6 +14,7 @@ new Vue({
                     jumpToAnotherPage(mainPageUrl);
                 }else if(wrongMessage === 'AdministerLogin'){
                     sendUserId(userIdObj.data);
+                    sendUsername(_this.username);
                     jumpToAnotherPage(adminPageUrl);
                 }else{
                     alert("登录失败");
@@ -21,10 +22,10 @@ new Vue({
             }));
         },
         loginAxios: function () {
-            return axios.get("/login", { params:{ userName: this.userName, password: this.password } });
+            return axios.get("/login", { params:{ username: this.username, password: this.password } });
         },
         getUserIdAxios: function () {
-            return axios.get("/getUserId", {params: {userName: this.userName}});
+            return axios.get("/getUserId", {params: {username: this.username}});
         }
     }
 });

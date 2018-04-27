@@ -16,6 +16,7 @@ new Vue({
     data: {
         labelType: "FrameLabel",
         userId: "",
+        username: "testUsername",
         taskId: "",
         taskImageNum: 0,
 
@@ -57,6 +58,7 @@ new Vue({
             this.canvas.height = rect.height;
 
             this.userId = getUserId();
+            this.username = getUsername();
             this.taskId = getTaskId();
             //获得这个任务的图片数目
             const _this = this;
@@ -64,12 +66,12 @@ new Vue({
                 _this.taskImageNum = response.data;
             });
             //获得第一张图片
-            this.getFrameLabel();
+            this.getLabel();
         });
     },
     methods: {
         //获得当前图片的标注记录
-        getFrameLabel: function () {
+        getLabel: function () {
             const _this = this;
             axios.get("/markLabel/getLabel", { params:
                     { taskId: _this.taskId, userId: _this.userId,
@@ -81,7 +83,7 @@ new Vue({
                 });
         },
         //重置当前图片的标注记录
-        resetCurrentFrameLabel: function () {
+        resetCurrentLabel: function () {
             this.currentFrameLabelList = [];
 
             this.topLeftX = 0;
@@ -98,7 +100,7 @@ new Vue({
             this.removeRecInCanvas();
         },
         //保存当前图片的标注记录
-        saveCurrentFrameLabel: function () {
+        saveCurrentLabel: function () {
             if(this.canInputTag === false){
                 let frameLabelVO = new FrameLabelVO(this.currentFrameLabelList);
                 let frameLabelVOJson = JSON.stringify(frameLabelVO);
@@ -120,25 +122,25 @@ new Vue({
             }
         },
         //转到前一张图片
-        getPreviousFrameLabel: function () {
+        getPreviousLabel: function () {
             //第一张图片时没有前一张图片
             if(this.currentImageIndex > 0){
                 this.currentImageUrl = "";
-                this.resetCurrentFrameLabel();
+                this.resetCurrentLabel();
                 this.currentImageIndex--;
-                this.getFrameLabel();
+                this.getLabel();
             }else{
                 alert("当前是第一张图片");
             }
         },
         //转到后一张图片
-        getNextFrameLabel: function () {
+        getNextLabel: function () {
             //最后一张图片时没有后一张图片
             if(this.currentImageIndex < (this.taskImageNum - 1)){
                 this.currentImageUrl = "";
-                this.resetCurrentFrameLabel();
+                this.resetCurrentLabel();
                 this.currentImageIndex++;
-                this.getFrameLabel();
+                this.getLabel();
             }else{
                 alert("当前是最后一张图片");
             }
@@ -175,6 +177,8 @@ new Vue({
 
                 this.canInputTag = false;
                 this.canDraw = true;
+            }else{
+                alert("请标注区域");
             }
         },
         removeTag: function (tagIndex) {

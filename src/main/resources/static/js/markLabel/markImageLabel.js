@@ -8,6 +8,7 @@ new Vue({
     data: {
         labelType: "ImageLabel",
         userId: "",
+        username: "",
         taskId: "",
         taskImageNum: 0,
 
@@ -25,6 +26,7 @@ new Vue({
             sessionStorage.setItem('taskId',"testTaskID");
             //-------------------------------------
             this.userId = getUserId();
+            this.username = getUsername();
             this.taskId = getTaskId();
             //获得这个任务的图片数目
             const _this = this;
@@ -32,11 +34,11 @@ new Vue({
                 _this.taskImageNum = response.data;
             });
             //获得第一张图片
-            this.getImageLabel();
+            this.getLabel();
         })
     },
     methods: {
-        getImageLabel: function () {
+        getLabel: function () {
             const _this = this;
             axios.get("/markLabel/getLabel", { params:
                     { taskId: _this.taskId, userId: _this.userId,
@@ -46,10 +48,10 @@ new Vue({
                     _this.currentImageLabelList = response.data.labelList;
                 });
         },
-        resetCurrentImageLabel: function () {
+        resetCurrentLabel: function () {
             this.currentImageLabelList = [];
         },
-        saveCurrentImageLabel: function () {
+        saveCurrentLabel: function () {
             let imageLabelVO = new ImageLabelVO(this.currentImageLabelList);
             let imageLabelVOJson = JSON.stringify(imageLabelVO);
             const _this = this;
@@ -65,22 +67,22 @@ new Vue({
                     }
                 });
         },
-        getPreviousImageLabel: function () {
+        getPreviousLabel: function () {
             if(this.currentImageIndex > 0){
                 this.currentImageUrl = "";
-                this.resetCurrentImageLabel();
+                this.resetCurrentLabel();
                 this.currentImageIndex--;
-                this.getImageLabel();
+                this.getLabel();
             }else{
                 alert("当前是第一张图片");
             }
         },
-        getNextImageLabel: function () {
+        getNextLabel: function () {
             if(this.currentImageIndex < (this.taskImageNum - 1)){
                 this.currentImageUrl = "";
-                this.resetCurrentImageLabel();
+                this.resetCurrentLabel();
                 this.currentImageIndex++;
-                this.getImageLabel();
+                this.getLabel();
             }else{
                 alert("当前是最后一张图片");
             }

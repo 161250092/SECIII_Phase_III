@@ -7,15 +7,15 @@ import com.example.maven.exception.loginException.LoginErrorException;
 
 public class LoginBLStub implements LoginBLService{
     @Override
-    public Exception login(String userName, String password) {
-        System.out.println(userName);
+    public Exception login(String username, String password) {
+        System.out.println(username);
         System.out.println(password);
-        if(userName == null || password == null)
+        if(username == null || password == null)
             return new IncompleteInformationException();
         //test
-        if (userName.equals("2333"))
+        if (username.equals("2333"))
             return new OrdinaryLoginException();
-        else if (userName.equals("admin"))
+        else if (username.equals("admin"))
             return new AdministerLoginException();
         else
             return new LoginErrorException();
