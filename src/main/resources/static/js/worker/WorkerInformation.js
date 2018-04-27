@@ -1,13 +1,12 @@
 
-window.onload=function(){
-    //清空表格内容
-    clearRow("incompleted");
-    clearRow("accomplished");
 
-    getAllFinishedTasks(userId);
-    getAllUnfinishedTasks(userId);
-    getUserScore(userId);
-    getUserRanking(userId);
+window.onload=function(){
+
+    getAllFinishedTasks(getUserId());
+    getAllUnfinishedTasks(getUserId());
+    getUserScore(getUserId());
+    getUserRanking(getUserId());
+
     for(var i=0;i<AssignedIncompletedTaskList.length;i++){
         addRow(AssignedIncompletedTaskList[i],"incompleted");
     }
@@ -32,8 +31,8 @@ function getAllUnfinishedTasks(userId){
 				user : userId
 			},
 
-			success:function(AllUnfinishedTasksJson){
-				AllUnfinishedTasks = JSON.parse(AllUnfinishedTasksJson);
+			success:function(data){
+				AllUnfinishedTasks = data;
 			}
 
 	});
@@ -48,8 +47,8 @@ function getAllFinishedTasks(userId){
 				user: userId
 			},
 
-			success:function(AllFinishedTasksJson){
-				AllFinishedTasks = JSON.parse(AllFinishedTasksJson);
+			success:function(data1){
+				AllFinishedTasks = datq1;
 			}
 
 	});
@@ -64,8 +63,8 @@ function getUserScore(userId){
 				user :  userId
 			},
 
-			success:function(ScoreJson){
-				score = JSON.parse(ScoreJson);
+			success:function(Score){
+				score = Score;
 			}
 
 	});
@@ -81,8 +80,8 @@ function getUserRanking(UserId){
 				user :  userId
 			},
 
-			success:function(RankingJson){
-				ranking = JSON.parse(RankingJson);
+			success:function(Ranking){
+				ranking = Ranking;
 			}
 
 	});
@@ -91,9 +90,9 @@ function getUserRanking(UserId){
 
 
 function addRow(singleTask,id){
-	var z =$(id).rows.length
+	var z =document.getElementById(id).rows.length
 //table 添加内容
-    var tableRow=$(id).insertRow(z);
+    var tableRow=document.getElementById(id).insertRow(z);
 
 
     var Cell_0=tableRow.insertCell(0);
@@ -113,14 +112,6 @@ function addRow(singleTask,id){
     Cell_3.innerHTML='<input value="'+singleTask.score+'"  readonly="true"/>';
     Cell_3.className="s4";
 }
-
-$("#check").click(function (){
-	//
-
-
-
-
-});
 
 
 

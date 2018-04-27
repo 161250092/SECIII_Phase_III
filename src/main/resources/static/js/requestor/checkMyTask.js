@@ -6,13 +6,8 @@ var AssignedCompletedTaskList = new Array();
 
 window.onload = function(){
 
-    clearRow("incompleted");
-    clearRow("accomplished");
-
-
-
-    getAssignedIncompletedTaskList(userId);
-    getAssignedAndAccomplishedTaskList(userId);
+    getAssignedIncompletedTaskList(getUserId());
+    getAssignedAndAccomplishedTaskList(getUserId());
 
     for(var i=0;i<AssignedIncompletedTaskList.length;i++){
         addRow(AssignedIncompletedTaskList[i],"incompleted");
@@ -35,8 +30,8 @@ function getAssignedIncompletedTaskList(userId){
 				user: userId
 			},
 
-			success:function(AssignedButIncompleteTaskListJson){
-			     AssignedButIncompleteTaskList = JSON.parse(AssignedButIncompleteTaskListJson);
+			success:function(data){
+			     AssignedButIncompleteTaskList = data;
 			}
 
 	});
@@ -52,8 +47,8 @@ function getAssignedAndAccomplishedTaskList(userId){
                                 user : userId
                         },
 
-                        success:function(AssignedAndAccomplishedTaskListJson){
-                                AssignedCompletedTaskList  = JSON.parse(AssignedAndAccomplishedTaskListJson);
+                        success:function(data1){
+                                AssignedCompletedTaskList  = data1;
                         }
 
         });
@@ -63,10 +58,9 @@ function getAssignedAndAccomplishedTaskList(userId){
 
 //改变table内容
 function addRow(singleTask,id){
-        
-	var z =$(id).rows.length
+	    var z =document.getElementById(id).rows.length;
 //table 添加内容
-        var tableRow=$(id).insertRow(z);
+        var tableRow=document.getElementById(id).insertRow(z);
         
         var Cell_0=tableRow.insertCell(0);
         Cell_0.innerHTML='<input value= "'+singleTask.taskId +'"readonly="true"/>';
@@ -94,10 +88,4 @@ function addRow(singleTask,id){
         Cell_5.innerHTML='<input value="'+singleTask.score+'"  readonly="true"/>';
         Cell_5.className="s6";
 
-}
-
-function clearRow(trid){
-    var t=document.getElementById(trid);
-//删除所有行
-    t.firstChild.removeNode(true)
 }

@@ -39,7 +39,7 @@ function addTask(singleTask,id,count){
     Cell_1.className="s2";
 
     var Cell_2=tableRow.insertCell(2);
-    Cell_2.innerHTML='<input value="'+singleTask.introduction+'"  readonly="true"/>';
+    Cell_2.innerHTML='<input value="'+singleTask.description+'"  readonly="true"/>';
     Cell_2.className="s3";
 
     var Cell_3=tableRow.insertCell(3);
