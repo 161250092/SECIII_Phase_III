@@ -98,4 +98,10 @@ a,img{border:0;}
 }
 .menu > li:hover .submenu li:nth-child(odd){
 	transform:skewX(-25deg) translateX(-15px);
+
+}
+.center{
+	position: absolute; top: 200px; left: 200px; right: 200px; bottom: 140px; overflow: hidden;
+	/*background-image: url(http://pic.58pic.com/58pic/13/76/87/95m58PICXaY_1024.jpg);*/
+	background-repeat:none;
 }
