@@ -260,7 +260,7 @@ public class UserDataImpl implements UserDataService{
             String useR = fh.readFile(filePath);
             String[] usER = useR.split(",");
 
-            User user = new User(usER[0], usER[1], usER[2], publishedTask, acceptedTask, Integer.parseInt(usER[3]), Boolean.getBoolean(usER[4]));
+            User user = new User(usER[0], usER[2], usER[1], publishedTask, acceptedTask, Integer.parseInt(usER[3]), Boolean.getBoolean(usER[4]));
 
             return user;
         }
