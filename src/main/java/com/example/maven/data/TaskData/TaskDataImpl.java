@@ -204,16 +204,18 @@ public class TaskDataImpl implements TaskDataService{
             }
         }
 
-        filePath = filePath + "/PublishedTask/IncompleteTask";
+        if(isFind){
+            filePath = filePath + "/PublishedTask/IncompleteTask";
 
-        //Gson转化task对象
-        Gson gson = new GsonBuilder().create();
-        String content = gson.toJson(task);
+            //Gson转化task对象
+            Gson gson = new GsonBuilder().create();
+            String content = gson.toJson(task);
 
-        filePath = filePath + "/" + task.getTaskId() + ".txt";
+            filePath = filePath + "/" + task.getTaskId() + ".txt";
 
-        FileHelper fh = new FileHelper();
-        result = fh.writeFile(filePath,content);
+            FileHelper fh = new FileHelper();
+            result = fh.writeFile(filePath,content);
+        }
 
         return result;
     }
