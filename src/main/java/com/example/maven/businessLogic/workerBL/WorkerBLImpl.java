@@ -9,6 +9,8 @@ import com.example.maven.data.UserData.UserDataService;
 import com.example.maven.model.po.Label;
 import com.example.maven.model.po.Task;
 import com.example.maven.model.po.User;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,16 +52,26 @@ public class WorkerBLImpl implements WorkerBLService {
     }
 
     @Override
-    public boolean acceptTask(String userId, String taskId) {
-        //获取任务详情
-        Task task = taskDataService.getTask(taskId);
-        //若任务为null 则报错
-        if(task == null)
-            return false;
+    public boolean acceptTask(String userId, String taskIdListJSON) {
+        Gson gson = new GsonBuilder().create();
+        List<String> taskIdList = gson.fromJson(taskIdListJSON, ArrayList.class);
 
-        //获取任务包含的图片数量
-        int imageNumber = task.getImageInformation().length;
-        return labelDataService.acceptTask(userId, taskId, imageNumber);
+        for(String taskId : taskIdList){
+            //获取任务详情
+            Task task = taskDataService.getTask(taskId);
+            //若任务为null 则报错
+            if(task == null)
+                return false;
+
+            //获取任务包含的图片数量
+            int imageNumber = task.getImageInformation().length;
+
+            //如果后端调用失败 则报错
+            if(!labelDataService.acceptTask(userId, taskId, imageNumber))
+                return false;
+        }
+
+        return true;
     }
 
     @Override

@@ -4,6 +4,8 @@ import com.example.maven.data.TaskData.TaskDataImpl;
 import com.example.maven.data.TaskData.TaskDataService;
 import com.example.maven.model.po.Label;
 import com.example.maven.model.po.Task;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +61,14 @@ public class WorkerBLStub implements WorkerBLService {
     }
 
     @Override
-    public boolean acceptTask(String userId, String taskId) {
+    public boolean acceptTask(String userId, String taskIdListJSON) {
+        System.out.println("userId: "+userId);
+        System.out.println("taskIdListJSON: "+taskIdListJSON);
+
+        Gson gson = new GsonBuilder().create();
+        List<String> taskIdList = gson.fromJson(taskIdListJSON, ArrayList.class);
+        System.out.println(taskIdList.get(0));
+
         return false;
     }
 

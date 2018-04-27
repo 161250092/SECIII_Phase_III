@@ -29,10 +29,10 @@ public interface WorkerBLService {
     /**
      * 众包工人接受任务
      * @param userId 用户Id
-     * @param taskId 任务Id
+     * @param taskIListJSON 任务Id列表所转化成的JSON字符串
      * @return 是否接受成功
      */
-    boolean acceptTask(String userId, String taskId);
+    boolean acceptTask(String userId, String taskIListJSON);
 
 
     /**
