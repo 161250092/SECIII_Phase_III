@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <title>整体标注</title>
     <link rel="stylesheet" href="../../css/guide.css">
-    <link rel="stylesheet" href="../../css/布局.css">
-    <link rel="stylesheet" href="../../css/background.css">
-    <link rel="stylesheet" href="../../css/lineMark.css">
+    <!--<link rel="stylesheet" href="../../css/background.css">-->
+    <link rel="stylesheet" href="../../css/markLabel.css">
 </head>
 
-<body  bgcolor=#F0F0F0>
-<div id="markImageLabelContainer">
-    <nav class="top">
-        <ul id="UI">
-            <li class="LI"><a a class="active" href="#home">整体标注</a></li>
-            <li class="LI"><a href="../mainPage/MainPage.html">返回</a>></li>
-        </ul>
-    </nav>
+<body>
+<div id="markLabelContainer">
+    <header class="top">
+        <nav>
+            <ul id="UI">
+                <li class="LI"><a class="active" href="#">整体标注</a></li>
+                <li class="LI"><a href="../mainPage/MainPage.html">返回</a>></li>
+            </ul>
+        </nav>
+    </header>
 
     <section class="left">
         <div class="btn-group">
@@ -38,10 +39,6 @@
     </section>
 
     <section class="right">
-    </section>
-
-
-    <section class="bottom">
         <div id="toolBar">
             <p>填写标签：
                 <input type="text" id="inputTag" placeholder="请输入标签" ref="inputTag">
@@ -64,12 +61,12 @@
             </table>
         </div>
     </section>
+
+    <!--<section class="bottom">-->
+    <!--</section>-->
 </div>
 <script src="../../js/lib/vue.js"></script>
 <script src="../../js/lib/axios.js"></script>
-<script src="../../js/lib/jquery-1.11.0.min.js"></script>
 <script src="../../js/pageJump.js"></script>
 <script src="../../js/markLabel/markImageLabel.js"></script>
-<!--<script src = "../../js/worker/overall.js"></script>-->
-<!--<script src = "../../js/worker/allNeed.js"></script>-->
 </body>

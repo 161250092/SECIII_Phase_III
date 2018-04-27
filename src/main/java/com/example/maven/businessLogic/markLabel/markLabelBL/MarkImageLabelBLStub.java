@@ -25,12 +25,12 @@ public class MarkImageLabelBLStub implements MarkLabelBLService {
         ImageLabelVO vo = null;
 
         if(imageIndex == 0){
-            vo = new ImageLabelVO("F5F25A4A91A52AB03FB45F901968C557.jpg", labelList);
+            vo = new ImageLabelVO("test5.jpg", labelList);
             labelList.add("tag0-1");
             labelList.add("tag0-2");
             labelList.add("tag0-3");
         }else if (imageIndex == 1){
-            vo = new ImageLabelVO("14829933001340406.png", labelList);
+            vo = new ImageLabelVO("test6.jpg", labelList);
             labelList.add("tag1-1");
             labelList.add("tag2-2");
         }
@@ -48,7 +48,7 @@ public class MarkImageLabelBLStub implements MarkLabelBLService {
         System.out.println("labelType:" + labelType);
         System.out.println("imageIndex:" + imageIndex);
         System.out.println("frameLabelJson:" + labelVOJson);
-        return false;
+        return true;
     }
 
     @Override

@@ -19,7 +19,7 @@ new Vue({
         ],
         selectedLabelType: "",
         taskId: "taskId",
-        requiredWorkerNum: 0,
+        requiredWorkerNum: 1,
         taskDescription: "",
         score: 0,
 
@@ -46,7 +46,7 @@ new Vue({
             };
             axios.post('/uploadTaskImage', formData, config).then(function (res) {
 
-            })
+            });
 
             this.uploadTaskInfo();
         },
@@ -103,13 +103,12 @@ new Vue({
             })
         },
         fileAdd(file) {
-            //总大小
-            this.size = this.size + file.size;
             //判断是否为图片文件
             if (file.type.indexOf('image') === -1) {
-                file.src = 'wenjian.png';
-                this.imgList.push({file});
+                alert("不是图片文件");
             } else {
+                //总大小
+                this.size = this.size + file.size;
                 let reader = new FileReader();
                 reader.vue = this;
                 reader.readAsDataURL(file);
@@ -120,7 +119,7 @@ new Vue({
             }
         },
         fileDel(index) {
-            this.size = this.size - this.imgList[index].file.size;//总大小
+            this.size = this.size - this.imgList[index].size;//总大小
             this.imgList.splice(index, 1);
         },
         bytesToSize(bytes) {
@@ -149,6 +148,16 @@ new Vue({
             let time = Date.parse(new Date());
             this.taskId = this.userId + '_' + this.selectedLabelType +
                 '_' + time;
+        },
+        requiredWorkerNum: function (newRequiredWorkerNum, oldRequiredWorkerNum) {
+            if(newRequiredWorkerNum <= 0){
+                this.requiredWorkerNum = 1;
+            }
+        },
+        score: function (newScore, oldScore) {
+            if(newScore < 0){
+                this.score = 0;
+            }
         }
     }
 });

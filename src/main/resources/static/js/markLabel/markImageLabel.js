@@ -4,7 +4,7 @@ function ImageLabelVO(labelList){
 }
 
 new Vue({
-    el: "#markImageLabelContainer",
+    el: "#markLabelContainer",
     data: {
         labelType: "ImageLabel",
         userId: "",
@@ -48,7 +48,6 @@ new Vue({
         },
         resetCurrentImageLabel: function () {
             this.currentImageLabelList = [];
-            this.currentImageSrc = "";
         },
         saveCurrentImageLabel: function () {
             let imageLabelVO = new ImageLabelVO(this.currentImageLabelList);
@@ -67,8 +66,8 @@ new Vue({
                 });
         },
         getPreviousImageLabel: function () {
-            this.saveCurrentImageLabel();
             if(this.currentImageIndex > 0){
+                this.currentImageUrl = "";
                 this.resetCurrentImageLabel();
                 this.currentImageIndex--;
                 this.getImageLabel();
@@ -77,8 +76,8 @@ new Vue({
             }
         },
         getNextImageLabel: function () {
-            this.saveCurrentImageLabel();
             if(this.currentImageIndex < (this.taskImageNum - 1)){
+                this.currentImageUrl = "";
                 this.resetCurrentImageLabel();
                 this.currentImageIndex++;
                 this.getImageLabel();
@@ -87,13 +86,12 @@ new Vue({
             }
         },
         setTaskAccomplished: function () {
-            //保存最后一张照片的结果
-            this.saveCurrentImageLabel();
             const _this = this;
             axios.get("/markLabel/setTaskAccomplished", { params:
                     { taskId: _this.taskId, userId: _this.userId } })
                 .then(function (response) {
                     if(response.data === true){
+                        alert("提交成功");
                         jumpToAnotherPage(mainPageUrl);
                     }else {
                         alert("提交失败");

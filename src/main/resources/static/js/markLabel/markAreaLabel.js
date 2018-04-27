@@ -10,7 +10,7 @@ function Pixel(x, y){
 }
 
 new Vue({
-    el: "#markAreaLabelContainer",
+    el: "#markLabelContainer",
     data: {
         labelType: "AreaLabel",
         userId: "",
@@ -95,7 +95,6 @@ new Vue({
         resetCurrentAreaLabel: function () {
             this.currentTag = "";
             this.currentAreaList = [];
-            this.currentImageUrl = "";
 
             this.isDrawing = false;
             this.canDraw = true;
@@ -113,7 +112,8 @@ new Vue({
                             labelType: _this.labelType, imageIndex: _this.currentImageIndex,
                             labelVOJson: areaLabelVOJson } })
                     .then(function (response) {
-                        if(response.data === true) {
+                        result = response.data;
+                        if(result === true) {
                             alert("保存成功");
                         }else{
                             alert("保存失败");
@@ -125,9 +125,9 @@ new Vue({
         },
         //转到前一张图片
         getPreviousAreaLabel: function () {
-            this.saveCurrentAreaLabel();
             //第一张图片时没有前一张图片
             if(this.currentImageIndex > 0){
+                this.currentImageUrl = "";
                 this.resetCurrentAreaLabel();
                 this.currentImageIndex--;
                 this.getAreaLabel();
@@ -137,9 +137,9 @@ new Vue({
         },
         //转到后一张图片
         getNextAreaLabel: function () {
-            this.saveCurrentAreaLabel();
             //最后一张图片时没有后一张图片
             if(this.currentImageIndex < (this.taskImageNum - 1)){
+                this.currentImageUrl = "";
                 this.resetCurrentAreaLabel();
                 this.currentImageIndex++;
                 this.getAreaLabel();
@@ -149,14 +149,13 @@ new Vue({
         },
         //提交任务
         setTaskAccomplished: function () {
-            //保存最后一张照片的结果
-            this.saveCurrentAreaLabel();
             //提交任务
             const _this = this;
             axios.get("/markLabel/setTaskAccomplished", { params:
                     { taskId: _this.taskId, userId: _this.userId } })
                 .then(function (response) {
                     if(response.data === true){
+                        alert("提交成功");
                         jumpToAnotherPage(mainPageUrl);
                     }else {
                         alert("提交失败");
@@ -174,6 +173,8 @@ new Vue({
             if (this.canInputTag === true){
                 this.currentTag = tag;
                 this.canInputTag = false;
+            }else{
+                alert("请先标注区域");
             }
         },
         //将画布上的曲线移除

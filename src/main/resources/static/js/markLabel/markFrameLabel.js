@@ -12,7 +12,7 @@ function FrameLabelListItem(startX, startY, width, height, tag){
 }
 
 new Vue({
-    el: "#markFrameLabelContainer",
+    el: "#markLabelContainer",
     data: {
         labelType: "FrameLabel",
         userId: "",
@@ -83,7 +83,6 @@ new Vue({
         //重置当前图片的标注记录
         resetCurrentFrameLabel: function () {
             this.currentFrameLabelList = [];
-            this.currentImageUrl = "";
 
             this.topLeftX = 0;
             this.topLeftY = 0;
@@ -109,7 +108,8 @@ new Vue({
                             labelType: _this.labelType, imageIndex: _this.currentImageIndex,
                             labelVOJson: frameLabelVOJson } })
                     .then(function (response) {
-                        if(response.data === true) {
+                        result = response.data;
+                        if(result === true) {
                             alert("保存成功");
                         }else{
                             alert("保存失败");
@@ -121,9 +121,9 @@ new Vue({
         },
         //转到前一张图片
         getPreviousFrameLabel: function () {
-            this.saveCurrentFrameLabel();
             //第一张图片时没有前一张图片
             if(this.currentImageIndex > 0){
+                this.currentImageUrl = "";
                 this.resetCurrentFrameLabel();
                 this.currentImageIndex--;
                 this.getFrameLabel();
@@ -133,9 +133,9 @@ new Vue({
         },
         //转到后一张图片
         getNextFrameLabel: function () {
-            this.saveCurrentFrameLabel();
             //最后一张图片时没有后一张图片
             if(this.currentImageIndex < (this.taskImageNum - 1)){
+                this.currentImageUrl = "";
                 this.resetCurrentFrameLabel();
                 this.currentImageIndex++;
                 this.getFrameLabel();
@@ -145,14 +145,13 @@ new Vue({
         },
         //提交任务
         setTaskAccomplished: function () {
-            //保存最后一张照片的结果
-            this.saveCurrentFrameLabel();
             //提交任务
             const _this = this;
             axios.get("/markLabel/setTaskAccomplished", { params:
                     { taskId: _this.taskId, userId: _this.userId } })
                 .then(function (response) {
                     if(response.data === true){
+                        alert("提交成功");
                         jumpToAnotherPage(mainPageUrl);
                     }else {
                         alert("提交失败");

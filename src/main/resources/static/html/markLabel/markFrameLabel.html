@@ -4,19 +4,21 @@
     <meta charset="UTF-8">
     <title>框标注</title>
     <link rel="stylesheet" href="../../css/guide.css">
-    <link rel="stylesheet" href="../../css/布局.css">
-    <link rel="stylesheet" href="../../css/background.css">
+    <!--<link rel="stylesheet" href="../../css/background.css">-->
     <link rel="stylesheet" href="../../css/markLabel.css">
 </head>
 
-<body  bgcolor=#F0F0F0>
-<div id="markFrameLabelContainer" class="parent">
-    <nav class="top">
-        <ul id="UI">
-            <li class="LI"><a class="active" href="#home">方框标注</a></li>
-            <li class="LI"><a href="../mainPage/MainPage.html">返回</a></li>
-        </ul>
-    </nav>
+<body>
+<div id="markLabelContainer">
+    <header class="top">
+        <nav>
+            <ul id="UI">
+                <li class="LI"><a class="active" href="#">方框标注</a></li>
+                <li class="LI"><a href="../mainPage/MainPage.html">返回</a></li>
+            </ul>
+        </nav>
+    </header>
+
 
     <section class="left">
         <div class="btn-group">
@@ -29,18 +31,6 @@
                 保存并提交
             </button>
         </div>
-        <p>userId = {{userId}}</p>
-        <p>taskId = {{taskId}}</p>
-        <p>currentImageUrl = {{currentImageUrl}}</p>
-        <p>topLeftX = {{topLeftX}}</p>
-        <p>topLeftY = {{topLeftY}}</p>
-        <p>currentStartX = {{currentStartX}}</p>
-        <p>currentStartY = {{currentStartY}}</p>
-        <p>currentEndX = {{currentEndX}}</p>
-        <p>currentEndY = {{currentEndY}}</p>
-        <p>isDrawing = {{isDrawing}}</p>
-        <p>canDraw = {{canDraw}}</p>
-        <p>canInputTag = {{canInputTag}}</p>
     </section>
 
     <section class="center">
@@ -66,9 +56,6 @@
             <input type="text" id="inputTag" placeholder="请输入标签" ref="inputTag">
             <button class="buttonGrey" v-on:click="addTag">添加标签</button>
         </div>
-    </section>
-
-    <section class="bottom">
         <div>
             <p>当前图片：{{currentImageIndex+1}}     总图片数：{{taskImageNum}}</p>
             <table id="tagTable">
@@ -85,11 +72,14 @@
             </table>
         </div>
     </section>
+
+    <!--<section class="bottom">-->
+
+    <!--</section>-->
 </div>
 
 <script src="../../js/lib/vue.js"></script>
 <script src="../../js/lib/axios.js"></script>
-<script src="../../js/lib/jquery-1.11.0.min.js"></script>
 <script src="../../js/pageJump.js"></script>
 <script src="../../js/markLabel/markFrameLabel.js"></script>
 </body>

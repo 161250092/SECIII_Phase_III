@@ -23,11 +23,11 @@ public class MarkAreaLabelBLStub implements MarkLabelBLService {
         AreaLabelVO vo = null;
 
         if(imageIndex == 0){
-            vo = new AreaLabelVO("F5F25A4A91A52AB03FB45F901968C557.jpg", "area", lineList);
+            vo = new AreaLabelVO("test10.jpg", "area", lineList);
             lineList.add("10,20;100,200;50,300;");
         }else if (imageIndex == 1){
-            vo = new AreaLabelVO("14829933001340406.png", "area", lineList);
-            lineList.add("100,100;100,300;200,300;50,300;");
+            vo = new AreaLabelVO("test11.jpg", "area", lineList);
+            lineList.add("100,100;100,300;200,300;50,100;");
         }
 
         Gson gson = new GsonBuilder().create();
@@ -43,7 +43,7 @@ public class MarkAreaLabelBLStub implements MarkLabelBLService {
         System.out.println("labelType:" + labelType);
         System.out.println("imageIndex:" + imageIndex);
         System.out.println("LabelJson:" + labelVOJson);
-        return false;
+        return true;
     }
 
     @Override
