@@ -1,19 +1,33 @@
+var type1="ImageLabel";
+var type2="AreaLabel";
+var type3="FrameLabel";
+var oneTask = new Array();
+var count = 0;
+var AllUnfinishedTasks = new Array();
+
 
 window.onload=function(){
     //清空表格内容
-    clearRow("TaskTable");
+    getAllUnfinishedTasks(getUserId());
     //添加表格任务
+    console.log("before");
+
     for(var i=0;i<AllUnfinishedTasks.length;i++){
-        addTask(AllUnfinishedTasks[i],"TaskTable");
+        console.log(AllUnfinishedTasks[i]);
+        addTask(AllUnfinishedTasks[i],"TaskTable",i);
     }
+
 }
 
 
 
-function addTask(singleTask,id){
-    var z =$(id).rows.length
+function addTask(singleTask,id,count){
+
+    oneTask.push(singleTask);
+
+    var z =document.getElementById("TaskTable").rows.length;
 //table 添加内容
-    var tableRow=$(id).insertRow(z);
+    var tableRow=document.getElementById("TaskTable").insertRow(z);
 
 
     var Cell_0=tableRow.insertCell(0);
@@ -33,36 +47,42 @@ function addTask(singleTask,id){
     Cell_3.className="s4";
 
 
-    if(singleTask.labelType==type1) {
+    if(singleTask.labelType===type1) {
         var Cell_4 = tableRow.insertCell(4);
-        // var url = "markImageLabel.html?userId="+userId+"&taskId="+singleTask.id;
-
-        Cell_4.innerHTML = '<a href="javascript:void(0)"  readonly="true" onclick="jumToTask(overAllPageUrl,userId,singleTask.taskId)">do it</a>';
+        Cell_4.innerHTML = '<a href="javascript:void(0)"  readonly="true" onclick="jumToTask(overAllPageUrl,getUserId(),oneTask[count].taskId)">do it</a>';
         Cell_4.className = "s5";
     }
 
-    else if(singleTask.labelType==type2){
+    else if(singleTask.labelType===type2){
         var Cell_4 = tableRow.insertCell(4);
-        //var url = "markFrameLabel.html?userId="+userId+"&taskId="+singleTask.id;
-        Cell_4.innerHTML = '<a href="javascript:void(0)"  readonly="true" onclick="jumToTask(markFrameLabelPageUrl,userId,singleTask.taskId)">do it</a>';
+        Cell_4.innerHTML = '<a href="javascript:void(0)"  readonly="true" onclick="jumToTask(markFrameLabelPageUrl,getUserId(),oneTask[count].taskId)">do it</a>';
         Cell_4.className = "s5";
     }
 
-    else if(singleTask.labelType==type3){
+    else if(singleTask.labelType===type3){
         var Cell_4 = tableRow.insertCell(4);
-        var url = "markAreaLabel.html?userId="+userId+"&taskId="+singleTask.id;
-        Cell_4.innerHTML = '<a href="javascript:void(0)"  readonly="true" onclick="jumToTask(lineMarkPageUrl,userId,singleTask.taskId)">do it</a>';
+        Cell_4.innerHTML = '<a href="javascript:void(0)"  readonly="true" onclick="jumToTask(lineMarkPageUrl,getUserId(),oneTask[count].taskId)">do it</a>';
         Cell_4.className = "s5";
     }
 
 }
 
-function clearRow(trid){
-    var t=document.getElementById(trid);
-//删除所有行
-    t.firstChild.removeNode(true)
+
+function getAllUnfinishedTasks(userId){
+    $.ajax({
+        type: "GET",
+        async: false,
+        url:"/WorkerController/getAcceptedButIncompleteTaskList",
+        data:{
+            user : userId
+        },
+
+        success:function(data){
+            console.log(data);
+           AllUnfinishedTasks = data;
+        }
+
+    });
+
 }
-
-
-
 
