@@ -4,13 +4,13 @@ new Vue({
         username:"",
         password:"",
         confirmedPassword:"",
-        isUserNameExisted: false,
+        isUsernameExisted: false,
         isPasswordCorrect: true,
     },
     methods:{
-        checkUserName: function () {
+        checkUsername: function () {
             const _this = this;
-            axios.get("/isUserNameExist", { params:{ username: _this.username} }).then(function (response) {
+            axios.get("/isUsernameExist", { params:{ username: _this.username} }).then(function (response) {
                 _this.isUserNameExisted = response.data;
             });
         },

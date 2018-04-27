@@ -10,10 +10,10 @@
         <h2>注册</h2>
 
         <div>
-            <label for="userName">用户名：</label>
-            <input type="text" id="userName" placeholder="请输入你的用户名" v-model="userName" v-on:input="checkUserName">
-            <p>userName ::= {{userName}}</p>
-            <template v-if="isUserNameExisted">
+            <label for="username">用户名：</label>
+            <input type="text" id="username" placeholder="请输入你的用户名" v-model="username" v-on:input="checkUsername">
+            <p>username ::= {{username}}</p>
+            <template v-if="isUsernameExisted">
                 <p>该用户名已存在</p>
             </template>
         </div>
