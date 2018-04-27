@@ -13,28 +13,28 @@ public class RegisterController implements RegisterBLService {
     private RegisterBLService registerBL;
 
     public RegisterController(){
-        registerBL = new RegisterBLStub();
+        registerBL = new RegisterBLImpl();
     }
 
     /**
      * 判断是否重名
-     * @param userName 用户昵称
+     * @param username 用户昵称
      * @return 是否重名
      */
-    @RequestMapping(value = "/isUserNameExist", method = RequestMethod.GET)
-    public boolean isExist(String userName){
-        return registerBL.isExist(userName);
+    @RequestMapping(value = "/isUsernameExist", method = RequestMethod.GET)
+    public boolean isUsernameExist(String username){
+        return registerBL.isUsernameExist(username);
     }
 
     /**
      * 判断是否注册成功
-     * @param userName 用户昵称
+     * @param username 用户昵称
      * @param password 用户密码
      * @return 是否注册成功
      */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public boolean register(String userName, String password){
-        return registerBL.register(userName, password);
+    public boolean register(String username, String password){
+        return registerBL.register(username, password);
     }
 
 }

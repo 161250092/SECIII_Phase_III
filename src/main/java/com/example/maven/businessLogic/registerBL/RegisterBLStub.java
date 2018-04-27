@@ -2,7 +2,7 @@ package com.example.maven.businessLogic.registerBL;
 
 public class RegisterBLStub implements RegisterBLService{
     @Override
-    public boolean isExist(String userName) {
+    public boolean isUsernameExist(String userName) {
         System.out.println(userName);
         //test
         if (userName.equals("2333")||userName.equals("wwww"))

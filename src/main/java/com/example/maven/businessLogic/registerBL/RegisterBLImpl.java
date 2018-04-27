@@ -14,17 +14,17 @@ public class RegisterBLImpl implements RegisterBLService {
         userDataService = new UserDataImpl();
     }
 
-    public boolean isExist(String userName){
+    public boolean isUsernameExist(String username){
         List<User> userList = userDataService.getAllUser();
         for(User user : userList){
-            if(user.getUserName().equals(userName))
+            if(user.getUserName().equals(username))
                 return true;
         }
 
         return false;
     }
 
-    public boolean register(String userName, String password){
-        return userDataService.newUser(userName,password);
+    public boolean register(String username, String password){
+        return userDataService.newUser(username,password);
     }
 }
