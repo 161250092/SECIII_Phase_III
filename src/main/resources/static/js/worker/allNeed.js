@@ -10,9 +10,9 @@ var addedTask = new Array();
 
 
 
-var score;
+var score =0;
 
-var ranking;
+var ranking =0;
 
 var type1="ImageLabel";
 var type2="AreaLabel";
@@ -32,10 +32,10 @@ function Task(taskId,labelType,image,introduction,requiredNumber,finishedNumber,
 }
 
 //TASKVO
-function TaskVO(taskId,labelType,introduction,requiredNumber,finishedNumber,score) {
+function TaskVO(taskId,labelType,description,requiredNumber,finishedNumber,score) {
     this.taskId = taskId;
     this.labelType = labelType;
-    this.introduction = introduction;
+    this.description = description;
     this.requiredNumber = requiredNumber;
     this.finishedNumber = finishedNumber;
     this.score = score;
