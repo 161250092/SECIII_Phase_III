@@ -1,9 +1,6 @@
 package com.example.maven.businessLogic.loginBL;
 
-import com.example.maven.exception.loginException.AdministerLoginException;
-import com.example.maven.exception.loginException.IncompleteInformationException;
-import com.example.maven.exception.loginException.OrdinaryLoginException;
-import com.example.maven.exception.loginException.LoginErrorException;
+import com.example.maven.exception.loginException.*;
 
 public class LoginBLStub implements LoginBLService{
     @Override
@@ -14,9 +11,9 @@ public class LoginBLStub implements LoginBLService{
             return new IncompleteInformationException();
         //test
         if (username.equals("2333"))
-            return new OrdinaryLoginException();
+            return new UserException("2333","Ordinary");
         else if (username.equals("admin"))
-            return new AdministerLoginException();
+            return new UserException("admin","Admin");
         else
             return new LoginErrorException();
     }
