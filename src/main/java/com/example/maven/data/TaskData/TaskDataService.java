@@ -43,4 +43,12 @@ public interface TaskDataService {
      * 获取单个任务信息
      */
     public Task getTask(String taskId);
+
+    /**
+     * 转移已经完成标注的任务标注数据
+     * @param userId
+     * @param taskId
+     * @return
+     */
+    public boolean setAcceptedTaskAccomplished(String userId,String taskId);
 }

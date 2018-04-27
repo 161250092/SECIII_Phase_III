@@ -20,7 +20,7 @@ public interface LabelDataService {
     /**
      * 判断是否完成标注
      */
-    public boolean setTaskAccomplished(String userId,String taskId);
+    public boolean isAccomplished(String userId,String taskId);
 
     /**
      * 用户接受任务

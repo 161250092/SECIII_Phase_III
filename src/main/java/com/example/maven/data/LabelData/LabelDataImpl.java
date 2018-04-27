@@ -22,7 +22,7 @@ import java.util.List;
 public class LabelDataImpl implements LabelDataService{
     /**
      * 获取用户已经标注的信息
-     * @return 标签List 若未标注，图片对应位置返回null
+     * @return 标签List 若未标注，图片对应位置返回空对象
      */
     public List<Label> getLabel(String userId, String taskId){
         List<Label> label = new ArrayList<Label>();
@@ -227,7 +227,7 @@ public class LabelDataImpl implements LabelDataService{
     /**
      * 判断是否完成标注
      */
-    public boolean setTaskAccomplished(String userId,String taskId){
+    public boolean isAccomplished(String userId,String taskId){
         boolean result = true;
 
         String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
@@ -278,41 +278,6 @@ public class LabelDataImpl implements LabelDataService{
                         break;
                     }
                 }
-
-            }catch(IOException e){
-                e.printStackTrace();
-            }
-
-        }
-
-        if(result){
-            File delete = new File(filePath);
-
-            String AA = System.getProperty("user.dir").toString() + "/src/main/User/" + userId +
-                    "/AcceptTask/AccomplishedTask/" + taskId + ".txt";
-
-            File move = new File(AA);
-
-            FileReader fr =  null;
-            BufferedReader br = null;
-
-            FileWriter fw = null;
-            BufferedWriter bw = null;
-
-            try{
-                fr = new FileReader(delete);
-                br = new BufferedReader(fr);
-
-                fw = new FileWriter(AA);
-                bw = new BufferedWriter(fw);
-
-                String s;
-                while((s = br.readLine()) != null){
-                    bw.write(s + "\r\n");
-                }
-
-                bw.close();
-                fw.close();
 
             }catch(IOException e){
                 e.printStackTrace();

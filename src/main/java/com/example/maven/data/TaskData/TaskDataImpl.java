@@ -3,7 +3,7 @@ package com.example.maven.data.TaskData;
 import com.example.maven.data.fileHelper.FileHelper;
 import com.example.maven.model.po.Task;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -355,5 +355,86 @@ public class TaskDataImpl implements TaskDataService{
         }
 
         return task;
+    }
+
+    /**
+     * 转移已经完成标注的任务标注数据
+     * @param userId
+     * @param taskId
+     * @return
+     */
+    public boolean setAcceptedTaskAccomplished(String userId,String taskId){
+        boolean result = false;
+        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+
+        File user = new File(filePath);
+        File[] User = user.listFiles();
+
+        boolean userIsFind = false;
+
+        for(int i = 0;i < User.length;i++){
+            if(User[i].getName().equals(userId)){
+                filePath = filePath + "/" + userId;
+                userIsFind = true;
+            }
+        }
+
+        boolean taskIsFind = false;
+
+        filePath = filePath + "/AcceptedTask/IncompleteTask";
+        if(userIsFind){
+
+
+            File Task = new File(filePath);
+            File[] task = Task.listFiles();
+
+            for(int i = 0;i < task.length;i++){
+                if(task[i].getName().equals(taskId)){
+                    filePath = filePath + "/" + taskId + ".txt";
+                    taskIsFind = true;
+                }
+            }
+
+        }
+
+        if(taskIsFind){
+            File delete = new File(filePath);
+
+            String AA = System.getProperty("user.dir").toString() + "/src/main/User/" + userId +
+                    "/AcceptTask/AccomplishedTask/" + taskId + ".txt";
+
+            File move = new File(AA);
+
+            FileReader fr =  null;
+            BufferedReader br = null;
+
+            FileWriter fw = null;
+            BufferedWriter bw = null;
+
+            try{
+                fr = new FileReader(delete);
+                br = new BufferedReader(fr);
+
+                fw = new FileWriter(AA);
+                bw = new BufferedWriter(fw);
+
+                String s;
+                while((s = br.readLine()) != null){
+                    bw.write(s + "\r\n");
+                }
+
+                bw.close();
+                fw.close();
+
+                delete.delete();
+
+                result = true;
+
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+
+        return result;
     }
 }
