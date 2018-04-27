@@ -1,22 +1,20 @@
 var oneTask = new Array();
 
 window.onload=function(){
-    getMyIntroductionTask(userId);
+    getMyIntroductionTask(getUserId());
 
     for(var i=0;i<introductionTask.length;i++)
         addRow(introductionTask[i],i);
 
 }
 
-
-
 function getMyIntroductionTask(userId){
 
 	$.ajax({
 			type: "GET",
-			url:"/taskController/getMyIntroductionTask",
+            async: false,
+			url:"/WorkerController/getAvailableTaskList",
 			data:{
-				user:userId
 			},
 
 			success:function(data){
@@ -29,10 +27,11 @@ function getMyIntroductionTask(userId){
 
 
 function addRow(singleTask,count){
-        oneTask[count] = singleTask;
-		var z =document.getElementById("mytable").rows.length;
+
+        oneTask.push(singleTask);
+		var z =document.getElementById("TaskTable").rows.length;
 //table 添加内容
-        var tableRow=document.getElementById("mytable").insertRow(z);
+        var tableRow=document.getElementById("TaskTable").insertRow(z);
         
         var Cell_0=tableRow.insertCell(0);
         Cell_0.innerHTML='<input value= "'+oneTask[count].taskId +'"readonly="true"/>';
@@ -53,7 +52,7 @@ function addRow(singleTask,count){
 
 
         var Cell_4=tableRow.insertCell(4);
-        Cell_4.innerHTML='<input value="'+oneTask[count].introduction+'"  readonly="true"/>';
+        Cell_4.innerHTML='<input value="'+oneTask[count].description+'"  readonly="true"/>';
         Cell_4.className="s5";
 
         var Cell_5=tableRow.insertCell(5);
@@ -68,15 +67,13 @@ function addRow(singleTask,count){
 }
 
 
-
-
-function addMyTask(userId){
+function addMyTask(){
 	var count =0;
 
 	for(var i=0;i<introductionTask.length;i++)
 		//是否选中
-		if(document.getElementById(introductionTask[i].taskId).checked == true){
-			addedTask[count] = introductionTask[i]
+		if(document.getElementById(introductionTask[i].taskId).checked === true){
+			addedTask[count] = introductionTask[i].taskId;
 			count++;
 			}	
 
@@ -86,18 +83,21 @@ function addMyTask(userId){
 //提交按钮的动作
 $("#send").click(function(){
    	
-    addMyTask(userId);
+    addMyTask();
 
     $.ajax({
-        type : "POST",
-        url : "/taskController/addTask", //利用ajax发起请求，这里写servlet的路径
+        type : "GET",
+        async: false,
+        url : "/WorkerController/acceptTask", //利用ajax发起请求，这里写servlet的路径
 
         data : {
-            addedTaskJson: JSON.stringify(addedTask)
+            userId:getUserId(),
+            taskId: JSON.stringify(addedTask)
             //areaLabelJson: "Hello"
         },
         success: function(data) {
             alert("Success!");
+            jumpToAnotherPage(mainPageUrl);
             //页面跳转
         },
 
