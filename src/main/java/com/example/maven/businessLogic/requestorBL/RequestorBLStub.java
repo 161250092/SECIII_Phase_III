@@ -47,7 +47,7 @@ public class RequestorBLStub implements RequestorBLService {
         taskList.add(new Task("00000003_FrameLabel_1623440211000","FrameLabel",
                 imageInfo,"This is an assigned but incomplete task",
                 10,0,100 ));
-        return null;
+        return taskList;
     }
 
     @Override
