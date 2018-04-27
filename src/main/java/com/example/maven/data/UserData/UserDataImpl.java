@@ -133,7 +133,7 @@ public class UserDataImpl implements UserDataService{
         filePath = filePath + "/" + userId;
         FileHelper fh = new FileHelper();
 
-        fh.createFile(filePath);
+        fh.createDirectory(filePath);
 
         //创建用户数据txt文件
         String userInformation = filePath + "/" + userId + ".txt";
@@ -147,15 +147,14 @@ public class UserDataImpl implements UserDataService{
         String PAccomplishedTask = PublishedTask + "/AccomplishedTask";
         String PIncompleteTask = PublishedTask + "/IncompleteTask";
 
-        fh.createFile(userInformation);
 
-        fh.createFile(AcceptedTask);
-        fh.createFile(AAccomplishedTask);
-        fh.createFile(AIncompleteTask);
+        fh.createDirectory(AcceptedTask);
+        fh.createDirectory(AAccomplishedTask);
+        fh.createDirectory(AIncompleteTask);
 
-        fh.createFile(PublishedTask);
-        fh.createFile(PAccomplishedTask);
-        fh.createFile(PIncompleteTask);
+        fh.createDirectory(PublishedTask);
+        fh.createDirectory(PAccomplishedTask);
+        fh.createDirectory(PIncompleteTask);
 
         //保证文件夹正常创建
         fh.createFile(AAccomplishedTask + "/null.txt");
