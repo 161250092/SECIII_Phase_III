@@ -384,7 +384,6 @@ public class TaskDataImpl implements TaskDataService{
         filePath = filePath + "/AcceptedTask/IncompleteTask";
         if(userIsFind){
 
-
             File Task = new File(filePath);
             File[] task = Task.listFiles();
 
