@@ -10,9 +10,9 @@ var addedTask = new Array();
 
 
 
-var score;
+var score =0;
 
-var ranking;
+var ranking =0;
 
 var type1="ImageLabel";
 var type2="AreaLabel";

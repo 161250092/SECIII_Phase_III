@@ -12,9 +12,9 @@ window.onload = function(){
     for(var i=0;i<AssignedIncompletedTaskList.length;i++){
         addRow(AssignedIncompletedTaskList[i],"incompleted");
     }
-
-    for(var i=0;i<AssignedCompletedTaskList.length;i++){
-        addRow(AssignedCompletedTaskList[i],"accomplished");
+    console.log(AssignedCompletedTaskList.length);
+    for(var j=0;j<AssignedCompletedTaskList.length;j++){
+        addRow(AssignedCompletedTaskList[j],"accomplished");
     }
 
 }
@@ -25,13 +25,14 @@ function getAssignedIncompletedTaskList(userId){
 
 	$.ajax({
 			type: "GET",
+            async: false,
 			url:"/RequestorController/getAssignedButIncompleteTaskList",
 			data:{
 				user: userId
 			},
 
 			success:function(data){
-			     AssignedButIncompleteTaskList = data;
+                AssignedIncompletedTaskList  = data;
 			}
 
 	});
@@ -42,13 +43,14 @@ function getAssignedAndAccomplishedTaskList(userId){
 
         $.ajax({
                         type: "GET",
+                        async: false,
                         url:"/RequestorController/getAssignedAndAccomplishedTaskList",
                         data:{
                                 user : userId
                         },
 
-                        success:function(data1){
-                                AssignedCompletedTaskList  = data1;
+                        success:function(data){
+                            AssignedCompletedTaskList = data;
                         }
 
         });
@@ -63,7 +65,7 @@ function addRow(singleTask,id){
         var tableRow=document.getElementById(id).insertRow(z);
         
         var Cell_0=tableRow.insertCell(0);
-        Cell_0.innerHTML='<input value= "'+singleTask.taskId +'"readonly="true"/>';
+        Cell_0.innerHTML='<input value= "'+singleTask.taskId+'"readonly="true"/>';
         Cell_0.className="s1";
 
         var Cell_1=tableRow.insertCell(1);
@@ -81,7 +83,7 @@ function addRow(singleTask,id){
 
 
         var Cell_4=tableRow.insertCell(4);
-        Cell_4.innerHTML='<input value="'+singleTask.introduction+'"  readonly="true"/>';
+        Cell_4.innerHTML='<input value="'+singleTask.description+'"  readonly="true"/>';
         Cell_4.className="s5";
 
         var Cell_5=tableRow.insertCell(5);
