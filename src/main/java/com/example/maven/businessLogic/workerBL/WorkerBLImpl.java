@@ -1,5 +1,7 @@
 package com.example.maven.businessLogic.workerBL;
 
+import com.example.maven.data.LabelData.LabelDataImpl;
+import com.example.maven.data.LabelData.LabelDataService;
 import com.example.maven.data.TaskData.TaskDataImpl;
 import com.example.maven.data.TaskData.TaskDataService;
 import com.example.maven.data.UserData.UserDataImpl;
@@ -14,10 +16,12 @@ import java.util.Comparator;
 import java.util.List;
 
 public class WorkerBLImpl implements WorkerBLService {
+    private LabelDataService labelDataService;
     private TaskDataService taskDataService;
     private UserDataService userDataService;
 
     public WorkerBLImpl(){
+        labelDataService = new LabelDataImpl();
         taskDataService = new TaskDataImpl();
         userDataService = new UserDataImpl();
     }
@@ -30,6 +34,32 @@ public class WorkerBLImpl implements WorkerBLService {
     @Override
     public List<Task> getAcceptedButIncompleteTaskList(String userId) {
         return  getTaskList(userId, false);
+    }
+
+    @Override
+    public List<Task> getAvailableTaskList() {
+        List<Task> taskList = new ArrayList<>();
+        List<String> temp = null;
+        List<User> userList = userDataService.getAllUser();
+
+        for(User user : userList){
+            //获取该用户发布且未完成的任务Id列表
+            temp = taskDataService.getAllIncompleteAssignedTaskID(user.getUserId());
+        }
+        return taskList;
+    }
+
+    @Override
+    public boolean acceptTask(String userId, String taskId) {
+        //获取任务详情
+        Task task = taskDataService.getTask(taskId);
+        //若任务为null 则报错
+        if(task == null)
+            return false;
+
+        //获取任务包含的图片数量
+        int imageNumber = task.getImageInformation().length;
+        return labelDataService.acceptTask(userId, taskId, imageNumber);
     }
 
     @Override

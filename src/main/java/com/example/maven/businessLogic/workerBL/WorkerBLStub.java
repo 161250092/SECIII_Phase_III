@@ -43,6 +43,27 @@ public class WorkerBLStub implements WorkerBLService {
     }
 
     @Override
+    public List<Task> getAvailableTaskList() {
+        List<Task> taskList = new ArrayList<>();
+        String[] imageInfo = {"test7","test8"};
+        taskList.add(new Task("00000001_ImageLabel_1822440180000","ImageLabel",
+                imageInfo,"This is a task",
+                10,0,100 ));
+        taskList.add(new Task("00000002_AreaLabel_1822440181000","AreaLabel",
+                imageInfo,"This is a task",
+                10,0,100 ));
+        taskList.add(new Task("00000003_FrameLabel_1822440200000","FrameLabel",
+                imageInfo,"This is a task",
+                10,0,100 ));
+        return taskList;
+    }
+
+    @Override
+    public boolean acceptTask(String userId, String taskId) {
+        return false;
+    }
+
+    @Override
     public Task getTaskById(String taskId) {
         String[] imageInfo = {"test5","test6"};
         return new Task("00000001_ImageLabel_1628440180000","ImageLabel",

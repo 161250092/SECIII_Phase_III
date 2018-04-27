@@ -21,6 +21,21 @@ public interface WorkerBLService {
     List<Task> getAcceptedButIncompleteTaskList(String userId);
 
     /**
+     * 获取当前可以接受的任务
+     * @return 所有当前可接受的任务
+     */
+    List<Task> getAvailableTaskList();
+
+    /**
+     * 众包工人接受任务
+     * @param userId 用户Id
+     * @param taskId 任务Id
+     * @return 是否接受成功
+     */
+    boolean acceptTask(String userId, String taskId);
+
+
+    /**
      * 根据任务Id获取任务
      * @param taskId 任务Id
      * @return 任务详情

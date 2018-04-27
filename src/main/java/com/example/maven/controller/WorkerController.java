@@ -22,51 +22,43 @@ public class WorkerController implements WorkerBLService {
         workerBLService = new WorkerBLStub();
     }
 
-    /**
-     * 获取所有接受且已完成的任务
-     * @param userId 用户Id
-     * @return 所有已完成的任务
-     */
+    @Override
     @RequestMapping(value = "/WorkerController/getAcceptedAndAccomplishedTaskList", method = RequestMethod.GET)
     public List<Task> getAcceptedAndAccomplishedTaskList(String userId){
         return workerBLService.getAcceptedAndAccomplishedTaskList(userId);
     }
 
-    /**
-     * 获取所有接受但未完成的任务
-     * @param userId 用户Id
-     * @return 所有未完成的任务
-     */
+    @Override
     @RequestMapping(value = "/WorkerController/getAcceptedButIncompleteTaskList", method = RequestMethod.GET)
     public List<Task> getAcceptedButIncompleteTaskList(String userId){
         return workerBLService.getAcceptedButIncompleteTaskList(userId);
     }
 
-    /**
-     * 根据任务Id获取任务
-     * @param taskId 任务Id
-     * @return 任务详情
-     */
+    @Override
+    @RequestMapping(value = "/WorkerController/getAvailableTaskList", method = RequestMethod.GET)
+    public List<Task> getAvailableTaskList() {
+        return workerBLService.getAvailableTaskList();
+    }
+
+    @Override
+    @RequestMapping(value = "/WorkerController/acceptTask", method = RequestMethod.GET)
+    public boolean acceptTask(String userId, String taskId) {
+        return workerBLService.acceptTask(userId, taskId);
+    }
+
+    @Override
     @RequestMapping(value = "/WorkerController/getTaskById", method = RequestMethod.GET)
     public Task getTaskById(String taskId){
         return workerBLService.getTaskById(taskId);
     }
 
-    /**
-     * 获取用户的积分
-     * @param userId 用户编号
-     * @return 用户积分
-     */
+    @Override
     @RequestMapping(value = "/WorkerController/getUserScore", method = RequestMethod.GET)
     public int getUserScore(String userId){
         return workerBLService.getUserScore(userId);
     }
 
-    /**
-     * 获取用户的排名
-     * @param userId 用户Id
-     * @return 用户排名
-     */
+    @Override
     @RequestMapping(value = "/WorkerController/getUserRanking", method = RequestMethod.GET)
     public int getUserRanking(String userId){
         return workerBLService.getUserRanking(userId);
