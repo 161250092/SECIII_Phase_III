@@ -6,26 +6,46 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class FileHelper {
 
-    public  boolean createFile(String filePath) {
+    public  boolean createDirectory(String filePath) {
         boolean flag = false;
+
         File newF = new File(filePath);
 
         if (!newF.exists()) {
             try {
-                newF.createNewFile();
 
+                Files.createDirectory(Paths.get(filePath));
+                flag = true;
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            flag = true;
+
         }
 
         return flag;
     }
 
+
+    public boolean createFile(String filePath){
+        boolean result = false;
+
+        File newF = new File(filePath);
+
+        if(!newF.exists()){
+            try{
+                newF.createNewFile();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+
+        return result;
+    }
 
     public boolean writeFile(String filePath,String content){
         boolean flag = false;
