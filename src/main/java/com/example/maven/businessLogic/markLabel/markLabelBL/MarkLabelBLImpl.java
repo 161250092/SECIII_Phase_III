@@ -4,6 +4,8 @@ import com.example.maven.data.LabelData.LabelDataImpl;
 import com.example.maven.data.LabelData.LabelDataService;
 import com.example.maven.data.TaskData.TaskDataImpl;
 import com.example.maven.data.TaskData.TaskDataService;
+import com.example.maven.data.UserData.UserDataImpl;
+import com.example.maven.data.UserData.UserDataService;
 import com.example.maven.model.po.AreaLabel;
 import com.example.maven.model.po.ImageLabel;
 import com.example.maven.model.po.Label;
@@ -23,10 +25,12 @@ import java.util.List;
 public class MarkLabelBLImpl implements MarkLabelBLService{
     private TaskDataService taskDataService;
     private LabelDataService labelDataService;
+    private UserDataService userDataService;
 
     public MarkLabelBLImpl(){
         taskDataService = new TaskDataImpl();
         labelDataService = new LabelDataImpl();
+        userDataService = new UserDataImpl();
     }
 
     @Override
@@ -112,6 +116,27 @@ public class MarkLabelBLImpl implements MarkLabelBLService{
 
     @Override
     public boolean setTaskAccomplished(String taskId, String userId) {
-        return taskDataService.reviseTask(taskId);
+
+        //获取任务详情
+        Task task = taskDataService.getTask(taskId);
+        int score = task.getScore();
+
+//        //判断本次任务是否每一张图片都已经被标注
+//        if(!labelDataService.isAccomplished(userId, taskId))
+//            return false;
+
+        //将用户接受的任务设定成已完成的状态
+        if(!taskDataService.setAcceptedTaskAccomplished(userId, taskId))
+            return false;
+
+        //若后台修改积分失败，则报错
+        if(!userDataService.reviseScore(userId, score))
+            return false;
+
+        //修改该任务的完成人数，使其加一
+        if(taskDataService.reviseTask(taskId))
+            return false;
+
+        return true;
     }
 }
