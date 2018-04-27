@@ -1,5 +1,6 @@
 package com.example.maven.controller;
 
+import com.example.maven.businessLogic.requestorBL.RequestorBLImpl;
 import com.example.maven.businessLogic.requestorBL.RequestorBLService;
 import com.example.maven.businessLogic.requestorBL.RequestorBLStub;
 import com.example.maven.model.po.Task;
@@ -18,7 +19,7 @@ public class RequestorController implements RequestorBLService {
     private RequestorBLService requestorBLService;
 
     public RequestorController(){
-        requestorBLService = new RequestorBLStub();
+        requestorBLService = new RequestorBLImpl();
     }
 
     /**

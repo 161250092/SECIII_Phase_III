@@ -16,7 +16,7 @@ public class AdminController implements AdminBLService {
     private AdminBLService adminBL;
 
     public AdminController(){
-        adminBL = new AdminBLStub();
+        adminBL = new AdminBLImpl();
     }
 
     @Override

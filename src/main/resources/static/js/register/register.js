@@ -11,7 +11,7 @@ new Vue({
         checkUsername: function () {
             const _this = this;
             axios.get("/isUsernameExist", { params:{ username: _this.username} }).then(function (response) {
-                _this.isUserNameExisted = response.data;
+                _this.isUsernameExisted = response.data;
             });
         },
         checkPassword: function () {
@@ -19,7 +19,7 @@ new Vue({
         },
         register: function () {
             const _this = this;
-            if(!this.isUserNameExisted && this.isPasswordCorrect){
+            if(!this.isUsernameExisted && this.isPasswordCorrect){
                 axios.all([this.registerAxios(), this.getUserIdAxios()]).then(axios.spread(function (isSuccessObj, userIdObj) {
                     if(isSuccessObj.data === true){
                         sendUserId(userIdObj.data);

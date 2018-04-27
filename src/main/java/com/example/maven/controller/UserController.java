@@ -1,5 +1,6 @@
 package com.example.maven.controller;
 
+import com.example.maven.businessLogic.userBL.UserBLImpl;
 import com.example.maven.businessLogic.userBL.UserBLService;
 import com.example.maven.businessLogic.userBL.UserBLStub;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +13,7 @@ public class UserController implements UserBLService {
     private UserBLService userBL;
 
     public UserController(){
-        userBL = new UserBLStub();
+        userBL = new UserBLImpl();
     }
 
     /**

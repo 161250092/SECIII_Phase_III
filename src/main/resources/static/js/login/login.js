@@ -7,25 +7,21 @@ new Vue({
     methods:{
         login:function () {
             const _this = this;
-            axios.all([this.loginAxios(), this.getUserIdAxios()]).then(axios.spread(function (loginException, userIdObj) {
+            axios.get("/login", { params:{ username: this.username, password: this.password } }).then(function (loginException) {
                 let wrongMessage = loginException.data.wrongMessage.type;
+                let userId = loginException.data.userId;
                 if(wrongMessage === 'OrdinaryLogin'){
-                    sendUserId(userIdObj.data);
+                    sendUserId(userId);
+                    sendUsername(_this.username);
                     jumpToAnotherPage(mainPageUrl);
                 }else if(wrongMessage === 'AdministerLogin'){
-                    sendUserId(userIdObj.data);
+                    sendUserId(userId);
                     sendUsername(_this.username);
                     jumpToAnotherPage(adminPageUrl);
                 }else{
                     alert("登录失败");
                 }
-            }));
-        },
-        loginAxios: function () {
-            return axios.get("/login", { params:{ username: this.username, password: this.password } });
-        },
-        getUserIdAxios: function () {
-            return axios.get("/getUserId", {params: {username: this.username}});
+            });
         }
     }
 });
