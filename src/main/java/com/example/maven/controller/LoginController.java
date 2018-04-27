@@ -13,7 +13,7 @@ public class LoginController implements LoginBLService {
     private LoginBLService loginBL;
 
     public LoginController(){
-        loginBL = new LoginBLStub();
+        loginBL = new LoginBLImpl();
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.example.maven.controller;
 
+import com.example.maven.businessLogic.workerBL.WorkerBLImpl;
 import com.example.maven.businessLogic.workerBL.WorkerBLService;
 import com.example.maven.businessLogic.workerBL.WorkerBLStub;
 import com.example.maven.model.po.Label;
@@ -19,7 +20,7 @@ public class WorkerController implements WorkerBLService {
     private WorkerBLService workerBLService;
 
     public WorkerController(){
-        workerBLService = new WorkerBLStub();
+        workerBLService = new WorkerBLImpl();
     }
 
     @Override

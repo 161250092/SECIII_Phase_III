@@ -10,7 +10,7 @@ function TaskVO(taskId,labelType,introduction,requiredNumber,finishedNumber,scor
 new Vue({
     el:"#inputTaskInfo",
     data:{
-        userId: "testUserId",
+        userId: "",
 
         labelTypeList:[
             {labelType: "ImageLabel", labelTypeName: "整体标注"},
@@ -18,7 +18,7 @@ new Vue({
             {labelType: "AreaLabel", labelTypeName: "区域标注"}
         ],
         selectedLabelType: "",
-        taskId: "taskId",
+        taskId: "",
         requiredWorkerNum: 1,
         taskDescription: "",
         score: 0,
@@ -29,6 +29,8 @@ new Vue({
     mounted: function () {
         this.$nextTick(function () {
             this.selectedLabelType = "ImageLabel";
+
+            this.userId = getUserId();
         });
     },
     methods:{
@@ -56,8 +58,13 @@ new Vue({
                 this.score);
             let taskVOJson = JSON.stringify(taskVO);
             axios.get('/RequestorController/assignTask', {params: {taskJSON: taskVOJson}}).then(function (response) {
-
+                if(response.data.type === "AssignSuccess"){
+                    alert("发布成功");
+                }else{
+                    alert("发布失败");
+                }
             });
+            this.refreshTaskId();
         },
         fileClick() {
             document.getElementById('upload_file').click()
@@ -141,13 +148,16 @@ new Vue({
             el.stopPropagation();
             el.preventDefault();
             this.fileList(el.dataTransfer);
+        },
+        refreshTaskId: function () {
+            let time = Date.parse(new Date());
+            this.taskId = this.userId + '_' + this.selectedLabelType +
+                '_' + time;
         }
     },
     watch: {
         selectedLabelType: function (newSelectedLabelType, oldSelectedLabelType) {
-            let time = Date.parse(new Date());
-            this.taskId = this.userId + '_' + this.selectedLabelType +
-                '_' + time;
+            this.refreshTaskId();
         },
         requiredWorkerNum: function (newRequiredWorkerNum, oldRequiredWorkerNum) {
             if(newRequiredWorkerNum <= 0){
