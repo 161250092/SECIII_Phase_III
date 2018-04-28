@@ -64,7 +64,7 @@ public class WorkerBLImpl implements WorkerBLService {
                 return false;
 
             //获取任务包含的图片数量
-            int imageNumber = task.getImageInformation().length;
+            int imageNumber = task.getImageFileName().length;
 
             //如果后端调用失败 则报错
             if(!labelDataService.acceptTask(userId, taskId, imageNumber))
