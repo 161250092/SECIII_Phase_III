@@ -14,5 +14,5 @@ public interface RegisterBLService {
      * @param password 用户密码
      * @return
      */
-    boolean register(String username, String password);
+    Exception register(String username, String password);
 }

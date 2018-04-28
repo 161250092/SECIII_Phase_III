@@ -33,7 +33,7 @@ public class RegisterController implements RegisterBLService {
      * @return 是否注册成功
      */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public boolean register(String username, String password){
+    public Exception register(String username, String password){
         return registerBL.register(username, password);
     }
 

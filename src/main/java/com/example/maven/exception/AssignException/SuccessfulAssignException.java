@@ -2,10 +2,10 @@ package com.example.maven.exception.AssignException;
 
 import com.example.maven.exception.WrongMessage;
 
-public class SuccesfulAssignException extends Exception{
+public class SuccessfulAssignException extends Exception{
     private WrongMessage wrongMessage;
 
-    public SuccesfulAssignException(){
+    public SuccessfulAssignException(){
         wrongMessage = new WrongMessage("AssignSuccess", "The task is assigned successfully!");
     }
 

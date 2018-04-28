@@ -4,7 +4,7 @@ import com.example.maven.data.TaskData.TaskDataImpl;
 import com.example.maven.data.TaskData.TaskDataService;
 import com.example.maven.data.UserData.UserDataImpl;
 import com.example.maven.data.UserData.UserDataService;
-import com.example.maven.exception.AssignException.SuccesfulAssignException;
+import com.example.maven.exception.AssignException.SuccessfulAssignException;
 import com.example.maven.model.po.Task;
 import com.example.maven.model.po.User;
 import com.google.gson.Gson;
@@ -44,7 +44,7 @@ public class RequestorBLImpl implements RequestorBLService{
         userId = temp[0];
 
         if(taskDataService.saveTask(userId, task))
-            return new SuccesfulAssignException();
+            return new SuccessfulAssignException();
         return new FailedLoginException();
     }
 

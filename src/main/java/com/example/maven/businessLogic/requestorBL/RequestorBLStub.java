@@ -1,6 +1,6 @@
 package com.example.maven.businessLogic.requestorBL;
 
-import com.example.maven.exception.AssignException.SuccesfulAssignException;
+import com.example.maven.exception.AssignException.SuccessfulAssignException;
 import com.example.maven.model.po.Task;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class RequestorBLStub implements RequestorBLService {
     @Override
     public Exception assignTask(String taskJSON) {
         System.out.println(taskJSON);
-        return new SuccesfulAssignException();
+        return new SuccessfulAssignException();
     }
 
     @Override

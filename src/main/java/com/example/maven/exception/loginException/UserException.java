@@ -12,6 +12,11 @@ public class UserException extends Exception{
             wrongMessage = new WrongMessage("OrdinaryLogin","Ordinary Login!");
         if(type.equals("Admin"))
             wrongMessage = new WrongMessage("AdministerLogin","Administer Login!");
+        // 新增注册时触发的异常
+        if(type.equals("SuccessfulRegister"))
+            wrongMessage = new WrongMessage("SuccessfulRegister", "Successful Register!");
+        if(type.equals("FailedRegister"))
+            wrongMessage = new WrongMessage("FailedRegister","Failed Register!");
         this.userId = userId;
     }
 
