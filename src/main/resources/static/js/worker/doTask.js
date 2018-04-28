@@ -46,6 +46,9 @@ function addTask(singleTask,id,count){
     Cell_3.innerHTML='<input value="'+singleTask.score+'"  readonly="true"/>';
     Cell_3.className="s4";
 
+    // var type1="ImageLabel";
+    // var type2="AreaLabel";
+    // var type3="FrameLabel";
 
     if(singleTask.labelType===type1) {
         var Cell_4 = tableRow.insertCell(4);
@@ -55,13 +58,13 @@ function addTask(singleTask,id,count){
 
     else if(singleTask.labelType===type2){
         var Cell_4 = tableRow.insertCell(4);
-        Cell_4.innerHTML = '<a href="javascript:void(0)"  readonly="true" onclick="jumToTask(markFrameLabelPageUrl,getUserId(),oneTask[count].taskId)">do it</a>';
+        Cell_4.innerHTML = '<a href="javascript:void(0)"  readonly="true" onclick="jumToTask(lineMarkPageUrl,getUserId(),oneTask[count].taskId)">do it</a>';
         Cell_4.className = "s5";
     }
 
     else if(singleTask.labelType===type3){
         var Cell_4 = tableRow.insertCell(4);
-        Cell_4.innerHTML = '<a href="javascript:void(0)"  readonly="true" onclick="jumToTask(lineMarkPageUrl,getUserId(),oneTask[count].taskId)">do it</a>';
+        Cell_4.innerHTML = '<a href="javascript:void(0)"  readonly="true" onclick="jumToTask(markFrameLabelPageUrl,getUserId(),oneTask[count].taskId)">do it</a>';
         Cell_4.className = "s5";
     }
 
