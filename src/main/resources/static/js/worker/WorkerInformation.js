@@ -30,7 +30,7 @@ function getAllUnfinishedTasks(userId){
         	async: false,
 			url:"/WorkerController/getAcceptedButIncompleteTaskList",
 			data:{
-				user : userId
+                userId : userId
 			},
 
 			success:function(data){
@@ -47,7 +47,7 @@ function getAllFinishedTasks(userId){
         	async: false,
 			url:"/WorkerController/getAcceptedAndAccomplishedTaskList",
 			data:{
-				user: userId
+				userId: userId
 			},
 
 			success:function(data1){
@@ -64,7 +64,7 @@ function getUserScore(userId){
         	async: false,
 			url:"/WorkerController/getUserScore",
 			data:{
-				user :  userId
+                userId :  userId
 			},
 
 			success:function(Score){
@@ -82,7 +82,7 @@ function getUserRanking(userId){
         	async: false,
 			url:"/WorkerController/getUserRanking",
 			data:{
-				user :  userId
+                userId :  userId
 			},
 
 			success:function(Ranking){
