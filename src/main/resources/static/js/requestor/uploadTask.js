@@ -1,6 +1,7 @@
-function TaskVO(taskId,labelType,description,requiredNumber,finishedNumber,score) {
+function TaskVO(taskId,labelType, imageFileName,description,requiredNumber,finishedNumber,score) {
     this.taskId = taskId;
     this.labelType = labelType;
+    this.imageFileName = imageFileName;
     this.description = description;
     this.requiredNumber = requiredNumber;
     this.finishedNumber = finishedNumber;
@@ -53,9 +54,13 @@ new Vue({
             this.uploadTaskInfo();
         },
         uploadTaskInfo: function () {
+            let imageFileNameList = [];
+            for (let i = 0; i < this.imgList.length; i++){
+                imageFileNameList.push(this.imgList[i].name);
+            }
             let taskVO = new TaskVO(this.taskId, this.selectedLabelType,
-                this.taskDescription, this.requiredWorkerNum, 0,
-                this.score);
+                imageFileNameList, this.taskDescription,
+                this.requiredWorkerNum, 0, this.score);
             let taskVOJson = JSON.stringify(taskVO);
             axios.get('/RequestorController/assignTask', {params: {taskJSON: taskVOJson}}).then(function (response) {
                 if(response.data.wrongMessage.type === "AssignSuccess"){
