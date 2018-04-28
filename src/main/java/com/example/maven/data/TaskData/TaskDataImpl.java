@@ -405,7 +405,7 @@ public class TaskDataImpl implements TaskDataService{
             File delete = new File(filePath);
 
             String AA = System.getProperty("user.dir").toString() + "/src/main/User/" + userId +
-                    "/AcceptTask/AccomplishedTask/" + taskId + ".txt";
+                    "/AcceptedTask/AccomplishedTask/" + taskId + ".txt";
 
             File move = new File(AA);
 
