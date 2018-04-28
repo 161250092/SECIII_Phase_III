@@ -274,7 +274,7 @@ public class TaskDataImpl implements TaskDataService{
                 //加一后还未完成
                 if(task.getFinishedNumber() < task.getRequiredNumber()){
 
-                    fh.writeFile(PITaskInformation,PITaskFile);
+                    fh.writeFile(PITaskFile, PITaskInformation);
                 }
                 //加一后完成
                 else{
@@ -430,10 +430,13 @@ public class TaskDataImpl implements TaskDataService{
                     bw.write(s + "\r\n");
                 }
 
+                br.close();
+                fr.close();
                 bw.close();
                 fw.close();
 
-                delete.delete();
+                boolean temp = delete.delete();
+                System.out.println(temp);
 
                 result = true;
 

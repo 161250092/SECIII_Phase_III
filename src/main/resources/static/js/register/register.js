@@ -20,17 +20,19 @@ new Vue({
         register: function () {
             const _this = this;
             if(!this.isUsernameExisted && this.isPasswordCorrect){
-                axios.all([this.registerAxios(), this.getUserIdAxios()]).then(axios.spread(function (isSuccessObj, userIdObj) {
-                    if(isSuccessObj.data === true){
-                        sendUserId(userIdObj.data);
+                axios.get("/register", { params:{ username: this.username, password: this.password } }).then(function (userException) {
+                    let wrongMessage = userException.data.wrongMessage.type;
+                    let userId = userException.data.userId;
+                    if(wrongMessage === 'SuccessfulRegister'){
+                        sendUserId(userId);
                         sendUsername(_this.username);
                         jumpToAnotherPage(mainPageUrl);
-                    } else{
+                    }else{
                         alert("注册失败");
                         _this.password = "";
                         _this.confirmedPassword = "";
                     }
-                }));
+                });
             }
         },
         registerAxios: function () {

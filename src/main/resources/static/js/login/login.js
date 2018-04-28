@@ -7,9 +7,9 @@ new Vue({
     methods:{
         login:function () {
             const _this = this;
-            axios.get("/login", { params:{ username: this.username, password: this.password } }).then(function (loginException) {
-                let wrongMessage = loginException.data.wrongMessage.type;
-                let userId = loginException.data.userId;
+            axios.get("/login", { params:{ username: this.username, password: this.password } }).then(function (userException) {
+                let wrongMessage = userException.data.wrongMessage.type;
+                let userId = userException.data.userId;
                 if(wrongMessage === 'OrdinaryLogin'){
                     sendUserId(userId);
                     sendUsername(_this.username);

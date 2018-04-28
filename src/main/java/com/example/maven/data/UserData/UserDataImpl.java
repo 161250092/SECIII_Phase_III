@@ -259,7 +259,7 @@ public class UserDataImpl implements UserDataService{
 
             String userInformation = filePath + "/" + userId + ".txt";
 
-            String useR = fh.readFile(filePath);
+            String useR = fh.readFile(userInformation);
             String[] usER = useR.split(",");
 
             User user = new User(usER[0], usER[2], usER[1], publishedTask, acceptedTask, Integer.parseInt(usER[3]), Boolean.getBoolean(usER[4]));

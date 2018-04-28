@@ -72,7 +72,7 @@ public class MarkLabelBLImpl implements MarkLabelBLService{
                 case "FrameLabel":
                     FrameLabel frameLabel = (FrameLabel)label;
                     FrameLabelVO frameLabelVO = null;
-                    List<FrameLabelListItem> poList = frameLabel.getFrameLabelListItemList();
+                    List<FrameLabelListItem> poList = frameLabel.getLabelList();
                     ArrayList<FrameLabelListItemVO> voList = new ArrayList<>();
                     for(FrameLabelListItem po: poList){
                         voList.add(new FrameLabelListItemVO(po.getStartX(),po.getStartY(),po.getWidth(),po.getHeight(),po.getTag()));
@@ -134,7 +134,7 @@ public class MarkLabelBLImpl implements MarkLabelBLService{
             return false;
 
         //修改该任务的完成人数，使其加一
-        if(taskDataService.reviseTask(taskId))
+        if(!taskDataService.reviseTask(taskId))
             return false;
 
         return true;

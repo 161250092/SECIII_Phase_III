@@ -1,6 +1,7 @@
 package com.example.maven.model.po;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +20,7 @@ public class AreaLabel extends Label implements Serializable{
 
     public AreaLabel(){
         setType("AreaLabel");
+        this.lineList = new ArrayList<>();
     }
 
     public String getLabel() {

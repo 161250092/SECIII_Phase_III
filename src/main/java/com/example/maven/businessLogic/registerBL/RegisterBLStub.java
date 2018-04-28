@@ -12,13 +12,13 @@ public class RegisterBLStub implements RegisterBLService{
     }
 
     @Override
-    public boolean register(String userName, String password) {
+    public Exception register(String userName, String password) {
         System.out.println(userName);
         System.out.println(password);
         //test
         if (userName.equals("wwww"))
-            return false;
+            return null;
         else
-            return true;
+            return null;
     }
 }

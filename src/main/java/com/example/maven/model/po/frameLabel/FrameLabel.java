@@ -3,6 +3,7 @@ package com.example.maven.model.po.frameLabel;
 import com.example.maven.model.po.Label;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,17 +11,18 @@ import java.util.List;
  */
 public class FrameLabel extends Label implements Serializable {
 
-    private List<FrameLabelListItem> frameLabelListItemList;
+    private List<FrameLabelListItem> labelList;
 
     public FrameLabel(List<FrameLabelListItem> frameLabelListItemList) {
         setType("FrameLabel");
-        this.frameLabelListItemList = frameLabelListItemList;
+        this.labelList = frameLabelListItemList;
     }
 
     public FrameLabel(){
         setType("FrameLabel");
+        this.labelList = new ArrayList<FrameLabelListItem>();
     }
 
-    public List<FrameLabelListItem> getFrameLabelListItemList() { return frameLabelListItemList; }
+    public List<FrameLabelListItem> getLabelList() { return labelList; }
 }
 

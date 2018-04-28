@@ -1,6 +1,7 @@
 package com.example.maven.model.po;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +18,7 @@ public class ImageLabel extends Label implements Serializable{
 
     public ImageLabel(){
         setType("ImageLabel");
+        this.labelList = new ArrayList<>();
     }
 
     public void setLabelList(List<String> labelList) {
