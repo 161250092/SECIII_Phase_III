@@ -2,7 +2,7 @@ package com.example.maven.exception.AssignException;
 
 import com.example.maven.exception.WrongMessage;
 
-public class FailedAssignException {
+public class FailedAssignException extends Exception{
     private WrongMessage wrongMessage;
 
     public FailedAssignException(){
