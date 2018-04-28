@@ -45,7 +45,7 @@ public class TaskDataImpl implements TaskDataService{
             for(int i = 0;i < pITask.length;i++){
                 String name = pITask[i].getName();
                 if(!name.equals("null.txt")){
-                    String[] Name = name.split(",");
+                    String[] Name = name.split(".");
                     PITask.add(Name[0]);
                 }
             }
@@ -88,7 +88,7 @@ public class TaskDataImpl implements TaskDataService{
            for(int i = 0;i < pATask.length;i++){
                String name = pATask[i].getName();
                if(!name.equals("null.txt")){
-                   String[] Name = name.split(",");
+                   String[] Name = name.split(".");
                    PATask.add(Name[0]);
                }
            }
@@ -131,7 +131,7 @@ public class TaskDataImpl implements TaskDataService{
             for(int i = 0;i < aITask.length;i++){
                 String name = aITask[i].getName();
                 if(!name.equals("null.txt")){
-                    String[] Name = name.split(",");
+                    String[] Name = name.split(".");
                     AITask.add(Name[0]);
                 }
             }
@@ -165,7 +165,7 @@ public class TaskDataImpl implements TaskDataService{
         //找到用户
         if(isFind){
             //加载任务数据
-            filePath = filePath + "/AcceptTask/AccomplishedTask";
+            filePath = filePath + "/AcceptedTask/AccomplishedTask";
 
             File aaTask = new File(filePath);
             File[] aATask = aaTask.listFiles();
@@ -173,7 +173,7 @@ public class TaskDataImpl implements TaskDataService{
             for(int i = 0;i < aATask.length;i++){
                 String name = aATask[i].getName();
                 if(!name.equals("null.txt")){
-                    String[] Name = name.split(",");
+                    String[] Name = name.split(".");
                     AATask.add(Name[0]);
                 }
             }
@@ -328,7 +328,8 @@ public class TaskDataImpl implements TaskDataService{
             File[] pa = Pa.listFiles();
 
             for(int i = 0;i < pa.length;i++){
-                if(pa[i].getName().equals(taskId)){
+                String[] name = pa[i].getName().split(".");
+                if(name[0].equals(taskId)){
                     filePath = PA + "/" + taskId + ".txt";
                     taskIsFind = true;
                  }
@@ -338,8 +339,9 @@ public class TaskDataImpl implements TaskDataService{
             File[] pi = Pi.listFiles();
 
             for(int i = 0;i < pi.length;i++){
-                if(pi[i].getName().equals(taskId)){
-                    filePath = PI + "/" + taskId;
+                String name = pi[i].getName();
+                if(name.split(".")[0].equals(taskId)){
+                    filePath = PI + "/" + taskId + ".txt";
                     taskIsFind = true;
                 }
             }
@@ -390,7 +392,8 @@ public class TaskDataImpl implements TaskDataService{
             File[] task = Task.listFiles();
 
             for(int i = 0;i < task.length;i++){
-                if(task[i].getName().equals(taskId)){
+                String Name = task[i].getName();
+                if(Name.split(".")[0].equals(taskId)){
                     filePath = filePath + "/" + taskId + ".txt";
                     taskIsFind = true;
                 }
