@@ -1,7 +1,7 @@
-function TaskVO(taskId,labelType,introduction,requiredNumber,finishedNumber,score) {
+function TaskVO(taskId,labelType,description,requiredNumber,finishedNumber,score) {
     this.taskId = taskId;
     this.labelType = labelType;
-    this.introduction = introduction;
+    this.description = description;
     this.requiredNumber = requiredNumber;
     this.finishedNumber = finishedNumber;
     this.score = score;
