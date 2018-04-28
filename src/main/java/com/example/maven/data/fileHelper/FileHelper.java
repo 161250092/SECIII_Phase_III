@@ -62,7 +62,7 @@ public class FileHelper {
 
             file.createNewFile();
 
-            fw = new FileWriter(filePath);
+            fw = new FileWriter(file);
             bw = new BufferedWriter(fw);
 
             bw.write(content);
