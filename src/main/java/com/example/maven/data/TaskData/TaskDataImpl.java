@@ -4,6 +4,8 @@ import com.example.maven.data.fileHelper.FileHelper;
 import com.example.maven.model.po.Task;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -367,7 +369,7 @@ public class TaskDataImpl implements TaskDataService{
      * @param taskId
      * @return
      */
-    public boolean setAcceptedTaskAccomplished(String userId,String taskId){
+    synchronized public boolean setAcceptedTaskAccomplished(String userId,String taskId){
         boolean result = false;
         String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
 
@@ -435,8 +437,7 @@ public class TaskDataImpl implements TaskDataService{
                 bw.close();
                 fw.close();
 
-                boolean temp = delete.delete();
-                System.out.println(temp);
+                Files.delete(Paths.get(filePath));
 
                 result = true;
 
