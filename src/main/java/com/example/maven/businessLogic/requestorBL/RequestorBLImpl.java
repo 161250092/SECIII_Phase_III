@@ -100,7 +100,6 @@ public class RequestorBLImpl implements RequestorBLService{
                 if(task == null)
                     return null;
                 taskList.add(task);
-                taskList.add(task);
             }
             return taskList;
         }

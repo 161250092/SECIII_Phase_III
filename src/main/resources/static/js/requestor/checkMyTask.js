@@ -28,7 +28,7 @@ function getAssignedIncompletedTaskList(userId){
             async: false,
 			url:"/RequestorController/getAssignedButIncompleteTaskList",
 			data:{
-				user: userId
+                userId: userId
 			},
 
 			success:function(data){
@@ -46,7 +46,7 @@ function getAssignedAndAccomplishedTaskList(userId){
                         async: false,
                         url:"/RequestorController/getAssignedAndAccomplishedTaskList",
                         data:{
-                                user : userId
+                            userId : userId
                         },
 
                         success:function(data){
