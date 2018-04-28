@@ -51,7 +51,8 @@ public class LabelDataImpl implements LabelDataService{
             File[] Task = task.listFiles();
 
             for(int i = 0;i < Task.length;i++){
-                if(Task[i].getName().equals(taskId)){
+                String name = Task[i].getName();
+                if(name.equals(taskId+".txt")){
                     filePath = filePath + "/" + taskId + ".txt";
                     taskIsFind = true;
                 }
@@ -152,7 +153,7 @@ public class LabelDataImpl implements LabelDataService{
             File[] task = Task.listFiles();
 
             for(int i = 0;i < task.length;i++){
-                if(task[i].getName().equals(taskId)){
+                if(task[i].getName().equals(taskId+".txt")){
                     filePath = filePath + "/" + taskId + ".txt";
                     taskIsFind = true;
                 }
@@ -254,7 +255,7 @@ public class LabelDataImpl implements LabelDataService{
             File[] Task = task.listFiles();
 
             for(int i = 0;i < Task.length;i++){
-                if(Task[i].getName().equals(taskId)){
+                if(Task[i].getName().equals(taskId+".txt")){
                     filePath = filePath + "/" + taskId + ".txt";
                     taskIsFind = true;
                 }

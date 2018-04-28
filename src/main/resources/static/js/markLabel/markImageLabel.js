@@ -18,13 +18,6 @@ new Vue({
     },
     mounted: function () {
         this.$nextTick(function () {
-            /**
-             * 临时用
-             */
-            //-------------------------------------
-            sessionStorage.setItem('userId',"testUserID");
-            sessionStorage.setItem('taskId',"testTaskID");
-            //-------------------------------------
             this.userId = getUserId();
             this.username = getUsername();
             this.taskId = getTaskId();

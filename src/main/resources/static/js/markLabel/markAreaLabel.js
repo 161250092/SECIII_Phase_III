@@ -33,14 +33,6 @@ new Vue({
     },
     mounted: function () {
         this.$nextTick(function () {
-            /**
-             * 临时用
-             */
-            //-------------------------------------
-            sessionStorage.setItem('userId',"testUserID");
-            sessionStorage.setItem('taskId',"testTaskID");
-            //-------------------------------------
-
             this.canvas = this.$refs.canvas;
             this.canvasContext = this.canvas.getContext('2d');
             const rect = this.canvas.getBoundingClientRect();

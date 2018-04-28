@@ -77,7 +77,7 @@ function getAllUnfinishedTasks(userId){
         async: false,
         url:"/WorkerController/getAcceptedButIncompleteTaskList",
         data:{
-            user : userId
+            userId : userId
         },
 
         success:function(data){

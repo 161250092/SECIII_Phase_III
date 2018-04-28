@@ -58,7 +58,7 @@ function jumpToAnotherPage(url){
 }
 
 function jumToTask(url,userId,taskId){
-    sendUserId(taskId);
+    sendTaskId(taskId);
     sendUserId(userId);
     window.location.href = url;
 }

@@ -47,6 +47,10 @@ public class WorkerBLImpl implements WorkerBLService {
         for(User user : userList){
             //获取该用户发布且未完成的任务Id列表
             temp = taskDataService.getAllIncompleteAssignedTaskID(user.getUserId());
+            //
+            for(String taskId : temp) {
+                taskList.add(taskDataService.getTask(taskId));
+            }
         }
         return taskList;
     }
