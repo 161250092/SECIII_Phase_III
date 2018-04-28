@@ -409,6 +409,9 @@ public class TaskDataImpl implements TaskDataService{
 
             File move = new File(AA);
 
+            FileHelper fh = new FileHelper();
+            fh.createFile(AA);
+
             FileReader fr =  null;
             BufferedReader br = null;
 
