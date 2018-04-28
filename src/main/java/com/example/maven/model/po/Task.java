@@ -9,7 +9,7 @@ public class Task {
     //标注类型
     String labelType;
     //图片信息数组
-    String[] imageInformation;
+    String[] imageFileName;
     //任务描述
     String description;
     //该任务要求的标注人次
@@ -19,6 +19,18 @@ public class Task {
     //完成该任务可获取的积分值
     int score;
 
+
+    public Task(String taskId, String labelType, String[] imageFileName, String description, int requiredNumber, int finishedNumber, int score) {
+        this.taskId = taskId;
+        this.labelType = labelType;
+        this.imageFileName = imageFileName;
+        this.description = description;
+        this.requiredNumber = requiredNumber;
+        this.finishedNumber = finishedNumber;
+        this.score = score;
+    }
+
+
     public void setTaskId(String taskId) {
         this.taskId = taskId;
     }
@@ -27,8 +39,8 @@ public class Task {
         this.labelType = labelType;
     }
 
-    public void setImageInformation(String[] imageInformation) {
-        this.imageInformation = imageInformation;
+    public void setImageFileName(String[] imageFileName) {
+        this.imageFileName = imageFileName;
     }
 
     public void setDescription(String description) {
@@ -55,8 +67,8 @@ public class Task {
         return labelType;
     }
 
-    public String[] getImageInformation() {
-        return imageInformation;
+    public String[] getImageFileName() {
+        return imageFileName;
     }
 
     public String getDescription() {
@@ -75,13 +87,5 @@ public class Task {
         return score;
     }
 
-    public Task(String taskId, String labelType, String[] imageInformation, String description, int requiredNumber, int finishedNumber, int score) {
-        this.taskId = taskId;
-        this.labelType = labelType;
-        this.imageInformation = imageInformation;
-        this.description = description;
-        this.requiredNumber = requiredNumber;
-        this.finishedNumber = finishedNumber;
-        this.score = score;
-    }
+
 }

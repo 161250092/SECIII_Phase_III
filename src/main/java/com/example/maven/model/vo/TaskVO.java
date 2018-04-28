@@ -5,6 +5,8 @@ public class TaskVO {
     String taskId;
     //标注类型
     String labelType;
+    //图片信息数组
+    String[] imageFileName;
     //任务描述
     String description;
     //该任务要求的标注人次
@@ -14,9 +16,11 @@ public class TaskVO {
     //完成该任务可获取的积分值
     int score;
 
-    public TaskVO(String taskId, String labelType, String description, int requiredNumber, int finishedNumber, int score) {
+
+    public TaskVO(String taskId, String labelType, String[] imageFileName, String description, int requiredNumber, int finishedNumber, int score) {
         this.taskId = taskId;
         this.labelType = labelType;
+        this.imageFileName = imageFileName;
         this.description = description;
         this.requiredNumber = requiredNumber;
         this.finishedNumber = finishedNumber;
@@ -29,6 +33,10 @@ public class TaskVO {
 
     public String getLabelType() {
         return labelType;
+    }
+
+    public String[] getImageFileName() {
+        return imageFileName;
     }
 
     public String getDescription() {

@@ -39,7 +39,7 @@ public class MarkLabelBLImpl implements MarkLabelBLService{
          * 图片信息获取未完成 ----------------------------------------
          */
         Task task = taskDataService.getTask(taskId);
-        int imageNumber = task.getImageInformation().length;
+        int imageNumber = task.getImageFileName().length;
         return imageNumber;
     }
 
@@ -51,7 +51,7 @@ public class MarkLabelBLImpl implements MarkLabelBLService{
             return null;
         else{
             Task task = taskDataService.getTask(taskId);
-            String[] imageInfo = task.getImageInformation();
+            String[] imageInfo = task.getImageFileName();
             String image = imageInfo[imageIndex];
             Label label = labelList.get(imageIndex);
 
