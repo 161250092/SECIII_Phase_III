@@ -339,7 +339,7 @@ public class TaskDataImpl implements TaskDataService{
 
             for(int i = 0;i < pi.length;i++){
                 if(pi[i].getName().equals(taskId)){
-                    filePath = PI + "/" + taskId + ".txt";
+                    filePath = PI + "/" + taskId;
                     taskIsFind = true;
                 }
             }

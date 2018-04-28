@@ -58,7 +58,7 @@ new Vue({
                 this.score);
             let taskVOJson = JSON.stringify(taskVO);
             axios.get('/RequestorController/assignTask', {params: {taskJSON: taskVOJson}}).then(function (response) {
-                if(response.data.type === "AssignSuccess"){
+                if(response.data.wrongMessage.type === "AssignSuccess"){
                     alert("发布成功");
                 }else{
                     alert("发布失败");
