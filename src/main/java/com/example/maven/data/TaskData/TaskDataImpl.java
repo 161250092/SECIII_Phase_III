@@ -419,7 +419,7 @@ public class TaskDataImpl implements TaskDataService{
                 fr = new FileReader(delete);
                 br = new BufferedReader(fr);
 
-                fw = new FileWriter(AA);
+                fw = new FileWriter(move);
                 bw = new BufferedWriter(fw);
 
                 String s;
