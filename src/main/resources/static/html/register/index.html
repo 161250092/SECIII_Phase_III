@@ -12,21 +12,17 @@
         <div>
             <label for="username">用户名：</label>
             <input type="text" id="username" placeholder="请输入你的用户名" v-model="username" v-on:input="checkUsername">
-            <p>username ::= {{username}}</p>
-            <p>isUsernameExisted: {{isUsernameExisted}}</p>
             <p v-if="isUsernameExisted">该用户名已存在</p>
         </div>
 
         <div>
             <label for="password">密码：</label>
             <input type="password" id="password" placeholder="请输入你的密码" v-model="password">
-            <p>password ::= {{password}}</p>
         </div>
 
         <div>
             <label for="confirmedPassword">请再次输入密码：</label>
             <input type="password" id="confirmedPassword" placeholder="请再次输入你的密码" v-model="confirmedPassword" v-on:input="checkPassword">
-            <p>confirmedPassword ::= {{confirmedPassword}}</p>
             <template v-if="!isPasswordCorrect">
                 <p>密码不一致</p>
             </template>
