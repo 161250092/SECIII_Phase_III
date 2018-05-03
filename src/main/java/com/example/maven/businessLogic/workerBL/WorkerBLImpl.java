@@ -105,12 +105,22 @@ public class WorkerBLImpl implements WorkerBLService {
             }
         };
 
-        //排序
+        //对所有用户根据积分值从高到低排序
         Collections.sort(userList, comparator);
 
         User user = userDataService.getUser(userId);
 
-        return userList.indexOf(user)+1;
+        //若不存在该用户，则返回-1
+        if(user == null)
+            return -1;
+
+        for(int i = 0; i < userList.size(); i++){
+            if(user.getUserId().equals(userList.get(i).getUserId()))
+                return i+1;
+        }
+
+        //若查找的用户不匹配，则返回-1
+        return -1;
     }
 
     private List<Task> getTaskList(String userId, boolean isAccomplised){

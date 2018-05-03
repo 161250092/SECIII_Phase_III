@@ -60,7 +60,7 @@ public class UserDataImpl implements UserDataService{
             for(int i = 0; i < PATask.length;i++){
                 String name = PATask[i].getName();
                 if(!name.equals("null.txt")){
-                    String[] Name = name.split(",");
+                    String[] Name = name.split("\\.");
                     publishedTask.add(Name[0]);
                 }
             }
@@ -68,7 +68,7 @@ public class UserDataImpl implements UserDataService{
             for(int i = 0; i < PITask.length;i++){
                 String name = PITask[i].getName();
                 if(!name.equals("null.txt")){
-                    String[] Name = name.split(",");
+                    String[] Name = name.split("\\.");
                     publishedTask.add(Name[0]);
                 }
             }
@@ -77,7 +77,7 @@ public class UserDataImpl implements UserDataService{
             for(int i = 0;i < AATask.length;i++){
                 String name = AATask[i].getName();
                 if(!name.equals("null.txt")){
-                    String[] Name = name.split(",");
+                    String[] Name = name.split("\\.");
                     acceptedTask.add(Name[0]);
                 }
             }
@@ -85,7 +85,7 @@ public class UserDataImpl implements UserDataService{
             for(int i = 0;i < AITask.length;i++){
                 String name = AITask[i].getName();
                 if(!name.equals("null.txt")){
-                    String[] Name = name.split(",");
+                    String[] Name = name.split("\\.");
                     acceptedTask.add(Name[0]);
                 }
             }
