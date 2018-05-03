@@ -10,9 +10,9 @@ const workerCheckTaskPageUrl = "../worker/WorkerCheckTask.html";
 const checkMyTaskPageUrl = "../requestor/CheckMyTask.html";
 const uploadTaskPageUrl = "../requestor/uploadTask.html";
 
-const lineMarkPageUrl = "../markLabel/markAreaLabel.html";
+const markAreaLabelPageUrl = "../markLabel/markAreaLabel.html";
 const markFrameLabelPageUrl = "../markLabel/markFrameLabel.html";
-const overAllPageUrl = "../markLabel/markImageLabel.html";
+const markImageLabelPageUrl = "../markLabel/markImageLabel.html";
 
 const adminPageUrl = "../admin/index.html";
 

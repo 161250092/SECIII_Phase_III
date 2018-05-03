@@ -1,18 +1,19 @@
 new Vue({
-   el: "#container",
+   el: "#taskInfoContainer",
    data: {
        userId: "",
-       type1: "ImageLabel", 
-       type2: "AreaLabel",
-       type3: "FrameLabel",
-       AllUnfinishedTasks: []
+       AllUnfinishedTasks: [],
+
+       IMAGE_LABEL_TYPE: "ImageLabel", 
+       FRAME_LABEL_TYPE: "FrameLabel",
+       AREA_LABEL_TYPE: "AreaLabel",
    },
     mounted: function () {
        const _this = this;
         this.$nextTick(function () {
             _this.userId = getUserId();
             axios.get("/WorkerController/getAcceptedButIncompleteTaskList", 
-                {params:{userId: this.userId}})
+                { params:{ userId: this.userId } })
                 .then(function (response) { 
                 _this.AllUnfinishedTasks = response.data;
             })
@@ -20,16 +21,32 @@ new Vue({
     },
     methods: {
        doTask: function (index) {
-           if(this.AllUnfinishedTasks[index].labelType === this.type1){
-               jumToTask(overAllPageUrl,this.userId,this.AllUnfinishedTasks[index].taskId)
+           let labelType = this.AllUnfinishedTasks[index].labelType;
+           let taskId = this.AllUnfinishedTasks[index].taskId;
+           if(labelType === this.IMAGE_LABEL_TYPE){
+               jumToTask(markImageLabelPageUrl, this.userId, taskId);
+           }else if(labelType === this.FRAME_LABEL_TYPE){
+               jumToTask(markFrameLabelPageUrl, this.userId, taskId);
+           }else if(labelType === this.AREA_LABEL_TYPE){
+               jumToTask(markAreaLabelPageUrl, this.userId, taskId);
+           }else {
+               alert("该任务标注类型错误");
            }
-
-       }
-    }
+       },
+        getChineseLabelType: function (labelType) {
+            if(labelType === this.IMAGE_LABEL_TYPE){
+                return "整体标注";
+            }else if(labelType === this.FRAME_LABEL_TYPE){
+                return "标框标注";
+            }else if(labelType === this.AREA_LABEL_TYPE){
+                return "区域标注";
+            }
+        }
+    },
 });
 
 
-// var type1="ImageLabel";
+// var IMAGE_LABEL_TYPE="ImageLabel";
 // var type2="AreaLabel";
 // var type3="FrameLabel";
 // var oneTask = new Array();
@@ -77,11 +94,11 @@ new Vue({
 //     Cell_3.innerHTML='<input value="'+singleTask.score+'"  readonly="true"/>';
 //     Cell_3.className="s4";
 //
-//     // var type1="ImageLabel";
+//     // var IMAGE_LABEL_TYPE="ImageLabel";
 //     // var type2="AreaLabel";
 //     // var type3="FrameLabel";
 //
-//     if(singleTask.labelType===type1) {
+//     if(singleTask.labelType===IMAGE_LABEL_TYPE) {
 //         var Cell_4 = tableRow.insertCell(4);
 //         Cell_4.innerHTML = '<a href="javascript:void(0)"  readonly="true" onclick="jumToTask(overAllPageUrl,getUserId(),oneTask[count].taskId)">do it</a>';
 //         Cell_4.className = "s5";
@@ -94,8 +111,8 @@ new Vue({
 //     }
 //
 //     else if(singleTask.labelType===type3){
-//         var Cell_4 = tableRow.insertCell(4);
-//         Cell_4.innerHTML = '<a href="javascript:void(0)"  readonly="true" onclick="jumToTask(markFrameLabelPageUrl,getUserId(),oneTask[count].taskId)">do it</a>';
+//         var Cell_4 = tableRow.insertCell(4);jumToTask(markFrameLabelPageU
+// //         Cell_4.innerHTML = '<a href="javascript:void(0)"  readonly="true" onclick="rl,getUserId(),oneTask[count].taskId)">do it</a>';
 //         Cell_4.className = "s5";
 //     }
 //

@@ -46,7 +46,7 @@
 	</header>
 </div>
 
-<div align ="center" id="container">
+<div align ="center" id="taskInfoContainer">
 	<p>未完</p>
 	<table border="1" id="TaskTable">
 		<tr>
@@ -58,7 +58,7 @@
 		</tr>
 		<tr v-for="(item, index) in AllUnfinishedTasks">
 			<th>{{item.taskId}}</th>
-			<th>{{item.labelType}}</th>
+			<th>{{getChineseLabelType(item.labelType)}}</th>
 			<th>{{item.description}}</th>
 			<th>{{item.score}}</th>
 			<th><a v-on:click="doTask(index)">do it</a></th>
