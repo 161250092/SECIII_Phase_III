@@ -19,6 +19,9 @@ new Vue({
         },
         register: function () {
             const _this = this;
+            console.log(this.isUsernameExisted);
+            console.log(this.isPasswordCorrect);
+            console.log("wocao");
             if(!this.isUsernameExisted && this.isPasswordCorrect){
                 axios.get("/register", { params:{ username: this.username, password: this.password } }).then(function (userException) {
                     let wrongMessage = userException.data.wrongMessage.type;
