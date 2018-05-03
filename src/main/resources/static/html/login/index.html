@@ -12,13 +12,11 @@
         <div>
             <label for="username">用户名：</label>
             <input type="text" id="username" v-model="username" placeholder="请输入你的用户名">
-            <p>{{username}}</p>
         </div>
 
         <div>
             <label for="password">密码：</label>
             <input type="password" id="password" v-model="password" placeholder="请输入密码">
-            <p>{{password}}</p>
         </div>
 
         <button v-on:click="login()">登陆</button>
