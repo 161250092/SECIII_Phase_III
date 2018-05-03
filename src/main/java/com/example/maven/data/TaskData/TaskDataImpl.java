@@ -285,7 +285,7 @@ public class TaskDataImpl implements TaskDataService{
                     File piTask = new File(PITaskFile);
                     piTask.delete();
 
-                    fh.writeFile(PITaskInformation,PATaskFile);
+                    fh.writeFile(PATaskFile, PITaskInformation);
                 }
 
                 result = true;

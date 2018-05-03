@@ -113,6 +113,9 @@ public class LabelDataImpl implements LabelDataService{
 
                 }
 
+                fr.close();
+                br.close();
+
             }catch(IOException e){
                 e.printStackTrace();
             }
