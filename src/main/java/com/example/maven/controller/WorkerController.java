@@ -37,8 +37,8 @@ public class WorkerController implements WorkerBLService {
 
     @Override
     @RequestMapping(value = "/WorkerController/getAvailableTaskList", method = RequestMethod.GET)
-    public List<Task> getAvailableTaskList() {
-        return workerBLService.getAvailableTaskList();
+    public List<Task> getAvailableTaskList(String userId) {
+        return workerBLService.getAvailableTaskList(userId);
     }
 
     @Override

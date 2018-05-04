@@ -24,7 +24,7 @@ public interface WorkerBLService {
      * 获取当前可以接受的任务
      * @return 所有当前可接受的任务
      */
-    List<Task> getAvailableTaskList();
+    List<Task> getAvailableTaskList(String userId);
 
     /**
      * 众包工人接受任务

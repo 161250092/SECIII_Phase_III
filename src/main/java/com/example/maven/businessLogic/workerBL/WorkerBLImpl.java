@@ -39,17 +39,20 @@ public class WorkerBLImpl implements WorkerBLService {
     }
 
     @Override
-    public List<Task> getAvailableTaskList() {
+    public List<Task> getAvailableTaskList(String userId) {
         List<Task> taskList = new ArrayList<>();
-        List<String> temp = null;
+        List<String> assignedTaskIdList = null;
+        List<String> acceptedAndAcommplishedTaskIdList = taskDataService.getAllAccomplishedAcceptedTaskID(userId);
         List<User> userList = userDataService.getAllUser();
 
+        //遍历所有用户
         for(User user : userList){
             //获取该用户发布且未完成的任务Id列表
-            temp = taskDataService.getAllIncompleteAssignedTaskID(user.getUserId());
-            //
-            for(String taskId : temp) {
-                taskList.add(taskDataService.getTask(taskId));
+            assignedTaskIdList = taskDataService.getAllIncompleteAssignedTaskID(user.getUserId());
+            //遍历 任务Id列表，检查 需要接受任务的工人是否曾经完成过某任务
+            for(String taskId : assignedTaskIdList) {
+                if(acceptedAndAcommplishedTaskIdList.indexOf(taskId) != -1)
+                    taskList.add(taskDataService.getTask(taskId));
             }
         }
         return taskList;
