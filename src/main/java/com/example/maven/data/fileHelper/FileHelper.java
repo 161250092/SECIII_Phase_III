@@ -101,6 +101,13 @@ public class FileHelper {
         return result;
     }
 
-
+    public String getDirectoryPath(){
+        String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+        int firstIndex = path.lastIndexOf(System.getProperty("path.separator")) + 1;
+        int lastIndex = path.lastIndexOf(File.separator) + 1;
+        //获取当前jar包的 上级目录
+        String directoryPath = path.substring(firstIndex, lastIndex);
+        return directoryPath;
+    }
 
 }

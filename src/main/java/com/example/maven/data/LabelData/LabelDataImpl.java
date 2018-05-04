@@ -20,6 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LabelDataImpl implements LabelDataService{
+    private String UserDirPath = null;
+
+    public LabelDataImpl(){
+        FileHelper fileHelper = new FileHelper();
+        UserDirPath = fileHelper.getDirectoryPath() + "/User";
+    }
+
     /**
      * 获取用户已经标注的信息
      * @return 标签List 若未标注，图片对应位置返回空对象
@@ -27,7 +34,8 @@ public class LabelDataImpl implements LabelDataService{
     public List<Label> getLabel(String userId, String taskId){
         List<Label> label = new ArrayList<Label>();
 
-        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+        String filePath = UserDirPath;
 
         File user = new File(filePath);
         File[] User = user.listFiles();
@@ -132,7 +140,8 @@ public class LabelDataImpl implements LabelDataService{
     public boolean saveLabel(String userId,String taskId,int imageIndex,Label label){
         boolean result = false;
 
-        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+        String filePath = UserDirPath;
 
         File user = new File(filePath);
         File[] User = user.listFiles();
@@ -234,7 +243,8 @@ public class LabelDataImpl implements LabelDataService{
     public boolean isAccomplished(String userId,String taskId){
         boolean result = true;
 
-        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+        String filePath = UserDirPath;
 
         File user = new File(filePath);
         File[] User = user.listFiles();
@@ -299,7 +309,8 @@ public class LabelDataImpl implements LabelDataService{
      */
     public boolean acceptTask(String userId,String taskId,int number){
         boolean result = false;
-        String filePath  = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath  = System.getProperty("user.dir").toString() + "/src/main/User";
+        String filePath = UserDirPath;
 
         File user = new File(filePath);
         File[] User = user.listFiles();

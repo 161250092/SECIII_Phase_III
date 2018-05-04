@@ -13,6 +13,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class TaskDataImpl implements TaskDataService{
+    private String UserDirPath = null;
+
+    public TaskDataImpl(){
+        FileHelper fileHelper = new FileHelper();
+        UserDirPath = fileHelper.getDirectoryPath() + "/User";
+    }
+
     /**
      *获取用户发布的所有未完成任务的ID
      * @return 所有任务的IDList
@@ -21,7 +28,8 @@ public class TaskDataImpl implements TaskDataService{
         List<String> PITask = new ArrayList<String>();
 
         //用户文件夹
-        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+        String filePath = UserDirPath;
 
         File user = new File(filePath);
         File[] User = user.listFiles();
@@ -65,7 +73,8 @@ public class TaskDataImpl implements TaskDataService{
        List<String> PATask = new ArrayList<String>();
 
        //用户文件夹
-       String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//       String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+        String filePath = UserDirPath;
 
        //找用户
        File user = new File(filePath);
@@ -108,7 +117,8 @@ public class TaskDataImpl implements TaskDataService{
         List<String> AITask = new ArrayList<String>();
 
         //用户文件夹
-        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+        String filePath = UserDirPath;
 
         //找用户
         File user = new File(filePath);
@@ -150,7 +160,8 @@ public class TaskDataImpl implements TaskDataService{
         List<String> AATask = new ArrayList<String>();
 
         //用户文件夹
-        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+        String filePath = UserDirPath;
 
         //找用户
         File user = new File(filePath);
@@ -192,7 +203,8 @@ public class TaskDataImpl implements TaskDataService{
         boolean result = false;
 
         //用户文件夹
-        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+        String filePath = UserDirPath;
 
         //找用户
         File user = new File(filePath);
@@ -229,7 +241,8 @@ public class TaskDataImpl implements TaskDataService{
         boolean result = false;
 
         //用户文件夹
-        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+        String filePath = UserDirPath;
 
         //用户ID
         String[] taskInformation = taskId.split("_");
@@ -302,7 +315,8 @@ public class TaskDataImpl implements TaskDataService{
     public Task getTask(String taskId){
         Task task = null;
 
-        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+        String filePath = UserDirPath;
 
         String[] taskInformation = taskId.split("_");
         String userId = taskInformation[0];
@@ -371,7 +385,8 @@ public class TaskDataImpl implements TaskDataService{
      */
     synchronized public boolean setAcceptedTaskAccomplished(String userId,String taskId){
         boolean result = false;
-        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+        String filePath = UserDirPath;
 
         File user = new File(filePath);
         File[] User = user.listFiles();
@@ -406,7 +421,9 @@ public class TaskDataImpl implements TaskDataService{
         if(taskIsFind){
             File delete = new File(filePath);
 
-            String AA = System.getProperty("user.dir").toString() + "/src/main/User/" + userId +
+//            String AA = System.getProperty("user.dir").toString() + "/src/main/User/" + userId +
+//                    "/AcceptedTask/AccomplishedTask/" + taskId + ".txt";
+            String AA = UserDirPath +"/"+ userId +
                     "/AcceptedTask/AccomplishedTask/" + taskId + ".txt";
 
             File move = new File(AA);

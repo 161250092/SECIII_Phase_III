@@ -10,11 +10,20 @@ import java.util.List;
 import java.io.File;
 
 public class UserDataImpl implements UserDataService{
+
+    private String UserDirPath = null;
+
+    public UserDataImpl(){
+        FileHelper fileHelper = new FileHelper();
+        UserDirPath = fileHelper.getDirectoryPath() + "/User";
+    }
+
     /**
      *获取用户信息
      */
     public List<User> getAllUser(){
-        String FilePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String FilePath = System.getProperty("user.dir").toString() + "/src/main/User";
+        String FilePath = UserDirPath;
 
         File file = new File(FilePath);
         File[] listOfUser = file.listFiles();
@@ -110,7 +119,8 @@ public class UserDataImpl implements UserDataService{
      */
     public boolean newUser(String userName,String password){
         //文件地址
-        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+        String filePath = UserDirPath;
 
         //获取用户ID
         File User = new File(filePath);
@@ -178,7 +188,8 @@ public class UserDataImpl implements UserDataService{
      */
     public User getUser(String userId){
         //用户文件夹
-        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+        String filePath = UserDirPath;
 
         File User = new File(filePath);
         File[] listOfUser = User.listFiles();
@@ -276,7 +287,8 @@ public class UserDataImpl implements UserDataService{
      */
     public boolean reviseScore(String userId,int score){
         //用户文件夹
-        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+        String filePath = UserDirPath;
 
         boolean result = false;
 
