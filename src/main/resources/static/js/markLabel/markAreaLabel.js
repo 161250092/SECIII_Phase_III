@@ -1,7 +1,7 @@
 //区域标注类
 function AreaLabelVO(label, lineList) {
     this.label = label;
-    this.linelist = lineList;
+    this.lineList = lineList;
 }
 //线中的像素点类
 function Pixel(x, y){
@@ -82,7 +82,11 @@ new Vue({
                 .then(function (response) {
                     _this.currentImageUrl = 'url(' + '/getTaskImage/' + _this.taskId + '/' + response.data.image + ')';
                     _this.currentTag = response.data.label;
-                    _this.currentAreaList = (_this.getPixelListFromString(response.data.lineList[0]));
+                    if(response.data.lineList.length <= 0){
+                        _this.currentAreaList = [];
+                    }else{
+                        _this.currentAreaList = (_this.getPixelListFromString(response.data.lineList[0]));
+                    }
                     _this.removeAreaInCanvas();
                 });
         },
@@ -98,7 +102,9 @@ new Vue({
         },
         saveCurrentLabel: function () {
             if(this.canInputTag === false){
-                let currentAreaLabelVO = new AreaLabelVO(this.currentTag, this.changePixelListIntoPixelString(this.currentAreaList));
+                let labelList = [];
+                labelList.push(this.changePixelListIntoPixelString(this.currentAreaList));
+                let currentAreaLabelVO = new AreaLabelVO(this.currentTag, labelList);
                 let areaLabelVOJson = JSON.stringify(currentAreaLabelVO);
                 const _this = this;
                 axios.get("/markLabel/saveLabel", { params:
@@ -106,7 +112,7 @@ new Vue({
                             labelType: _this.labelType, imageIndex: _this.currentImageIndex,
                             labelVOJson: areaLabelVOJson } })
                     .then(function (response) {
-                        result = response.data;
+                        let result = response.data;
                         if(result === true) {
                             alert("保存成功");
                         }else{
