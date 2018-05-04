@@ -1,5 +1,8 @@
 var finished=0;
 var unfinished=0;
+var Type1Num=0;
+var Type2Num=0;
+var Type3Num=0;
 
 window.onload=function(){
 
@@ -22,61 +25,11 @@ window.onload=function(){
 
     document.getElementById("ranking").value = ranking;
     document.getElementById("score").value = score;
+    chart1();
 
+    countLabel();
 
-    var dom = document.getElementById("container");
-    var myChart = echarts.init(dom);
-    var app = {};
-    option = null;
-    app.title = '环形图';
-
-    option = {
-        tooltip: {
-            trigger: 'item',
-            formatter: "{a} <br/>{b}: {c} ({d}%)"
-        },
-        legend: {
-            orient: 'vertical',
-            x: 'left',
-            // data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
-            data:['完成','未完成']
-        },
-        series: [
-            {
-                name:'完成情况',
-                type:'pie',
-                radius: ['50%', '70%'],
-                avoidLabelOverlap: false,
-                label: {
-                    normal: {
-                        show: false,
-                        position: 'center'
-                    },
-                    emphasis: {
-                        show: true,
-                        textStyle: {
-                            fontSize: '15',
-                            fontWeight: 'bold'
-                        }
-                    }
-                },
-                labelLine: {
-                    normal: {
-                        show: false
-                    }
-                },
-                data:[
-                    {value:finished, name:'完成'},
-                    {value:unfinished, name:'未完成'},
-
-                ]
-            }
-        ]
-    };
-    ;
-    if (option && typeof option === "object") {
-        myChart.setOption(option, true);
-    }
+    chart2(Type1Num,Type2Num,Type3Num);
 
 
 }
@@ -206,4 +159,135 @@ function add_Row(singleTask,id){
 
 
 
+
+function chart1(){
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    app.title = '环形图';
+
+    option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            // data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+            data:['完成','未完成']
+        },
+        series: [
+            {
+                name:'完成情况',
+                type:'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '15',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value:finished, name:'完成'},
+                    {value:unfinished, name:'未完成'}
+
+                ]
+            }
+        ]
+    };
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+
+}
+
+
+function chart2(a,b,c){
+
+    var dom = document.getElementById("TaskType");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    app.title = '环形图';
+
+    option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            // data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+            data:['整体标注','区域标注',"方框标注"]
+        },
+        series: [
+            {
+                name:'完成情况',
+                type:'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '12',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value:a, name:'整体标注'},
+                    {value:b, name:'区域标注'},
+                    {value:c, name:'方框标注'}
+
+                ]
+            }
+        ]
+    };
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+
+}
+
+function countLabel(){
+    for(var i=0;i<AllUnfinishedTasks.length;i++){
+        if(AllUnfinishedTasks[i].labelType===type1)
+            Type1Num++;
+
+        else if(AllUnfinishedTasks[i].labelType===type2)
+            Type2Num++;
+
+        else if(AllUnfinishedTasks[i].labelType===type3)
+            Type3Num++;
+
+    }
+}
 
