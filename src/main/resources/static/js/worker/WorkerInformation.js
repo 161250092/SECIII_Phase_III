@@ -1,4 +1,5 @@
-
+var finished=0;
+var unfinished=0;
 
 window.onload=function(){
 
@@ -16,9 +17,67 @@ window.onload=function(){
         addRow(AllFinishedTasks[i],"accomplished");
     }
 
+    finished=AllFinishedTasks.length;
+    unfinished=AllUnfinishedTasks.length;
 
     document.getElementById("ranking").value = ranking;
     document.getElementById("score").value = score;
+
+
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    app.title = '环形图';
+
+    option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            // data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+            data:['完成','未完成']
+        },
+        series: [
+            {
+                name:'完成情况',
+                type:'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '15',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value:finished, name:'完成'},
+                    {value:unfinished, name:'未完成'},
+
+                ]
+            }
+        ]
+    };
+    ;
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+
 
 }
 
@@ -144,4 +203,7 @@ function add_Row(singleTask,id){
     Cell_3.innerHTML='<input value="'+singleTask.score+'"  readonly="true"/>';
     Cell_3.className="s4";
 }
+
+
+
 
