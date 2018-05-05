@@ -15,6 +15,7 @@ function getMyIntroductionTask(userId){
             async: false,
 			url:"/WorkerController/getAvailableTaskList",
 			data:{
+			    userId:userId
 			},
 
 			success:function(data){
