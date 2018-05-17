@@ -15,7 +15,7 @@ public class FileSystemInitializer {
         System.out.println("Hello "+directoryPath);
         boolean isExist = false;
         //用户根文件夹
-        String userDirectoryPath = directoryPath + "/User";
+        String userDirectoryPath = directoryPath + "/user";
         //任务图片根文件夹
         String taskImageDirectoryPath = directoryPath + "/taskImage";
 
@@ -25,7 +25,7 @@ public class FileSystemInitializer {
         //判断用户文件夹是否存在
         isExist = userDirFile.exists();
         if(!isExist){
-            System.out.println("The User folder does not exist, now we are trying to create a one...");
+            System.out.println("The user folder does not exist, now we are trying to create a one...");
 
             if(!userDirFile.mkdir()){
                 System.out.println("Create folder Failed!");
@@ -35,7 +35,7 @@ public class FileSystemInitializer {
             }
         }
         else{
-            System.out.println("The User folder exists.");
+            System.out.println("The user folder exists.");
         }
 
         //判断任务图片文件夹是否存在
@@ -57,7 +57,7 @@ public class FileSystemInitializer {
 
     public void initUserInfo(){
         String userId = "test0000";
-        String userPath = directoryPath + "/User" + "/" + userId;
+        String userPath = directoryPath + "/user" + "/" + userId;
 
         //创建用户文件夹
         fileHelper.createDirectory(userPath);

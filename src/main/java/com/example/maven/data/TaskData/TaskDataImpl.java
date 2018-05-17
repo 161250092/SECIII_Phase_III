@@ -17,7 +17,7 @@ public class TaskDataImpl implements TaskDataService{
 
     public TaskDataImpl(){
         FileHelper fileHelper = new FileHelper();
-        UserDirPath = fileHelper.getDirectoryPath() + "/User";
+        UserDirPath = fileHelper.getDirectoryPath() + "/user";
     }
 
     /**
@@ -28,7 +28,7 @@ public class TaskDataImpl implements TaskDataService{
         List<String> PITask = new ArrayList<String>();
 
         //用户文件夹
-//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/user";
         String filePath = UserDirPath;
 
         File user = new File(filePath);
@@ -73,7 +73,7 @@ public class TaskDataImpl implements TaskDataService{
        List<String> PATask = new ArrayList<String>();
 
        //用户文件夹
-//       String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//       String filePath = System.getProperty("user.dir").toString() + "/src/main/user";
         String filePath = UserDirPath;
 
        //找用户
@@ -117,7 +117,7 @@ public class TaskDataImpl implements TaskDataService{
         List<String> AITask = new ArrayList<String>();
 
         //用户文件夹
-//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/user";
         String filePath = UserDirPath;
 
         //找用户
@@ -160,7 +160,7 @@ public class TaskDataImpl implements TaskDataService{
         List<String> AATask = new ArrayList<String>();
 
         //用户文件夹
-//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/user";
         String filePath = UserDirPath;
 
         //找用户
@@ -203,7 +203,7 @@ public class TaskDataImpl implements TaskDataService{
         boolean result = false;
 
         //用户文件夹
-//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/user";
         String filePath = UserDirPath;
 
         //找用户
@@ -241,7 +241,7 @@ public class TaskDataImpl implements TaskDataService{
         boolean result = false;
 
         //用户文件夹
-//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/user";
         String filePath = UserDirPath;
 
         //用户ID
@@ -315,7 +315,7 @@ public class TaskDataImpl implements TaskDataService{
     public Task getTask(String taskId){
         Task task = null;
 
-//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/user";
         String filePath = UserDirPath;
 
         String[] taskInformation = taskId.split("_");
@@ -385,7 +385,7 @@ public class TaskDataImpl implements TaskDataService{
      */
     synchronized public boolean setAcceptedTaskAccomplished(String userId,String taskId){
         boolean result = false;
-//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/user";
         String filePath = UserDirPath;
 
         File user = new File(filePath);
@@ -421,7 +421,7 @@ public class TaskDataImpl implements TaskDataService{
         if(taskIsFind){
             File delete = new File(filePath);
 
-//            String AA = System.getProperty("user.dir").toString() + "/src/main/User/" + userId +
+//            String AA = System.getProperty("user.dir").toString() + "/src/main/user/" + userId +
 //                    "/AcceptedTask/AccomplishedTask/" + taskId + ".txt";
             String AA = UserDirPath +"/"+ userId +
                     "/AcceptedTask/AccomplishedTask/" + taskId + ".txt";

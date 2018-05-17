@@ -24,7 +24,7 @@ public class LabelDataImpl implements LabelDataService{
 
     public LabelDataImpl(){
         FileHelper fileHelper = new FileHelper();
-        UserDirPath = fileHelper.getDirectoryPath() + "/User";
+        UserDirPath = fileHelper.getDirectoryPath() + "/user";
     }
 
     /**
@@ -34,7 +34,7 @@ public class LabelDataImpl implements LabelDataService{
     public List<Label> getLabel(String userId, String taskId){
         List<Label> label = new ArrayList<Label>();
 
-//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/user";
         String filePath = UserDirPath;
 
         File user = new File(filePath);
@@ -140,7 +140,7 @@ public class LabelDataImpl implements LabelDataService{
     public boolean saveLabel(String userId,String taskId,int imageIndex,Label label){
         boolean result = false;
 
-//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/user";
         String filePath = UserDirPath;
 
         File user = new File(filePath);
@@ -243,7 +243,7 @@ public class LabelDataImpl implements LabelDataService{
     public boolean isAccomplished(String userId,String taskId){
         boolean result = true;
 
-//        String filePath = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath = System.getProperty("user.dir").toString() + "/src/main/user";
         String filePath = UserDirPath;
 
         File user = new File(filePath);
@@ -309,7 +309,7 @@ public class LabelDataImpl implements LabelDataService{
      */
     public boolean acceptTask(String userId,String taskId,int number){
         boolean result = false;
-//        String filePath  = System.getProperty("user.dir").toString() + "/src/main/User";
+//        String filePath  = System.getProperty("user.dir").toString() + "/src/main/user";
         String filePath = UserDirPath;
 
         File user = new File(filePath);
