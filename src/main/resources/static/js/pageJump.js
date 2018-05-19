@@ -63,6 +63,19 @@ function jumToTask(url,userId,taskId){
     window.location.href = url;
 }
 
+function sendUserType(userTypeStr){
+    sessionStorage.setItem('userType',userTypeStr);
+}
+
+function getUserType() {
+    return sessionStorage.getItem('userType');
+}
+
+function removeUserType() {
+    sessionStorage.removeItem('userType');
+}
+
+
 function setUserCanLabel(boolean) {
     sessionStorage.setItem('isUserCanLabel',boolean);
 }
@@ -78,5 +91,6 @@ function isUserCanLabel() {
 function removeAllParameter() {
     sessionStorage.removeItem('userId');
     sessionStorage.removeItem('taskId');
-    sessionStorage.removeItem('isUserCanLabel')
+    sessionStorage.removeItem('isUserCanLabel');
+    sessionStorage.removeItem('userType');
 }
