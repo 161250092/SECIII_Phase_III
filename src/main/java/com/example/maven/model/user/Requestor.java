@@ -5,7 +5,7 @@ import com.example.maven.model.primitiveType.*;
 /**
  * 发布者
  */
-abstract public class Requestor extends User {
+public class Requestor extends User {
     //一段时间内，发布者能发布的最大任务数
     TaskNum maxPublishedTaskNum;
 

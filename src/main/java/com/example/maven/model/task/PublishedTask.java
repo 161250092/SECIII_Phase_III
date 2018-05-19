@@ -23,6 +23,9 @@ public class PublishedTask {
     //标注已通过审核的工人人数
     WorkerNum finishedWorkerNum;
 
+    //发布者提供的标注样本信息
+    Sample sample;
+
     //完成该任务可获取的钱数
     Cash taskPrice;
 
@@ -30,7 +33,7 @@ public class PublishedTask {
     ArrayList<TaskState> taskStateList;
 
     public PublishedTask(TaskId taskId, LabelType labelType, Filename[] imageFilename, TaskDescription taskDescription,
-                         WorkerNum acceptedWorkerNum, WorkerNum finishedWorkerNum,
+                         WorkerNum acceptedWorkerNum, WorkerNum finishedWorkerNum, Sample sample,
                          Cash taskPrice, ArrayList<TaskState> taskStateList) {
         this.taskId = taskId;
         this.labelType = labelType;
@@ -38,6 +41,7 @@ public class PublishedTask {
         this.taskDescription = taskDescription;
         this.acceptedWorkerNum = acceptedWorkerNum;
         this.finishedWorkerNum = finishedWorkerNum;
+        this.sample = sample;
         this.taskPrice = taskPrice;
         this.taskStateList = taskStateList;
     }
@@ -68,6 +72,10 @@ public class PublishedTask {
 
     public WorkerNum getAcceptedWorkerNum() {
         return acceptedWorkerNum;
+    }
+
+    public Sample getSample() {
+        return sample;
     }
 
     public WorkerNum getFinishedWorkerNum() {
