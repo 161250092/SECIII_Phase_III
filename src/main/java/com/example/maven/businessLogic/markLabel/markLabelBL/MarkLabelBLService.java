@@ -1,43 +1,40 @@
 package com.example.maven.businessLogic.markLabel.markLabelBL;
 
+import com.example.maven.model.primitiveType.TaskId;
+import com.example.maven.model.primitiveType.UserId;
+import com.example.maven.model.task.LabelVOSet;
+
 /**
  * 为所有标注提供统一的接口
  */
 public interface MarkLabelBLService {
 
     /**
-     * 获得任务的图片总数
-     * @param taskId 任务ID
-     * @return 某次任务的图片总数
+     * 获取标注集合
+     * @param taskId 任务Id
+     * @param userId 用户Id
+     * @return 标注集LabelVOSet的JSON字符串
      */
-    int getTaskImageNumber(String taskId);
+    String getLabelVOSet(TaskId taskId, UserId userId);
+
 
     /**
-     * 获得标框标注的结果
-     * @param taskId 任务ID
-     * @param userId 用户ID
-     * @param labelType 标注类型
-     * @param imageIndex 图片下标
-     * @return 所需图片的标框标注结果(JSON)
-     */
-    String getLabel(String taskId, String userId, String labelType, int imageIndex);
-
-    /**
-     * 保存一次标注的结果
-     * 根据传入的参数决定标注类型
-     * @param taskId 任务ID
-     * @param userId 用户ID
-     * @param labelType　标注类型
-     * @param labelVOJson 标注的内容
+     * 保存标注集合
+     * @param taskId 任务Id
+     * @param userId 用户Id
+     * @param labelVOSet 标注集合
+     * @param isWorker 判断标注者是否为工人
      * @return 是否保存成功
      */
-    boolean saveLabel(String taskId, String userId, String labelType, int imageIndex, String labelVOJson);
+    boolean saveLabelSet(TaskId taskId, UserId userId, LabelVOSet labelVOSet, boolean isWorker);
+
 
     /**
      * 将该任务设置为已完成
-     * @param taskId 任务ID
-     * @param userId 用户ID
+     * @param taskId 任务Id
+     * @param userId 用户Id
+     * @param isWorker 判断标注者是否为工人
      * @return 是否设置成功
      */
-    boolean setTaskAccomplished(String taskId, String userId);
+    boolean setTaskAccomplished(String taskId, String userId, boolean isWorker);
 }

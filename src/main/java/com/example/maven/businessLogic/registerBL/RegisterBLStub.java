@@ -1,24 +1,17 @@
 package com.example.maven.businessLogic.registerBL;
 
+import com.example.maven.model.primitiveType.Password;
+import com.example.maven.model.primitiveType.Username;
+
 public class RegisterBLStub implements RegisterBLService{
+
     @Override
-    public boolean isUsernameExist(String userName) {
-        System.out.println(userName);
-        //test
-        if (userName.equals("2333")||userName.equals("wwww"))
-            return false;
-        else
-            return true;
+    public boolean isUsernameExist(Username username) {
+        return false;
     }
 
     @Override
-    public Exception register(String userName, String password) {
-        System.out.println(userName);
-        System.out.println(password);
-        //test
-        if (userName.equals("wwww"))
-            return null;
-        else
-            return null;
+    public Exception register(Username username, Password password) {
+        return null;
     }
 }
