@@ -1,0 +1,86 @@
+<html class="no-js" lang="en">
+<head>
+      <meta charset="utf-8">
+      <title>工人信息页面</title>
+</head>
+
+
+  <body>
+  <div id="home" class="header-wrapper header-top">
+      <header>
+          <ul class="menu cf">
+              <li>
+                  <a>查询</a>
+                  <ul class="submenu">
+                      <li><a href="../worker/workerFinishedTaskPage.html">历史任务</a></li>
+                  </ul>
+              </li>
+
+              <li>
+                  <a>任务</a>
+                  <ul class="submenu">
+                      <li><a href="../worker/doTask.html">做任务</a></li>
+                      <li><a href="../worker/getTask.html">接任务</a></li>
+                  </ul>
+              </li>
+
+
+              <li>
+                  <a>用户中心</a>
+                  <ul class="submenu">
+                      <li><a href="../login/Login_in.html">登出</a></li>
+                      <li><a href="../worker/workerInfoPage.html">个人主页</a></li>
+                  </ul>
+              </li>
+
+          </ul>
+      </header>
+  </div>
+
+  <div id="fix" align="center">
+
+          <span>名称:</span>
+          <input type="text" id="user_name" name="tag" value="" disabled="disabled">
+          <span>声望:</span>
+          <input type="text" id="prestige" name="tag" value="" disabled="disabled">
+          <br>
+          <span>用户等级:</span>
+          <input type="text" id="user_level" name="tag" value="" disabled="disabled">
+          <br>
+          <span>cash:</span>
+          <input type="text" id="cash" name="tag" value="" disabled="disabled">
+        </div>
+
+
+        <div id="editable" align="center">
+           <span>电子邮箱:</span>
+          <input type="text" id="ranking" name="tag" value="">
+          <input type="button" id="changeEmail" value="edit"></input>
+          <span>电话:</span>
+          <input type="text" id="score" name="tag" value="">
+          <input type="button" id="changePhone" value="edit"></input>
+        </div>
+				
+
+        <hr/>
+        <h>任务情况</h>
+        <div id="container" style="height: 100%"></div>
+
+        <hr/>
+        <h>未完成工作分布</h>
+        <div id="TaskType" style="height: 100%"></div>
+
+        <hr/>
+        <h>已完成工作分布</h>
+        <div id="FinishedLayout" style="height: 100%"></div>
+
+		<hr/>
+        <button id="charge">积分兑换</button>
+
+
+
+
+
+  </body>
+
+</html>
