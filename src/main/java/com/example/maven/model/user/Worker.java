@@ -5,7 +5,7 @@ import com.example.maven.model.primitiveType.*;
 /**
  * 工人
  */
-abstract public class Worker extends User {
+public class Worker extends User {
     //一段时间内，工人能接受的最大任务数
     TaskNum maxAcceptedTaskNum;
 
