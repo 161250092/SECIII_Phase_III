@@ -23,6 +23,8 @@ new Vue({
         currentTag: "",
         currentAreaList: [],
 
+        isUserCanLabel: false,
+
         canvas: undefined,
         canvasContext: undefined,
         //tempImageData: undefined,

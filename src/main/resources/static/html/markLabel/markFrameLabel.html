@@ -21,11 +21,13 @@
 
     <section class="left">
         <div class="btn-group">
-            <button v-on:click="resetCurrentLabel">重置</button>
-            <button v-on:click="saveCurrentLabel">保存</button>
+            <template v-if="isUserCanLabel">
+                <button v-on:click="resetCurrentLabel">重置</button>
+                <button v-on:click="saveCurrentLabel">保存</button>
+                <button v-on:click="setTaskAccomplished" v-if="currentImageIndex == (taskImageNum-1)">提交</button>
+            </template>
             <button v-on:click="getPreviousLabel">前一张</button>
             <button v-on:click="getNextLabel">后一张</button>
-            <button v-on:click="setTaskAccomplished" v-if="currentImageIndex == (taskImageNum-1)">提交</button>
         </div>
     </section>
 
@@ -47,7 +49,7 @@
     </section>
 
     <section class="right">
-        <div id="toolBar">
+        <div id="toolBar" v-if="isUserCanLabel">
             <p>填写标签：</p>
             <input type="text" id="inputTag" placeholder="请输入标签" ref="inputTag">
             <button class="buttonGrey" v-on:click="addTag">添加标签</button>
@@ -58,12 +60,12 @@
                 <tr>
                     <th>标签序号</th>
                     <th>标签内容</th>
-                    <th>操作</th>
+                    <th v-if="isUserCanLabel">操作</th>
                 </tr>
                 <tr v-for="(listItem,index) in currentFrameLabelList">
                     <td>{{index+1}}</td>
                     <td>{{listItem.tag}}</td>
-                    <td><button v-on:click="removeTag(index)">删除</button></td>
+                    <td v-if="isUserCanLabel"><button v-on:click="removeTag(index)">删除</button></td>
                 </tr>
             </table>
         </div>
