@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>审批整体标注</title>
+</head>
+<body>
+<div id="checkLabelContainer">
+    <header class="top">
+        <nav>
+            <ul>
+                <li><a class="active" href="#">审批整体标注</a></li>
+                <li><a href="../mainPage/MainPage.html">返回</a></li>
+                <li class="headerUsername"><a href="#">用户：{{username}}</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="left">
+        <div class="btn-group">
+            <button v-on:click="getPreviousLabel">前一张</button>
+            <button v-on:click="getNextLabel">后一张</button>
+        </div>
+    </section>
+
+    <section class="center">
+        <div>
+            <img v-bind:src=currentImageSrc>
+        </div>
+    </section>
+
+    <section class="right">
+        <div>
+            <p>当前图片：{{currentImageIndex+1}}     总图片数：{{taskImageNum}}</p>
+            <table id="tagTable">
+                <tr>
+                    <th>标签序号</th>
+                    <th>标签内容</th>
+                    <th>操作</th>
+                </tr>
+                <tr v-for="(listItem,index) in currentImageLabelList">
+                    <td>{{index+1}}</td>
+                    <td>{{listItem}}</td>
+                    <td><button v-on:click="removeTag(index)">删除</button></td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+</div>
+</body>
+</html>

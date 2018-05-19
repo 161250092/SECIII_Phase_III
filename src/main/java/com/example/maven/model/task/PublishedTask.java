@@ -30,11 +30,11 @@ public class PublishedTask {
     Cash taskPrice;
 
     //任务状态列表（开始时间，任务金额，任务要求的工人人数，发布者优惠）
-    ArrayList<TaskState> taskStateList;
+    ArrayList<PublishedTaskState> publishedTaskStateList;
 
     public PublishedTask(TaskId taskId, LabelType labelType, Filename[] imageFilename, TaskDescription taskDescription,
                          WorkerNum acceptedWorkerNum, WorkerNum finishedWorkerNum, Sample sample,
-                         Cash taskPrice, ArrayList<TaskState> taskStateList) {
+                         Cash taskPrice, ArrayList<PublishedTaskState> publishedTaskStateList) {
         this.taskId = taskId;
         this.labelType = labelType;
         this.imageFilename = imageFilename;
@@ -43,7 +43,7 @@ public class PublishedTask {
         this.finishedWorkerNum = finishedWorkerNum;
         this.sample = sample;
         this.taskPrice = taskPrice;
-        this.taskStateList = taskStateList;
+        this.publishedTaskStateList = publishedTaskStateList;
     }
 
     public TaskId getTaskId() {
@@ -63,8 +63,8 @@ public class PublishedTask {
     }
 
     public WorkerNum getRequiredWorkerNum() {
-        if(taskStateList != null){
-            return taskStateList.get(taskStateList.size()-1).requiredWorkerNum;
+        if(publishedTaskStateList != null){
+            return publishedTaskStateList.get(publishedTaskStateList.size()-1).requiredWorkerNum;
         }else {
             return null;
         }
@@ -86,7 +86,7 @@ public class PublishedTask {
         return taskPrice;
     }
 
-    public ArrayList<TaskState> getTaskStateList() {
-        return taskStateList;
+    public ArrayList<PublishedTaskState> getPublishedTaskStateList() {
+        return publishedTaskStateList;
     }
 }

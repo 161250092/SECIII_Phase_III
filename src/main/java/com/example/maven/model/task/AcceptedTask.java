@@ -24,6 +24,9 @@ public class AcceptedTask {
     //该用户接任务时所享受的优惠
     WorkerDiscount workerDiscount;
 
+    //该任务的状态
+    AcceptedTaskState acceptedTaskState;
+
     public AcceptedTask(UserId userId, TaskId taskId, Label taskImageLabelList[], Cash taskPrice, WorkerDiscount workerDiscount){
         this.userId = userId;
         this.taskId = taskId;
@@ -31,6 +34,7 @@ public class AcceptedTask {
         this.taskImageLabelList = taskImageLabelList;
         this.taskPrice = taskPrice;
         this.workerDiscount = workerDiscount;
+        this.acceptedTaskState = AcceptedTaskState.ACCEPTED;
     }
 
     public UserId getUserId() {
@@ -66,6 +70,10 @@ public class AcceptedTask {
 
     public WorkerDiscount getWorkerDiscount() {
         return workerDiscount;
+    }
+
+    public AcceptedTaskState getAcceptedTaskState() {
+        return acceptedTaskState;
     }
 
 }

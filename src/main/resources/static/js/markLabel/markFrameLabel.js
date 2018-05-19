@@ -24,6 +24,8 @@ new Vue({
         currentImageUrl: "",
         currentFrameLabelList: [],
 
+        isUserCanLabel: false,
+
         canvas: undefined,
         canvasContext: undefined,
         tempImageData: undefined,
@@ -52,6 +54,7 @@ new Vue({
             this.userId = getUserId();
             this.username = getUsername();
             this.taskId = getTaskId();
+            this.isUserCanLabel = isUserCanLabel();
             //获得这个任务的图片数目
             const _this = this;
             axios.get("/markLabel/getTaskImageNumber", { params: { taskId: this.taskId } }).then(function (response) {

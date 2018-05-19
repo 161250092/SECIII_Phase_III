@@ -1,0 +1,14 @@
+.input_short{
+    border:0px;
+    background:none;
+    width:30px;
+}
+.input_long{
+    border:10px;
+    /*background:none;*/
+    width:125px;
+}
+
+
+
+

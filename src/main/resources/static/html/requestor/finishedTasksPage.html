@@ -1,0 +1,93 @@
+<html class="no-js" lang="en" class="no-js" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+      <meta charset="utf-8">
+      <title>发布且完成任务页面</title>
+      
+</head>
+ 
+<!-- 任务表  
+任务详情 -->
+	<body>
+	<div id="home" class="header-wrapper header-top">
+		<header>
+			<ul class="menu cf">
+				<li>
+					<a>发布与查询</a>
+					<ul class="submenu">
+						<li><a href="../requestor/uploadTask.html">发布任务</a></li>
+						<li><a href="../requestor/finishedTasksPage.html">历史记录</a></li>
+						<li><a href="../requestor/unfinishedTasksPage.html">当前任务</a></li>
+					</ul>
+				</li>
+
+				<li>
+					<a>审核提交</a>
+					<ul class="submenu">
+						<li><a href="../requestor/checkSubmitPage.html">审核</a></li>
+					</ul>
+				</li>
+
+
+				<li>
+					<a>用户中心</a>
+					<ul class="submenu">
+						<li><a href="../login/Login_in.html">登出</a></li>
+						<li><a href="../requestor/personPage.html">个人主页</a></li>
+					</ul>
+				</li>
+
+			</ul>
+		</header>
+	</div>
+
+<div align ="center" id="taskInfoContainer">
+	<p>发布且完成的任务</p>
+	<table border="1" id="TaskTable">
+		<tr>
+			<th>任务编号</th>
+			<th>标注类型</th>
+			<th>任务描述</th>
+			<th>积分奖励</th>
+			<th>详情</th>
+		</tr>
+		<!-- incompleted -->
+		<tr v-for="(item, index) in AllFinishedTasks">
+			<th>{{item.taskId}}</th>
+			<th>{{getChineseLabelType(item.labelType)}}</th>
+			<th>{{item.description}}</th>
+			<th>{{item.score}}</th>
+			<!-- 查看任务完成情况 incompleted -->
+			<th><a v-on:click="">查看</a></th>
+		</tr>
+	</table>
+</div>
+
+<div align ="center" id="workerCompletion">
+	<p>任务详情</p>
+	<table border="1">
+		<tr>
+			<th>工人昵称</th>
+			<th>系统评价</th>
+			<th>您的评价</th>
+			<th>状态</th>
+			<th>获得积分</th>
+		</tr>
+
+		<tr v-for="(item, index) in ParticipatorsInfo">
+			<th>{{item.name}}</th>
+			<th>{item.sys_score}</th>
+			<th>{{item.requestor_score}}</th>
+			<th>{{item.state}}</th>
+			<th>{{item.score}}</th>		
+		</tr>
+	</table>
+</div>
+
+
+
+
+  	</body>
+
+
+
+</html>

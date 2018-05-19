@@ -62,3 +62,21 @@ function jumToTask(url,userId,taskId){
     sendUserId(userId);
     window.location.href = url;
 }
+
+function setUserCanLabel(boolean) {
+    sessionStorage.setItem('isUserCanLabel',boolean);
+}
+
+function isUserCanLabel() {
+    if(sessionStorage.getItem('isUserCanLabel') === "true"){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function removeAllParameter() {
+    sessionStorage.removeItem('userId');
+    sessionStorage.removeItem('taskId');
+    sessionStorage.removeItem('isUserCanLabel')
+}
