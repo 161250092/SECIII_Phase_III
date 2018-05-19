@@ -3,23 +3,18 @@ package com.example.maven.model.vo;
 import java.io.Serializable;
 import java.util.List;
 
-public class AreaLabelVO implements Serializable{
-    private String image;
-    private String label;
+public class AreaLabelVO extends LabelVO implements Serializable{
+    private List<String> labelList;
     private List<String> lineList;
 
-    public AreaLabelVO(String image, String label, List<String> lineList) {
-        this.image = image;
-        this.label = label;
+    public AreaLabelVO(String image, List<String> labelList, List<String> lineList) {
+        super(image);
+        this.labelList = labelList;
         this.lineList = lineList;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public String getLabel() {
-        return label;
+    public List<String> getLabelList() {
+        return labelList;
     }
 
     public List<String> getLineList() {

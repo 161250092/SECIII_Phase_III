@@ -3,17 +3,12 @@ package com.example.maven.model.vo;
 import java.io.Serializable;
 import java.util.List;
 
-public class ImageLabelVO implements Serializable{
-    private String image;
+public class ImageLabelVO extends LabelVO implements Serializable{
     private List<String> labelList;
 
     public ImageLabelVO(String image, List<String> labelList) {
-        this.image = image;
+        super(image);
         this.labelList = labelList;
-    }
-
-    public String getImage() {
-        return image;
     }
 
     public List<String> getLabel() {

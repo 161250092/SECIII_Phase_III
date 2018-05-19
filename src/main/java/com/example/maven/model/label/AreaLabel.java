@@ -21,6 +21,7 @@ public class AreaLabel extends Label implements Serializable{
 
     public AreaLabel(){
         setType("AreaLabel");
+        this.labelList = new ArrayList<>();
         this.lineList = new ArrayList<>();
     }
 
