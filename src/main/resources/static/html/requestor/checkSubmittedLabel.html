@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>审核提交的标注</title>
+    <link rel="stylesheet" href="../../css/requestor/checkSubmittedLabel.css">
+</head>
+<body>
+<div id="home" class="header-wrapper header-top">
+    <header>
+        <ul class="menu cf">
+            <li>
+                <a>发布与查询</a>
+                <ul class="submenu">
+                    <li><a href="../requestor/uploadTask.html">发布任务</a></li>
+                    <li><a href="../requestor/finishedTasksPage.html">历史记录</a></li>
+                    <li><a href="../requestor/unfinishedTasksPage.html">当前任务</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a>审核提交</a>
+                <ul class="submenu">
+                    <li><a href="../requestor/checkSubmitPage.html">审核</a></li>
+                </ul>
+            </li>
+
+
+            <li>
+                <a>用户中心</a>
+                <ul class="submenu">
+                    <li><a href="../login/Login_in.html">登出</a></li>
+                    <li><a href="../requestor/personPage.html">个人主页</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </header>
+</div>
+
+<div align ="center" id="taskInfoContainer">
+    <p>selectedTask:= {{selectedTask}}</p>
+    <p>审核提交的任务</p>
+
+    <ul class="accordion">
+        <li v-for="(submittedLabelListOfOneTask, index) in submittedLabelListOfAllTask">
+            <div class="link" v-on:click="selectedTask = index">
+                <p>{{index}} {{submittedLabelListOfOneTask.labelType}} {{submittedLabelListOfOneTask.description}}</p>
+            </div>
+            <ul class="submenu" v-bind:class="{'submenuInactive': index != selectedTask}">
+                <li>
+                    <table border="1">
+                        <tr>
+                            <th>序号</th>
+                            <th>工人名称</th>
+                            <th>系统评分</th>
+                            <th>审核</th>
+                            <th>通过</th>
+                            <th>驳回</th>
+                            <th>废弃</th>
+                        </tr>
+                        <tr v-for="(submittedLabel, index) in submittedLabelListOfOneTask.labelList">
+                            <td>{{index}}</td>
+                            <td>{{submittedLabel.username}}</td>
+                            <td>{{submittedLabel.score}}</td>
+                            <td><button>审核</button></td>
+                            <td><button>通过</button></td>
+                            <td><button>驳回</button></td>
+                            <td><button>废弃</button></td>
+                        </tr>
+                    </table>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<script src="../../js/lib/vue.js"></script>
+<script src="../../js/lib/axios.js"></script>
+<script src="../../js/requestor/checkSubmittedLabel.js"></script>
+</body>
+</html>
