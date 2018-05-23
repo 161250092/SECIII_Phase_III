@@ -1,7 +1,20 @@
+ul.headerMenu {
+    /*float: left;*/
+    list-style: none;
+}
+
+ul.headerMenu li ul.submenu {
+    /*float: none;*/
+    list-style: none;
+    /*display: none;*/
+}
+
 ul.accordion {
     list-style: none;
+    max-width: 600px;
     margin: 30px auto 20px;
     background: #FFF;
+    border-radius: 4px;
 }
 
 ul.accordion .link {
