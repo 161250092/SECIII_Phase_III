@@ -4,6 +4,7 @@ import data.TaskData.TaskDataImpl;
 import data.TaskData.TaskDataService;
 import data.UserData.UserDataImpl;
 import data.UserData.UserDataService;
+import model.primitiveType.Filename;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
 import model.task.PublishedTask;
@@ -23,7 +24,7 @@ public class RequestorBLImpl implements RequestorBLService{
     }
 
     @Override
-    public Exception uploadTaskInfo(String taskJSON) {
+    public Exception uploadTaskInfo(PublishedTaskVO publishedTaskVO, Filename[] imageFilenameList){
         return null;
     }
 
@@ -43,18 +44,18 @@ public class RequestorBLImpl implements RequestorBLService{
     }
 
     @Override
-    public boolean passTask(TaskId taskId, UserId userId) {
-        return false;
+    public Exception passTask(TaskId taskId, UserId userId) {
+        return null;
     }
 
     @Override
-    public boolean rejectTask(TaskId taskId, UserId userId) {
-        return false;
+    public Exception rejectTask(TaskId taskId, UserId userId) {
+        return null;
     }
 
     @Override
-    public boolean abandonTask(TaskId taskId, UserId userId) {
-        return false;
+    public Exception abandonTaskByRequestor(TaskId taskId, UserId userId) {
+        return null;
     }
 
     @Override
@@ -66,6 +67,7 @@ public class RequestorBLImpl implements RequestorBLService{
     public List<PublishedTask> getAssignedButIncompleteTaskList(UserId userId) {
         return null;
     }
+
 
     /**
      * ------未完成------

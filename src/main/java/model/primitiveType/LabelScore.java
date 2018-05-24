@@ -1,9 +1,9 @@
 package model.primitiveType;
 
-public class AcceptedTaskScore {
+public class LabelScore {
     public double value;
 
-    public AcceptedTaskScore(double value) {
+    public LabelScore(double value) {
         this.value = value;
     }
 }
