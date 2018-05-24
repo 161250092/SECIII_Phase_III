@@ -1,10 +1,8 @@
-package runner;
+package springbootStarter;
 
 import data.fileHelper.FileSystemInitializer;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import java.awt.Font;
 
 
@@ -28,7 +26,7 @@ public class ServerRunner {
         textField.setEditable(false);
         panel.add(textField);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         frame.setResizable(false);
         frame.setVisible(true);
