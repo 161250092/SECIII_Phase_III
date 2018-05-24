@@ -3,10 +3,11 @@
       <meta charset="utf-8">
       <title>发布者个人主页</title>
     <link rel="stylesheet" href="../../css/input.css">
+    <link rel="stylesheet" href="../../css/lu.css">
+
 </head>
 
-
-  <body>
+<body>
   <div id="home" class="header-wrapper header-top">
       <header>
           <ul class="menu cf">
@@ -22,7 +23,7 @@
               <li>
                   <a>审核提交</a>
                   <ul class="submenu">
-                      <li><a href="../requestor/checkSubmitPage.html">审核</a></li>
+                      <li><a href="../requestor/checkSubmittedLabel.html">审核</a></li>
                   </ul>
               </li>
 
@@ -39,14 +40,17 @@
       </header>
   </div>
 <hr>
-        <div id="fix" align="center">
 
-          <span>名称:</span>
+  <div>
+        <div id="fix">
+
+            <span>名称:</span>
           <input type="text" class="input_short" id="user_name" name="tag" value="" disabled="disabled">
+          <br>
           <span>声望:</span>
           <input type="text" class="input_short" id="prestige" name="tag" value="" disabled="disabled">
           <br>
-          <span>用户等级:</span>
+          <span>等级:</span>
           <input type="text" class="input_short" id="user_level" name="tag" value="" disabled="disabled">
           <br>
           <span>cash:</span>
@@ -54,17 +58,20 @@
         </div>
 
 
-        <div id="editable" align="center">
+        <div id="editable" >
            <span>电子邮箱:</span>
           <input type="text"  id="ranking" name="tag" value="">
           <input type="button" id="changeEmail" value="edit"></input>
-          <span>电话:</span>
+            <br>
+          <span>电话号码:</span>
           <input type="text" id="score" name="tag" value="">
           <input type="button" id="changePhone" value="edit"></input>
         </div>
-				
+
+  </div>
 
         <hr/>
+
         <h>任务情况</h>
         <div id="container" style="height: 100%"></div>
 

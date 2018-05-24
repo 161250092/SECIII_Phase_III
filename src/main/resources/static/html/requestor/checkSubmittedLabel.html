@@ -2,26 +2,28 @@
 <html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../css/lu.css">
     <title>审核提交的标注</title>
-    <link rel="stylesheet" href="../../css/requestor/checkSubmittedLabel.css">
+    <!--<link rel="stylesheet" href="../../css/requestor/checkSubmittedLabel.css">-->
+
 </head>
 <body>
-<div align ="center" class="header">
+<div id="home" class="header-wrapper header-top">
     <header>
-        <ul class="headerMenu">
+        <ul class="menu cf">
             <li>
                 <a>发布与查询</a>
                 <ul class="submenu">
-                    <li class="subMenuItem"><a href="../requestor/uploadTask.html">发布任务</a></li>
-                    <li class="subMenuItem"><a href="../requestor/finishedTasksPage.html">历史记录</a></li>
-                    <li class="subMenuItem"><a href="../requestor/unfinishedTasksPage.html">当前任务</a></li>
+                    <li><a href="../requestor/uploadTask.html">发布任务</a></li>
+                    <li><a href="../requestor/finishedTasksPage.html">历史记录</a></li>
+                    <li><a href="../requestor/unfinishedTasksPage.html">当前任务</a></li>
                 </ul>
             </li>
 
             <li>
                 <a>审核提交</a>
                 <ul class="submenu">
-                    <li class="subMenuItem"><a href="../requestor/checkSubmitPage.html">审核</a></li>
+                    <li><a href="../requestor/checkSubmittedLabel.html">审核</a></li>
                 </ul>
             </li>
 
@@ -37,6 +39,7 @@
         </ul>
     </header>
 </div>
+
 
 <div align ="center" id="taskInfoContainer">
     <h3>任务列表</h3>
