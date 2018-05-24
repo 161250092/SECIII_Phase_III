@@ -6,24 +6,9 @@ import data.TaskData.TaskDataImpl;
 import data.TaskData.TaskDataService;
 import data.UserData.UserDataImpl;
 import data.UserData.UserDataService;
-import model.po.AreaLabel;
-import model.po.ImageLabel;
-import model.po.Label;
-import model.po.Task;
-import model.po.frameLabel.FrameLabel;
-import model.po.frameLabel.FrameLabelListItem;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
 import model.task.LabelVOSet;
-import model.vo.AreaLabelVO;
-import model.vo.ImageLabelVO;
-import model.vo.frameLabel.FrameLabelListItemVO;
-import model.vo.frameLabel.FrameLabelVO;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MarkLabelBLImpl implements MarkLabelBLService{
     private TaskDataService taskDataService;
@@ -90,9 +75,9 @@ public class MarkLabelBLImpl implements MarkLabelBLService{
 //                case "FrameLabel":
 //                    FrameLabel frameLabel = (FrameLabel)label;
 //                    FrameLabelVO frameLabelVO = null;
-//                    List<FrameLabelListItem> poList = frameLabel.getLabelList();
+//                    List<Frame> poList = frameLabel.getLabelList();
 //                    ArrayList<FrameLabelListItemVO> voList = new ArrayList<>();
-//                    for(FrameLabelListItem po: poList){
+//                    for(Frame po: poList){
 //                        voList.add(new FrameLabelListItemVO(po.getStartX(),po.getStartY(),po.getWidth(),po.getHeight(),po.getTag()));
 //                    }
 //                    frameLabelVO = new FrameLabelVO(image, voList);

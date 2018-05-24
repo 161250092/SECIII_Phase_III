@@ -1,7 +1,7 @@
 package data.LabelData;
 
 import data.fileHelper.FileHelper;
-import model.po.AreaLabel;
+import model.po.areaLabel.AreaLabel;
 import model.po.ImageLabel;
 import model.po.Label;
 

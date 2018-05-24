@@ -1,6 +1,6 @@
 //package controller.markLabel;
 //
-//import model.po.AreaLabel;
+//import model.po.areaLabel.AreaLabel;
 //import com.google.gson.Gson;
 //import com.google.gson.GsonBuilder;
 //import org.springframework.web.bind.annotation.*;
