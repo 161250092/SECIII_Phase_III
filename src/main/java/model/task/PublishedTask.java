@@ -11,6 +11,8 @@ import java.util.List;
 public class PublishedTask {
     //任务Id
     private TaskId taskId;
+    //发布者Id
+    private UserId userId;
     //标注类型
     private LabelType labelType;
 
@@ -33,10 +35,11 @@ public class PublishedTask {
     //任务状态列表（开始时间，任务金额，任务要求的工人人数，发布者优惠）
     private ArrayList<PublishedTaskState> publishedTaskStateList;
 
-    public PublishedTask(TaskId taskId, LabelType labelType, List<Filename> imageFilenameList, TaskDescription taskDescription,
-                         WorkerNum acceptedWorkerNum, WorkerNum finishedWorkerNum, Sample sample,
+    public PublishedTask(TaskId taskId, UserId userId, LabelType labelType, List<Filename> imageFilenameList,
+                         TaskDescription taskDescription, WorkerNum acceptedWorkerNum, WorkerNum finishedWorkerNum, Sample sample,
                          Cash taskPrice, ArrayList<PublishedTaskState> publishedTaskStateList) {
         this.taskId = taskId;
+        this.userId = userId;
         this.labelType = labelType;
         this.imageFilenameList = imageFilenameList;
         this.taskDescription = taskDescription;
@@ -49,6 +52,10 @@ public class PublishedTask {
 
     public TaskId getTaskId() {
         return taskId;
+    }
+
+    public UserId getUserId() {
+        return userId;
     }
 
     public LabelType getLabelType() {

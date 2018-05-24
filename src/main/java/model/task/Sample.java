@@ -8,12 +8,15 @@ import java.util.List;
  * 发布者提供的标注样本类
  */
 public class Sample {
-    private int number;
+    //样本内图片总数
+    private int imageNum;
+    //样本内图片 在原本的任务图片集合内的下标数组
     private List<Integer> imageIndexList;
+    //发起者作的标注数组
     private List<Label> labelList;
 
     public int getNumber() {
-        return number;
+        return imageNum;
     }
 
     public List<Integer> getImageIndexList() {
@@ -24,8 +27,8 @@ public class Sample {
         return labelList;
     }
 
-    public Sample(int number, List<Integer> imageIndexList, List<Label> labelList) {
-        this.number = number;
+    public Sample(int imageNum, List<Integer> imageIndexList, List<Label> labelList) {
+        this.imageNum = imageNum;
         this.imageIndexList = imageIndexList;
         this.labelList = labelList;
     }
