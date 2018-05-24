@@ -2,7 +2,6 @@ package model.vo;
 
 import model.primitiveType.*;
 import model.task.AcceptedTask;
-import model.task.AcceptedTaskState;
 
 public class AcceptedTaskVO {
     //任务Id
@@ -22,10 +21,10 @@ public class AcceptedTaskVO {
     //完成该任务可获取的钱数
     private double taskPrice;
     //系统对工人标注的评分
-    private double score;
+    private double labelScore;
 
     private AcceptedTaskVO(String taskId, String userId, String username, String labelType,
-                          String taskDescription, double taskPrice, String acceptedTaskState, double score) {
+                          String taskDescription, double taskPrice, String acceptedTaskState, double labelScore) {
         this.taskId = taskId;
         this.userId = userId;
         this.username = username;
@@ -33,12 +32,12 @@ public class AcceptedTaskVO {
         this.taskDescription = taskDescription;
         this.taskPrice = taskPrice;
         this.acceptedTaskState = acceptedTaskState;
-        this.score = score;
+        this.labelScore = labelScore;
     }
 
-    public AcceptedTaskVO(AcceptedTask acceptedTask, Username username, LabelType labelType, TaskDescription description, AcceptedTaskScore score){
+    public AcceptedTaskVO(AcceptedTask acceptedTask, Username username, LabelType labelType, TaskDescription description, LabelScore labelScore){
         this(acceptedTask.getTaskId().value, acceptedTask.getUserId().value, username.value, labelType.value,
-                description.value, acceptedTask.getActualTaskPrice().value, acceptedTask.getAcceptedTaskState().toString(), score.value);
+                description.value, acceptedTask.getActualTaskPrice().value, acceptedTask.getAcceptedTaskState().toString(), labelScore.value);
     }
 
     public String getTaskId() {
@@ -69,7 +68,7 @@ public class AcceptedTaskVO {
         return acceptedTaskState;
     }
 
-    public double getScore() {
-        return score;
+    public double getLabelScore() {
+        return labelScore;
     }
 }

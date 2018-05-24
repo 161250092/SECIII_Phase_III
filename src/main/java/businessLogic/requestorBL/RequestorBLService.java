@@ -1,5 +1,6 @@
 package businessLogic.requestorBL;
 
+import model.primitiveType.Filename;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
 import model.task.PublishedTask;
@@ -12,10 +13,11 @@ public interface RequestorBLService {
 
     /**
      * 上传欲发布的任务信息
-     * @param taskJSON 任务的JSON字符串
+     * @param publishedTaskVO 发布的任务VO
+     * @param imageFilenameList 任务所含图片的文件名列表
      * @return 上传任务信息的状态
      */
-    Exception uploadTaskInfo(String taskJSON);
+    Exception uploadTaskInfo(PublishedTaskVO publishedTaskVO, Filename[] imageFilenameList);
 
     /**
      * 发布任务
@@ -64,14 +66,14 @@ public interface RequestorBLService {
 
     /**
      * 获取发布且已完成任务的列表
-     * @param userId 用户Id
+     * @param userId 发布者Id
      * @return 发布且已完成任务的列表
      */
     List<PublishedTask> getAssignedAndAccomplishedTaskList(UserId userId);
 
     /**
      * 获取发布但未完成任务的列表
-     * @param userId 用户Id
+     * @param userId 发布者Id
      * @return 发布但未完成任务的列表
      */
     List<PublishedTask> getAssignedButIncompleteTaskList(UserId userId);
