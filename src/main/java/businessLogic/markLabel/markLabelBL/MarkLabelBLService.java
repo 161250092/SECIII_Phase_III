@@ -2,7 +2,6 @@ package businessLogic.markLabel.markLabelBL;
 
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
-import model.task.LabelVOSet;
 
 /**
  * 为所有标注提供统一的接口

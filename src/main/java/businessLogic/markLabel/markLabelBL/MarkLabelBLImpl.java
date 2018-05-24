@@ -8,7 +8,6 @@ import data.UserData.UserDataImpl;
 import data.UserData.UserDataService;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
-import model.task.LabelVOSet;
 
 public class MarkLabelBLImpl implements MarkLabelBLService{
     private TaskDataService taskDataService;
