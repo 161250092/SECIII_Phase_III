@@ -2,7 +2,7 @@ package businessLogic.markLabel.markLabelBL;
 
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
-import model.task.LabelVOSet;
+import model.vo.LabelSetVO;
 
 /**
  * 为所有标注提供统一的接口
@@ -15,18 +15,18 @@ public interface MarkLabelBLService {
      * @param userId 用户Id
      * @return 标注集LabelVOSet
      */
-    LabelVOSet getLabelVOSet(TaskId taskId, UserId userId);
+    LabelSetVO getLabelSetVO(TaskId taskId, UserId userId);
 
 
     /**
      * 保存标注集合
      * @param taskId 任务Id
      * @param userId 用户Id
-     * @param labelVOSet 标注集合
+     * @param labelSetVO 标注集合
      * @param isWorker 判断标注者是否为工人
      * @return 是否保存成功
      */
-    boolean saveLabelSet(TaskId taskId, UserId userId, LabelVOSet labelVOSet, boolean isWorker);
+    boolean saveLabelSet(TaskId taskId, UserId userId, LabelSetVO labelSetVO, boolean isWorker);
 
 
     /**

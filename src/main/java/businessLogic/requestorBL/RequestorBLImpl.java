@@ -7,6 +7,7 @@ import data.UserData.UserDataService;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
 import model.task.PublishedTask;
+import model.vo.AcceptedTaskVO;
 import model.vo.PublishedTaskVO;
 
 import java.util.List;
@@ -32,7 +33,12 @@ public class RequestorBLImpl implements RequestorBLService{
     }
 
     @Override
-    public List<PublishedTaskVO> getSubmittedTaskList(UserId userId) {
+    public List<PublishedTaskVO> getPublishedTaskList(UserId userId) {
+        return null;
+    }
+
+    @Override
+    public List<AcceptedTaskVO> getSubmittedTaskList(UserId userId) {
         return null;
     }
 

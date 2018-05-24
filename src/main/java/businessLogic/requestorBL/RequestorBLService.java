@@ -3,6 +3,7 @@ package businessLogic.requestorBL;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
 import model.task.PublishedTask;
+import model.vo.AcceptedTaskVO;
 import model.vo.PublishedTaskVO;
 
 import java.util.List;
@@ -23,13 +24,19 @@ public interface RequestorBLService {
      */
     Exception assignTask(TaskId taskId);
 
+    /**
+     * 获取发布者已发布的任务
+     * @param userId 发布者Id
+     * @return 已发布的任务列表
+     */
+    List<PublishedTaskVO> getPublishedTaskList(UserId userId);
 
     /**
      * 获取工人已完成并待审核的任务列表
-     * @param userId 用户Id
+     * @param userId 发布者Id
      * @return 待审核的任务列表
      */
-    List<PublishedTaskVO> getSubmittedTaskList(UserId userId);
+    List<AcceptedTaskVO> getSubmittedTaskList(UserId userId);
 
     /**
      * 审批工人的任务时 选择通过
