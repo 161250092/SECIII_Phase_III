@@ -44,8 +44,7 @@ public interface RequestorBLService {
      * @param userId 工人Id
      * @return 后台处理的结果
      */
-
-    boolean passTask(TaskId taskId, UserId userId);
+    Exception passTask(TaskId taskId, UserId userId);
 
     /**
      * 审批工人的任务时 选择驳回
@@ -53,16 +52,15 @@ public interface RequestorBLService {
      * @param userId 工人Id
      * @return 后台处理的结果
      */
+    Exception rejectTask(TaskId taskId, UserId userId);
 
-    boolean rejectTask(TaskId taskId, UserId userId);
     /**
      * 审批工人的任务时 选择废弃
      * @param taskId 任务Id
      * @param userId 工人Id
      * @return 后台处理的结果
      */
-
-    boolean abandonTask(TaskId taskId, UserId userId);
+    Exception abandonTaskByRequestor(TaskId taskId, UserId userId);
 
     /**
      * 获取发布且已完成任务的列表
