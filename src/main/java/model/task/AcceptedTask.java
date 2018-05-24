@@ -4,6 +4,7 @@ import model.label.Label;
 import model.primitiveType.*;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 工人接受的任务
@@ -17,7 +18,7 @@ public class AcceptedTask {
     private Date startTime;
 
     //该用户对该任务的所有标注信息
-    private Label[] taskLabelList;
+    private List<Label> taskLabelList;
 
     //该用户接任务时，任务的价格
     private Cash taskPrice;
@@ -27,7 +28,7 @@ public class AcceptedTask {
     //该任务的状态
     private AcceptedTaskState acceptedTaskState;
 
-    public AcceptedTask(UserId userId, TaskId taskId, Label[] taskLabelList, Cash taskPrice, WorkerDiscount workerDiscount){
+    public AcceptedTask(UserId userId, TaskId taskId, List<Label> taskLabelList, Cash taskPrice, WorkerDiscount workerDiscount){
         this.userId = userId;
         this.taskId = taskId;
         this.startTime = new Date();
@@ -49,7 +50,7 @@ public class AcceptedTask {
         return startTime;
     }
 
-    public Label[] getTaskLabelList() {
+    public List<Label> getTaskLabelList() {
         return taskLabelList;
     }
 

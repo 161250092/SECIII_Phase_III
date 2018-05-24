@@ -3,6 +3,7 @@ package model.task;
 import model.primitiveType.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 发布者发布的任务
@@ -14,7 +15,7 @@ public class PublishedTask {
     private LabelType labelType;
 
     //图片文件名数组
-    private Filename[] imageFilenameList;
+    private List<Filename> imageFilenameList;
     //任务描述
     private TaskDescription taskDescription;
 
@@ -32,7 +33,7 @@ public class PublishedTask {
     //任务状态列表（开始时间，任务金额，任务要求的工人人数，发布者优惠）
     private ArrayList<PublishedTaskState> publishedTaskStateList;
 
-    public PublishedTask(TaskId taskId, LabelType labelType, Filename[] imageFilenameList, TaskDescription taskDescription,
+    public PublishedTask(TaskId taskId, LabelType labelType, List<Filename> imageFilenameList, TaskDescription taskDescription,
                          WorkerNum acceptedWorkerNum, WorkerNum finishedWorkerNum, Sample sample,
                          Cash taskPrice, ArrayList<PublishedTaskState> publishedTaskStateList) {
         this.taskId = taskId;
@@ -54,7 +55,7 @@ public class PublishedTask {
         return labelType;
     }
 
-    public Filename[] getImageFilenameList() {
+    public List<Filename> getImageFilenameList() {
         return imageFilenameList;
     }
 

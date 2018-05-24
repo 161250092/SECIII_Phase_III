@@ -2,31 +2,31 @@ package model.task;
 
 import model.label.Label;
 
+import java.util.List;
+
 /**
  * 发布者提供的标注样本类
  */
 public class Sample {
     private int number;
-    private int[] imageIndexList;
-    private Label[] labelList;
+    private List<Integer> imageIndexList;
+    private List<Label> labelList;
 
     public int getNumber() {
         return number;
     }
 
-    public int[] getImageIndexList() {
+    public List<Integer> getImageIndexList() {
         return imageIndexList;
     }
 
-    public Label[] getLabelList() {
+    public List<Label> getLabelList() {
         return labelList;
     }
 
-    public Sample(int number, int[] imageIndexList, Label[] labelList) {
+    public Sample(int number, List<Integer> imageIndexList, List<Label> labelList) {
         this.number = number;
         this.imageIndexList = imageIndexList;
         this.labelList = labelList;
     }
-
-
 }
