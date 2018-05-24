@@ -30,7 +30,7 @@ public class RequestorController {
      */
     @RequestMapping(value = "/requestor/getSubmittedTaskList", method = RequestMethod.GET)
     public String getSubmittedTaskList(String userId){
-        return JsonConverter.toJson(requestorBL.getSubmittedTaskList(new UserId(userId)));
+        return JsonConverter.objectToJson(requestorBL.getSubmittedTaskList(new UserId(userId)));
     }
 
     /**
@@ -73,7 +73,7 @@ public class RequestorController {
      */
     @RequestMapping(value = "/requestor/getAssignedAndAccomplishedTaskList", method = RequestMethod.GET)
     public String getAssignedAndAccomplishedTaskList(String userId){
-        return JsonConverter.toJson(requestorBL.getAssignedAndAccomplishedTaskList(new UserId(userId)));
+        return JsonConverter.objectToJson(requestorBL.getAssignedAndAccomplishedTaskList(new UserId(userId)));
     }
 
     /**
@@ -83,6 +83,6 @@ public class RequestorController {
      */
     @RequestMapping(value = "/requestor/getAssignedButIncompleteTaskList", method = RequestMethod.GET)
     public String getAssignedButIncompleteTaskList(String userId){
-        return JsonConverter.toJson(requestorBL.getAssignedButIncompleteTaskList(new UserId(userId)));
+        return JsonConverter.objectToJson(requestorBL.getAssignedButIncompleteTaskList(new UserId(userId)));
     }
 }

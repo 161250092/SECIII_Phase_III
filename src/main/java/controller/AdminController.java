@@ -21,6 +21,6 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/getWebsiteStatistics", method = RequestMethod.GET)
     public String getWebsiteStatistics(){
-        return JsonConverter.toJson(adminBL.getWebsiteStatistics());
+        return JsonConverter.objectToJson(adminBL.getWebsiteStatistics());
     }
 }

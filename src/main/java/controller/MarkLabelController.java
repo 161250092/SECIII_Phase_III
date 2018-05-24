@@ -21,12 +21,12 @@ public class MarkLabelController {
 
     @RequestMapping(value = "/markLabel/getLabel", method = RequestMethod.GET)
     public String getLabelVOSet(String taskId, String userId) {
-        return JsonConverter.toJson(markLabelBL.getLabelSetVO(new TaskId(taskId),new UserId(userId)));
+        return JsonConverter.objectToJson(markLabelBL.getLabelSetVO(new TaskId(taskId),new UserId(userId)));
     }
 
     @RequestMapping(value = "/markLabel/saveLabel", method = RequestMethod.GET)
     public boolean saveLabelSet(String taskId, String userId, String labelVOSetJSON, boolean isWorker) {
-        return markLabelBL.saveLabelSet(new TaskId(taskId), new UserId(userId), (LabelSetVO)JsonConverter.toObject(labelVOSetJSON, LabelSetVO.class), isWorker);
+        return markLabelBL.saveLabelSet(new TaskId(taskId), new UserId(userId), (LabelSetVO)JsonConverter.jsonToObject(labelVOSetJSON, LabelSetVO.class), isWorker);
     }
 
     @RequestMapping(value = "/markLabel/setTaskAccomplished", method = RequestMethod.GET)
