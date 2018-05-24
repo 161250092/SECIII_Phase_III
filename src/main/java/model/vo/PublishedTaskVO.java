@@ -1,54 +1,53 @@
 package model.vo;
 
-import model.primitiveType.*;
-import model.task.PublishedTaskState;
+import model.task.PublishedTask;
 
 import java.util.ArrayList;
 
 public class PublishedTaskVO {
     //任务Id
-    TaskId taskId;
+    private String taskId;
 
     //标注类型
-    LabelType labelType;
+    private String labelType;
 
     //任务描述
-    TaskDescription taskDescription;
+    private String taskDescription;
 
     //接受该任务的工人人数
-    WorkerNum acceptedWorkerNum;
+    private int acceptedWorkerNum;
 
     //标注已通过审核的工人人数
-    WorkerNum finishedWorkerNum;
+    private int finishedWorkerNum;
 
     //完成该任务可获取的钱数
-    Cash taskPrice;
+    private double taskPrice;
 
-    public TaskId getTaskId() {
+    public String getTaskId() {
         return taskId;
     }
 
-    public LabelType getLabelType() {
+    public String getLabelType() {
         return labelType;
     }
 
-    public TaskDescription getTaskDescription() {
+    public String getTaskDescription() {
         return taskDescription;
     }
 
-    public WorkerNum getAcceptedWorkerNum() {
+    public int getAcceptedWorkerNum() {
         return acceptedWorkerNum;
     }
 
-    public WorkerNum getFinishedWorkerNum() {
+    public int getFinishedWorkerNum() {
         return finishedWorkerNum;
     }
 
-    public Cash getTaskPrice() {
+    public double getTaskPrice() {
         return taskPrice;
     }
 
-    public PublishedTaskVO(TaskId taskId, LabelType labelType, TaskDescription taskDescription, WorkerNum acceptedWorkerNum, WorkerNum finishedWorkerNum, Cash taskPrice) {
+    public PublishedTaskVO(String taskId, String labelType, String taskDescription, int acceptedWorkerNum, int finishedWorkerNum, int taskPrice) {
         this.taskId = taskId;
         this.labelType = labelType;
         this.taskDescription = taskDescription;
@@ -56,4 +55,18 @@ public class PublishedTaskVO {
         this.finishedWorkerNum = finishedWorkerNum;
         this.taskPrice = taskPrice;
     }
+
+    /**
+     * 提供从 PublishedTask类 实例 到 PublishedTaskVO的转换方法
+     * @param publishedTask
+     */
+    public PublishedTaskVO(PublishedTask publishedTask){
+        this.taskId = publishedTask.getTaskId().value;
+        this.labelType = publishedTask.getLabelType().value;
+        this.taskDescription = publishedTask.getTaskDescription().value;
+        this.acceptedWorkerNum = publishedTask.getAcceptedWorkerNum().value;
+        this.finishedWorkerNum = publishedTask.getFinishedWorkerNum().value;
+        this.taskPrice = publishedTask.getTaskPrice().value;
+    }
+
 }
