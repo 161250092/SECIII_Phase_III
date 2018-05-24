@@ -31,11 +31,18 @@ public interface WorkerBLService {
 
     /**
      * 众包工人接受任务
-     * @param userId 用户Id
+     * @param userId 工人Id
      * @param taskIdList 任务Id列表
      * @return 是否接受成功
      */
-    boolean acceptTask(UserId userId, TaskId[] taskIdList);
+    Exception acceptTask(UserId userId, TaskId[] taskIdList);
+
+    /**
+     * 众包工人放弃已接受的任务
+     * @param taskId 工人Id
+     * @return 是否放弃成功
+     */
+    Exception abandonTaskByWorker(UserId userId, TaskId taskId);
 
 
     /**
@@ -47,9 +54,9 @@ public interface WorkerBLService {
 
 
     /**
-     * 获取用户的排名
-     * @param userId 用户Id
-     * @return 用户排名
+     * 获取众包工人的排名
+     * @param userId 工人Id
+     * @return 工人排名
      */
     int getUserRanking(UserId userId);
 }

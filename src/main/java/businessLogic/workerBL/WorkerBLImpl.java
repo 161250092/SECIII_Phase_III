@@ -8,6 +8,9 @@ import data.UserData.UserDataImpl;
 import data.UserData.UserDataService;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
+import model.task.AcceptedTask;
+import model.vo.AcceptedTaskVO;
+import model.vo.PublishedTaskVO;
 
 import java.util.List;
 
@@ -23,39 +26,40 @@ public class WorkerBLImpl implements WorkerBLService {
     }
 
     @Override
-    public List<Task> getAcceptedAndAccomplishedTaskList(UserId userId) {
+    public List<AcceptedTaskVO> getAcceptedAndAccomplishedTaskList(UserId userId) {
         return null;
     }
 
     @Override
-    public List<Task> getAcceptedButIncompleteTaskList(UserId userId) {
+    public List<AcceptedTaskVO> getAcceptedButIncompleteTaskList(UserId userId) {
         return null;
     }
 
     @Override
-    public List<Task> getAvailableTaskList(UserId userId) {
+    public List<PublishedTaskVO> getAvailableTaskList(UserId userId) {
         return null;
     }
 
     @Override
-    public boolean acceptTask(UserId userId, String taskIListJSON) {
-        return false;
-    }
-
-    @Override
-    public Task getTaskById(TaskId taskId) {
+    public Exception acceptTask(UserId userId, TaskId[] taskIdList) {
         return null;
     }
 
     @Override
-    public int getUserScore(UserId userId) {
-        return 0;
+    public Exception abandonTaskByWorker(UserId userId, TaskId taskId) {
+        return null;
+    }
+
+    @Override
+    public AcceptedTask getAcceptedTaskById(TaskId taskId) {
+        return null;
     }
 
     @Override
     public int getUserRanking(UserId userId) {
         return 0;
     }
+
 
     //@Override
     //public List<Task> getAcceptedAndAccomplishedTaskList(String userId) {
