@@ -1,8 +1,11 @@
 package businessLogic.userBL;
 
+import model.primitiveType.UserId;
+import model.primitiveType.Username;
+
 public class UserBLStub implements UserBLService{
     @Override
-    public String getUserId(String userName) {
-        return "00000001";
+    public UserId getUserId(Username userName) {
+        return new UserId("testUserId");
     }
 }
