@@ -28,8 +28,9 @@ public class RequestorController {
      * @param userId 用户Id
      * @return 待审核的任务列表的Json字符串
      */
+    @RequestMapping(value = "/requestor/getSubmittedTaskList", method = RequestMethod.GET)
     public String getSubmittedTaskList(String userId){
-        return JsonConverter.toJson(requestorBL.getSubmittedTaskList(new UserId(userId)));
+        return JsonConverter.objectToJson(requestorBL.getSubmittedTaskList(new UserId(userId)));
     }
 
     /**
@@ -38,8 +39,8 @@ public class RequestorController {
      * @param userId 工人Id
      * @return 后台处理的结果
      */
-
-    public boolean passTask(String taskId, String userId){
+    @RequestMapping(value = "/requestor/passTask", method = RequestMethod.GET)
+    public Exception passTask(String taskId, String userId){
         return requestorBL.passTask(new TaskId(taskId), new UserId(userId));
     }
 
@@ -49,19 +50,20 @@ public class RequestorController {
      * @param userId 工人Id
      * @return 后台处理的结果
      */
-
-    public boolean rejectTask(String taskId, String userId){
+    @RequestMapping(value = "/requestor/rejectTask", method = RequestMethod.GET)
+    public Exception rejectTask(String taskId, String userId){
         return requestorBL.rejectTask(new TaskId(taskId), new UserId(userId));
     }
+
     /**
      * 审批工人的任务时 选择废弃
      * @param taskId 任务Id
      * @param userId 工人Id
      * @return 后台处理的结果
      */
-
-    public boolean abandonTask(String taskId, String userId){
-        return requestorBL.abandonTask(new TaskId(taskId), new UserId(userId));
+    @RequestMapping(value = "/requestor/abandonTaskByRequestor", method = RequestMethod.GET)
+    public Exception abandonTaskByRequestor(String taskId, String userId){
+        return requestorBL.abandonTaskByRequestor(new TaskId(taskId), new UserId(userId));
     }
 
     /**
@@ -69,8 +71,9 @@ public class RequestorController {
      * @param userId 用户Id
      * @return 发布且已完成任务的列表的Json字符串
      */
+    @RequestMapping(value = "/requestor/getAssignedAndAccomplishedTaskList", method = RequestMethod.GET)
     public String getAssignedAndAccomplishedTaskList(String userId){
-        return JsonConverter.toJson(requestorBL.getAssignedAndAccomplishedTaskList(new UserId(userId)));
+        return JsonConverter.objectToJson(requestorBL.getAssignedAndAccomplishedTaskList(new UserId(userId)));
     }
 
     /**
@@ -78,55 +81,8 @@ public class RequestorController {
      * @param userId 用户Id
      * @return 发布但未完成任务的列表的Json字符串
      */
+    @RequestMapping(value = "/requestor/getAssignedButIncompleteTaskList", method = RequestMethod.GET)
     public String getAssignedButIncompleteTaskList(String userId){
-        return JsonConverter.toJson(requestorBL.getAssignedButIncompleteTaskList(new UserId(userId)));
+        return JsonConverter.objectToJson(requestorBL.getAssignedButIncompleteTaskList(new UserId(userId)));
     }
-
-    ///**
-    // * 获取发布且已完成任务的列表
-    // * @param userId 用户Id
-    // * @return 发布且已完成任务的列表
-    // */
-    //@RequestMapping(value = "/RequestorController/getAssignedAndAccomplishedTaskList", method = RequestMethod.GET)
-    //public List<Task> getAssignedAndAccomplishedTaskList(String userId){
-    //    return requestorBLService.getAssignedAndAccomplishedTaskList(userId);
-    //}
-    //
-    ///**
-    // * 获取发布但未完成任务的列表
-    // * @param userId 用户Id
-    // * @return 发布但未完成任务的列表
-    // */
-    //@RequestMapping(value = "/RequestorController/getAssignedButIncompleteTaskList", method = RequestMethod.GET)
-    //public List<Task> getAssignedButIncompleteTaskList(String userId){
-    //    return requestorBLService.getAssignedButIncompleteTaskList(userId);
-    //}
-
-    ///**
-    // * 获取发布任务总数
-    // * @return 发布任务总数
-    // */
-    //@RequestMapping(value = "/RequestorController/getAssignedTaskNum", method = RequestMethod.GET)
-    //public int getAssignedTaskNum(){
-    //    return requestorBLService.getAssignedTaskNum();
-    //}
-
-    ///**
-    // * 上传欲发布的任务信息
-    // * @param taskJSON 任务的JSON字符串
-    // * @return 上传任务信息的状态
-    // */
-    //public Exception uploadTaskInfo(String taskJSON){
-    //    return requestorBL.uploadTaskInfo(taskJSON);
-    //}
-    //
-    ///**
-    // * 发布任务
-    // * @param taskId 任务Id
-    // * @return 后端处理任务发布请求的结果
-    // */
-    //@RequestMapping(value = "/RequestorController/assignTask", method = RequestMethod.GET)
-    //public Exception assignTask(String taskId){
-    //    return requestorBL.assignTask(new TaskId(taskId));
-    //}
 }

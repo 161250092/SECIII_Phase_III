@@ -23,7 +23,7 @@ public class LoginController {
      * @param password 用户密码
      * @return 登录状态
      */
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login/login", method = RequestMethod.GET)
     public Exception login(String username, String password){
         return loginBL.login(new Username(username), new Password(password));
     }

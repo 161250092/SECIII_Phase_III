@@ -4,6 +4,7 @@ import businessLogic.markLabel.markLabelBL.*;
 import model.JsonConverter;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
+import model.vo.LabelSetVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,12 +21,12 @@ public class MarkLabelController {
 
     @RequestMapping(value = "/markLabel/getLabel", method = RequestMethod.GET)
     public String getLabelVOSet(String taskId, String userId) {
-        return JsonConverter.toJson(markLabelBL.getLabelVOSet(new TaskId(taskId),new UserId(userId)));
+        return JsonConverter.objectToJson(markLabelBL.getLabelSetVO(new TaskId(taskId),new UserId(userId)));
     }
 
     @RequestMapping(value = "/markLabel/saveLabel", method = RequestMethod.GET)
     public boolean saveLabelSet(String taskId, String userId, String labelVOSetJSON, boolean isWorker) {
-        return markLabelBL.saveLabelSet(new TaskId(taskId), new UserId(userId), (LabelVOSet)JsonConverter.toObject(labelVOSetJSON, LabelVOSet.class), isWorker);
+        return markLabelBL.saveLabelSet(new TaskId(taskId), new UserId(userId), (LabelSetVO)JsonConverter.jsonToObject(labelVOSetJSON, LabelSetVO.class), isWorker);
     }
 
     @RequestMapping(value = "/markLabel/setTaskAccomplished", method = RequestMethod.GET)

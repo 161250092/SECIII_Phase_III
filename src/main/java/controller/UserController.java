@@ -2,7 +2,6 @@ package controller;
 
 import businessLogic.userBL.UserBLImpl;
 import businessLogic.userBL.UserBLService;
-import businessLogic.userBL.UserBLStub;
 import model.primitiveType.Username;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,7 +21,7 @@ public class UserController {
      * @param userName 用户昵称
      * @return 用户Id
      */
-    @RequestMapping(value = "/getUserId", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/getUserId", method = RequestMethod.GET)
     public String getUserId(String userName){
         return userBL.getUserId(new Username(userName)).value;
     }

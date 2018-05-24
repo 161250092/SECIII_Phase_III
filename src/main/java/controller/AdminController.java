@@ -19,8 +19,8 @@ public class AdminController {
         adminBL = new AdminBLImpl();
     }
 
-    @RequestMapping(value = "/getWebsiteStatistics", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/getWebsiteStatistics", method = RequestMethod.GET)
     public String getWebsiteStatistics(){
-        return JsonConverter.toJson(adminBL.getWebsiteStatistics());
+        return JsonConverter.objectToJson(adminBL.getWebsiteStatistics());
     }
 }
