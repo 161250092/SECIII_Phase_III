@@ -9,35 +9,35 @@ import java.util.ArrayList;
  */
 public class PublishedTask {
     //任务Id
-    TaskId taskId;
+    private TaskId taskId;
     //标注类型
-    LabelType labelType;
+    private LabelType labelType;
 
     //图片文件名数组
-    Filename[] imageFilename;
+    private Filename[] imageFilenameList;
     //任务描述
-    TaskDescription taskDescription;
+    private TaskDescription taskDescription;
 
     //接受该任务的工人人数
-    WorkerNum acceptedWorkerNum;
+    private WorkerNum acceptedWorkerNum;
     //标注已通过审核的工人人数
-    WorkerNum finishedWorkerNum;
+    private WorkerNum finishedWorkerNum;
 
     //发布者提供的标注样本信息
-    Sample sample;
+    private Sample sample;
 
     //完成该任务可获取的钱数
-    Cash taskPrice;
+    private Cash taskPrice;
 
     //任务状态列表（开始时间，任务金额，任务要求的工人人数，发布者优惠）
-    ArrayList<PublishedTaskState> publishedTaskStateList;
+    private ArrayList<PublishedTaskState> publishedTaskStateList;
 
-    public PublishedTask(TaskId taskId, LabelType labelType, Filename[] imageFilename, TaskDescription taskDescription,
+    public PublishedTask(TaskId taskId, LabelType labelType, Filename[] imageFilenameList, TaskDescription taskDescription,
                          WorkerNum acceptedWorkerNum, WorkerNum finishedWorkerNum, Sample sample,
                          Cash taskPrice, ArrayList<PublishedTaskState> publishedTaskStateList) {
         this.taskId = taskId;
         this.labelType = labelType;
-        this.imageFilename = imageFilename;
+        this.imageFilenameList = imageFilenameList;
         this.taskDescription = taskDescription;
         this.acceptedWorkerNum = acceptedWorkerNum;
         this.finishedWorkerNum = finishedWorkerNum;
@@ -54,8 +54,8 @@ public class PublishedTask {
         return labelType;
     }
 
-    public Filename[] getImageFilename() {
-        return imageFilename;
+    public Filename[] getImageFilenameList() {
+        return imageFilenameList;
     }
 
     public TaskDescription getTaskDescription() {

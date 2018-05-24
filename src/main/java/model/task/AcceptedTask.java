@@ -10,28 +10,28 @@ import java.util.Date;
  */
 public class AcceptedTask {
     //用户Id
-    UserId userId;
+    private UserId userId;
     //任务Id
-    TaskId taskId;
+    private TaskId taskId;
     //创建时间
-    Date startTime;
+    private Date startTime;
 
     //该用户对该任务的所有标注信息
-    Label taskImageLabelList[];
+    private Label[] taskLabelList;
 
     //该用户接任务时，任务的价格
-    Cash taskPrice;
+    private Cash taskPrice;
     //该用户接任务时所享受的优惠
-    WorkerDiscount workerDiscount;
+    private WorkerDiscount workerDiscount;
 
     //该任务的状态
-    AcceptedTaskState acceptedTaskState;
+    private AcceptedTaskState acceptedTaskState;
 
-    public AcceptedTask(UserId userId, TaskId taskId, Label taskImageLabelList[], Cash taskPrice, WorkerDiscount workerDiscount){
+    public AcceptedTask(UserId userId, TaskId taskId, Label[] taskLabelList, Cash taskPrice, WorkerDiscount workerDiscount){
         this.userId = userId;
         this.taskId = taskId;
         this.startTime = new Date();
-        this.taskImageLabelList = taskImageLabelList;
+        this.taskLabelList = taskLabelList;
         this.taskPrice = taskPrice;
         this.workerDiscount = workerDiscount;
         this.acceptedTaskState = AcceptedTaskState.ACCEPTED;
@@ -49,8 +49,8 @@ public class AcceptedTask {
         return startTime;
     }
 
-    public Label[] getTaskImageLabelList() {
-        return taskImageLabelList;
+    public Label[] getTaskLabelList() {
+        return taskLabelList;
     }
 
     public Cash getOriginalTaskPrice() {
