@@ -7,7 +7,7 @@ import model.primitiveType.*;
  */
 public class Requestor extends User {
     //一段时间内，发布者能发布的最大任务数
-    TaskNum maxPublishedTaskNum;
+    private TaskNum maxPublishedTaskNum;
 
     public Requestor(UserId userId, Username username, Password password,
                      Email email, Phone phone, Cash cash,

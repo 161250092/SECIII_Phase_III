@@ -4,7 +4,6 @@ import businessLogic.markLabel.markLabelBL.*;
 import model.JsonConverter;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
-import model.task.LabelVOSet;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;

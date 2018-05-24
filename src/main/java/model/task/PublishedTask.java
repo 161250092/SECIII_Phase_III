@@ -64,7 +64,7 @@ public class PublishedTask {
 
     public WorkerNum getRequiredWorkerNum() {
         if(publishedTaskStateList != null){
-            return publishedTaskStateList.get(publishedTaskStateList.size()-1).requiredWorkerNum;
+            return publishedTaskStateList.get(publishedTaskStateList.size()-1).getRequiredWorkerNum();
         }else {
             return null;
         }

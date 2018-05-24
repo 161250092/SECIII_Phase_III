@@ -47,7 +47,7 @@ public class PublishedTaskVO {
         return taskPrice;
     }
 
-    public PublishedTaskVO(String taskId, String labelType, String taskDescription, int acceptedWorkerNum, int finishedWorkerNum, int taskPrice) {
+    private PublishedTaskVO(String taskId, String labelType, String taskDescription, int acceptedWorkerNum, int finishedWorkerNum, double taskPrice) {
         this.taskId = taskId;
         this.labelType = labelType;
         this.taskDescription = taskDescription;
@@ -58,15 +58,11 @@ public class PublishedTaskVO {
 
     /**
      * 提供从 PublishedTask类 实例 到 PublishedTaskVO的转换方法
-     * @param publishedTask
+     * @param publishedTask PublishedTask类
      */
     public PublishedTaskVO(PublishedTask publishedTask){
-        this.taskId = publishedTask.getTaskId().value;
-        this.labelType = publishedTask.getLabelType().value;
-        this.taskDescription = publishedTask.getTaskDescription().value;
-        this.acceptedWorkerNum = publishedTask.getAcceptedWorkerNum().value;
-        this.finishedWorkerNum = publishedTask.getFinishedWorkerNum().value;
-        this.taskPrice = publishedTask.getTaskPrice().value;
+        this(publishedTask.getTaskId().value, publishedTask.getLabelType().value, publishedTask.getTaskDescription().value,
+                publishedTask.getAcceptedWorkerNum().value, publishedTask.getFinishedWorkerNum().value, publishedTask.getTaskPrice().value);
     }
 
 }

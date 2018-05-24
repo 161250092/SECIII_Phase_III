@@ -1,12 +1,9 @@
 package model.primitiveType;
 
-/**
- * 威望值
- */
-public class Prestige {
+public class AcceptedTaskScore {
     public double value;
 
-    public Prestige(double value) {
+    public AcceptedTaskScore(double value) {
         this.value = value;
     }
 }
