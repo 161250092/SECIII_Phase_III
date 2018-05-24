@@ -10,13 +10,13 @@ import java.util.Date;
  */
 public class PublishedTaskState {
     //创建时间
-    Date startTime;
+    private Date startTime;
     //任务所需的工人人数
-    WorkerNum requiredWorkerNum;
+    private WorkerNum requiredWorkerNum;
     //任务在这一状态下，每个工人完成该任务后获得的金额
-    Cash taskPricePerWorker;
+    private Cash taskPricePerWorker;
     //任务这一状态下所使用的发布者优惠
-    RequestorDiscount requestorDiscount;
+    private RequestorDiscount requestorDiscount;
 
     public PublishedTaskState(WorkerNum requiredWorkerNum, Cash taskPricePerWorker, RequestorDiscount requestorDiscount) {
         this.startTime = new Date();

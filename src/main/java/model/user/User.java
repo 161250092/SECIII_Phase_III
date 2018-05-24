@@ -7,24 +7,24 @@ import model.primitiveType.*;
  */
 abstract public class User {
     //用户Id
-    UserId userId;
+    private UserId userId;
     //用户昵称
-    Username username;
+    private Username username;
     //密码
-    Password password;
+    private Password password;
 
     //电子邮件，其中有邮件地址
-    Email email;
+    private Email email;
     //电话，其中有电话号码
-    Phone phone;
+    private Phone phone;
 
     //该用户账户中的金额
-    Cash cash;
+    private Cash cash;
     //威望值
-    Prestige prestige;
+    private Prestige prestige;
 
     //用户等级
-    UserLevel userLevel;
+    private UserLevel userLevel;
 
     public User(UserId userId, Username username, Password password, Email email, Phone phone, Cash cash, Prestige prestige) {
         this.userId = userId;

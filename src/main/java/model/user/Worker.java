@@ -7,7 +7,7 @@ import model.primitiveType.*;
  */
 public class Worker extends User {
     //一段时间内，工人能接受的最大任务数
-    TaskNum maxAcceptedTaskNum;
+    private TaskNum maxAcceptedTaskNum;
 
     public Worker(UserId userId, Username username, Password password,
                   Email email, Phone phone, Cash cash,

@@ -4,9 +4,9 @@ package model.primitiveType;
  * 威望值
  */
 public class Prestige {
-    public int value;
+    public double value;
 
-    public Prestige(int value) {
+    public Prestige(double value) {
         this.value = value;
     }
 }
