@@ -1,7 +1,6 @@
 package exception.DataException;
 
 import exception.WrongMessage;
-import model.po.User;
 
 public class UserNotFoundException extends Exception{
     private WrongMessage wrongMessage;

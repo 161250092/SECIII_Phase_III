@@ -1,7 +1,6 @@
 package data.TaskData;
 
 import data.fileHelper.FileHelper;
-import model.po.Task;
 
 import java.io.*;
 import java.nio.file.Files;

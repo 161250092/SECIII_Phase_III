@@ -1,7 +1,6 @@
 package data.UserData;
 
 
-import model.po.User;
 import data.fileHelper.FileHelper;
 
 import java.util.ArrayList;

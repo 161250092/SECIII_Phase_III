@@ -77,8 +77,8 @@ public class MarkLabelBLImpl implements MarkLabelBLService{
 //                    FrameLabelVO frameLabelVO = null;
 //                    List<Frame> poList = frameLabel.getLabelList();
 //                    ArrayList<FrameLabelListItemVO> voList = new ArrayList<>();
-//                    for(Frame po: poList){
-//                        voList.add(new FrameLabelListItemVO(po.getStartX(),po.getStartY(),po.getWidth(),po.getHeight(),po.getTag()));
+//                    for(Frame kk: poList){
+//                        voList.add(new FrameLabelListItemVO(kk.getStartX(),kk.getStartY(),kk.getWidth(),kk.getHeight(),kk.getTag()));
 //                    }
 //                    frameLabelVO = new FrameLabelVO(image, voList);
 //                    objectToJson = gson.toJson(frameLabelVO);

@@ -1,8 +1,6 @@
 package businessLogic.adminBL;
 
-import model.po.WebsiteStatistics;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import model.statistics.WebsiteStatistics;
 
 public class AdminBLStub implements AdminBLService{
     @Override

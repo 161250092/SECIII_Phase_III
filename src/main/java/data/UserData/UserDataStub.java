@@ -1,7 +1,5 @@
 package data.UserData;
 
-import model.po.User;
-
 import java.util.List;
 import java.util.ArrayList;
 

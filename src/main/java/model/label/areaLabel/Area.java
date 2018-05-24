@@ -1,4 +1,4 @@
-package model.po.areaLabel;
+package model.label.areaLabel;
 
 import java.util.List;
 

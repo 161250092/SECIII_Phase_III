@@ -1,6 +1,6 @@
 package model.task;
 
-import model.po.Label;
+import model.label.Label;
 
 /**
  * 发布者提供的标注样本类

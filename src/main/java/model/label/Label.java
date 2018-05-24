@@ -1,9 +1,11 @@
 package model.label;
 
+import java.io.Serializable;
+
 /**
- * 标注类型
+ * 所有标签类的父类
  */
-abstract public class Label {
+public abstract class Label implements Serializable{
     //标注类型
     protected String type;
     public String getType() {

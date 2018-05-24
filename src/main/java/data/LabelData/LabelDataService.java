@@ -1,6 +1,6 @@
 package data.LabelData;
 
-import model.po.Label;
+import model.label.Label;
 import java.util.List;
 
 public interface LabelDataService {

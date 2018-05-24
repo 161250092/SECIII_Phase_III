@@ -1,7 +1,5 @@
 package data.TaskData;
 
-import model.po.Task;
-
 import java.util.List;
 
 public interface TaskDataService {

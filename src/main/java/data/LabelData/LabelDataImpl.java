@@ -1,9 +1,9 @@
 package data.LabelData;
 
 import data.fileHelper.FileHelper;
-import model.po.areaLabel.AreaLabel;
-import model.po.ImageLabel;
-import model.po.Label;
+import model.label.areaLabel.AreaLabel;
+import model.label.ImageLabel;
+import model.label.Label;
 
 import java.io.File;
 import java.io.FileReader;
@@ -12,7 +12,7 @@ import java.io.BufferedWriter;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-import model.po.frameLabel.FrameLabel;
+import model.label.frameLabel.FrameLabel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

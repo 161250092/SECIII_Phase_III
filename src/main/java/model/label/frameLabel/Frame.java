@@ -2,14 +2,14 @@ package model.label.frameLabel;
 
 import java.io.Serializable;
 
-public class FrameLabelListItem implements Serializable {
+public class Frame implements Serializable {
+    private String tag;
     private int startX;
     private int startY;
     private int width;
     private int height;
-    private String tag;
 
-    public FrameLabelListItem(int startX, int startY, int width, int height, String tag){
+    public Frame(int startX, int startY, int width, int height, String tag){
         this.startX = startX;
         this.startY = startY;
         this.width = width;

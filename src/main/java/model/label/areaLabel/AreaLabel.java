@@ -1,6 +1,6 @@
-package model.po.areaLabel;
+package model.label.areaLabel;
 
-import model.po.Label;
+import model.label.Label;
 
 import java.io.Serializable;
 import java.util.ArrayList;

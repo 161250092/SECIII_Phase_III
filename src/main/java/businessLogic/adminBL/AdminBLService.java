@@ -1,6 +1,6 @@
 package businessLogic.adminBL;
 
-import model.po.WebsiteStatistics;
+import model.statistics.WebsiteStatistics;
 
 public interface AdminBLService {
     /**

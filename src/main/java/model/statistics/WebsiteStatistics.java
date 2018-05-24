@@ -1,4 +1,4 @@
-package model.po;
+package model.statistics;
 
 /**
  * 站点统计信息类

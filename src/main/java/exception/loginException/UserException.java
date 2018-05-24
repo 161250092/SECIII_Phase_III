@@ -1,7 +1,6 @@
 package exception.loginException;
 
 import exception.WrongMessage;
-import model.po.User;
 
 public class UserException extends Exception{
     private WrongMessage wrongMessage;

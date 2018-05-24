@@ -1,8 +1,5 @@
 package businessLogic.workerBL;
 
-import model.po.Label;
-import model.po.Task;
-import model.po.User;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
 

@@ -1,4 +1,4 @@
-package model.po.areaLabel;
+package model.label.areaLabel;
 
 /**
  * 区域标注中线的像素点
