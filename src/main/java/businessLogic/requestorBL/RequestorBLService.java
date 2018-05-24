@@ -17,7 +17,7 @@ public interface RequestorBLService {
      * @param imageFilenameList 任务所含图片的文件名列表
      * @return 上传任务信息的状态
      */
-    Exception uploadTaskInfo(PublishedTaskVO publishedTaskVO, Filename[] imageFilenameList);
+    Exception uploadTaskInfo(PublishedTaskVO publishedTaskVO, List<Filename> imageFilenameList);
 
     /**
      * 发布任务

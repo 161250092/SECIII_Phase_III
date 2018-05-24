@@ -3,12 +3,15 @@ package controller;
 import businessLogic.requestorBL.RequestorBLImpl;
 import businessLogic.requestorBL.RequestorBLService;
 import model.JsonConverter;
+import model.primitiveType.Filename;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
+import model.vo.PublishedTaskVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +24,25 @@ public class RequestorController {
 
     public RequestorController(){
         requestorBL = new RequestorBLImpl();
+    }
+
+    /**
+     * 上传欲发布的任务信息
+     * @param publishedTaskVOJSON 发布的任务VO的JSON字符串
+     * @param imageFilenameListJSON 任务所含图片的文件名列表的JSON字符串
+     * @return 上传任务信息的状态
+     */
+    Exception uploadTaskInfo(String publishedTaskVOJSON, String imageFilenameListJSON){
+        return requestorBL.uploadTaskInfo((PublishedTaskVO) JsonConverter.jsonToObject(publishedTaskVOJSON, PublishedTaskVO.class), (List<Filename>)JsonConverter.jsonToObject(imageFilenameListJSON, ArrayList.class));
+    }
+
+    /**
+     * 发布任务
+     * @param taskId 任务Id
+     * @return 后端处理任务发布请求的结果
+     */
+    Exception assignTask(String taskId){
+        return requestorBL.assignTask(new TaskId(taskId));
     }
 
     /**
