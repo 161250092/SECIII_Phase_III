@@ -23,7 +23,7 @@ public class RegisterController {
      * @param username 用户昵称
      * @return 是否重名
      */
-    @RequestMapping(value = "/isUsernameExist", method = RequestMethod.GET)
+    @RequestMapping(value = "/register/isUsernameExist", method = RequestMethod.GET)
     public boolean isUsernameExist(String username){
         return registerBL.isUsernameExist(new Username(username));
     }
@@ -34,7 +34,7 @@ public class RegisterController {
      * @param password 用户密码
      * @return 是否注册成功
      */
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @RequestMapping(value = "/register/register", method = RequestMethod.GET)
     public Exception register(String username, String password){
         return registerBL.register(new Username(username), new Password(password));
     }

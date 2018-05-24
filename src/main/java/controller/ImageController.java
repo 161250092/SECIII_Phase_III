@@ -34,7 +34,7 @@ public class ImageController {
      * @param taskId 任务ID
      * @param fileList 图片列表
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/uploadTaskImage")
+    @RequestMapping(method = RequestMethod.POST, value = "/image/uploadTaskImage")
     public String uploadTaskImage(
             @RequestParam("taskId") String taskId,
             @RequestParam("fileList") MultipartFile[] fileList,
@@ -74,7 +74,7 @@ public class ImageController {
      * @param filename 图片名
      * @return 图片（字节数组）
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/getTaskImage/{taskId:.+}/{filename:.+}", produces = MediaType.IMAGE_PNG_VALUE)
+    @RequestMapping(method = RequestMethod.GET, value = "/image/getTaskImage/{taskId:.+}/{filename:.+}", produces = MediaType.IMAGE_PNG_VALUE)
     @ResponseBody
     public ResponseEntity<?> getTaskImage(@PathVariable String taskId, @PathVariable String filename) {
         System.out.println(taskId);
