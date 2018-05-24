@@ -11,14 +11,14 @@ import java.util.List;
 public interface WorkerBLService {
     /**
      * 获取所有接受且已完成的任务
-     * @param userId 用户Id
+     * @param userId 工人Id
      * @return 所有已完成的任务
      */
     List<AcceptedTaskVO> getAcceptedAndAccomplishedTaskList(UserId userId);
 
     /**
      * 获取所有接受但未完成的任务
-     * @param userId 用户Id
+     * @param userId 工人Id
      * @return 所有未完成的任务
      */
     List<AcceptedTaskVO> getAcceptedButIncompleteTaskList(UserId userId);
