@@ -11,18 +11,18 @@ import java.util.List;
  */
 public class FrameLabel extends Label implements Serializable {
 
-    private List<FrameLabelListItem> labelList;
+    private List<Frame> frameList;
 
-    public FrameLabel(List<FrameLabelListItem> frameLabelListItemList) {
+    public FrameLabel(List<Frame> frameList) {
         setType("FrameLabel");
-        this.labelList = frameLabelListItemList;
+        this.frameList = frameList;
     }
 
     public FrameLabel(){
         setType("FrameLabel");
-        this.labelList = new ArrayList<FrameLabelListItem>();
+        this.frameList = new ArrayList<Frame>();
     }
 
-    public List<FrameLabelListItem> getLabelList() { return labelList; }
+    public List<Frame> getFrameList() { return frameList; }
 }
 

@@ -9,24 +9,20 @@ import java.util.List;
  */
 public class ImageLabel extends Label implements Serializable{
 
-    private List<String> labelList;
+    private List<String> tagList;
 
-    public ImageLabel(List<String> labelList) {
+    public ImageLabel(List<String> tagList) {
         setType("ImageLabel");
-        this.labelList = labelList;
+        this.tagList = tagList;
     }
 
     public ImageLabel(){
         setType("ImageLabel");
-        this.labelList = new ArrayList<>();
+        this.tagList = new ArrayList<>();
     }
 
-    public void setLabelList(List<String> labelList) {
-        this.labelList = labelList;
-    }
-
-    public List<String> getLabelList() {
-        return labelList;
+    public List<String> getTagList() {
+        return tagList;
     }
 
 }
