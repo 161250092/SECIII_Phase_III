@@ -35,7 +35,7 @@ public interface WorkerBLService {
      * @param taskIdList 任务Id列表
      * @return 是否接受成功
      */
-    Exception acceptTask(UserId userId, TaskId[] taskIdList);
+    Exception acceptTask(UserId userId, List<TaskId> taskIdList);
 
     /**
      * 众包工人放弃已接受的任务
