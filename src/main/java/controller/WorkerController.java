@@ -6,6 +6,7 @@ import model.JsonConverter;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
 import model.task.AcceptedTask;
+import model.user.Worker;
 import model.vo.AcceptedTaskVO;
 import model.vo.PublishedTaskVO;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -95,5 +96,14 @@ public class WorkerController{
     @RequestMapping(value = "/worker/getUserRanking", method = RequestMethod.GET)
     public int getUserRanking(String userId) {
         return workerBL.getUserRanking(new UserId(userId));
+    }
+
+    /**
+     * 获取工人的个人信息
+     * @param userId 工人Id
+     * @return Worker对象
+     */
+    public Worker getWorkerInfo(String userId){
+        return workerBL.getWorkerInfo(new UserId(userId));
     }
 }

@@ -8,6 +8,7 @@ import model.primitiveType.Filename;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
 import model.task.PublishedTask;
+import model.user.Requestor;
 import model.vo.AcceptedTaskVO;
 import model.vo.PublishedTaskVO;
 
@@ -24,12 +25,22 @@ public class RequestorBLImpl implements RequestorBLService{
     }
 
     @Override
-    public Exception uploadTaskInfo(PublishedTaskVO publishedTaskVO, Filename[] imageFilenameList){
+    public Exception uploadTaskInfo(PublishedTaskVO publishedTaskVO, List<Filename> imageFilenameList) {
         return null;
     }
 
     @Override
     public Exception assignTask(TaskId taskId) {
+        return null;
+    }
+
+    @Override
+    public Exception revokeTask(TaskId taskId) {
+        return null;
+    }
+
+    @Override
+    public Exception reviseTask(TaskId taskId) {
         return null;
     }
 
@@ -65,6 +76,11 @@ public class RequestorBLImpl implements RequestorBLService{
 
     @Override
     public List<PublishedTask> getAssignedButIncompleteTaskList(UserId userId) {
+        return null;
+    }
+
+    @Override
+    public Requestor getRequestorInfo(UserId userId) {
         return null;
     }
 

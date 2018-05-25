@@ -6,6 +6,7 @@ import model.JsonConverter;
 import model.primitiveType.Filename;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
+import model.user.Requestor;
 import model.vo.PublishedTaskVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,7 +33,8 @@ public class RequestorController {
      * @param imageFilenameListJSON 任务所含图片的文件名列表的JSON字符串
      * @return 上传任务信息的状态
      */
-    Exception uploadTaskInfo(String publishedTaskVOJSON, String imageFilenameListJSON){
+    @RequestMapping(value = "/requestor/uploadTaskInfo", method = RequestMethod.GET)
+    public Exception uploadTaskInfo(String publishedTaskVOJSON, String imageFilenameListJSON){
         return requestorBL.uploadTaskInfo((PublishedTaskVO) JsonConverter.jsonToObject(publishedTaskVOJSON, PublishedTaskVO.class), (List<Filename>)JsonConverter.jsonToObject(imageFilenameListJSON, ArrayList.class));
     }
 
@@ -41,8 +43,29 @@ public class RequestorController {
      * @param taskId 任务Id
      * @return 后端处理任务发布请求的结果
      */
-    Exception assignTask(String taskId){
+    @RequestMapping(value = "/requestor/assignTask", method = RequestMethod.GET)
+    public Exception assignTask(String taskId){
         return requestorBL.assignTask(new TaskId(taskId));
+    }
+
+    /**
+     * 撤销已发布的任务
+     * @param taskId 任务Id
+     * @return 后端处理任务撤销请求的结果
+     */
+    @RequestMapping(value = "/requestor/revokeTask", method = RequestMethod.GET)
+    public Exception revokeTask(String taskId){
+        return requestorBL.revokeTask(new TaskId(taskId));
+    }
+
+    /**
+     * 修改已发布的任务（追加任务的悬赏金额）
+     * @param taskId 任务Id
+     * @return 后端处理任务修改请求的结果
+     */
+    @RequestMapping(value = "/requestor/reviseTask", method = RequestMethod.GET)
+    public Exception reviseTask(String taskId){
+        return requestorBL.reviseTask(new TaskId(taskId));
     }
 
     /**
@@ -106,5 +129,15 @@ public class RequestorController {
     @RequestMapping(value = "/requestor/getAssignedButIncompleteTaskList", method = RequestMethod.GET)
     public String getAssignedButIncompleteTaskList(String userId){
         return JsonConverter.objectToJson(requestorBL.getAssignedButIncompleteTaskList(new UserId(userId)));
+    }
+
+    /**
+     * 获取发布者的个人信息
+     * @param userId 发布者Id
+     * @return Requestor对象
+     */
+    @RequestMapping(value = "/requestor/getRequestorInfo", method = RequestMethod.GET)
+    public Requestor getRequestorInfo(String userId){
+        return requestorBL.getRequestorInfo(new UserId(userId));
     }
 }

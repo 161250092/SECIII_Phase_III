@@ -3,6 +3,7 @@ package businessLogic.workerBL;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
 import model.task.AcceptedTask;
+import model.user.Worker;
 import model.vo.AcceptedTaskVO;
 import model.vo.PublishedTaskVO;
 
@@ -59,4 +60,11 @@ public interface WorkerBLService {
      * @return 工人排名
      */
     int getUserRanking(UserId userId);
+
+    /**
+     * 获取工人的个人信息
+     * @param userId 工人Id
+     * @return Worker对象
+     */
+    Worker getWorkerInfo(UserId userId);
 }

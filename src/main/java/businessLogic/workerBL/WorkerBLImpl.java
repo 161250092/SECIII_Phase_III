@@ -9,6 +9,7 @@ import data.UserData.UserDataService;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
 import model.task.AcceptedTask;
+import model.user.Worker;
 import model.vo.AcceptedTaskVO;
 import model.vo.PublishedTaskVO;
 
@@ -41,7 +42,7 @@ public class WorkerBLImpl implements WorkerBLService {
     }
 
     @Override
-    public Exception acceptTask(UserId userId, TaskId[] taskIdList) {
+    public Exception acceptTask(UserId userId, List<TaskId> taskIdList) {
         return null;
     }
 
@@ -58,6 +59,11 @@ public class WorkerBLImpl implements WorkerBLService {
     @Override
     public int getUserRanking(UserId userId) {
         return 0;
+    }
+
+    @Override
+    public Worker getWorkerInfo(UserId userId) {
+        return null;
     }
 
 

@@ -4,6 +4,8 @@ import model.primitiveType.Filename;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
 import model.task.PublishedTask;
+import model.user.Requestor;
+import model.user.User;
 import model.vo.AcceptedTaskVO;
 import model.vo.PublishedTaskVO;
 
@@ -25,6 +27,20 @@ public interface RequestorBLService {
      * @return 后端处理任务发布请求的结果
      */
     Exception assignTask(TaskId taskId);
+
+    /**
+     * 撤销已发布的任务
+     * @param taskId 任务Id
+     * @return 后端处理任务撤销请求的结果
+     */
+    Exception revokeTask(TaskId taskId);
+
+    /**
+     * 修改已发布的任务（追加任务的悬赏金额）
+     * @param taskId 任务Id
+     * @return 后端处理任务修改请求的结果
+     */
+    Exception reviseTask(TaskId taskId);
 
     /**
      * 获取发布者已发布的任务
@@ -77,4 +93,11 @@ public interface RequestorBLService {
      * @return 发布但未完成任务的列表
      */
     List<PublishedTask> getAssignedButIncompleteTaskList(UserId userId);
+
+    /**
+     * 获取发布者的个人信息
+     * @param userId 发布者Id
+     * @return Requestor对象
+     */
+    Requestor getRequestorInfo(UserId userId);
 }
