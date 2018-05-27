@@ -1,5 +1,6 @@
 package controller;
 
+import businessLogic.markLabelBL.MarkImageLabelBLStub;
 import businessLogic.markLabelBL.MarkLabelBLImpl;
 import businessLogic.markLabelBL.MarkLabelBLService;
 import model.JsonConverter;
@@ -17,7 +18,7 @@ public class MarkLabelController {
 
     public MarkLabelController() {
         //stub
-        markLabelBL = new MarkLabelBLImpl();
+        markLabelBL = new MarkImageLabelBLStub();
     }
 
     @RequestMapping(value = "/markLabel/getLabel", method = RequestMethod.GET)

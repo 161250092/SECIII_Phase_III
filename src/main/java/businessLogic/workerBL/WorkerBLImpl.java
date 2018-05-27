@@ -1,11 +1,11 @@
 package businessLogic.workerBL;
 
-import data.LabelData.LabelDataImpl;
-import data.LabelData.LabelDataService;
-import data.TaskData.TaskDataImpl;
-import data.TaskData.TaskDataService;
-import data.UserData.UserDataImpl;
-import data.UserData.UserDataService;
+//import data.LabelData.LabelDataImpl;
+//import data.LabelData.LabelDataService;
+//import data.TaskData.TaskDataImpl;
+//import data.TaskData.TaskDataService;
+//import data.UserData.UserDataImpl;
+//import data.UserData.UserDataService;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
 import model.task.AcceptedTask;
@@ -16,14 +16,14 @@ import model.vo.PublishedTaskVO;
 import java.util.List;
 
 public class WorkerBLImpl implements WorkerBLService {
-    private LabelDataService labelDataService;
-    private TaskDataService taskDataService;
-    private UserDataService userDataService;
+    //private LabelDataService labelDataService;
+    //private TaskDataService taskDataService;
+    //private UserDataService userDataService;
 
     public WorkerBLImpl(){
-        labelDataService = new LabelDataImpl();
-        taskDataService = new TaskDataImpl();
-        userDataService = new UserDataImpl();
+        //labelDataService = new LabelDataImpl();
+        //taskDataService = new TaskDataImpl();
+        //userDataService = new UserDataImpl();
     }
 
     @Override

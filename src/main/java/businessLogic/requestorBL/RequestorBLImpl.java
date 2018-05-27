@@ -1,9 +1,9 @@
 package businessLogic.requestorBL;
 
-import data.TaskData.TaskDataImpl;
-import data.TaskData.TaskDataService;
-import data.UserData.UserDataImpl;
-import data.UserData.UserDataService;
+//import data.TaskData.TaskDataImpl;
+//import data.TaskData.TaskDataService;
+//import data.UserData.UserDataImpl;
+//import data.UserData.UserDataService;
 import model.primitiveType.Filename;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
@@ -16,12 +16,12 @@ import java.util.List;
 
 public class RequestorBLImpl implements RequestorBLService{
 
-    private UserDataService userDataService;
-    private TaskDataService taskDataService;
+    //private UserDataService userDataService;
+    //private TaskDataService taskDataService;
 
     public RequestorBLImpl(){
-        taskDataService = new TaskDataImpl();
-        userDataService = new UserDataImpl();
+        //taskDataService = new TaskDataImpl();
+        //userDataService = new UserDataImpl();
     }
 
     @Override

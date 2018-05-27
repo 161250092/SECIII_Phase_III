@@ -1,24 +1,24 @@
 package businessLogic.markLabelBL;
 
-import data.LabelData.LabelDataImpl;
-import data.LabelData.LabelDataService;
-import data.TaskData.TaskDataImpl;
-import data.TaskData.TaskDataService;
-import data.UserData.UserDataImpl;
-import data.UserData.UserDataService;
+//import data.LabelData.LabelDataImpl;
+//import data.LabelData.LabelDataService;
+//import data.TaskData.TaskDataImpl;
+//import data.TaskData.TaskDataService;
+//import data.UserData.UserDataImpl;
+//import data.UserData.UserDataService;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;
 import model.vo.LabelSetVO;
 
 public class MarkLabelBLImpl implements MarkLabelBLService{
-    private TaskDataService taskDataService;
-    private LabelDataService labelDataService;
-    private UserDataService userDataService;
+    //private TaskDataService taskDataService;
+    //private LabelDataService labelDataService;
+    //private UserDataService userDataService;
 
     public MarkLabelBLImpl(){
-        taskDataService = new TaskDataImpl();
-        labelDataService = new LabelDataImpl();
-        userDataService = new UserDataImpl();
+        //taskDataService = new TaskDataImpl();
+        //labelDataService = new LabelDataImpl();
+        //userDataService = new UserDataImpl();
     }
     @Override
     public LabelSetVO getLabelSetVO(TaskId taskId, UserId userId) {

@@ -1,60 +1,43 @@
-//package businessLogic.markLabelBL.markLabelBL;
-//
-//import model.vo.ImageLabelVO;
-//import com.google.gson.Gson;
-//import com.google.gson.GsonBuilder;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//public class MarkImageLabelBLStub implements MarkLabelBLService {
-//
-//    @Override
-//    public int getTaskImageNumber(String taskId) {
-//        return 3;
-//    }
-//
-//    @Override
-//    public String getLabel(String taskId, String userId, String labelType, int imageIndex) {
-//        System.out.println("taskId:" + taskId);
-//        System.out.println("userId:" + userId);
-//        System.out.println("labelType:" + labelType);
-//        System.out.println("imageIndex:" + imageIndex);
-//
-//        List<String> labelList  = new ArrayList<>();
-//        ImageLabelVO vo = null;
-//
-//        if(imageIndex == 0){
-//            vo = new ImageLabelVO("test5.jpg", labelList);
-//            labelList.add("tag0-1");
-//            labelList.add("tag0-2");
-//            labelList.add("tag0-3");
-//        }else if (imageIndex == 1){
-//            vo = new ImageLabelVO("test6.jpg", labelList);
-//            labelList.add("tag1-1");
-//            labelList.add("tag2-2");
-//        }
-//
-//        Gson gson = new GsonBuilder().create();
-//        String objectToJson = gson.toJson(vo);
-//
-//        return objectToJson;
-//    }
-//
-//    @Override
-//    public boolean saveLabel(String taskId, String userId, String labelType, int imageIndex, String labelVOJson) {
-//        System.out.println("taskId:" + taskId);
-//        System.out.println("userId:" + userId);
-//        System.out.println("labelType:" + labelType);
-//        System.out.println("imageIndex:" + imageIndex);
-//        System.out.println("frameLabelJson:" + labelVOJson);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean setTaskAccomplished(String taskId, String userId) {
-//        System.out.println("taskId:" + taskId);
-//        System.out.println("userId:" + userId);
-//        return true;
-//    }
-//}
+package businessLogic.markLabelBL;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import model.label.ImageLabel;
+import model.label.Label;
+import model.primitiveType.Filename;
+import model.primitiveType.TaskId;
+import model.primitiveType.UserId;
+import model.vo.LabelSetVO;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MarkImageLabelBLStub implements MarkLabelBLService {
+    @Override
+    public LabelSetVO getLabelSetVO(TaskId taskId, UserId userId) {
+        System.out.println("taskId:" + taskId.value);
+        System.out.println("userId:" + userId.value);
+
+        List<Label> l = new ArrayList<>();
+        l.add(new ImageLabel());
+        l.add(new ImageLabel());
+        l.add(new ImageLabel());
+
+        List<Filename> fl = new ArrayList<>();
+        fl.add(new Filename("test1.jpg"));
+        fl.add(new Filename("test2.jpg"));
+        fl.add(new Filename("test3.jpg"));
+
+        return new LabelSetVO(3, l, fl);
+    }
+
+    @Override
+    public boolean saveLabelSet(TaskId taskId, UserId userId, LabelSetVO labelSetVO, boolean isWorker) {
+        return true;
+    }
+
+    @Override
+    public boolean setTaskAccomplished(TaskId taskId, UserId userId, boolean isWorker) {
+        return true;
+    }
+}

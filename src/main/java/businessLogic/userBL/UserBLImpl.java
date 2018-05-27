@@ -1,17 +1,17 @@
 package businessLogic.userBL;
 
-import data.UserData.UserDataImpl;
-import data.UserData.UserDataService;
+//import data.UserData.UserDataImpl;
+//import data.UserData.UserDataService;
 import model.primitiveType.UserId;
 import model.primitiveType.Username;
 
 import java.util.List;
 
 public class UserBLImpl implements UserBLService{
-    private UserDataService userDataService;
+    //private UserDataService userDataService;
 
     public UserBLImpl(){
-        userDataService = new UserDataImpl();
+        //userDataService = new UserDataImpl();
     }
 
     @Override
