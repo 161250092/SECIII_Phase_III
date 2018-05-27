@@ -3,6 +3,10 @@ new Vue({
     data:{
         userId: "",
         AllUnfinishedTasks:[],
+        taskDescription:"请点击要查看的任务",
+        reviseTaskId:"无",
+        reviseTaskPrice:"无",
+
         IMAGE_LABEL_TYPE: "ImageLabel",
         FRAME_LABEL_TYPE: "FrameLabel",
         AREA_LABEL_TYPE: "AreaLabel"
@@ -27,7 +31,35 @@ new Vue({
             }else if(labelType === this.AREA_LABEL_TYPE){
                 return "区域标注";
             }
+        },
+
+        detailedInfo:function(index){
+            taskDescription = AllFinishedTasks[index].taskDescription;
+        },
+
+        changeTaskPrice:function(index){
+            reviseTaskId = AllFinishedTasks[index].taskId;
+        },
+
+
+        //未完成
+        recallTask:function(index){
+
+        },
+
+        addTaskPrice:function(){
+
+
         }
+
+
+
+
     }
+
+
+
+
+
 
 });
