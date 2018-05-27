@@ -6,7 +6,9 @@ import maven.model.JsonConverter;
 import maven.model.primitiveType.Filename;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
+import maven.model.task.PublishedTask;
 import maven.model.user.Requestor;
+import maven.model.vo.AcceptedTaskVO;
 import maven.model.vo.PublishedTaskVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -74,8 +76,8 @@ public class RequestorController {
      * @return 待审核的任务列表的Json字符串
      */
     @RequestMapping(value = "/requestor/getSubmittedTaskList", method = RequestMethod.GET)
-    public String getSubmittedTaskList(String userId){
-        return JsonConverter.objectToJson(requestorBL.getSubmittedTaskList(new UserId(userId)));
+    public List<AcceptedTaskVO> getSubmittedTaskList(String userId){
+        return requestorBL.getSubmittedTaskList(new UserId(userId));
     }
 
     /**
@@ -117,8 +119,8 @@ public class RequestorController {
      * @return 发布且已完成任务的列表的Json字符串
      */
     @RequestMapping(value = "/requestor/getAssignedAndAccomplishedTaskList", method = RequestMethod.GET)
-    public String getAssignedAndAccomplishedTaskList(String userId){
-        return JsonConverter.objectToJson(requestorBL.getAssignedAndAccomplishedTaskList(new UserId(userId)));
+    public List<PublishedTask> getAssignedAndAccomplishedTaskList(String userId){
+        return requestorBL.getAssignedAndAccomplishedTaskList(new UserId(userId));
     }
 
     /**
@@ -127,8 +129,8 @@ public class RequestorController {
      * @return 发布但未完成任务的列表的Json字符串
      */
     @RequestMapping(value = "/requestor/getAssignedButIncompleteTaskList", method = RequestMethod.GET)
-    public String getAssignedButIncompleteTaskList(String userId){
-        return JsonConverter.objectToJson(requestorBL.getAssignedButIncompleteTaskList(new UserId(userId)));
+    public List<PublishedTask> getAssignedButIncompleteTaskList(String userId){
+        return requestorBL.getAssignedButIncompleteTaskList(new UserId(userId));
     }
 
     /**

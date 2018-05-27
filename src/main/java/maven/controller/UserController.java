@@ -24,8 +24,8 @@ public class UserController {
      * @return 用户Id
      */
     @RequestMapping(value = "/user/getUserId", method = RequestMethod.GET)
-    public String getUserId(String username){
-        return userBL.getUserId(new Username(username)).value;
+    public UserId getUserId(String username){
+        return userBL.getUserId(new Username(username));
     }
 
 
