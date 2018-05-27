@@ -3,6 +3,7 @@ package maven.controller;
 import maven.businessLogic.adminBL.AdminBLImpl;
 import maven.businessLogic.adminBL.AdminBLService;
 import maven.model.JsonConverter;
+import maven.model.statistics.WebsiteStatistics;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin/getWebsiteStatistics", method = RequestMethod.GET)
-    public String getWebsiteStatistics(){
-        return JsonConverter.objectToJson(adminBL.getWebsiteStatistics());
+    public WebsiteStatistics getWebsiteStatistics(){
+        return adminBL.getWebsiteStatistics();
     }
 }
