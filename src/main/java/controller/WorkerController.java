@@ -103,6 +103,7 @@ public class WorkerController{
      * @param userId 工人Id
      * @return Worker对象
      */
+    @RequestMapping(value = "/worker/getWorkerInfo" , method = RequestMethod.GET)
     public Worker getWorkerInfo(String userId){
         return workerBL.getWorkerInfo(new UserId(userId));
     }
