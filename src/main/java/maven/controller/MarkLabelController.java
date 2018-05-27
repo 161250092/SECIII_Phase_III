@@ -22,8 +22,8 @@ public class MarkLabelController {
     }
 
     @RequestMapping(value = "/markLabel/getLabel", method = RequestMethod.GET)
-    public String getLabelSetVO(String taskId, String userId) {
-        return JsonConverter.objectToJson(markLabelBL.getLabelSetVO(new TaskId(taskId),new UserId(userId)));
+    public LabelSetVO getLabelSetVO(String taskId, String userId) {
+        return markLabelBL.getLabelSetVO(new TaskId(taskId),new UserId(userId));
     }
 
     @RequestMapping(value = "/markLabel/saveLabel", method = RequestMethod.GET)
