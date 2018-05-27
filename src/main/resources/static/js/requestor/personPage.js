@@ -45,14 +45,30 @@ new Vue({
     methods: {
         editEmail: function () {
             const _this = this;
-            this.email = "尚未实现"
-            alert("尚未实现")
+            axios.get("/user/reviseUserEmail", {params: {userId:getUserId(),email:_this.email}})
+                .then(function (Exception) {
+                    let message = Exception.data.WrongMessage.type;
+                    if(message==="success")
+                        alert("修改成功")
+                    else
+                        alert("修改失败")
+
+
+                })
 
         },
         editPhone: function () {
+
             const _this = this;
-            this.phone = "尚未实现"
-            alert("尚未实现")
+            axios.get("/user/reviseUserPhone", {params: {userId:getUserId(),phone:_this.phone}})
+                .then(function (Exception) {
+                    let message = Exception.data.WrongMessage.type;
+                    if(message==="success")
+                        alert("修改成功")
+                    else
+                        alert("修改失败")
+                })
+
         },
 
         charge: function () {

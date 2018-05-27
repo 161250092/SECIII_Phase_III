@@ -21,19 +21,18 @@ new Vue({
 
 
     },
-    methods:{
+    methods: {
         getChineseLabelType: function (labelType) {
-            if(labelType === this.IMAGE_LABEL_TYPE){
+            if (labelType === this.IMAGE_LABEL_TYPE) {
                 return "整体标注";
-            }else if(labelType === this.FRAME_LABEL_TYPE){
+            } else if (labelType === this.FRAME_LABEL_TYPE) {
                 return "标框标注";
-            }else if(labelType === this.AREA_LABEL_TYPE){
+            } else if (labelType === this.AREA_LABEL_TYPE) {
                 return "区域标注";
             }
         },
 
-        check:function(index){
-            // AllFinishedTasks[index]
+        check: function (index) {
 
         }
 

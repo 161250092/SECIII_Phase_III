@@ -42,9 +42,18 @@ new Vue({
         },
 
 
-        //未完成
+        // exception unsovled
         recallTask:function(index){
 
+            axios.get("/requestor/revokeTask", {params: {taskId:AllUnfinishedTasks[index].taskId}})
+                .then(function (Exception) {
+                    let message = Exception.data.WrongMessage.type;
+                    if(message=="success")
+                        alert("撤销成功")
+                    else
+                        alert("撤销失败")
+
+                });
         },
 
         addTaskPrice:function(){
