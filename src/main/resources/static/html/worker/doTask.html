@@ -52,6 +52,7 @@
 			<th>任务描述</th>
 			<th>积分奖励</th>
 			<th>现在去做</th>
+			<th>撤销</th>
 		</tr>
 		<tr v-for="(item, index) in AllUnfinishedTasks">
 			<th>{{item.taskId}}</th>
@@ -59,6 +60,7 @@
 			<th>{{item.description}}</th>
 			<th>{{item.score}}</th>
 			<th><a v-on:click="doTask(index)">do it</a></th>
+			<th><a v-on:click="recallTask(index)">撤销任务</a></th>
 		</tr>
 	</table>
 </div>

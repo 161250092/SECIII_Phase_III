@@ -54,12 +54,19 @@
 				<tr v-for="(item, index) in AllFinishedTasks">
 					<th>{{item.taskId}}</th>
 					<th>{{getChineseLabelType(item.labelType)}}</th>
-					<th>{{item.description}}</th>
-					<th>{{item.score}}</th>
+					<th>{{item.taskDescription}}</th>
+					<th>{{item.taskPrice}}</th>
 				</tr>
 			</table>
 		</div>
 
   	</body>
+
+
+
+<script src="../../js/lib/vue.js"></script>
+<script src="../../js/lib/axios.js"></script>
+<script src="../../js/lib/jquery-1.11.0.min.js"></script>
+<script src="../../js/worker/workerFinishedTaskPage.js"></script>
 
 </html>

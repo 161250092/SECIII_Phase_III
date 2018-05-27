@@ -13,7 +13,7 @@ function getMyIntroductionTask(userId){
 	$.ajax({
 			type: "GET",
             async: false,
-			url:"/WorkerController/getAvailableTaskList",
+			url:"/Worker/getAvailableTaskList",
 			data:{
 			    userId:userId
 			},
@@ -89,7 +89,7 @@ $("#send").click(function(){
     $.ajax({
         type : "GET",
         async: false,
-        url : "/WorkerController/acceptTask", //利用ajax发起请求，这里写servlet的路径
+        url : "/Worker/acceptTask", //利用ajax发起请求，这里写servlet的路径
 
         data : {
             userId:getUserId(),

@@ -61,9 +61,8 @@
 			<th><a v-on:click="check(index)">查看</a></th>
 		</tr>
 	</table>
-</div>
 
-<div align ="center" id="workerCompletion">
+
 	<p>任务详情</p>
 	<table border="1">
 		<tr>
@@ -79,16 +78,24 @@
 			<th>{item.sys_score}</th>
 			<th>{{item.requestor_score}}</th>
 			<th>{{item.state}}</th>
-			<th>{{item.score}}</th>		
+			<th>{{item.score}}</th>
 		</tr>
 	</table>
+
 </div>
+
+
+
+
 
 
 
 
   	</body>
 
-
+<script src="../../js/lib/vue.js"></script>
+<script src="../../js/lib/axios.js"></script>
+<script src="../../js/lib/jquery-1.11.0.min.js"></script>
+<script src="../../js/requestor/finishedTasksPage.js"></script>
 
 </html>

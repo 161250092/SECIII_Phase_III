@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>区域标注</title>
     <link rel="stylesheet" href="../../css/markLabel.css">
+    <link rel="stylesheet" href="../../css/button.css">
 </head>
 
 <body  bgcolor=#F0F0F0>
@@ -25,8 +26,9 @@
                 <button v-on:click="saveCurrentLabel">保存</button>
                 <button v-on:click="setTaskAccomplished" v-if="currentImageIndex == (taskImageNum-1)">保存并提交</button>
             </template>
-            <button v-on:click="getPreviousLabel">前一张</button>
-            <button v-on:click="getNextLabel">后一张</button>
+            <button v-on:click="getPreviousLabel" class="button button-3d button-action button-circle button-jumbo">-></button>
+            <br>
+            <button v-on:click="getNextLabel" class="button button-3d button-action button-circle button-jumbo"><-</button>
         </div>
     </section>
 

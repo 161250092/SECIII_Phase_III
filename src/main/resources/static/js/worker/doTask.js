@@ -43,6 +43,16 @@ new Vue({
             }
         }
     },
+
+
+        recallTask:function(index){
+            let  recallTaskId = this.AllUnfinishedTasks[index].taskId;
+            axios.get("/getWebsiteStatistics").then(function (response)
+
+
+
+        }
+
 });
 
 
