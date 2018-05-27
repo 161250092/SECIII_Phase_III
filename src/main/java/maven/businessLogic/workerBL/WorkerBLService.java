@@ -40,7 +40,8 @@ public interface WorkerBLService {
 
     /**
      * 众包工人放弃已接受的任务
-     * @param taskId 工人Id
+     * @param userId 工人Id
+     * @param taskId 任务Id
      * @return 是否放弃成功
      */
     Exception abandonTaskByWorker(UserId userId, TaskId taskId);
@@ -48,10 +49,11 @@ public interface WorkerBLService {
 
     /**
      * 根据任务Id 获取工人已接受的任务
+     * @param userId 工人Id
      * @param taskId 任务Id
      * @return 任务详情
      */
-    AcceptedTask getAcceptedTaskById(TaskId taskId);
+    AcceptedTask getAcceptedTaskById(UserId userId,TaskId taskId);
 
 
     /**

@@ -52,9 +52,10 @@ public class WorkerBLImpl implements WorkerBLService {
     }
 
     @Override
-    public AcceptedTask getAcceptedTaskById(TaskId taskId) {
+    public AcceptedTask getAcceptedTaskById(UserId userId, TaskId taskId) {
         return null;
     }
+
 
     @Override
     public int getUserRanking(UserId userId) {

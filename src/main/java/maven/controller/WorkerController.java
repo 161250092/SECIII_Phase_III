@@ -84,8 +84,8 @@ public class WorkerController{
      * @return 任务详情
      */
     @RequestMapping(value = "/worker/getAcceptedTaskById", method = RequestMethod.GET)
-    public AcceptedTask getAcceptedTaskById(String taskId) {
-        return workerBL.getAcceptedTaskById(new TaskId(taskId));
+    public AcceptedTask getAcceptedTaskById(String userId, String taskId) {
+        return workerBL.getAcceptedTaskById(new UserId(userId), new TaskId(taskId));
     }
 
     /**
