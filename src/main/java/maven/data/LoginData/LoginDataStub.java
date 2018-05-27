@@ -1,7 +1,6 @@
 package maven.data.LoginData;
 
-import model.primitiveType.Password;
-import model.primitiveType.Username;
+import maven.model.primitiveType.*;
 
 public class LoginDataStub implements LoginDataService {
     /**

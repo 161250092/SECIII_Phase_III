@@ -1,6 +1,6 @@
 package maven.data.LoginData;
 
-import model.primitiveType.*;
+import maven.model.primitiveType.*;
 
 public interface LoginDataService {
     /**
