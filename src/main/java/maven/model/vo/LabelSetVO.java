@@ -13,17 +13,17 @@ abstract public class LabelSetVO implements Serializable {
     //图片总数
     private int taskImageNum;
     //图片名称的数组
-    private List<Filename> filenameList;
+    private List<String> filenameList;
 
     public int getTaskImageNum() {
         return taskImageNum;
     }
 
-    public List<Filename> getFilenameList() {
+    public List<String> getFilenameList() {
         return filenameList;
     }
 
-    public LabelSetVO(int taskImageNum, List<Filename> filenameList) {
+    public LabelSetVO(int taskImageNum, List<String> filenameList) {
         this.taskImageNum = taskImageNum;
         this.filenameList = filenameList;
     }

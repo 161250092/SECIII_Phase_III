@@ -1,100 +1,99 @@
-//整体标注类
-function ImageLabelVO(labelList){
+//整体标注类集合VO
+function ImageLabelSetVO(taskImageNum, labelList, filenameList){
+    this.taskImageNum = taskImageNum;
     this.labelList = labelList;
+    this.filenameList = filenameList;
 }
 
 new Vue({
     el: "#markLabelContainer",
     data: {
-        labelType: "ImageLabel",
         userId: "",
         username: "",
+
+        labelType: "ImageLabel",
         taskId: "",
         taskImageNum: 0,
+        labelList: [],
+        filenameList: [],
 
-        currentImageIndex: 0,
-        currentImageSrc: "",
-        currentImageLabelList: [],
-
-        isUserCanLabel: false,
+        currentLabelIndex: 0,
+        hasSavedChanges: true,
+        isUserCanLabel: true,
+        isWorker: false,
     },
     mounted: function () {
         this.$nextTick(function () {
             this.userId = getUserId();
             this.username = getUsername();
             this.taskId = getTaskId();
-            this.isUserCanLabel = isUserCanLabel();
-            //获得这个任务的图片数目
-            const _this = this;
-            axios.get("/markLabel/getLabel", { params: {taskId: this.taskId ,userId: this.userId} }).then(function (response) {
-                _this.taskImageNum = response.data;
-            });
-            //获得第一张图片
+            // this.isUserCanLabel = isUserCanLabel();
+            //获得这个任务的标注信息
             this.getLabel();
         })
     },
     methods: {
         getLabel: function () {
             const _this = this;
-            // axios.get("/markLabelBL/getLabel", { params:
-            //         { taskId: _this.taskId, userId: _this.userId,
-            //             labelType: _this.labelType, imageIndex: this.currentImageIndex,} })
-            //     .then(function (response) {
-            //         _this.currentImageSrc = '/getTaskImage/' + _this.taskId + '/' + response.data.image;
-            //         _this.currentImageLabelList = response.data.labelList;
-            //     });
+            axios.get("/markLabel/getLabel", { params: {taskId: this.taskId ,userId: this.userId} }).then(function (response) {
+                _this.taskImageNum = response.data.taskImageNum;
+                _this.labelList = response.data.labelList;
+                _this.filenameList = response.data.filenameList;
+            });
         },
         resetCurrentLabel: function () {
-            this.currentImageLabelList = [];
+            this.labelList[this.currentLabelIndex].tagList = [];
+            this.hasSavedChanges = false;
         },
-        saveCurrentLabel: function () {
-            let imageLabelVO = new ImageLabelVO(this.currentImageLabelList);
-            let imageLabelVOJson = JSON.stringify(imageLabelVO);
-            const _this = this;
-            axios.get("/markLabelBL/saveLabel", { params:
-                    { taskId: _this.taskId, userId: _this.userId,
-                        labelType: _this.labelType, imageIndex: _this.currentImageIndex,
-                        labelVOJson: imageLabelVOJson } })
-                .then(function (response) {
-                    if(response.data === true) {
-                        alert("保存成功");
-                    }else{
-                        alert("保存失败");
-                    }
-                });
+        saveLabelList: function () {
+            if(this.hasSavedChanges === false){
+                let imageLabelSetVO = new ImageLabelSetVO(this.taskImageNum, this.labelList, this.filenameList);
+                let imageLabelVOSetJSON = JSON.stringify(imageLabelSetVO);
+                const _this = this;
+                axios.get("/markLabel/saveImageLabel",
+                    { params: { taskId: _this.taskId, userId: _this.userId, imageLabelVOSetJSON: imageLabelVOSetJSON, isWorker: _this.isWorker } })
+                    .then(function (response) {
+                        if(response.data === true) {
+                            alert("保存成功");
+                            _this.hasSavedChanges = true;
+                        }else{
+                            alert("保存失败");
+                            _this.hasSavedChanges = false;
+                        }
+                    });
+            }else {
+                alert("没有变更");
+            }
         },
-        getPreviousLabel: function () {
-            if(this.currentImageIndex > 0){
-                this.currentImageUrl = "";
-                this.resetCurrentLabel();
-                this.currentImageIndex--;
-                this.getLabel();
+        previousLabel: function () {
+            if(this.currentLabelIndex > 0){
+                this.currentLabelIndex--;
             }else{
                 alert("当前是第一张图片");
             }
         },
-        getNextLabel: function () {
-            if(this.currentImageIndex < (this.taskImageNum - 1)){
-                this.currentImageUrl = "";
-                this.resetCurrentLabel();
-                this.currentImageIndex++;
-                this.getLabel();
+        nextLabel: function () {
+            if(this.currentLabelIndex < (this.taskImageNum - 1)){
+                this.currentLabelIndex++;
             }else{
                 alert("当前是最后一张图片");
             }
         },
         setTaskAccomplished: function () {
             const _this = this;
-            axios.get("/markLabelBL/setTaskAccomplished", { params:
-                    { taskId: _this.taskId, userId: _this.userId } })
-                .then(function (response) {
-                    if(response.data === true){
-                        alert("提交成功");
-                        jumpToAnotherPage(mainPageUrl);
-                    }else {
-                        alert("提交失败");
-                    }
-                });
+            if(this.hasSavedChanges === true){
+                axios.get("/markLabel/setTaskAccomplished", { params: { taskId: _this.taskId, userId: _this.userId, isWorker: _this.isWorker } })
+                    .then(function (response) {
+                        if(response.data === true){
+                            alert("提交成功");
+                            jumpToAnotherPage(mainPageUrl);
+                        }else {
+                            alert("提交失败");
+                        }
+                    });
+            }else{
+                alert("未保存修改");
+            }
         },
         //对标签的操作
         addTag: function () {
@@ -105,10 +104,28 @@ new Vue({
             inputTagEl.value = "";
 
             //加到数组中
-            this.currentImageLabelList.push(tag);
+            this.labelList[this.currentLabelIndex].tagList.push(tag);
+            this.hasSavedChanges = false;
         },
         removeTag: function (tagIndex) {
-            this.currentImageLabelList.splice(tagIndex, 1);
+            this.labelList[this.currentLabelIndex].tagList.splice(tagIndex, 1);
+            this.hasSavedChanges = false;
+        }
+    },
+    computed:{
+        currentImageSrc: function () {
+            if(this.filenameList.length > 0){
+                return '/image/getTaskImage/' + this.taskId + '/' + this.filenameList[this.currentLabelIndex];
+            }else{
+                return '/image/getTaskImage/errorTaskImage.jpg'
+            }
+        },
+        currentLabel: function () {
+            if(this.labelList.length > 0){
+                return this.labelList[this.currentLabelIndex].tagList;
+            }else{
+                return [];
+            }
         }
     }
 });

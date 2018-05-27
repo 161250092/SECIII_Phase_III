@@ -1,6 +1,8 @@
-//标框类
+//标框类集合VO
 function FrameLabelVO(labelList) {
+    this.taskImageNum = taskImageNum;
     this.labelList = labelList;
+    this.filenameList = filenameList;
 }
 //框中的标签类
 function FrameLabelListItem(startX, startY, width, height, tag){
@@ -14,14 +16,16 @@ function FrameLabelListItem(startX, startY, width, height, tag){
 new Vue({
     el: "#markLabelContainer",
     data: {
-        labelType: "FrameLabel",
         userId: "",
-        username: "testUsername",
+        username: "",
+
+        labelType: "FrameLabel",
         taskId: "",
         taskImageNum: 0,
+        labelList: [],
+        filenameList: [],
 
-        currentImageIndex: 0,
-        currentImageUrl: "",
+        currentLabelIndex: 0,
         currentFrameLabelList: [],
 
         isUserCanLabel: false,
@@ -70,7 +74,7 @@ new Vue({
             const _this = this;
             axios.get("/markLabelBL/getLabel", { params:
                     { taskId: _this.taskId, userId: _this.userId,
-                        labelType: _this.labelType, imageIndex: this.currentImageIndex,} })
+                        labelType: _this.labelType, imageIndex: this.currentLabelIndex,} })
                 .then(function (response) {
                     _this.currentImageUrl = 'url(' + '/getTaskImage/' + _this.taskId + '/' + response.data.image + ')';
                     _this.currentFrameLabelList = response.data.labelList;
@@ -102,7 +106,7 @@ new Vue({
                 const _this = this;
                 axios.get("/markLabelBL/saveLabel", { params:
                         { taskId: _this.taskId, userId: _this.userId,
-                            labelType: _this.labelType, imageIndex: _this.currentImageIndex,
+                            labelType: _this.labelType, imageIndex: _this.currentLabelIndex,
                             labelVOJson: frameLabelVOJson } })
                     .then(function (response) {
                         result = response.data;
@@ -119,10 +123,10 @@ new Vue({
         //转到前一张图片
         getPreviousLabel: function () {
             //第一张图片时没有前一张图片
-            if(this.currentImageIndex > 0){
+            if(this.currentLabelIndex > 0){
                 this.currentImageUrl = "";
                 this.resetCurrentLabel();
-                this.currentImageIndex--;
+                this.currentLabelIndex--;
                 this.getLabel();
             }else{
                 alert("当前是第一张图片");
@@ -131,10 +135,10 @@ new Vue({
         //转到后一张图片
         getNextLabel: function () {
             //最后一张图片时没有后一张图片
-            if(this.currentImageIndex < (this.taskImageNum - 1)){
+            if(this.currentLabelIndex < (this.taskImageNum - 1)){
                 this.currentImageUrl = "";
                 this.resetCurrentLabel();
-                this.currentImageIndex++;
+                this.currentLabelIndex++;
                 this.getLabel();
             }else{
                 alert("当前是最后一张图片");
@@ -233,4 +237,20 @@ new Vue({
             return ev.clientY - rect.top;
         }
     },
+    computed:{
+        currentImageSrc: function () {
+            if(this.filenameList.length > 0){
+                return '/image/getTaskImage/' + this.taskId + '/' + this.filenameList[this.currentLabelIndex];
+            }else{
+                return '/image/getTaskImage/errorTaskImage.jpg'
+            }
+        },
+        currentLabel: function () {
+            if(this.labelList.length > 0){
+                return this.labelList[this.currentLabelIndex].frameList;
+            }else{
+                return [];
+            }
+        }
+    }
 });

@@ -14,7 +14,7 @@ public class ImageLabelSetVO extends LabelSetVO{
         return labelList;
     }
 
-    public ImageLabelSetVO(int taskImageNum, List<Filename> filenameList, List<ImageLabel> labelList) {
+    public ImageLabelSetVO(int taskImageNum, List<ImageLabel> labelList, List<String> filenameList) {
         super(taskImageNum,filenameList);
         this.labelList = labelList;
     }

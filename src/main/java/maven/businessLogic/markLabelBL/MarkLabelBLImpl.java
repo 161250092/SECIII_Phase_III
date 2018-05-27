@@ -1,4 +1,4 @@
-package maven.businessLogic.markLabelBL;
+//package maven.businessLogic.markLabelBL;
 
 //import data.LabelData.LabelDataImpl;
 //import data.LabelData.LabelDataService;
@@ -6,34 +6,34 @@ package maven.businessLogic.markLabelBL;
 //import data.TaskData.TaskDataService;
 //import data.UserData.UserDataImpl;
 //import data.UserData.UserDataService;
-import maven.model.primitiveType.TaskId;
-import maven.model.primitiveType.UserId;
-import maven.model.vo.LabelSetVO;
+//import maven.model.primitiveType.TaskId;
+//import maven.model.primitiveType.UserId;
+//import maven.model.vo.LabelSetVO;
 
-public class MarkLabelBLImpl implements MarkLabelBLService{
+//public class MarkLabelBLImpl implements MarkLabelBLPublicService {
     //private TaskDataService taskDataService;
     //private LabelDataService labelDataService;
     //private UserDataService userDataService;
 
-    public MarkLabelBLImpl(){
+    //public MarkLabelBLImpl(){
         //taskDataService = new TaskDataImpl();
         //labelDataService = new LabelDataImpl();
         //userDataService = new UserDataImpl();
-    }
-    @Override
-    public LabelSetVO getLabelSetVO(TaskId taskId, UserId userId) {
-        return null;
-    }
-
-    @Override
-    public boolean saveLabelSet(TaskId taskId, UserId userId, LabelSetVO labelSetVO, boolean isWorker) {
-        return false;
-    }
-
-    @Override
-    public boolean setTaskAccomplished(TaskId taskId, UserId userId, boolean isWorker) {
-        return false;
-    }
+    //}
+    //@Override
+    //public LabelSetVO getLabelSetVO(TaskId taskId, UserId userId) {
+    //    return null;
+    //}
+    //
+    //@Override
+    //public boolean saveLabelSet(TaskId taskId, UserId userId, LabelSetVO labelSetVO, boolean isWorker) {
+    //    return false;
+    //}
+    //
+    //@Override
+    //public boolean setTaskAccomplished(TaskId taskId, UserId userId, boolean isWorker) {
+    //    return false;
+    //}
 
 //    @Override
 //    public int getTaskImageNumber(String taskId) {
@@ -141,4 +141,4 @@ public class MarkLabelBLImpl implements MarkLabelBLService{
 //
 //        return true;
 //    }
-}
+//}

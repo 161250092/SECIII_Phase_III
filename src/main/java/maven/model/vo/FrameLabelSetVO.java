@@ -13,7 +13,7 @@ public class FrameLabelSetVO extends LabelSetVO{
         return labelList;
     }
 
-    public FrameLabelSetVO(int taskImageNum, List<Filename> filenameList, List<FrameLabel> labelList) {
+    public FrameLabelSetVO(int taskImageNum, List<FrameLabel> labelList, List<String> filenameList) {
         super(taskImageNum,filenameList);
         this.labelList = labelList;
     }

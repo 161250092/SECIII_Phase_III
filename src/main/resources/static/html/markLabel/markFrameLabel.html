@@ -43,8 +43,8 @@
         </div>
         <div id="tagsInCanvas">
             <p class="tagInCanvas"
-               v-for="(listItem,index) in currentFrameLabelList"
-               v-bind:style="{left: listItem.startX+'px', top: listItem.startY+'px'}">{{index+1}}. {{listItem.tag}}</p>
+               v-for="(frame,index) in currentLabel"
+               v-bind:style="{left: frame.startX+'px', top: frame.startY+'px'}">{{index+1}}. {{frame.tag}}</p>
         </div>
     </section>
 

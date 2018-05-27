@@ -1,67 +1,39 @@
-//package businessLogic.markLabelBL.markLabelBL;
-//
-//import model.vo.frameLabel.FrameLabelListItemVO;
-//import model.vo.frameLabel.FrameLabelVO;
-//import com.google.gson.Gson;
-//import com.google.gson.GsonBuilder;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//public class MarkFrameLabelBLStub implements MarkLabelBLService {
-//    @Override
-//    public int getTaskImageNumber(String taskId) {
-//        return 11;
-//    }
-//
-//    @Override
-//    public String getLabel(String taskId, String userId, String type, int imageIndex) {
-//        System.out.println("taskId:" + taskId);
-//        System.out.println("userId:" + userId);
-//        System.out.println("labelType:" + type);
-//        System.out.println("imageIndex:" + imageIndex);
-//
-//        List<FrameLabelListItemVO> labelList  = new ArrayList<>();
-//
-//        FrameLabelVO vo = new FrameLabelVO("image", labelList);
-//
-//        if(imageIndex == 0){
-//            vo = new FrameLabelVO("test1.jpg", labelList);
-//            labelList.add(new FrameLabelListItemVO(0, 0, 5, 10, "tag0-1"));
-//            labelList.add(new FrameLabelListItemVO(50, 50, 15, 5, "tag0-2"));
-//            labelList.add(new FrameLabelListItemVO(100, 100, 20, 10, "tag0-3"));
-//        }else if (imageIndex == 1){
-//            vo = new FrameLabelVO("test2.jpg", labelList);
-//            labelList.add(new FrameLabelListItemVO(100, 0, 25, 10, "tag1-1"));
-//            labelList.add(new FrameLabelListItemVO(300, 50, 15, 6, "tag2-2"));
-//        }else if (imageIndex == 2){
-//            vo = new FrameLabelVO("test3.jpg", labelList);
-//            labelList.add(new FrameLabelListItemVO(100, 0, 250, 100, "tag1-1"));
-//            labelList.add(new FrameLabelListItemVO(500, 50, 100, 100, "tag2-2"));
-//        }else{
-//            vo = new FrameLabelVO("test"+ (imageIndex+1) + ".jpg", labelList);
-//        }
-//
-//        Gson gson = new GsonBuilder().create();
-//        String objectToJson = gson.toJson(vo);
-//
-//        return objectToJson;
-//    }
-//
-//    @Override
-//    public boolean saveLabel(String taskId, String userId, String type, int imageIndex, String labelVOJson) {
-//        System.out.println("taskId:" + taskId);
-//        System.out.println("userId:" + userId);
-//        System.out.println("labelType:" + type);
-//        System.out.println("imageIndex:" + imageIndex);
-//        System.out.println("frameLabelJson:" + labelVOJson);
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean setTaskAccomplished(String taskId, String userId) {
-//        System.out.println("taskId:" + taskId);
-//        System.out.println("userId:" + userId);
-//        return true;
-//    }
-//}
+package maven.businessLogic.markLabelBL;
+
+import maven.model.label.frameLabel.Frame;
+import maven.model.label.frameLabel.FrameLabel;
+import maven.model.primitiveType.TaskId;
+import maven.model.primitiveType.UserId;
+import maven.model.vo.FrameLabelSetVO;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MarkFrameLabelBLStub implements MarkFrameLabelBLService {
+    @Override
+    public FrameLabelSetVO getFrameLabelSetVO(TaskId taskId, UserId userId) {
+        System.out.println("taskId:" + taskId.value);
+        System.out.println("userId:" + userId.value);
+
+        List<FrameLabel> l = new ArrayList<>();
+        List<Frame> s1 = new ArrayList<>();
+        s1.add(new Frame(100, 100, 100, 200, "tag0-1"));
+        s1.add(new Frame(300, 400, 200, 50, "tag0-2"));
+        l.add(new FrameLabel(s1));
+        l.add(new FrameLabel());
+        l.add(new FrameLabel());
+
+
+        List<String> fl = new ArrayList<>();
+        fl.add("test4.jpg");
+        fl.add("test5.jpg");
+        fl.add("test6.jpg");
+
+        return new FrameLabelSetVO(3, l, fl);
+    }
+
+    @Override
+    public boolean saveFrameLabelSet(TaskId taskId, UserId userId, FrameLabelSetVO labelSetVO, boolean isWorker) {
+        return true;
+    }
+}

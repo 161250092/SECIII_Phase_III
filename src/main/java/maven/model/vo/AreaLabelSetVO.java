@@ -14,7 +14,7 @@ public class AreaLabelSetVO extends LabelSetVO{
         return labelList;
     }
 
-    public AreaLabelSetVO(int taskImageNum, List<Filename> filenameList, List<AreaLabel> labelList) {
+    public AreaLabelSetVO(int taskImageNum, List<AreaLabel> labelList, List<String> filenameList) {
         super(taskImageNum,filenameList);
         this.labelList = labelList;
     }
