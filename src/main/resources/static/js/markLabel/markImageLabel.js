@@ -26,7 +26,7 @@ new Vue({
             this.isUserCanLabel = isUserCanLabel();
             //获得这个任务的图片数目
             const _this = this;
-            axios.get("/markLabelBL/getLabel", { params: {taskId: this.taskId ,userId: this.userId} }).then(function (response) {
+            axios.get("/markLabel/getLabel", { params: {taskId: this.taskId ,userId: this.userId} }).then(function (response) {
                 _this.taskImageNum = response.data;
             });
             //获得第一张图片
@@ -36,13 +36,13 @@ new Vue({
     methods: {
         getLabel: function () {
             const _this = this;
-            axios.get("/markLabelBL/getLabel", { params:
-                    { taskId: _this.taskId, userId: _this.userId,
-                        labelType: _this.labelType, imageIndex: this.currentImageIndex,} })
-                .then(function (response) {
-                    _this.currentImageSrc = '/getTaskImage/' + _this.taskId + '/' + response.data.image;
-                    _this.currentImageLabelList = response.data.labelList;
-                });
+            // axios.get("/markLabelBL/getLabel", { params:
+            //         { taskId: _this.taskId, userId: _this.userId,
+            //             labelType: _this.labelType, imageIndex: this.currentImageIndex,} })
+            //     .then(function (response) {
+            //         _this.currentImageSrc = '/getTaskImage/' + _this.taskId + '/' + response.data.image;
+            //         _this.currentImageLabelList = response.data.labelList;
+            //     });
         },
         resetCurrentLabel: function () {
             this.currentImageLabelList = [];
