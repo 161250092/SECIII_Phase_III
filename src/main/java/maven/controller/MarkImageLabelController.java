@@ -24,17 +24,17 @@ public class MarkImageLabelController {
         setTaskAccomplishedBL = new SetTaskAccomplishedBLStub();
     }
 
-    @RequestMapping(value = "/markLabel/getImageLabel", method = RequestMethod.GET)
+    @RequestMapping(value = "/markImageLabel/getImageLabel", method = RequestMethod.GET)
     public ImageLabelSetVO getImageLabelSetVO(String taskId, String userId) {
         return markImageLabelBL.getImageLabelSetVO(new TaskId(taskId),new UserId(userId));
     }
-    @RequestMapping(value = "/markLabel/saveImageLabel", method = RequestMethod.GET)
+    @RequestMapping(value = "/markImageLabel/saveImageLabel", method = RequestMethod.GET)
     public boolean saveImageLabelSetVO(String taskId, String userId, String imageLabelVOSetJSON, boolean isWorker) {
         return markImageLabelBL.saveImageLabelSet(new TaskId(taskId), new UserId(userId), (ImageLabelSetVO)JsonConverter.jsonToObject(imageLabelVOSetJSON, ImageLabelSetVO.class), isWorker);
     }
 
 
-    @RequestMapping(value = "/markLabel/setTaskAccomplished", method = RequestMethod.GET)
+    @RequestMapping(value = "/markImageLabel/setTaskAccomplished", method = RequestMethod.GET)
     public boolean setTaskAccomplished(String taskId, String userId, boolean isWorker) {
         return setTaskAccomplishedBL.setTaskAccomplished(new TaskId(taskId), new UserId(userId), isWorker);
     }

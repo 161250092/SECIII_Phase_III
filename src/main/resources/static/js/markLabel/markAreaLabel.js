@@ -1,7 +1,12 @@
-//区域标注类
-function AreaLabelVO(label, lineList) {
-    this.label = label;
-    this.lineList = lineList;
+//区域标注类集合VO
+function AreaLabelSetVO(taskImageNum, labelList, filenameList) {
+    this.taskImageNum = taskImageNum;
+    this.labelList = labelList;
+    this.filenameList = filenameList;
+}
+function Area(tag, areaBorder) {
+    this.tag = tag;
+    this.areaBorder = areaBorder;
 }
 //线中的像素点类
 function Pixel(x, y){
@@ -12,22 +17,24 @@ function Pixel(x, y){
 new Vue({
     el: "#markLabelContainer",
     data: {
-        labelType: "AreaLabel",
         userId: "",
         username: "",
+        
+        labelType: "AreaLabel",
         taskId: "",
         taskImageNum: 0,
+        labelList: [],
+        filenameList: [],
 
-        currentImageIndex: 0,
-        currentImageUrl: "",
-        currentTag: "",
-        currentAreaList: [],
+        currentLabelIndex: 0,
+        currentAreaBorder: [],
 
-        isUserCanLabel: false,
+        hasSavedChanges: true,
+        isUserCanLabel: true,
+        isWorker: false,
 
         canvas: undefined,
         canvasContext: undefined,
-        //tempImageData: undefined,
 
         isDrawing: false,
         canDraw: true,
@@ -44,107 +51,74 @@ new Vue({
             this.userId = getUserId();
             this.username = getUsername();
             this.taskId = getTaskId();
-            //获得这个任务的图片数目
-            const _this = this;
-            axios.get("/markLabelBL/getTaskImageNumber", { params: { taskId: this.taskId } }).then(function (response) {
-                _this.taskImageNum = response.data;
-            });
-            //获得第一张图片
+            this.isUserCanLabel = isUserCanLabel();
+            //获得标注
             this.getLabel();
         });
     },
     methods: {
-        getPixelListFromString: function (pixelListStr) {
-            let tempArr;
-            let pixelList = [];
-
-            let pixelStrArray = pixelListStr.split(';');
-            pixelStrArray = pixelStrArray.slice(0, pixelStrArray.length-1);
-
-            const _this = this;
-            pixelStrArray.forEach(function (currentPixelStr, index) {
-                tempArr = currentPixelStr.split(',');
-                pixelList.push(new Pixel(parseInt(tempArr[0]), parseInt(tempArr[1])));
-            });
-            return pixelList;
-        },
-        changePixelListIntoPixelString: function (pixelList) {
-            let pixelListStr = "";
-            pixelList.forEach(function (currentPixel, index) {
-                pixelListStr = pixelListStr +
-                    currentPixel.x + "," + currentPixel.y + ";";
-            });
-            return pixelListStr;
-        },
         getLabel: function () {
             const _this = this;
-            axios.get("/markLabelBL/getLabel", { params:
-                    { taskId: _this.taskId, userId: _this.userId,
-                        labelType: _this.labelType, imageIndex: this.currentImageIndex,} })
-                .then(function (response) {
-                    _this.currentImageUrl = 'url(' + '/getTaskImage/' + _this.taskId + '/' + response.data.image + ')';
-                    _this.currentTag = response.data.label;
-                    if(response.data.lineList.length <= 0){
-                        _this.currentAreaList = [];
-                    }else{
-                        _this.currentAreaList = (_this.getPixelListFromString(response.data.lineList[0]));
-                    }
-                    _this.removeAreaInCanvas();
-                });
+            axios.get("/markAreaLabel/getAreaLabel", { params: { taskId: _this.taskId, userId: _this.userId} }).then(function (response) {
+                _this.taskImageNum = response.data.taskImageNum;
+                _this.labelList = response.data.labelList;
+                _this.filenameList = response.data.filenameList;
+                _this.paintAreaBorderOnCanvas();
+            });
         },
         resetCurrentLabel: function () {
-            this.currentTag = "";
-            this.currentAreaList = [];
+            this.labelList[this.currentLabelIndex].areaList = [];
+
+            this.currentAreaBorder = [];
 
             this.isDrawing = false;
             this.canDraw = true;
             this.canInputTag = false;
 
-            this.removeAreaInCanvas();
+            this.paintAreaBorderOnCanvas();
+
+            this.hasSavedChanges = false;
         },
-        saveCurrentLabel: function () {
-            if(this.canInputTag === false){
-                let labelList = [];
-                labelList.push(this.changePixelListIntoPixelString(this.currentAreaList));
-                let currentAreaLabelVO = new AreaLabelVO(this.currentTag, labelList);
-                let areaLabelVOJson = JSON.stringify(currentAreaLabelVO);
+        saveLabelList: function () {
+            if(this.canInputTag === false && this.hasSavedChanges === false){
+                let areaLabelSetVO = new AreaLabelSetVO(this.taskImageNum, this.labelList, this.filenameList);
+                let areaLabelSetVOJson = JSON.stringify(areaLabelSetVO);
                 const _this = this;
-                axios.get("/markLabelBL/saveLabel", { params:
-                        { taskId: _this.taskId, userId: _this.userId,
-                            labelType: _this.labelType, imageIndex: _this.currentImageIndex,
-                            labelVOJson: areaLabelVOJson } })
+                axios.get("/markAreaLabel/saveAreaLabel", { params: {taskId: _this.taskId, userId: _this.userId,
+                        areaLabelVOSetJSON: areaLabelSetVOJson, isWorker: _this.isWorker} })
                     .then(function (response) {
                         let result = response.data;
                         if(result === true) {
                             alert("保存成功");
+                            _this.hasSavedChanges = true;
                         }else{
                             alert("保存失败");
                         }
                     });
-            }else{
+            }else if(this.canInputTag === true){
                 alert("请输入标签");
+            }else {
+                alert("没有变更");
             }
         },
         //转到前一张图片
-        getPreviousLabel: function () {
+        previousLabel: function () {
             //第一张图片时没有前一张图片
-            if(this.currentImageIndex > 0){
-                this.currentImageUrl = "";
-                this.resetCurrentLabel();
-                this.currentImageIndex--;
-                this.getLabel();
+            if(this.currentLabelIndex > 0){
+                this.currentAreaBorder = [];
+                this.currentLabelIndex--;
+                this.paintAreaBorderOnCanvas();
             }else{
                 alert("当前是第一张图片");
             }
         },
         //转到后一张图片
-        getNextLabel: function () {
+        nextLabel: function () {
             //最后一张图片时没有后一张图片
-            if(this.currentImageIndex < (this.taskImageNum - 1)){
-                this.currentImageUrl = "";
-                this.resetCurrentLabel();
-                this.currentImageIndex++;
-                this.getLabel();
+            if(this.currentLabelIndex < (this.taskImageNum - 1)){
+                this.currentAreaBorder = [];
+                this.currentLabelIndex++;
+                this.paintAreaBorderOnCanvas();
             }else{
                 alert("当前是最后一张图片");
             }
@@ -153,8 +127,7 @@ new Vue({
         setTaskAccomplished: function () {
             //提交任务
             const _this = this;
-            axios.get("/markLabelBL/setTaskAccomplished", { params:
-                    { taskId: _this.taskId, userId: _this.userId } })
+            axios.get("/markAreaLabel/setTaskAccomplished", { params: {taskId: _this.taskId, userId: _this.userId, isWorker: _this.isWorker} })
                 .then(function (response) {
                     if(response.data === true){
                         alert("提交成功");
@@ -173,30 +146,42 @@ new Vue({
             inputTagEl.value = "";
 
             if (this.canInputTag === true){
-                this.currentTag = tag;
+                let temp = new Area(tag, this.currentAreaBorder);
+                this.labelList[this.currentLabelIndex].areaList.push(temp);
+                
                 this.canInputTag = false;
+                this.canDraw = true;
+
+                this.hasSavedChanges = false;
             }else{
-                alert("请先标注区域");
+                alert("请标注区域");
             }
         },
+        removeTag: function (tagIndex) {
+            this.labelList[this.currentLabelIndex].areaList.splice(tagIndex, 1);
+            this.paintAreaBorderOnCanvas();
+
+            this.hasSavedChanges = false;
+        },
         //将画布上的曲线移除
-        removeAreaInCanvas: function () {
+        paintAreaBorderOnCanvas: function () {
             this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            if(this.currentAreaList.length > 0){
-                let currentStartX = this.currentAreaList[0].x;
-                let currentStartY = this.currentAreaList[0].y;
-                //开始作图
-                this.canvasContext.beginPath();
-                this.canvasContext.moveTo(currentStartX, currentStartY);
-                //逐点画线
-                for(let i = 1; i < this.currentAreaList.length; i++){
-                    currentStartX = this.currentAreaList[i].x;
-                    currentStartY = this.currentAreaList[i].y;
-                    this.canvasContext.lineTo(currentStartX, currentStartY);
-                    this.canvasContext.stroke();
+            const _this = this;
+            this.labelList[this.currentLabelIndex].areaList.forEach(function (currentArea, index) {
+                let currentAreaBorder = currentArea.areaBorder;
+                if(currentAreaBorder.length > 0){
+                    //开始作图
+                    _this.canvasContext.beginPath();
+                    _this.canvasContext.moveTo(currentAreaBorder[0].x, currentAreaBorder[0].y);
+                    //逐点画线
+                    for(let i = 1; i < currentAreaBorder.length; i++){
+                        _this.canvasContext.lineTo(currentAreaBorder[i].x, currentAreaBorder[i].y);
+                        _this.canvasContext.stroke();
+                    }
+                    _this.canvasContext.closePath();
                 }
-                this.canvasContext.closePath();
-            }
+            });
+
         },
         //画板
         startDrawing: function (ev) {
@@ -230,7 +215,7 @@ new Vue({
                 this.canvasContext.lineTo(currentStartX, currentStartY);
                 this.canvasContext.stroke();
 
-                this.currentAreaList.push(new Pixel(currentStartX, currentStartY));
+                this.currentAreaBorder.push(new Pixel(currentStartX, currentStartY));
             }
         },
         //获取坐标
@@ -241,6 +226,22 @@ new Vue({
         getY: function (ev) {
             const rect = this.$refs.canvas.getBoundingClientRect();
             return ev.clientY - rect.top;
+        }
+    },
+    computed:{
+        currentImageUrl: function () {
+            if(this.filenameList.length > 0){
+                return 'url(/image/getTaskImage/' + this.taskId + '/' + this.filenameList[this.currentLabelIndex] + ')';
+            }else{
+                return 'url(/image/getTaskImage/errorTaskImage.jpg)';
+            }
+        },
+        currentLabel: function () {
+            if(this.labelList.length > 0){
+                return this.labelList[this.currentLabelIndex].areaList;
+            }else{
+                return [];
+            }
         }
     }
 });

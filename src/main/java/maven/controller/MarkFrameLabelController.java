@@ -22,17 +22,17 @@ public class MarkFrameLabelController {
         setTaskAccomplishedBL = new SetTaskAccomplishedBLStub();
     }
 
-    @RequestMapping(value = "/markLabel/getFrameLabel", method = RequestMethod.GET)
+    @RequestMapping(value = "/markFrameLabel/getFrameLabel", method = RequestMethod.GET)
     public FrameLabelSetVO getFrameLabelSetVO(String taskId, String userId) {
         return markFrameLabelBL.getFrameLabelSetVO(new TaskId(taskId),new UserId(userId));
     }
-    @RequestMapping(value = "/markLabel/saveFrameLabel", method = RequestMethod.GET)
+    @RequestMapping(value = "/markFrameLabel/saveFrameLabel", method = RequestMethod.GET)
     public boolean saveFrameLabelSetVO(String taskId, String userId, String frameLabelVOSetJSON, boolean isWorker) {
         return markFrameLabelBL.saveFrameLabelSet(new TaskId(taskId), new UserId(userId), (FrameLabelSetVO)JsonConverter.jsonToObject(frameLabelVOSetJSON, FrameLabelSetVO.class), isWorker);
     }
 
 
-    @RequestMapping(value = "/markLabel/setTaskAccomplished", method = RequestMethod.GET)
+    @RequestMapping(value = "/markFrameLabel/setTaskAccomplished", method = RequestMethod.GET)
     public boolean setTaskAccomplished(String taskId, String userId, boolean isWorker) {
         return setTaskAccomplishedBL.setTaskAccomplished(new TaskId(taskId), new UserId(userId), isWorker);
     }

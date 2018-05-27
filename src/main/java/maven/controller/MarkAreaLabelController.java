@@ -21,18 +21,18 @@ public class MarkAreaLabelController {
         setTaskAccomplishedBL = new SetTaskAccomplishedBLStub();
     }
 
-    @RequestMapping(value = "/markLabel/getAreaLabel", method = RequestMethod.GET)
+    @RequestMapping(value = "/markAreaLabel/getAreaLabel", method = RequestMethod.GET)
     public AreaLabelSetVO getAreaLabelSetVO(String taskId, String userId) {
         return markAreaLabelBL.getAreaLabelSetVO(new TaskId(taskId),new UserId(userId));
     }
-    @RequestMapping(value = "/markLabel/saveAreaLabel", method = RequestMethod.GET)
+    @RequestMapping(value = "/markAreaLabel/saveAreaLabel", method = RequestMethod.GET)
     public boolean saveAreaLabelSetVO(String taskId, String userId, String areaLabelVOSetJSON, boolean isWorker) {
         System.out.println(areaLabelVOSetJSON);
         return markAreaLabelBL.saveAreaLabelSet(new TaskId(taskId), new UserId(userId), (AreaLabelSetVO)JsonConverter.jsonToObject(areaLabelVOSetJSON, AreaLabelSetVO.class), isWorker);
     }
 
 
-    @RequestMapping(value = "/markLabel/setTaskAccomplished", method = RequestMethod.GET)
+    @RequestMapping(value = "/markAreaLabel/setTaskAccomplished", method = RequestMethod.GET)
     public boolean setTaskAccomplished(String taskId, String userId, boolean isWorker) {
         return setTaskAccomplishedBL.setTaskAccomplished(new TaskId(taskId), new UserId(userId), isWorker);
     }

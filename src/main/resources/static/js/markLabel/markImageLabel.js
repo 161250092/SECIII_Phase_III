@@ -35,7 +35,7 @@ new Vue({
     methods: {
         getLabel: function () {
             const _this = this;
-            axios.get("/markLabel/getLabel", { params: {taskId: this.taskId ,userId: this.userId} }).then(function (response) {
+            axios.get("/markImageLabel/getLabel", { params: {taskId: this.taskId ,userId: this.userId} }).then(function (response) {
                 _this.taskImageNum = response.data.taskImageNum;
                 _this.labelList = response.data.labelList;
                 _this.filenameList = response.data.filenameList;
@@ -50,7 +50,7 @@ new Vue({
                 let imageLabelSetVO = new ImageLabelSetVO(this.taskImageNum, this.labelList, this.filenameList);
                 let imageLabelVOSetJSON = JSON.stringify(imageLabelSetVO);
                 const _this = this;
-                axios.get("/markLabel/saveImageLabel",
+                axios.get("/markImageLabel/saveImageLabel",
                     { params: { taskId: _this.taskId, userId: _this.userId, imageLabelVOSetJSON: imageLabelVOSetJSON, isWorker: _this.isWorker } })
                     .then(function (response) {
                         if(response.data === true) {
@@ -58,7 +58,6 @@ new Vue({
                             _this.hasSavedChanges = true;
                         }else{
                             alert("保存失败");
-                            _this.hasSavedChanges = false;
                         }
                     });
             }else {
@@ -82,7 +81,7 @@ new Vue({
         setTaskAccomplished: function () {
             const _this = this;
             if(this.hasSavedChanges === true){
-                axios.get("/markLabel/setTaskAccomplished", { params: { taskId: _this.taskId, userId: _this.userId, isWorker: _this.isWorker } })
+                axios.get("/markImageLabel/setTaskAccomplished", { params: { taskId: _this.taskId, userId: _this.userId, isWorker: _this.isWorker } })
                     .then(function (response) {
                         if(response.data === true){
                             alert("提交成功");

@@ -23,12 +23,18 @@
         <div class="btn-group">
             <template v-if="isUserCanLabel">
                 <button v-on:click="resetCurrentLabel">重置</button>
-                <button v-on:click="saveCurrentLabel">保存</button>
-                <button v-on:click="setTaskAccomplished" v-if="currentImageIndex == (taskImageNum-1)">保存并提交</button>
+                <button v-on:click="saveLabelList">保存</button>
             </template>
-            <button v-on:click="getPreviousLabel" class="button button-3d button-action button-circle button-jumbo">-></button>
-            <br>
-            <button v-on:click="getNextLabel" class="button button-3d button-action button-circle button-jumbo"><-</button>
+
+            <button v-on:click="previousLabel">前一张</button>
+            <button v-on:click="nextLabel">后一张</button>
+
+            <template v-if="isUserCanLabel">
+                <button v-on:click="setTaskAccomplished" v-if="currentLabelIndex == (taskImageNum-1)">提交</button>
+            </template>
+            <!--<button v-on:click="previousLabel" class="button button-3d button-action button-circle button-jumbo">-></button>-->
+            <!--<br>-->
+            <!--<button v-on:click="nextLabel" class="button button-3d button-action button-circle button-jumbo"><-</button>-->
         </div>
     </section>
 
@@ -52,17 +58,17 @@
             </p>
         </div>
         <div>
-            <p>当前图片：{{currentImageIndex+1}}     总图片数：{{taskImageNum}}</p>
+            <p>当前图片：{{currentLabelIndex+1}}     总图片数：{{taskImageNum}}</p>
             <table id="tagTable">
                 <tr>
                     <th>标签序号</th>
                     <th>标签内容</th>
                     <th v-if="isUserCanLabel">操作</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>{{currentTag}}</td>
-                    <td v-if="isUserCanLabel"><button v-on:click="resetCurrentLabel">删除</button></td>
+                <tr v-for="(area,index) in currentLabel">
+                    <td>{{index+1}}</td>
+                    <td>{{area.tag}}</td>
+                    <td v-if="isUserCanLabel"><button v-on:click="removeTag(index)">删除</button></td>
                 </tr>
             </table>
         </div>

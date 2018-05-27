@@ -1,11 +1,11 @@
 //标框类集合VO
-function FrameLabelVO(labelList) {
+function FrameLabelVOSet(taskImageNum, labelList, filenameList) {
     this.taskImageNum = taskImageNum;
     this.labelList = labelList;
     this.filenameList = filenameList;
 }
 //框中的标签类
-function FrameLabelListItem(startX, startY, width, height, tag){
+function Frame(startX, startY, width, height, tag){
     this.startX = startX;
     this.startY = startY;
     this.width = width;
@@ -28,7 +28,9 @@ new Vue({
         currentLabelIndex: 0,
         currentFrameLabelList: [],
 
-        isUserCanLabel: false,
+        hasSavedChanges: true,
+        isUserCanLabel: true,
+        isWorker: true,
 
         canvas: undefined,
         canvasContext: undefined,
@@ -59,12 +61,7 @@ new Vue({
             this.username = getUsername();
             this.taskId = getTaskId();
             this.isUserCanLabel = isUserCanLabel();
-            //获得这个任务的图片数目
-            const _this = this;
-            axios.get("/markLabelBL/getTaskImageNumber", { params: { taskId: this.taskId } }).then(function (response) {
-                _this.taskImageNum = response.data;
-            });
-            //获得第一张图片
+            //获得标注
             this.getLabel();
         });
     },
@@ -72,18 +69,16 @@ new Vue({
         //获得当前图片的标注记录
         getLabel: function () {
             const _this = this;
-            axios.get("/markLabelBL/getLabel", { params:
-                    { taskId: _this.taskId, userId: _this.userId,
-                        labelType: _this.labelType, imageIndex: this.currentLabelIndex,} })
-                .then(function (response) {
-                    _this.currentImageUrl = 'url(' + '/getTaskImage/' + _this.taskId + '/' + response.data.image + ')';
-                    _this.currentFrameLabelList = response.data.labelList;
-                    _this.removeRecInCanvas();
-                });
+            axios.get("/markFrameLabel/getFrameLabel", { params: {taskId: _this.taskId, userId: _this.userId} }).then(function (response) {
+                _this.taskImageNum = response.data.taskImageNum;
+                _this.labelList = response.data.labelList;
+                _this.filenameList = response.data.filenameList;
+                _this.paintFrameOnCanvas();
+            });
         },
         //重置当前图片的标注记录
         resetCurrentLabel: function () {
-            this.currentFrameLabelList = [];
+            this.labelList[this.currentLabelIndex].frameList = [];
 
             this.topLeftX = 0;
             this.topLeftY = 0;
@@ -96,50 +91,48 @@ new Vue({
             this.canDraw = true;
             this.canInputTag = false;
 
-            this.removeRecInCanvas();
+            this.paintFrameOnCanvas();
+
+            this.hasSavedChanges = false;
         },
         //保存当前图片的标注记录
-        saveCurrentLabel: function () {
-            if(this.canInputTag === false){
-                let frameLabelVO = new FrameLabelVO(this.currentFrameLabelList);
+        saveLabelList: function () {
+            if(this.canInputTag === false && this.hasSavedChanges === false){
+                let frameLabelVO = new FrameLabelVOSet(this.taskImageNum, this.labelList, this.filenameList);
                 let frameLabelVOJson = JSON.stringify(frameLabelVO);
                 const _this = this;
-                axios.get("/markLabelBL/saveLabel", { params:
-                        { taskId: _this.taskId, userId: _this.userId,
-                            labelType: _this.labelType, imageIndex: _this.currentLabelIndex,
-                            labelVOJson: frameLabelVOJson } })
-                    .then(function (response) {
-                        result = response.data;
-                        if(result === true) {
-                            alert("保存成功");
-                        }else{
-                            alert("保存失败");
-                        }
-                    });
-            }else {
+                axios.get("/markFrameLabel/saveFrameLabel", { params: { taskId: _this.taskId, userId: _this.userId,
+                        frameLabelVOSetJSON: frameLabelVOJson, isWorker: _this.isWorker } }).then(function (response) {
+                            let result = response.data;
+                            if(result === true) {
+                                alert("保存成功");
+                                _this.hasSavedChanges = true;
+                            }else{
+                                alert("保存失败");
+                            }
+                        });
+            }else if(this.canInputTag === true){
                 alert("请输入标签");
+            }else {
+                alert("没有变更");
             }
         },
         //转到前一张图片
-        getPreviousLabel: function () {
+        previousLabel: function () {
             //第一张图片时没有前一张图片
             if(this.currentLabelIndex > 0){
-                this.currentImageUrl = "";
-                this.resetCurrentLabel();
                 this.currentLabelIndex--;
-                this.getLabel();
+                this.paintFrameOnCanvas();
             }else{
                 alert("当前是第一张图片");
             }
         },
-        //转到后一张图片
-        getNextLabel: function () {
+        //转到后一张图片n
+        nextLabel: function () {
             //最后一张图片时没有后一张图片
             if(this.currentLabelIndex < (this.taskImageNum - 1)){
-                this.currentImageUrl = "";
-                this.resetCurrentLabel();
                 this.currentLabelIndex++;
-                this.getLabel();
+                this.paintFrameOnCanvas();
             }else{
                 alert("当前是最后一张图片");
             }
@@ -148,16 +141,14 @@ new Vue({
         setTaskAccomplished: function () {
             //提交任务
             const _this = this;
-            axios.get("/markLabelBL/setTaskAccomplished", { params:
-                    { taskId: _this.taskId, userId: _this.userId } })
-                .then(function (response) {
-                    if(response.data === true){
-                        alert("提交成功");
-                        jumpToAnotherPage(mainPageUrl);
-                    }else {
-                        alert("提交失败");
-                    }
-                });
+            axios.get("/markFrameLabel/setTaskAccomplished", { params: { taskId: _this.taskId, userId: _this.userId } }).then(function (response) {
+                if(response.data === true){
+                    alert("提交成功");
+                    jumpToAnotherPage(mainPageUrl);
+                }else {
+                    alert("提交失败");
+                }
+            });
         },
         //对标签的操作
         addTag: function () {
@@ -171,25 +162,29 @@ new Vue({
                 //加到数组中
                 let currentWidth = Math.abs(this.currentEndX - this.currentStartX);
                 let currentLength = Math.abs(this.currentEndY - this.currentStartY);
-                let temp = new FrameLabelListItem(this.topLeftX, this.topLeftY, currentWidth, currentLength, tag);
-                this.currentFrameLabelList.push(temp);
+                let temp = new Frame(this.topLeftX, this.topLeftY, currentWidth, currentLength, tag);
+                this.labelList[this.currentLabelIndex].frameList.push(temp);
 
                 this.canInputTag = false;
                 this.canDraw = true;
+
+                this.hasSavedChanges = false;
             }else{
                 alert("请标注区域");
             }
         },
         removeTag: function (tagIndex) {
-            this.currentFrameLabelList.splice(tagIndex, 1);
-            this.removeRecInCanvas();
+            this.labelList[this.currentLabelIndex].frameList.splice(tagIndex, 1);
+            this.paintFrameOnCanvas();
+
+            this.hasSavedChanges = false;
         },
         //将画布上的矩形标框移除
-        removeRecInCanvas: function () {
+        paintFrameOnCanvas: function () {
             this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
             const _this = this;
-            this.currentFrameLabelList.forEach(function (currentValue, index) {
-                _this.canvasContext.strokeRect(currentValue.startX, currentValue.startY, currentValue.width, currentValue.height);
+            this.labelList[this.currentLabelIndex].frameList.forEach(function (currentFrame, index) {
+                _this.canvasContext.strokeRect(currentFrame.startX, currentFrame.startY, currentFrame.width, currentFrame.height);
             });
         },
         //画板
@@ -238,11 +233,11 @@ new Vue({
         }
     },
     computed:{
-        currentImageSrc: function () {
+        currentImageUrl: function () {
             if(this.filenameList.length > 0){
-                return '/image/getTaskImage/' + this.taskId + '/' + this.filenameList[this.currentLabelIndex];
+                return 'url(/image/getTaskImage/' + this.taskId + '/' + this.filenameList[this.currentLabelIndex] + ')';
             }else{
-                return '/image/getTaskImage/errorTaskImage.jpg'
+                return 'url(/image/getTaskImage/errorTaskImage.jpg)';
             }
         },
         currentLabel: function () {
