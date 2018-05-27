@@ -2,10 +2,12 @@ package model.user;
 
 import model.primitiveType.*;
 
+import java.io.Serializable;
+
 /**
  * 工人
  */
-public class Worker extends User {
+public class Worker extends User implements Serializable {
     //一段时间内，工人能接受的最大任务数
     private TaskNum maxAcceptedTaskNum;
 

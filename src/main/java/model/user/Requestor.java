@@ -2,10 +2,12 @@ package model.user;
 
 import model.primitiveType.*;
 
+import java.io.Serializable;
+
 /**
  * 发布者
  */
-public class Requestor extends User {
+public class Requestor extends User implements Serializable {
     //一段时间内，发布者能发布的最大任务数
     private TaskNum maxPublishedTaskNum;
 

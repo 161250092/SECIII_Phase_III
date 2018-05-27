@@ -2,10 +2,12 @@ package model.user;
 
 import model.primitiveType.*;
 
+import java.io.Serializable;
+
 /**
  * 用户
  */
-abstract public class User {
+abstract public class User implements Serializable{
     //用户Id
     private UserId userId;
     //用户昵称
