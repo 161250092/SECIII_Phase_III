@@ -3,7 +3,9 @@ package maven.model.vo;
 import maven.model.primitiveType.*;
 import maven.model.task.AcceptedTask;
 
-public class AcceptedTaskVO {
+import java.io.Serializable;
+
+public class AcceptedTaskVO implements Serializable{
     //任务Id
     private String taskId;
     //工人Id

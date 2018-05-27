@@ -3,12 +3,13 @@ package maven.model.vo;
 import maven.model.label.Label;
 import maven.model.primitiveType.Filename;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 标注集
  */
-public class LabelSetVO {
+public class LabelSetVO implements Serializable {
     //图片总数
     private int taskImageNum;
     //标注的数组

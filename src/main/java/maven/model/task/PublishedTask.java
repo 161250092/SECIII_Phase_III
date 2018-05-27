@@ -33,11 +33,15 @@ public class PublishedTask {
     private Cash taskPrice;
 
     //任务状态列表（开始时间，任务金额，任务要求的工人人数，发布者优惠）
-    private ArrayList<PublishedTaskState> publishedTaskStateList;
+    private ArrayList<PublishedTaskDetail> publishedTaskStateList;
+
+    //该任务的状态
+    private PublishedTaskState publishedTaskState;
 
     public PublishedTask(TaskId taskId, UserId userId, LabelType labelType, List<Filename> imageFilenameList,
                          TaskDescription taskDescription, WorkerNum acceptedWorkerNum, WorkerNum finishedWorkerNum, Sample sample,
-                         Cash taskPrice, ArrayList<PublishedTaskState> publishedTaskStateList) {
+                         Cash taskPrice, ArrayList<PublishedTaskDetail> publishedTaskStateList,
+                         PublishedTaskState publishedTaskState) {
         this.taskId = taskId;
         this.userId = userId;
         this.labelType = labelType;
@@ -48,6 +52,7 @@ public class PublishedTask {
         this.sample = sample;
         this.taskPrice = taskPrice;
         this.publishedTaskStateList = publishedTaskStateList;
+        this.publishedTaskState = publishedTaskState;
     }
 
     public TaskId getTaskId() {
@@ -94,7 +99,11 @@ public class PublishedTask {
         return taskPrice;
     }
 
-    public ArrayList<PublishedTaskState> getPublishedTaskStateList() {
+    public ArrayList<PublishedTaskDetail> getPublishedTaskStateList() {
         return publishedTaskStateList;
+    }
+
+    public PublishedTaskState getPublishedTaskState() {
+        return publishedTaskState;
     }
 }

@@ -1,10 +1,12 @@
 package maven.model.vo;
 
 import maven.model.task.PublishedTask;
+import maven.model.task.PublishedTaskState;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PublishedTaskVO {
+public class PublishedTaskVO implements Serializable {
     //任务Id
     private String taskId;
 
@@ -22,6 +24,9 @@ public class PublishedTaskVO {
 
     //完成该任务可获取的钱数
     private double taskPrice;
+
+    //该任务的状态
+    private PublishedTaskState publishedTaskState;
 
     public String getTaskId() {
         return taskId;
@@ -47,14 +52,24 @@ public class PublishedTaskVO {
         return taskPrice;
     }
 
-    private PublishedTaskVO(String taskId, String labelType, String taskDescription, int acceptedWorkerNum, int finishedWorkerNum, double taskPrice) {
+    public PublishedTaskState getPublishedTaskState() {
+        return publishedTaskState;
+    }
+
+
+    private PublishedTaskVO(String taskId, String labelType, String taskDescription, int acceptedWorkerNum, int finishedWorkerNum, double taskPrice, PublishedTaskState publishedTaskState) {
         this.taskId = taskId;
         this.labelType = labelType;
         this.taskDescription = taskDescription;
         this.acceptedWorkerNum = acceptedWorkerNum;
         this.finishedWorkerNum = finishedWorkerNum;
         this.taskPrice = taskPrice;
+        this.publishedTaskState = publishedTaskState;
     }
+
+
+
+
 
     /**
      * 提供从 PublishedTask类 实例 到 PublishedTaskVO的转换方法
@@ -62,7 +77,8 @@ public class PublishedTaskVO {
      */
     public PublishedTaskVO(PublishedTask publishedTask){
         this(publishedTask.getTaskId().value, publishedTask.getLabelType().value, publishedTask.getTaskDescription().value,
-                publishedTask.getAcceptedWorkerNum().value, publishedTask.getFinishedWorkerNum().value, publishedTask.getTaskPrice().value);
+                publishedTask.getAcceptedWorkerNum().value, publishedTask.getFinishedWorkerNum().value,
+                publishedTask.getTaskPrice().value, publishedTask.getPublishedTaskState());
     }
 
 }
