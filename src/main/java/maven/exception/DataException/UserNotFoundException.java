@@ -1,6 +1,6 @@
 package maven.exception.DataException;
 
-import maven.exception.WrongMessage;
+import maven.exception.util.WrongMessage;
 
 public class UserNotFoundException extends Exception{
     private WrongMessage wrongMessage;

@@ -50,7 +50,7 @@ public class RequestorBLImpl implements RequestorBLService{
     }
 
     @Override
-    public List<AcceptedTaskVO> getSubmittedTaskList(UserId userId) {
+    public List<AcceptedTaskVO> getSubmittedTaskList(TaskId taskId, UserId userId) {
         return null;
     }
 

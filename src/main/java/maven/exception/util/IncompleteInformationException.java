@@ -1,6 +1,6 @@
-package maven.exception.loginException;
+package maven.exception.util;
 
-import maven.exception.WrongMessage;
+import maven.exception.util.WrongMessage;
 
 public class IncompleteInformationException extends Exception{
     private WrongMessage wrongMessage;

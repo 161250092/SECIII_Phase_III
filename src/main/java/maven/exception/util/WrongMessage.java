@@ -1,4 +1,4 @@
-package maven.exception;
+package maven.exception.util;
 
 public class WrongMessage {
     private String type;

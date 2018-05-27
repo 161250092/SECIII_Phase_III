@@ -1,4 +1,4 @@
-package maven.businessLogic.markLabelBL;
+package maven.businessLogic.markLabelBL.MarkFrameLableBL;
 
 import maven.model.label.frameLabel.Frame;
 import maven.model.label.frameLabel.FrameLabel;

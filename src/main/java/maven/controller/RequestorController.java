@@ -77,8 +77,8 @@ public class RequestorController {
      * @return 待审核的任务列表的Json字符串
      */
     @RequestMapping(value = "/requestor/getSubmittedTaskList", method = RequestMethod.GET)
-    public List<AcceptedTaskVO> getSubmittedTaskList(String userId){
-        return requestorBL.getSubmittedTaskList(new UserId(userId));
+    public List<AcceptedTaskVO> getSubmittedTaskList(String taskId, String userId){
+        return requestorBL.getSubmittedTaskList(new TaskId(taskId), new UserId(userId));
     }
 
     /**

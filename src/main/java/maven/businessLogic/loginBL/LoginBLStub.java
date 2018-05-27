@@ -1,6 +1,5 @@
 package maven.businessLogic.loginBL;
 
-import maven.exception.loginException.*;
 import maven.model.primitiveType.Password;
 import maven.model.primitiveType.Username;
 

@@ -1,6 +1,6 @@
-package maven.exception.loginException;
+package maven.exception.LoginException;
 
-import maven.exception.WrongMessage;
+import maven.exception.util.WrongMessage;
 
 public class AdministerLoginException extends Exception{
     private WrongMessage wrongMessage;

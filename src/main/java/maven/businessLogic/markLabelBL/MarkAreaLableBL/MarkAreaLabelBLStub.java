@@ -1,4 +1,4 @@
-package maven.businessLogic.markLabelBL;
+package maven.businessLogic.markLabelBL.MarkAreaLableBL;
 
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;

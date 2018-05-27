@@ -1,9 +1,9 @@
 package maven.controller;
 
-import maven.businessLogic.markLabelBL.MarkAreaLabelBLService;
-import maven.businessLogic.markLabelBL.MarkAreaLabelBLStub;
-import maven.businessLogic.markLabelBL.SetTaskAccomplishedBLService;
-import maven.businessLogic.markLabelBL.SetTaskAccomplishedBLStub;
+import maven.businessLogic.markLabelBL.MarkAreaLableBL.MarkAreaLabelBLService;
+import maven.businessLogic.markLabelBL.MarkAreaLableBL.MarkAreaLabelBLStub;
+import maven.businessLogic.markLabelBL.SetTaskAccomplishedBL.SetTaskAccomplishedBLService;
+import maven.businessLogic.markLabelBL.SetTaskAccomplishedBL.SetTaskAccomplishedBLStub;
 import maven.model.JsonConverter;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
