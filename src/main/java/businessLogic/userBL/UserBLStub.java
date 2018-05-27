@@ -10,37 +10,39 @@ public class UserBLStub implements UserBLService{
     }
 
     @Override
-    public User getUserInfo(Username username) {
+    public User getUserInfo(UserId userId) {
         return null;
     }
 
     @Override
-    public Exception reviseUserEmail(Username username, Email email) {
+    public Exception reviseUserEmail(UserId userId, Email email) {
         return null;
     }
 
     @Override
-    public Exception reviseUserPhone(Username username, Phone phone) {
+    public Exception reviseUserPhone(UserId userId, Phone phone) {
         return null;
     }
 
     @Override
-    public Exception reduceCash(Username username, Cash cash) {
+    public Exception reduceCash(UserId userId, Cash cash) {
         return null;
     }
 
     @Override
-    public Exception increaseCash(Username username, Cash cash) {
+    public Exception increaseCash(UserId userId, Cash cash) {
         return null;
     }
 
     @Override
-    public Exception reducePrestige(Username username, Prestige prestige) {
+    public Exception reducePrestige(UserId userId, Prestige prestige) {
         return null;
     }
 
     @Override
-    public Exception increasePrestige(Username username, Prestige prestige) {
+    public Exception increasePrestige(UserId userId, Prestige prestige) {
         return null;
     }
+
+
 }

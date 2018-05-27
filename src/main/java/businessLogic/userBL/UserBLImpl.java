@@ -2,8 +2,8 @@ package businessLogic.userBL;
 
 //import data.UserData.UserDataImpl;
 //import data.UserData.UserDataService;
-import model.primitiveType.UserId;
-import model.primitiveType.Username;
+import model.primitiveType.*;
+import model.user.User;
 
 import java.util.List;
 
@@ -16,6 +16,41 @@ public class UserBLImpl implements UserBLService{
 
     @Override
     public UserId getUserId(Username userName) {
+        return null;
+    }
+
+    @Override
+    public User getUserInfo(UserId userId) {
+        return null;
+    }
+
+    @Override
+    public Exception reviseUserEmail(UserId userId, Email email) {
+        return null;
+    }
+
+    @Override
+    public Exception reviseUserPhone(UserId userId, Phone phone) {
+        return null;
+    }
+
+    @Override
+    public Exception reduceCash(UserId userId, Cash cash) {
+        return null;
+    }
+
+    @Override
+    public Exception increaseCash(UserId userId, Cash cash) {
+        return null;
+    }
+
+    @Override
+    public Exception reducePrestige(UserId userId, Prestige prestige) {
+        return null;
+    }
+
+    @Override
+    public Exception increasePrestige(UserId userId, Prestige prestige) {
         return null;
     }
 
