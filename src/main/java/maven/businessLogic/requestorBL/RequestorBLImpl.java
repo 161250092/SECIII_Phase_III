@@ -70,12 +70,22 @@ public class RequestorBLImpl implements RequestorBLService{
     }
 
     @Override
-    public List<PublishedTask> getAssignedAndAccomplishedTaskList(UserId userId) {
+    public List<PublishedTaskVO> getAssignedAndAccomplishedTaskList(UserId userId) {
         return null;
     }
 
     @Override
-    public List<PublishedTask> getAssignedButIncompleteTaskList(UserId userId) {
+    public List<PublishedTaskVO> getAssignedButIncompleteTaskList(UserId userId) {
+        return null;
+    }
+
+    @Override
+    public PublishedTask getAssignedTask(UserId userId, TaskId taskId) {
+        return null;
+    }
+
+    @Override
+    public List<AcceptedTaskVO> getAcceptedTaskVOList(UserId userId, TaskId taskId) {
         return null;
     }
 

@@ -6,6 +6,7 @@ import maven.model.JsonConverter;
 import maven.model.primitiveType.Filename;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
+import maven.model.task.AcceptedTask;
 import maven.model.task.PublishedTask;
 import maven.model.user.Requestor;
 import maven.model.vo.AcceptedTaskVO;
@@ -72,7 +73,7 @@ public class RequestorController {
 
     /**
      * 获取工人已完成并待审核的任务列表
-     * @param userId 用户Id
+     * @param userId 发布者Id
      * @return 待审核的任务列表的Json字符串
      */
     @RequestMapping(value = "/requestor/getSubmittedTaskList", method = RequestMethod.GET)
@@ -115,23 +116,44 @@ public class RequestorController {
 
     /**
      * 获取发布且已完成任务的列表
-     * @param userId 用户Id
+     * @param userId 发布者Id
      * @return 发布且已完成任务的列表的Json字符串
      */
     @RequestMapping(value = "/requestor/getAssignedAndAccomplishedTaskList", method = RequestMethod.GET)
-    public List<PublishedTask> getAssignedAndAccomplishedTaskList(String userId){
+    public List<PublishedTaskVO> getAssignedAndAccomplishedTaskList(String userId){
         return requestorBL.getAssignedAndAccomplishedTaskList(new UserId(userId));
     }
 
     /**
      * 获取发布但未完成任务的列表
-     * @param userId 用户Id
+     * @param userId 发布者Id
      * @return 发布但未完成任务的列表的Json字符串
      */
     @RequestMapping(value = "/requestor/getAssignedButIncompleteTaskList", method = RequestMethod.GET)
-    public List<PublishedTask> getAssignedButIncompleteTaskList(String userId){
+    public List<PublishedTaskVO> getAssignedButIncompleteTaskList(String userId){
         return requestorBL.getAssignedButIncompleteTaskList(new UserId(userId));
     }
+
+    /**
+     * 获取具体的发布任务的信息
+     * @param userId 发布者Id
+     * @param taskId 任务Id
+     * @return 任务详情
+     */
+    public PublishedTask getAssignedTask(String userId, String taskId){
+        return requestorBL.getAssignedTask(new UserId(userId), new TaskId(taskId));
+    }
+
+    /**
+     * 查看已接受某任务的工人任务完成情况
+     * @param userId 发布者Id
+     * @param taskId 任务Id
+     * @return 任务列表
+     */
+    public List<AcceptedTaskVO> getAcceptedTaskVOList(String userId, String taskId){
+        return requestorBL.getAcceptedTaskVOList(new UserId(userId), new TaskId(taskId));
+    }
+
 
     /**
      * 获取发布者的个人信息

@@ -85,14 +85,31 @@ public interface RequestorBLService {
      * @param userId 发布者Id
      * @return 发布且已完成任务的列表
      */
-    List<PublishedTask> getAssignedAndAccomplishedTaskList(UserId userId);
+    List<PublishedTaskVO> getAssignedAndAccomplishedTaskList(UserId userId);
 
     /**
      * 获取发布但未完成任务的列表
      * @param userId 发布者Id
      * @return 发布但未完成任务的列表
      */
-    List<PublishedTask> getAssignedButIncompleteTaskList(UserId userId);
+    List<PublishedTaskVO> getAssignedButIncompleteTaskList(UserId userId);
+
+    /**
+     * 获取具体的发布任务的信息
+     * @param userId 发布者Id
+     * @param taskId 任务Id
+     * @return 任务详情
+     */
+    public PublishedTask getAssignedTask(UserId userId, TaskId taskId);
+
+    /**
+     * 查看已接受某任务的工人任务完成情况
+     * @param userId 发布者Id
+     * @param taskId 任务Id
+     * @return 任务列表
+     */
+    public List<AcceptedTaskVO> getAcceptedTaskVOList(UserId userId, TaskId taskId);
+
 
     /**
      * 获取发布者的个人信息
