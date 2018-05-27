@@ -41,34 +41,35 @@
   </div>
 <hr>
 
-  <div>
+  <div id="requestorInfo">
         <div id="fix">
 
             <span>名称:</span>
-          <input type="text" class="input_short" id="user_name" name="tag" value="" disabled="disabled">
+            <input type="text" class="input_short" id="user_name" name="tag" value="" disabled="disabled" v-model="username">{{username}}
+
           <br>
           <span>声望:</span>
-          <input type="text" class="input_short" id="prestige" name="tag" value="" disabled="disabled">
+          <input type="text" class="input_short" id="prestige" name="tag" value="" disabled="disabled" v-model="prestige">{{prestige}}
           <br>
           <span>等级:</span>
-          <input type="text" class="input_short" id="user_level" name="tag" value="" disabled="disabled">
+          <input type="text" class="input_short" id="user_level" name="tag" value="" disabled="disabled" v-model="userLevel">{{userLevel}}
           <br>
           <span>cash:</span>
-          <input type="text" class="input_short" id="cash" name="tag" value="" disabled="disabled">
+          <input type="text" class="input_short" id="cash" name="tag" value="" disabled="disabled" v-model="cash">{{cash}}
         </div>
 
 
         <div id="editable" >
            <span>电子邮箱:</span>
-          <input type="text"  id="ranking" name="tag" value="">
-          <input type="button" id="changeEmail" value="edit"></input>
+          <input type="text"  id="email" name="tag" value="" v-model="email">{{email}}
+          <input type="button" id="changeEmail" value="edit" v-on:click="editEmail"></input>
             <br>
           <span>电话号码:</span>
-          <input type="text" id="score" name="tag" value="">
-          <input type="button" id="changePhone" value="edit"></input>
+          <input type="text" id="phone" name="tag" value="" v-model="phone">{{phone}}
+          <input type="button" id="changePhone" value="edit" v-on:click="editPhone"></input>
         </div>
 
-  </div>
+
 
         <hr/>
 
@@ -84,11 +85,15 @@
         <div id="FinishedLayout" style="height: 100%"></div>
 
         <hr/>
-        <button id="charge">充值</button>
+        <button id="charge" v-on:click="charge">充值</button>
 
 
 
-
+  </div>
   </body>
 
+<script src="../../js/lib/vue.js"></script>
+<script src="../../js/lib/axios.js"></script>
+<script src="../../js/lib/jquery-1.11.0.min.js"></script>
+<script src="../../js/requestor/personPage.js"></script>
 </html>
