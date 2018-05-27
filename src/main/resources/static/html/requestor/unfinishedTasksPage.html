@@ -1,7 +1,8 @@
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" class="no-js" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
       <meta charset="utf-8">
 		<link rel="stylesheet" href="../../css/lu.css">
+		<link rel="stylesheet" href="../../css/input.css">
       <title>发布但未完成任务页面</title>
       <!-- 通过，驳回，废弃 -->
 </head>
@@ -47,7 +48,6 @@
 		<tr>
 			<th>任务编号</th>
 			<th>标注类型</th>
-			<th>发布时间</th>
 			<th>任务描述</th>
 			<th>积分奖励</th>
 			<th>变更确认</th>
@@ -60,26 +60,46 @@
 		<tr v-for="(item, index) in AllUnfinishedTasks">
 			<th>{{item.taskId}}</th>
 			<th>{{getChineseLabelType(item.labelType)}}</th>
-			<th>{{item.description}}</th>
-			<th>{{item.score}}</th>
-			<th></th>
-			<th><button>change</button></th>
-			<th></th>
-			<th></th>
-			<th></th>
+			<th><button v-on="detailedInfo(index)">任务描述</button></th>
+			<th>{{item.taskPrice}}</th>
+			<th><button v-on="changeTaskPrice(index)">增加赏金</button></th>
+			<th>{{item.finishedWorkerNum}}</th>
+			<th>{{item.WorkNum}}</th>
+			<th><button v-on="recallTask(index)">撤销</button></th>
 			
 		</tr>
 	</table>
+	<br>
+	<hr>
+	<br>
+
+
+	<label>
+		任务描述
+		<textarea type="text" v-model="taskDescription" id="taskDescription"></textarea>
+	</label>
+		<br>
+		<label>
+			任务ID
+		 <input  type="text" v-model="reviseTaskId" id="reviseTaskId" disabled="disabled">
+		</label>
+
+	<label>
+		 赏金
+		<input type="text" v-model="reviseTaskPrice" id="reviseTaskPrice">
+	</label>
+
+	<button v-on:click="addTaskPrice">确认修改</button>
+
+
 </div>
-
-
-
-
-
-
 
   	</body>
 
+<script src="../../js/lib/vue.js"></script>
+<script src="../../js/lib/axios.js"></script>
+<script src="../../js/lib/jquery-1.11.0.min.js"></script>
+<script src="../../js/requestor/unfinishedTasksPage.js"></script>
 
 
 </html>

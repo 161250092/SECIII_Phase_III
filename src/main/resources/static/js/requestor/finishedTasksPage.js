@@ -1,8 +1,9 @@
 new Vue({
-            el:"#taskInfoContainer",
-            data:{
+        el:"#taskInfoContainer",
+        data:{
         userId: "",
         AllFinishedTasks:[],
+        ParticipatorsInfo:[],
         IMAGE_LABEL_TYPE: "ImageLabel",
         FRAME_LABEL_TYPE: "FrameLabel",
         AREA_LABEL_TYPE: "AreaLabel"
@@ -17,6 +18,8 @@ new Vue({
                     _this.AllFinishedTasks = response.data;
                 })
         })
+
+
     },
     methods:{
         getChineseLabelType: function (labelType) {
@@ -27,8 +30,15 @@ new Vue({
             }else if(labelType === this.AREA_LABEL_TYPE){
                 return "区域标注";
             }
+        },
+
+        check:function(index){
+            // AllFinishedTasks[index]
+
         }
+
     }
+
 
 });
 

@@ -58,7 +58,7 @@
 			<th>{{item.finishedWorkerNum}}</th>
 			<th>{{item.taskPrice}}</th>
 			<!-- 查看任务完成情况 incompleted -->
-			<th><a v-on:click="">查看</a></th>
+			<th><a v-on:click="check(index)">查看</a></th>
 		</tr>
 	</table>
 </div>
@@ -75,7 +75,7 @@
 		</tr>
 
 		<tr v-for="(item, index) in ParticipatorsInfo">
-			<th>{{item.name}}</th>
+			<th>{{item1.name}}</th>
 			<th>{item.sys_score}</th>
 			<th>{{item.requestor_score}}</th>
 			<th>{{item.state}}</th>
