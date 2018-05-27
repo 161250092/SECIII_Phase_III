@@ -1,4 +1,4 @@
-//package businessLogic.markLabel.markLabelBL;
+//package businessLogic.markLabelBL.markLabelBL;
 //
 //import model.vo.frameLabel.FrameLabelListItemVO;
 //import model.vo.frameLabel.FrameLabelVO;

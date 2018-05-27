@@ -1,4 +1,4 @@
-package businessLogic.markLabel.markLabelBL;
+package businessLogic.markLabelBL;
 
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;

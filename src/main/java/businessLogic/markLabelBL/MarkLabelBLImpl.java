@@ -1,4 +1,4 @@
-package businessLogic.markLabel.markLabelBL;
+package businessLogic.markLabelBL;
 
 import data.LabelData.LabelDataImpl;
 import data.LabelData.LabelDataService;

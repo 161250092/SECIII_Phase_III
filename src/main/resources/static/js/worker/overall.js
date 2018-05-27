@@ -42,7 +42,7 @@ window.onload=function(){
 
     $.ajax({
         type : "POST",
-        url : "/markLabel/getLabel", //利用ajax发起请求，这里写servlet的路径
+        url : "/markLabelBL/getLabel", //利用ajax发起请求，这里写servlet的路径
 
         data : {
             //获得第一张图片，索引设为0
@@ -79,7 +79,7 @@ $("#next").click(function(){
 
     $.ajax({
         type : "POST",
-        url : "/markLabel/getLabel", //利用ajax发起请求，这里写servlet的路径
+        url : "/markLabelBL/getLabel", //利用ajax发起请求，这里写servlet的路径
 
         data : {
             //获得下一张图片
@@ -118,7 +118,7 @@ function save(){
 
     $.ajax({
         type : "POST",
-        url : "/markLabel/saveLabel", //利用ajax发起请求，这里写servlet的路径
+        url : "/markLabelBL/saveLabel", //利用ajax发起请求，这里写servlet的路径
 
         data : {
             taskId: line_task_Id,

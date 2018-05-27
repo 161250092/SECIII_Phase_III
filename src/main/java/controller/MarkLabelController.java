@@ -1,6 +1,7 @@
 package controller;
 
-import businessLogic.markLabel.markLabelBL.*;
+import businessLogic.markLabelBL.MarkLabelBLImpl;
+import businessLogic.markLabelBL.MarkLabelBLService;
 import model.JsonConverter;
 import model.primitiveType.TaskId;
 import model.primitiveType.UserId;

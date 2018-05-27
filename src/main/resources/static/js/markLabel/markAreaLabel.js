@@ -46,7 +46,7 @@ new Vue({
             this.taskId = getTaskId();
             //获得这个任务的图片数目
             const _this = this;
-            axios.get("/markLabel/getTaskImageNumber", { params: { taskId: this.taskId } }).then(function (response) {
+            axios.get("/markLabelBL/getTaskImageNumber", { params: { taskId: this.taskId } }).then(function (response) {
                 _this.taskImageNum = response.data;
             });
             //获得第一张图片
@@ -78,7 +78,7 @@ new Vue({
         },
         getLabel: function () {
             const _this = this;
-            axios.get("/markLabel/getLabel", { params:
+            axios.get("/markLabelBL/getLabel", { params:
                     { taskId: _this.taskId, userId: _this.userId,
                         labelType: _this.labelType, imageIndex: this.currentImageIndex,} })
                 .then(function (response) {
@@ -109,7 +109,7 @@ new Vue({
                 let currentAreaLabelVO = new AreaLabelVO(this.currentTag, labelList);
                 let areaLabelVOJson = JSON.stringify(currentAreaLabelVO);
                 const _this = this;
-                axios.get("/markLabel/saveLabel", { params:
+                axios.get("/markLabelBL/saveLabel", { params:
                         { taskId: _this.taskId, userId: _this.userId,
                             labelType: _this.labelType, imageIndex: _this.currentImageIndex,
                             labelVOJson: areaLabelVOJson } })
@@ -153,7 +153,7 @@ new Vue({
         setTaskAccomplished: function () {
             //提交任务
             const _this = this;
-            axios.get("/markLabel/setTaskAccomplished", { params:
+            axios.get("/markLabelBL/setTaskAccomplished", { params:
                     { taskId: _this.taskId, userId: _this.userId } })
                 .then(function (response) {
                     if(response.data === true){
