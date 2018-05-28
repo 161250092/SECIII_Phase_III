@@ -30,6 +30,7 @@ public class MarkFrameLabelController {
     }
     @RequestMapping(value = "/markFrameLabel/saveFrameLabel", method = RequestMethod.GET)
     public boolean saveFrameLabelSetVO(String taskId, String userId, String frameLabelVOSetJSON, boolean isWorker) {
+        System.out.println(frameLabelVOSetJSON);
         return markFrameLabelBL.saveFrameLabelSet(new TaskId(taskId), new UserId(userId), (FrameLabelSetVO)JsonConverter.jsonToObject(frameLabelVOSetJSON, FrameLabelSetVO.class), isWorker);
     }
 
