@@ -11,7 +11,9 @@ import maven.model.primitiveType.UserId;
 import maven.model.vo.FrameLabelSetVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class MarkFrameLabelController {
 
     private MarkFrameLabelBLService markFrameLabelBL;

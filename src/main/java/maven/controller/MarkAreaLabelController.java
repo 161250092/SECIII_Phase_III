@@ -10,7 +10,9 @@ import maven.model.primitiveType.UserId;
 import maven.model.vo.AreaLabelSetVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class MarkAreaLabelController {
 
     private MarkAreaLabelBLService markAreaLabelBL;
