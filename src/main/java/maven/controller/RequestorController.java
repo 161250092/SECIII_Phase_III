@@ -140,6 +140,7 @@ public class RequestorController {
      * @param taskId 任务Id
      * @return 任务详情
      */
+    @RequestMapping(value="/requestor/getAssignedTask",method = RequestMethod.GET)
     public PublishedTask getAssignedTask(String userId, String taskId){
         return requestorBL.getAssignedTask(new UserId(userId), new TaskId(taskId));
     }
@@ -150,6 +151,7 @@ public class RequestorController {
      * @param taskId 任务Id
      * @return 任务列表
      */
+    @RequestMapping(value="/requestor/getAcceptedTaskVOList",method = RequestMethod.GET )
     public List<AcceptedTaskVO> getAcceptedTaskVOList(String userId, String taskId){
         return requestorBL.getAcceptedTaskVOList(new UserId(userId), new TaskId(taskId));
     }

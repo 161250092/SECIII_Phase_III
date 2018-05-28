@@ -33,7 +33,11 @@ new Vue({
         },
 
         check: function (index) {
+            axios.get("/requestor/getAcceptedTaskVOList", {params: {userId:getUserId(),taskId:AllUnfinishedTasks[index].taskId}})
+                .then(function (taskVO) {
+                    ParticipatorsInfo = taskVO.data;
 
+                });
         }
 
     }
