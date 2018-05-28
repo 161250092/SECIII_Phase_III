@@ -35,7 +35,7 @@ new Vue({
     methods: {
         getLabel: function () {
             const _this = this;
-            axios.get("/markImageLabel/getLabel", { params: {taskId: this.taskId ,userId: this.userId} }).then(function (response) {
+            axios.get("/markImageLabel/getImageLabel", { params: {taskId: this.taskId ,userId: this.userId} }).then(function (response) {
                 _this.taskImageNum = response.data.taskImageNum;
                 _this.labelList = response.data.labelList;
                 _this.filenameList = response.data.filenameList;
@@ -79,8 +79,13 @@ new Vue({
             }
         },
         setTaskAccomplished: function () {
-            const _this = this;
+            if(this.isAllLabel() === false){
+                alert("有图片未标注");
+                return;
+            }
+
             if(this.hasSavedChanges === true){
+                const _this = this;
                 axios.get("/markImageLabel/setTaskAccomplished", { params: { taskId: _this.taskId, userId: _this.userId, isWorker: _this.isWorker } })
                     .then(function (response) {
                         if(response.data === true){
@@ -90,7 +95,7 @@ new Vue({
                             alert("提交失败");
                         }
                     });
-            }else{
+            }else {
                 alert("未保存修改");
             }
         },
@@ -109,6 +114,15 @@ new Vue({
         removeTag: function (tagIndex) {
             this.labelList[this.currentLabelIndex].tagList.splice(tagIndex, 1);
             this.hasSavedChanges = false;
+        },
+        //判断是否标注了全部图片
+        isAllLabel: function () {
+            for(let i = 0; i < this.labelList.length; i++){
+                if(this.labelList[i].tagList.length === 0){
+                    return false;
+                }
+            }
+            return true;
         }
     },
     computed:{

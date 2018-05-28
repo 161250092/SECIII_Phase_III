@@ -139,16 +139,25 @@ new Vue({
         },
         //提交任务
         setTaskAccomplished: function () {
-            //提交任务
-            const _this = this;
-            axios.get("/markFrameLabel/setTaskAccomplished", { params: { taskId: _this.taskId, userId: _this.userId } }).then(function (response) {
-                if(response.data === true){
-                    alert("提交成功");
-                    jumpToAnotherPage(mainPageUrl);
-                }else {
-                    alert("提交失败");
-                }
-            });
+            if(this.isAllLabel() === false){
+                alert("有图片未标注");
+                return;
+            }
+
+            if(this.hasSavedChanges === true){
+                //提交任务
+                const _this = this;
+                axios.get("/markFrameLabel/setTaskAccomplished", { params: { taskId: _this.taskId, userId: _this.userId } }).then(function (response) {
+                    if(response.data === true){
+                        alert("提交成功");
+                        jumpToAnotherPage(mainPageUrl);
+                    }else {
+                        alert("提交失败");
+                    }
+                });
+            }else{
+                alert("未保存修改");
+            }
         },
         //对标签的操作
         addTag: function () {
@@ -230,6 +239,15 @@ new Vue({
         getY: function (ev) {
             const rect = this.$refs.canvas.getBoundingClientRect();
             return ev.clientY - rect.top;
+        },
+        //判断是否标注了全部图片
+        isAllLabel: function () {
+            for(let i = 0; i < this.labelList.length; i++){
+                if(this.labelList[i].frameList.length === 0){
+                    return false;
+                }
+            }
+            return true;
         }
     },
     computed:{

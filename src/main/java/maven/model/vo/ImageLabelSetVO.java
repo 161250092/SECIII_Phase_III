@@ -10,7 +10,7 @@ public class ImageLabelSetVO extends LabelSetVO{
     //标注的数组
     private List<ImageLabel> labelList;
 
-    public List<ImageLabel> getImageLabelList() {
+    public List<ImageLabel> getLabelList() {
         return labelList;
     }
 
@@ -18,8 +18,4 @@ public class ImageLabelSetVO extends LabelSetVO{
         super(taskImageNum,filenameList);
         this.labelList = labelList;
     }
-
-
-
-
 }

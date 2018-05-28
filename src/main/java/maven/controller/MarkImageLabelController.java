@@ -30,6 +30,7 @@ public class MarkImageLabelController {
     }
     @RequestMapping(value = "/markImageLabel/saveImageLabel", method = RequestMethod.GET)
     public boolean saveImageLabelSetVO(String taskId, String userId, String imageLabelVOSetJSON, boolean isWorker) {
+        System.out.println(imageLabelVOSetJSON);
         return markImageLabelBL.saveImageLabelSet(new TaskId(taskId), new UserId(userId), (ImageLabelSetVO)JsonConverter.jsonToObject(imageLabelVOSetJSON, ImageLabelSetVO.class), isWorker);
     }
 

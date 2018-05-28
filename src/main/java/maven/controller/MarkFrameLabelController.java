@@ -11,7 +11,9 @@ import maven.model.primitiveType.UserId;
 import maven.model.vo.FrameLabelSetVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class MarkFrameLabelController {
 
     private MarkFrameLabelBLService markFrameLabelBL;
@@ -28,6 +30,7 @@ public class MarkFrameLabelController {
     }
     @RequestMapping(value = "/markFrameLabel/saveFrameLabel", method = RequestMethod.GET)
     public boolean saveFrameLabelSetVO(String taskId, String userId, String frameLabelVOSetJSON, boolean isWorker) {
+        System.out.println(frameLabelVOSetJSON);
         return markFrameLabelBL.saveFrameLabelSet(new TaskId(taskId), new UserId(userId), (FrameLabelSetVO)JsonConverter.jsonToObject(frameLabelVOSetJSON, FrameLabelSetVO.class), isWorker);
     }
 
