@@ -35,6 +35,8 @@ new Vue({
 
         canvas: undefined,
         canvasContext: undefined,
+        previousX: 0,
+        previousY: 0,
 
         isDrawing: false,
         canDraw: true,
@@ -198,9 +200,9 @@ new Vue({
                 this.canvasContext.beginPath();
 
                 this.isDrawing = true;
-                let currentStartX = this.getX(ev);
-                let currentStartY = this.getY(ev);
-                this.canvasContext.moveTo(currentStartX, currentStartY);
+                this.previousX = this.getX(ev);
+                this.previousY = this.getY(ev);
+                this.canvasContext.moveTo(this.previousX, this.previousY);
                 //this.tempImageData = this.canvasContext.getImageData(0, 0, this.canvas.width, this.canvas.height);
             }
         },
@@ -221,10 +223,15 @@ new Vue({
                 let currentStartX = this.getX(ev);
                 let currentStartY = this.getY(ev);
 
-                this.canvasContext.lineTo(currentStartX, currentStartY);
-                this.canvasContext.stroke();
+                if(Math.abs(this.previousX - currentStartX) >= 15 || Math.abs(this.previousY - currentStartY) >= 15){
+                    this.canvasContext.lineTo(currentStartX, currentStartY);
+                    this.canvasContext.stroke();
 
-                this.currentAreaBorder.push(new Pixel(currentStartX, currentStartY));
+                    this.currentAreaBorder.push(new Pixel(currentStartX, currentStartY));
+
+                    this.previousX = currentStartX;
+                    this.previousY = currentStartY;
+                }
             }
         },
         //获取坐标
