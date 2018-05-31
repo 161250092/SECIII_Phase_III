@@ -85,7 +85,7 @@ new Vue({
             let imageFilenameListJSON = JSON.stringify(imageFileNameList);
 
             let _this = this;
-            axios.get('/requestor/uploadTaskInfo', {params: {taskJSON: taskVOJson, imageFilenameListJSON:imageFilenameListJSON}}).then(function (response) {
+            axios.get('/requestor/submitTaskDraft', {params: {taskJSON: taskVOJson, imageFilenameListJSON:imageFilenameListJSON}}).then(function (response) {
                 if(response.data.wrongMessage.type === "Success"){
                     alert("发布成功");
                     _this.jumpToMarkSample();

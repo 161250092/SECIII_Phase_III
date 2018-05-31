@@ -31,7 +31,7 @@ public class RequestorBLImpl implements RequestorBLService{
     }
 
     @Override
-    public List<PublishedTaskVO> getTaskDraftList(String userId) {
+    public List<PublishedTaskVO> getTaskDraftList(UserId userId) {
         return null;
     }
 

@@ -50,7 +50,7 @@ public class RequestorController {
      */
     @RequestMapping(value = "/requestor/getTaskDraftList", method = RequestMethod.GET)
     public List<PublishedTaskVO> getTaskDraftList(String userId){
-        return null;
+        return requestorBL.getTaskDraftList(new UserId(userId));
     }
 
     /**

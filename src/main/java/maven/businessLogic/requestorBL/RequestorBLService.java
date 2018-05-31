@@ -29,7 +29,7 @@ public interface RequestorBLService {
      * @param userId 发布者Id
      * @return 任务草稿信息
      */
-    List<PublishedTaskVO> getTaskDraftList(String userId);
+    List<PublishedTaskVO> getTaskDraftList(UserId userId);
 
     /**
      * 发布任务

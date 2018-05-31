@@ -20,7 +20,7 @@ public class RequestorBLStub implements RequestorBLService {
     }
 
     @Override
-    public List<PublishedTaskVO> getTaskDraftList(String userId) {
+    public List<PublishedTaskVO> getTaskDraftList(UserId userId) {
         List<PublishedTaskVO> publishedTaskVOList = new ArrayList<>();
         publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(0)));
         publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(2)));
