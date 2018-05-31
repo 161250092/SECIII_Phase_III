@@ -18,6 +18,8 @@ new Vue({
                 _this.AllUnfinishedTasks = response.data;
             })
         })
+
+        console.log(AllUnfinishedTasks.length);
     },
     methods: {
        doTask: function (index) {
