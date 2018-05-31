@@ -2,6 +2,7 @@ package maven.controller;
 
 import maven.businessLogic.requestorBL.RequestorBLImpl;
 import maven.businessLogic.requestorBL.RequestorBLService;
+import maven.businessLogic.requestorBL.RequestorBLStub;
 import maven.model.JsonConverter;
 import maven.model.primitiveType.Cash;
 import maven.model.primitiveType.Filename;
@@ -28,7 +29,7 @@ public class RequestorController {
     private RequestorBLService requestorBL;
 
     public RequestorController(){
-        requestorBL = new RequestorBLImpl();
+        requestorBL = new RequestorBLStub();
     }
 
     /**

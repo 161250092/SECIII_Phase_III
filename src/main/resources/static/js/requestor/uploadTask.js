@@ -35,6 +35,25 @@ new Vue({
         });
     },
     methods:{
+        jumpToMarkSample: function () {
+            sendUserId(this.userId);
+            sendTaskId(this.taskId);
+            setUserCanLabel(true);
+            switch (this.selectedLabelType){
+                case "ImageLabel":
+                    jumpToAnotherPage(markImageLabelPageUrl);
+                    break;
+                case "FrameLabel":
+                    jumpToAnotherPage(markFrameLabelPageUrl);
+                    break;
+                case "AreaLabel":
+                    jumpToAnotherPage(markAreaLabelPageUrl);
+                    break;
+                default:
+                    alert("标注类型错误");
+                    break;
+            }
+        },
         uploadImage: function (ev) {
             ev.preventDefault();
             let formData = new FormData();
@@ -47,7 +66,7 @@ new Vue({
                     'Content-Type': 'multipart/form-data'
                 }
             };
-            axios.post('/uploadTaskImage', formData, config).then(function (res) {
+            axios.post('/image/uploadTaskImage', formData, config).then(function (res) {
 
             });
 
@@ -62,9 +81,13 @@ new Vue({
                 imageFileNameList, this.taskDescription,
                 this.requiredWorkerNum, 0, this.score);
             let taskVOJson = JSON.stringify(taskVO);
-            axios.get('/RequestorController/assignTask', {params: {taskJSON: taskVOJson}}).then(function (response) {
+            let imageFilenameListJSON = JSON.stringify(imageFileNameList);
+
+            let _this = this;
+            axios.get('/requestor/uploadTaskInfo', {params: {taskJSON: taskVOJson, imageFilenameListJSON:imageFilenameListJSON}}).then(function (response) {
                 if(response.data.wrongMessage.type === "AssignSuccess"){
                     alert("发布成功");
+                    _this.jumpToMarkSample();
                 }else{
                     alert("发布失败");
                 }

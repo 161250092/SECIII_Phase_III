@@ -1,15 +1,4 @@
-ul.headerMenu {
-    /*float: left;*/
-    list-style: none;
-}
-
-ul.headerMenu li ul.submenu {
-    /*float: none;*/
-    list-style: none;
-    /*display: none;*/
-}
-
-ul.accordion {
+ul.accordionTaskList {
     list-style: none;
     max-width: 600px;
     margin: 30px auto 20px;
@@ -17,7 +6,7 @@ ul.accordion {
     border-radius: 4px;
 }
 
-ul.accordion .link {
+ul.accordionTaskList .link {
     cursor: pointer;
     display: block;
     /*float: left;*/
@@ -29,12 +18,12 @@ ul.accordion .link {
     position: relative;
 }
 
-ul.accordion .submenu {
+ul.accordionTaskList .subMenuOfTaskList {
     list-style: none;
     /*background: #444359;*/
     font-size: 14px;
 }
 
-.submenuInactive{
+.subMenuOfTaskListInactive{
     display: none;
 }
