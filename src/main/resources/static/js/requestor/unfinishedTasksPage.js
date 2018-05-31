@@ -5,7 +5,7 @@ new Vue({
         AllUnfinishedTasks:[],
         taskDescription:"请点击要查看的任务",
         reviseTaskId:"无",
-        reviseTaskPrice:"无",
+        reviseTaskPrice:"0",
 
         IMAGE_LABEL_TYPE: "ImageLabel",
         FRAME_LABEL_TYPE: "FrameLabel",
@@ -57,7 +57,15 @@ new Vue({
         },
 
         addTaskPrice:function(){
+            axios.get("/requestor/reviseTask", {params: {taskId:reviseTaskId,cash:reviseTaskPrice}})
+                .then(function (Exception) {
+                    let message = Exception.data.WrongMessage.type;
+                    if(message=="success")
+                        alert("修改成功")
+                    else
+                        alert("修改失败")
 
+                });
 
         }
 
