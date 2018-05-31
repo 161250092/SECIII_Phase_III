@@ -41,17 +41,24 @@
     <table>
         <tr>
             <th>任务Id</th>
+            <th>任务类型</th>
             <th>任务状态</th>
             <th></th>
             <th></th>
         </tr>
         <tr v-for="(taskDraft, index) in taskDraftList">
-            <td></td>
-            <td></td>
+            <td>{{taskDraft.taskId}}</td>
+            <td>{{chineseLabelTypeName(taskDraft.labelType)}}</td>
+            <td>{{chinesePublishedTaskState(taskDraft.publishedTaskState)}}</td>
             <td></td>
             <td></td>
         </tr>
     </table>
 </div>
 </body>
+
+<script src="../../js/lib/vue.js"></script>
+<script src="../../js/lib/axios.js"></script>
+<script src="../../js/pageJump.js"></script>
+<script src="../../js/requestor/uploadTask.js"></script>
 </html>

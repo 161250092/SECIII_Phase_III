@@ -148,7 +148,7 @@ public class RequestorBLStub implements RequestorBLService {
         PublishedTask publishedTask_2 = new PublishedTask(new TaskId("00000001_ImageLabel_1622440190000"), new UserId("00000001"), new LabelType("ImageLabel"),
                 imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10), null,
                 publishedTaskDetailList,
-                PublishedTaskState.ACOMPLISHED);
+                PublishedTaskState.ACCOMPLISHED);
 
         PublishedTask publishedTask_3 = new PublishedTask(new TaskId("00000001_FrameLabel_1622440200000"), new UserId("00000001"), new LabelType("FrameLabel"),
                 imageFilenameList, new TaskDescription("It's a published but incomplete Task"), new WorkerNum(0), new WorkerNum(0), null,
@@ -158,7 +158,7 @@ public class RequestorBLStub implements RequestorBLService {
         PublishedTask publishedTask_4 = new PublishedTask(new TaskId("00000001_FrameLabel_1622440210000"), new UserId("00000001"), new LabelType("FrameLabel"),
                 imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10), null,
                 publishedTaskDetailList,
-                PublishedTaskState.ACOMPLISHED);
+                PublishedTaskState.ACCOMPLISHED);
 
         PublishedTask publishedTask_5 = new PublishedTask(new TaskId("00000001_AreaLabel_1622440220000"), new UserId("00000001"), new LabelType("AreaLabel"),
                 imageFilenameList, new TaskDescription("It's a published but incomplete Task"), new WorkerNum(0), new WorkerNum(0), null,
@@ -168,7 +168,7 @@ public class RequestorBLStub implements RequestorBLService {
         PublishedTask publishedTask_6 = new PublishedTask(new TaskId("00000001_AreaLabel_1622440230000"), new UserId("00000001"), new LabelType("AreaLabel"),
                 imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10), null,
                 publishedTaskDetailList,
-                PublishedTaskState.ACOMPLISHED);
+                PublishedTaskState.ACCOMPLISHED);
 
         List<PublishedTask> list = new ArrayList<>();
         list.add(publishedTask_1);
