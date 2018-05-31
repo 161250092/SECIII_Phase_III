@@ -28,14 +28,14 @@ public class AcceptedTask {
     //该任务的状态
     private AcceptedTaskState acceptedTaskState;
 
-    public AcceptedTask(UserId userId, TaskId taskId, List<Label> taskLabelList, Cash taskPrice, WorkerDiscount workerDiscount){
+    public AcceptedTask(UserId userId, TaskId taskId, List<Label> taskLabelList, Cash taskPrice, WorkerDiscount workerDiscount, AcceptedTaskState acceptedTaskState){
         this.userId = userId;
         this.taskId = taskId;
         this.startTime = new Date();
         this.taskLabelList = taskLabelList;
         this.taskPrice = taskPrice;
         this.workerDiscount = workerDiscount;
-        this.acceptedTaskState = AcceptedTaskState.ACCEPTED;
+        this.acceptedTaskState = acceptedTaskState;
     }
 
     public UserId getUserId() {

@@ -80,6 +80,7 @@ public class WorkerController{
 
     /**
      * 根据任务Id 获取工人已接受的任务
+     * @param userId 工人Id
      * @param taskId 任务Id
      * @return 任务详情
      */
