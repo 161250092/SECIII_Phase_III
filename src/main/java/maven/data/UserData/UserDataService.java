@@ -4,20 +4,29 @@ import maven.model.primitiveType.*;
 import maven.model.user.User;
 import maven.model.user.UserLevel;
 
+import java.util.List;
+
 public interface UserDataService {
+
+    /**
+     * 获取所有信息
+     * @return userId的list：管理员、用户、工人
+     */
+     List<UserId> getAllUserIdList();
+
     /**
      * 根据用户名获取用户Id
      * @param username 用户名
      * @return 用户Id
      */
-    public UserId getUserId(Username username);
+     UserId getUserId(Username username);
 
     /**
      * 获取用户信息
      * @param userId 用户Id
      * @return 用户信息
      */
-    public User getUserInfo(UserId userId);
+     User getUserByUserId(UserId userId);
 
     /**'
      * 修改用户电子邮件
@@ -25,7 +34,7 @@ public interface UserDataService {
      * @param email
      * @return 修改是否成功
      */
-    public boolean reviseUserEmail(UserId userId, Email email);
+     boolean reviseUserEmail(UserId userId, Email email);
 
     /**'
      * 修改用户电话号码
@@ -33,14 +42,15 @@ public interface UserDataService {
      * @param phone
      * @return 修改是否成功
      */
-    public boolean reviseUserPhone(UserId userId, Phone phone);
+     boolean reviseUserPhone(UserId userId, Phone phone);
 
     /**
      * 修改用户现金
      * @param userId
+     * @param cash
      * @return 修改是否成功
      */
-    public boolean reviseCash(UserId userId, Cash cash);
+     boolean reviseCash(UserId userId, Cash cash);
 
     /**
      * 修改用户声望
@@ -48,5 +58,5 @@ public interface UserDataService {
      * @param userId
      * @return 修改是否成功
      */
-    public boolean revisePrestige(UserId userId, UserLevel userLevel,Prestige prestige);
+     boolean revisePrestige(UserId userId, UserLevel userLevel,Prestige prestige);
 }

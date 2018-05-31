@@ -9,5 +9,5 @@ public interface LoginDataService {
      * @param password
      * @return区别登陆类型
      */
-    public Exception Login(Username username, Password password);
+    Exception Login(Username username, Password password);
 }
