@@ -1,4 +1,4 @@
-package com.example.maven;
+package maven;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

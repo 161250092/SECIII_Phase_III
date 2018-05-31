@@ -67,7 +67,7 @@ public class RequestorController {
      * @return 后端处理任务修改请求的结果
      */
     @RequestMapping(value = "/requestor/reviseTask", method = RequestMethod.GET)
-    public Exception reviseTask(String taskId,double cash){
+    public Exception reviseTask(String taskId){
         return requestorBL.reviseTask(new TaskId(taskId));
     }
 
