@@ -49,7 +49,9 @@ public class RequestorBLStub implements RequestorBLService {
 
     @Override
     public List<AcceptedTaskVO> getSubmittedTaskList(TaskId taskId, UserId userId) {
-        return null;
+        ArrayList<AcceptedTaskVO> l = new ArrayList<>();
+        l.add(new AcceptedTaskVO(getAcceptedTaskListForTest().get(0),new Username("userName"), new LabelType("ImageLabel"), new TaskDescription("hello"), new LabelScore(88)));
+        return l;
     }
 
     @Override

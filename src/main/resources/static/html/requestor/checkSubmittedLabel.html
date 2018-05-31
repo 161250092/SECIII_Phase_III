@@ -2,9 +2,9 @@
 <html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../../css/lu.css">
     <title>审核提交的标注</title>
-    <!--<link rel="stylesheet" href="../../css/requestor/checkSubmittedLabel.css">-->
+    <link rel="stylesheet" href="../../css/lu.css">
+    <link rel="stylesheet" href="../../css/requestor/checkSubmittedLabel.css">
 
 </head>
 <body>
@@ -43,12 +43,12 @@
 
 <div align ="center" id="taskInfoContainer">
     <h3>任务列表</h3>
-    <ul class="accordion">
-        <li v-for="(submittedLabelListOfOneTask, index) in submittedLabelListOfAllTask">
-            <div class="link" v-on:click="setSelectedTaskIndex(index)">
-                <p>{{submittedLabelListOfOneTask.taskId}} {{chineseLabelTypeName(submittedLabelListOfOneTask.labelType)}}:{{submittedLabelListOfOneTask.description}}</p>
+    <ul class="accordionTaskList">
+        <li v-for="(submittedTask, index) in submittedTaskList">
+            <div class="link" v-on:click="showSelectedTask(index)">
+                <p>{{submittedTask.taskId}} {{chineseLabelTypeName(submittedTask.labelType)}}:{{submittedTask.taskDescription}}</p>
             </div>
-            <ul class="submenu" v-bind:class="{'submenuInactive': index != selectedTask}">
+            <ul class="subMenuOfTaskList" v-bind:class="{'subMenuOfTaskListInactive': index != selectedTaskIndex}">
                 <li>
                     <table border="1">
                         <tr>
@@ -60,10 +60,10 @@
                             <th>驳回</th>
                             <th>废弃</th>
                         </tr>
-                        <tr v-for="(submittedLabel, index) in submittedLabelListOfOneTask.labelList">
-                            <td>{{index}}</td>
+                        <tr v-for="(submittedLabel, index) in labelListOfSelectedTask">
+                            <td>{{index+1}}</td>
                             <td>{{submittedLabel.username}}</td>
-                            <td>{{submittedLabel.score}}</td>
+                            <td>{{submittedLabel.labelScore}}</td>
                             <td><button v-on:click="checkThisLabel(index)">审核</button></td>
                             <td><button v-on:click="passThisLabel(index)">通过</button></td>
                             <td><button v-on:click="rejectThisLabel(index)">驳回</button></td>
@@ -78,6 +78,7 @@
 
 <script src="../../js/lib/vue.js"></script>
 <script src="../../js/lib/axios.js"></script>
+<script src="../../js/pageJump.js"></script>
 <script src="../../js/requestor/checkSubmittedLabel.js"></script>
 </body>
 </html>
