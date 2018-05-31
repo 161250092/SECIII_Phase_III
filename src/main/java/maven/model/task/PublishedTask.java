@@ -28,9 +28,6 @@ public class PublishedTask {
     //发布者提供的标注样本信息
     private Sample sample;
 
-    //完成该任务可获取的钱数
-    private Cash taskPrice;
-
     //任务状态列表（开始时间，任务金额，任务要求的工人人数，发布者优惠）
     private List<PublishedTaskDetail> publishedTaskDetailList;
 
@@ -39,7 +36,7 @@ public class PublishedTask {
 
     public PublishedTask(TaskId taskId, UserId userId, LabelType labelType, List<Filename> imageFilenameList,
                          TaskDescription taskDescription, WorkerNum acceptedWorkerNum, WorkerNum finishedWorkerNum, Sample sample,
-                         Cash taskPrice, List<PublishedTaskDetail> publishedTaskDetailList,
+                         List<PublishedTaskDetail> publishedTaskDetailList,
                          PublishedTaskState publishedTaskState) {
         this.taskId = taskId;
         this.userId = userId;
@@ -49,7 +46,6 @@ public class PublishedTask {
         this.acceptedWorkerNum = acceptedWorkerNum;
         this.finishedWorkerNum = finishedWorkerNum;
         this.sample = sample;
-        this.taskPrice = taskPrice;
         this.publishedTaskDetailList = publishedTaskDetailList;
         this.publishedTaskState = publishedTaskState;
     }
@@ -95,7 +91,11 @@ public class PublishedTask {
     }
 
     public Cash getTaskPrice() {
-        return taskPrice;
+        if(publishedTaskDetailList != null){
+            return publishedTaskDetailList.get(publishedTaskDetailList.size()-1).getTaskPricePerWorker();
+        }else {
+            return null;
+        }
     }
 
     public List<PublishedTaskDetail> getPublishedTaskDetailList() {
