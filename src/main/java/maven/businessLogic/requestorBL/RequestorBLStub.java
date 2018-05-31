@@ -36,7 +36,15 @@ public class RequestorBLStub implements RequestorBLService {
 
     @Override
     public List<PublishedTaskVO> getPublishedTaskList(UserId userId) {
-        return null;
+        List<PublishedTaskVO> publishedTaskVOList = new ArrayList<>();
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(0)));
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(1)));
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(2)));
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(3)));
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(4)));
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(5)));
+
+        return publishedTaskVOList;
     }
 
     @Override
@@ -46,45 +54,66 @@ public class RequestorBLStub implements RequestorBLService {
 
     @Override
     public Exception passTask(TaskId taskId, UserId userId) {
-        return null;
+        return new SuccessException();
     }
 
     @Override
     public Exception rejectTask(TaskId taskId, UserId userId) {
-        return null;
+        return new SuccessException();
     }
 
     @Override
     public Exception abandonTaskByRequestor(TaskId taskId, UserId userId) {
-        return null;
+        return new SuccessException();
     }
 
     @Override
     public List<PublishedTaskVO> getAssignedAndAccomplishedTaskList(UserId userId) {
-        return null;
+        List<PublishedTaskVO> publishedTaskVOList = new ArrayList<>();
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(1)));
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(3)));
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(5)));
+
+        return publishedTaskVOList;
     }
 
     @Override
     public List<PublishedTaskVO> getAssignedButIncompleteTaskList(UserId userId) {
-        return null;
+        List<PublishedTaskVO> publishedTaskVOList = new ArrayList<>();
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(0)));
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(2)));
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(4)));
+
+        return publishedTaskVOList;
     }
 
     @Override
     public PublishedTask getAssignedTask(UserId userId, TaskId taskId) {
-        return null;
+        if(userId.value.equals("0001"))
+            return getPublishedTaskListForTest().get(0);
+        else{
+            System.out.println("Here is not such a task!");
+        }
+            return null;
     }
 
     @Override
     public List<AcceptedTaskVO> getAcceptedTaskVOList(UserId userId, TaskId taskId) {
-        return null;
+        List<AcceptedTaskVO> acceptedTaskVOList = new ArrayList<>();
+        acceptedTaskVOList.add(new AcceptedTaskVO(getAcceptedTaskListForTest().get(0),new Username("userName"), new LabelType("ImageLabel"), new TaskDescription("hello"), new LabelScore(88)));
+        return acceptedTaskVOList;
     }
 
     @Override
     public Requestor getRequestorInfo(UserId userId) {
-        return null;
+        Requestor requestor = new Requestor(new UserId("Test0000"), new Username("Test0000"), new Password("123456"),
+                new Email("Test0000@smail.nju.educn"), new Phone("123456789"), new Cash(1000),
+                new Prestige(70), new TaskNum(6));
+        return requestor;
     }
 
-    private PublishedTask getPublishedTaskForTest(){
+
+    private List<PublishedTask> getPublishedTaskListForTest(){
         List<Filename> imageFilenameList = new ArrayList<>();
         imageFilenameList.add(new Filename("test01"));
         imageFilenameList.add(new Filename("test02"));
@@ -97,35 +126,78 @@ public class RequestorBLStub implements RequestorBLService {
         imageInedxList.add(1);
         imageInedxList.add(2);
 
-        List<String> tagList_1 = new ArrayList<>();
-        tagList_1.add("ImageLabel01");
-        tagList_1.add("ImageLabel02");
-
-        List<String> tagList_2 = new ArrayList<>();
-        tagList_2.add("ImageLabel03");
-        tagList_2.add("ImageLabel04");
-
-        List<String> tagList_3 = new ArrayList<>();
-        tagList_3.add("ImageLabel05");
-        tagList_3.add("ImageLabel06");
-
-        List<Label> labelList = new ArrayList<>();
-        labelList.add(new ImageLabel(tagList_1));
-        labelList.add(new ImageLabel(tagList_2));
-        labelList.add(new ImageLabel(tagList_3));
-
-        Sample sample = new Sample(3, imageInedxList, labelList);
+//        List<String> tagList_1 = new ArrayList<>();
+//        tagList_1.add("ImageLabel01");
+//        tagList_1.add("ImageLabel02");
+//
+//        List<String> tagList_2 = new ArrayList<>();
+//        tagList_2.add("ImageLabel03");
+//        tagList_2.add("ImageLabel04");
+//
+//        List<String> tagList_3 = new ArrayList<>();
+//        tagList_3.add("ImageLabel05");
+//        tagList_3.add("ImageLabel06");
+//
+//        List<Label> labelList = new ArrayList<>();
+//        labelList.add(new ImageLabel(tagList_1));
+//        labelList.add(new ImageLabel(tagList_2));
+//        labelList.add(new ImageLabel(tagList_3));
+//
+//        Sample sample = new Sample(3, imageInedxList, labelList);
 
         List < PublishedTaskDetail > publishedTaskDetailList = new ArrayList<>();
         publishedTaskDetailList.add(new PublishedTaskDetail(new WorkerNum(10), new Cash(100), null));
 
-        PublishedTask publishedTask = new PublishedTask(new TaskId("00000001_ImageLabel_1622440180000"), new UserId("00000001"), new LabelType("ImageLabel"),
-                imageFilenameList, new TaskDescription("It's a published Task"), new WorkerNum(0), new WorkerNum(0), sample,
+        PublishedTask publishedTask_1 = new PublishedTask(new TaskId("00000001_ImageLabel_1622440180000"), new UserId("00000001"), new LabelType("ImageLabel"),
+                imageFilenameList, new TaskDescription("It's a published but incomplete Task"), new WorkerNum(0), new WorkerNum(0), null,
                 new Cash(100), publishedTaskDetailList,
                 PublishedTaskState.INCOMPLETE);
 
-        return publishedTask;
+        PublishedTask publishedTask_2 = new PublishedTask(new TaskId("00000001_ImageLabel_1622440190000"), new UserId("00000001"), new LabelType("ImageLabel"),
+                imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10), null,
+                new Cash(200), publishedTaskDetailList,
+                PublishedTaskState.ACOMPLISHED);
+
+        PublishedTask publishedTask_3 = new PublishedTask(new TaskId("00000001_FrameLabel_1622440200000"), new UserId("00000001"), new LabelType("FrameLabel"),
+                imageFilenameList, new TaskDescription("It's a published but incomplete Task"), new WorkerNum(0), new WorkerNum(0), null,
+                new Cash(300), publishedTaskDetailList,
+                PublishedTaskState.INCOMPLETE);
+
+        PublishedTask publishedTask_4 = new PublishedTask(new TaskId("00000001_FrameLabel_1622440210000"), new UserId("00000001"), new LabelType("FrameLabel"),
+                imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10), null,
+                new Cash(400), publishedTaskDetailList,
+                PublishedTaskState.ACOMPLISHED);
+
+        PublishedTask publishedTask_5 = new PublishedTask(new TaskId("00000001_AreaLabel_1622440220000"), new UserId("00000001"), new LabelType("AreaLabel"),
+                imageFilenameList, new TaskDescription("It's a published but incomplete Task"), new WorkerNum(0), new WorkerNum(0), null,
+                new Cash(300), publishedTaskDetailList,
+                PublishedTaskState.INCOMPLETE);
+
+        PublishedTask publishedTask_6 = new PublishedTask(new TaskId("00000001_AreaLabel_1622440230000"), new UserId("00000001"), new LabelType("AreaLabel"),
+                imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10), null,
+                new Cash(600), publishedTaskDetailList,
+                PublishedTaskState.ACOMPLISHED);
+
+        List<PublishedTask> list = new ArrayList<>();
+        list.add(publishedTask_1);
+        list.add(publishedTask_2);
+        list.add(publishedTask_3);
+        list.add(publishedTask_4);
+        list.add(publishedTask_5);
+        list.add(publishedTask_6);
+        return list;
     }
+
+    private List<AcceptedTask> getAcceptedTaskListForTest(){
+        List<AcceptedTask> acceptedTaskList = new ArrayList<>();
+        AcceptedTask acceptedTask_1 = new AcceptedTask(new UserId("worker01"), new TaskId("00000001_ImageLabel_1622440190000"), null, new Cash(100), null);
+        AcceptedTask acceptedTask_2 = new AcceptedTask(new UserId("worker02"), new TaskId("00000001_ImageLabel_1622440200000"), null, new Cash(100), null);
+        acceptedTaskList.add(acceptedTask_1);
+        acceptedTaskList.add(acceptedTask_2);
+        return acceptedTaskList;
+    }
+
+
 
 }
 
