@@ -20,6 +20,11 @@ public class WorkDataImpl implements WorkDataService {
     }
 
     @Override
+    public List<PublishedTask> getIncompleteTaskList() {
+        return null;
+    }
+
+    //@Override
     public List<PublishedTask> getAvailableTaskList() {
         return null;
     }
@@ -44,7 +49,7 @@ public class WorkDataImpl implements WorkDataService {
         return null;
     }
 
-    @Override
+    //@Override
     public Worker getWorkerInfo(UserId userId) {
         return null;
     }

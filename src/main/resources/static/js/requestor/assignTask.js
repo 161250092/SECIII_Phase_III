@@ -17,17 +17,16 @@ new Vue({
            this.taskDraftListWithSample = [];
 
            let taskDraftList = [];
+           let _this = this;
            axios.get('/requestor/getTaskDraftList',{params: {userId: this.userId}}).then(function (response) {
                taskDraftList = response.data;
-           });
-
-           let _this = this;
-           taskDraftList.forEach(function (taskDraft, index) {
-              if (taskDraft.publishedTaskState === "DRAFT_WITHOUT_SAMPLE"){
-                  _this.taskDraftListWithoutSample.append(taskDraft);
-              }else if(taskDraft.publishedTaskState === "DRAFT_WITH_SAMPLE"){
-                  _this.taskDraftListWithSample.append(taskDraft);
-              }
+               taskDraftList.forEach(function (taskDraft, index) {
+                   if (taskDraft.publishedTaskState === "DRAFT_WITHOUT_SAMPLE"){
+                       _this.taskDraftListWithoutSample.push(taskDraft);
+                   }else if(taskDraft.publishedTaskState === "DRAFT_WITH_SAMPLE"){
+                       _this.taskDraftListWithSample.push(taskDraft);
+                   }
+               });
            });
        },
        jumpToMarkSample: function (taskWithoutSampleIndex) {
@@ -55,8 +54,10 @@ new Vue({
        },
        assignTask: function (taskWithSampleIndex) {
            let taskId = this.taskDraftListWithSample[taskWithSampleIndex].taskId;
-           axios.get('/requestor/assignTask',{params: {taskId: taskId}}).then(function (response) {
 
+           let _this = this;
+           axios.get('/requestor/assignTask',{params: {taskId: taskId}}).then(function (response) {
+               _this.getTaskDraftList();
            });
        },
        chineseLabelTypeName: function (labelType) {

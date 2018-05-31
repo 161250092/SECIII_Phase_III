@@ -2,10 +2,8 @@ package maven.data.RequestorData;
 
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
-import maven.model.task.AcceptedTask;
-import maven.model.task.AcceptedTaskState;
-import maven.model.task.PublishedTask;
-import maven.model.task.PublishedTaskDetail;
+import maven.model.primitiveType.WorkerNum;
+import maven.model.task.*;
 import maven.model.user.Requestor;
 
 import java.util.List;
@@ -17,21 +15,42 @@ public class RequestorDataImpl implements RequestorDataService {
     }
 
     @Override
+    public boolean saveTaskDetail(TaskId taskId, PublishedTaskDetail publishedTaskDetail) {
+        return false;
+    }
+
+    @Override
+    public boolean reviseTaskAcceptedWorkerNum(TaskId taskId, WorkerNum acceptedWorkerNum) {
+        return false;
+    }
+
+    @Override
+    public boolean reviseTaskFinishedWorkerNum(TaskId taskId, WorkerNum finishedWorkerNum) {
+        return false;
+    }
+
+    @Override
+    public boolean reviseTaskState(TaskId taskId, PublishedTaskState publishedTaskState) {
+        return false;
+    }
+
+    @Override
+    public List<TaskId> getPublishedTaskIdList(UserId userId) {
+        return null;
+    }
+
     public boolean reviseTaskInfo(PublishedTaskDetail publishedTaskDetail) {
         return false;
     }
 
-    @Override
     public boolean revokeTask(TaskId taskId) {
         return false;
     }
 
-    @Override
     public boolean reviseTask(TaskId taskId) {
         return false;
     }
 
-    @Override
     public List<PublishedTask> getPublishedTaskList(UserId userId) {
         return null;
     }
@@ -66,7 +85,7 @@ public class RequestorDataImpl implements RequestorDataService {
         return null;
     }
 
-    @Override
+    //@Override
     public Requestor getRequestorInfo(UserId userId) {
         return null;
     }

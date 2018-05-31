@@ -1,5 +1,6 @@
 package maven.data.RegisterData;
 
+import maven.model.primitiveType.Username;
 import maven.model.user.User;
 
 import java.util.List;
@@ -20,5 +21,15 @@ public class RegisterDataImpl implements RegisterDataService {
      */
     public boolean Register(User user){
         return true;
+    }
+
+    @Override
+    public List<Username> getAllUsernameList() {
+        return null;
+    }
+
+    @Override
+    public boolean saveUserInfo(User user) {
+        return false;
     }
 }

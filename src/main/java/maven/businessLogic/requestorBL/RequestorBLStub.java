@@ -22,8 +22,11 @@ public class RequestorBLStub implements RequestorBLService {
     @Override
     public List<PublishedTaskVO> getTaskDraftList(UserId userId) {
         List<PublishedTaskVO> publishedTaskVOList = new ArrayList<>();
-        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(0)));
-        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(2)));
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(5)));
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(6)));
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(7)));
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(8)));
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(9)));
         return publishedTaskVOList;
     }
 
@@ -170,6 +173,26 @@ public class RequestorBLStub implements RequestorBLService {
                 publishedTaskDetailList,
                 PublishedTaskState.ACCOMPLISHED);
 
+        PublishedTask publishedTask_7 = new PublishedTask(new TaskId("testTaskId7"), new UserId("00000001"), new LabelType("AreaLabel"),
+                imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10), null,
+                publishedTaskDetailList,
+                PublishedTaskState.DRAFT_WITH_SAMPLE);
+
+        PublishedTask publishedTask_8 = new PublishedTask(new TaskId("testTaskId8"), new UserId("00000001"), new LabelType("AreaLabel"),
+                imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10), null,
+                publishedTaskDetailList,
+                PublishedTaskState.DRAFT_WITH_SAMPLE);
+
+        PublishedTask publishedTask_9 = new PublishedTask(new TaskId("testTaskId9"), new UserId("00000001"), new LabelType("AreaLabel"),
+                imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10), null,
+                publishedTaskDetailList,
+                PublishedTaskState.DRAFT_WITHOUT_SAMPLE);
+
+        PublishedTask publishedTask_10 = new PublishedTask(new TaskId("testTaskId10"), new UserId("00000001"), new LabelType("AreaLabel"),
+                imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10), null,
+                publishedTaskDetailList,
+                PublishedTaskState.DRAFT_WITHOUT_SAMPLE);
+
         List<PublishedTask> list = new ArrayList<>();
         list.add(publishedTask_1);
         list.add(publishedTask_2);
@@ -177,6 +200,11 @@ public class RequestorBLStub implements RequestorBLService {
         list.add(publishedTask_4);
         list.add(publishedTask_5);
         list.add(publishedTask_6);
+        list.add(publishedTask_7);
+        list.add(publishedTask_8);
+        list.add(publishedTask_9);
+        list.add(publishedTask_10);
+
         return list;
     }
 

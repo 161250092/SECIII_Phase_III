@@ -4,7 +4,14 @@ import maven.model.primitiveType.*;
 import maven.model.user.User;
 import maven.model.user.UserLevel;
 
+import java.util.List;
+
 public class UserDataStub implements UserDataService{
+
+    @Override
+    public List<UserId> getAllUserIdList() {
+        return null;
+    }
 
     @Override
     public UserId getUserId(Username username) {
@@ -12,6 +19,10 @@ public class UserDataStub implements UserDataService{
     }
 
     @Override
+    public User getUserByUserId(UserId userId) {
+        return null;
+    }
+
     public User getUserInfo(UserId userId) {
         return null;
     }
