@@ -1,7 +1,9 @@
 package maven.businessLogic.userBL;
 
 import maven.model.primitiveType.*;
+import maven.model.user.Requestor;
 import maven.model.user.User;
+import maven.model.user.Worker;
 
 public class UserBLStub implements UserBLService{
     @Override
@@ -11,7 +13,18 @@ public class UserBLStub implements UserBLService{
 
     @Override
     public User getUserInfo(UserId userId) {
-        return null;
+        Requestor requestor = new Requestor(new UserId("Test0000"), new Username("Test0000"), new Password("123456"),
+                new Email("Test0000@smail.nju.educn"), new Phone("123456789"), new Cash(1000),
+                new Prestige(70), new TaskNum(6));
+
+        Worker worker = new Worker(new UserId("Test0001"), new Username("Test0001"), new Password("123456"),
+                new Email("Test0001@smail.nju.educn"), new Phone("123456780"), new Cash(1000),
+                new Prestige(70), new TaskNum(6));
+
+        if(userId.value.equals("worker01"))
+            return worker;
+        else
+            return requestor;
     }
 
     @Override

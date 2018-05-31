@@ -20,6 +20,14 @@ public class RequestorBLStub implements RequestorBLService {
     }
 
     @Override
+    public List<PublishedTaskVO> getTaskDraftList(UserId userId) {
+        List<PublishedTaskVO> publishedTaskVOList = new ArrayList<>();
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(0)));
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(2)));
+        return publishedTaskVOList;
+    }
+
+    @Override
     public Exception assignTask(TaskId taskId) {
         return new SuccessException();
     }
@@ -34,18 +42,6 @@ public class RequestorBLStub implements RequestorBLService {
         return new SuccessException();
     }
 
-    @Override
-    public List<PublishedTaskVO> getPublishedTaskList(UserId userId) {
-        List<PublishedTaskVO> publishedTaskVOList = new ArrayList<>();
-        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(0)));
-        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(1)));
-        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(2)));
-        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(3)));
-        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(4)));
-        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(5)));
-
-        return publishedTaskVOList;
-    }
 
     @Override
     public List<AcceptedTaskVO> getSubmittedTaskList(TaskId taskId, UserId userId) {
@@ -107,13 +103,6 @@ public class RequestorBLStub implements RequestorBLService {
         return acceptedTaskVOList;
     }
 
-    @Override
-    public Requestor getRequestorInfo(UserId userId) {
-        Requestor requestor = new Requestor(new UserId("Test0000"), new Username("Test0000"), new Password("123456"),
-                new Email("Test0000@smail.nju.educn"), new Phone("123456789"), new Cash(1000),
-                new Prestige(70), new TaskNum(6));
-        return requestor;
-    }
 
 
     private List<PublishedTask> getPublishedTaskListForTest(){
@@ -159,7 +148,7 @@ public class RequestorBLStub implements RequestorBLService {
         PublishedTask publishedTask_2 = new PublishedTask(new TaskId("00000001_ImageLabel_1622440190000"), new UserId("00000001"), new LabelType("ImageLabel"),
                 imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10), null,
                 publishedTaskDetailList,
-                PublishedTaskState.ACOMPLISHED);
+                PublishedTaskState.ACCOMPLISHED);
 
         PublishedTask publishedTask_3 = new PublishedTask(new TaskId("00000001_FrameLabel_1622440200000"), new UserId("00000001"), new LabelType("FrameLabel"),
                 imageFilenameList, new TaskDescription("It's a published but incomplete Task"), new WorkerNum(0), new WorkerNum(0), null,
@@ -169,7 +158,7 @@ public class RequestorBLStub implements RequestorBLService {
         PublishedTask publishedTask_4 = new PublishedTask(new TaskId("00000001_FrameLabel_1622440210000"), new UserId("00000001"), new LabelType("FrameLabel"),
                 imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10), null,
                 publishedTaskDetailList,
-                PublishedTaskState.ACOMPLISHED);
+                PublishedTaskState.ACCOMPLISHED);
 
         PublishedTask publishedTask_5 = new PublishedTask(new TaskId("00000001_AreaLabel_1622440220000"), new UserId("00000001"), new LabelType("AreaLabel"),
                 imageFilenameList, new TaskDescription("It's a published but incomplete Task"), new WorkerNum(0), new WorkerNum(0), null,
@@ -179,7 +168,7 @@ public class RequestorBLStub implements RequestorBLService {
         PublishedTask publishedTask_6 = new PublishedTask(new TaskId("00000001_AreaLabel_1622440230000"), new UserId("00000001"), new LabelType("AreaLabel"),
                 imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10), null,
                 publishedTaskDetailList,
-                PublishedTaskState.ACOMPLISHED);
+                PublishedTaskState.ACCOMPLISHED);
 
         List<PublishedTask> list = new ArrayList<>();
         list.add(publishedTask_1);

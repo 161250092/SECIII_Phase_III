@@ -8,7 +8,7 @@ const getTaskPageUrl = "../worker/getTask.html";
 const workerCheckTaskPageUrl = "../worker/WorkerCheckTask.html";
 
 const checkMyTaskPageUrl = "../requestor/CheckMyTask.html";
-const uploadTaskPageUrl = "../requestor/uploadTask.html";
+const uploadTaskPageUrl = "../requestor/submitTaskDraft.html";
 
 const markAreaLabelPageUrl = "../markLabel/markAreaLabel.html";
 const markFrameLabelPageUrl = "../markLabel/markFrameLabel.html";

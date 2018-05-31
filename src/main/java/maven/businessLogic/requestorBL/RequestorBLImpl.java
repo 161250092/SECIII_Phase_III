@@ -31,6 +31,11 @@ public class RequestorBLImpl implements RequestorBLService{
     }
 
     @Override
+    public List<PublishedTaskVO> getTaskDraftList(UserId userId) {
+        return null;
+    }
+
+    @Override
     public Exception assignTask(TaskId taskId) {
         return null;
     }
@@ -42,11 +47,6 @@ public class RequestorBLImpl implements RequestorBLService{
 
     @Override
     public Exception reviseTask(TaskId taskId, Cash cash) {
-        return null;
-    }
-
-    @Override
-    public List<PublishedTaskVO> getPublishedTaskList(UserId userId) {
         return null;
     }
 
@@ -87,11 +87,6 @@ public class RequestorBLImpl implements RequestorBLService{
 
     @Override
     public List<AcceptedTaskVO> getAcceptedTaskVOList(UserId userId, TaskId taskId) {
-        return null;
-    }
-
-    @Override
-    public Requestor getRequestorInfo(UserId userId) {
         return null;
     }
 

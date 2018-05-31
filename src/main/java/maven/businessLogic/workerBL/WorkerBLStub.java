@@ -84,12 +84,6 @@ public class WorkerBLStub implements WorkerBLService {
         return 0;
     }
 
-    @Override
-    public Worker getWorkerInfo(UserId userId) {
-        return new Worker(new UserId("Test0001"), new Username("Test0001"), new Password("123456"),
-                new Email("Test0001@smail.nju.educn"), new Phone("123456780"), new Cash(1000),
-                new Prestige(70), new TaskNum(6));
-    }
 
 
     private List<AcceptedTask> getAcceptedTaskListForTest(){

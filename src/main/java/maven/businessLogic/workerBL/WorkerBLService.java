@@ -63,10 +63,10 @@ public interface WorkerBLService {
      */
     int getUserRanking(UserId userId);
 
-    /**
-     * 获取工人的个人信息
-     * @param userId 工人Id
-     * @return Worker对象
-     */
-    Worker getWorkerInfo(UserId userId);
+//    /**
+//     * 获取工人的个人信息
+//     * @param userId 工人Id
+//     * @return Worker对象
+//     */
+//    Worker getWorkerInfo(UserId userId);
 }

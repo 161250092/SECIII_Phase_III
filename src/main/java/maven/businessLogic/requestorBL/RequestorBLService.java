@@ -9,6 +9,8 @@ import maven.model.user.Requestor;
 import maven.model.user.User;
 import maven.model.vo.AcceptedTaskVO;
 import maven.model.vo.PublishedTaskVO;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -21,6 +23,13 @@ public interface RequestorBLService {
      * @return 上传任务信息的状态
      */
     Exception uploadTaskInfo(PublishedTaskVO publishedTaskVO, List<Filename> imageFilenameList);
+
+    /**
+     * 获取用户之前的任务草稿
+     * @param userId 发布者Id
+     * @return 任务草稿信息
+     */
+    List<PublishedTaskVO> getTaskDraftList(UserId userId);
 
     /**
      * 发布任务
@@ -44,12 +53,6 @@ public interface RequestorBLService {
      */
     Exception reviseTask(TaskId taskId, Cash cash);
 
-    /**
-     * 获取发布者已发布的任务
-     * @param userId 发布者Id
-     * @return 已发布的任务列表
-     */
-    List<PublishedTaskVO> getPublishedTaskList(UserId userId);
 
     /**
      * 获取工人已完成并待审核的任务列表
@@ -113,10 +116,10 @@ public interface RequestorBLService {
     List<AcceptedTaskVO> getAcceptedTaskVOList(UserId userId, TaskId taskId);
 
 
-    /**
-     * 获取发布者的个人信息
-     * @param userId 发布者Id
-     * @return Requestor对象
-     */
-    Requestor getRequestorInfo(UserId userId);
+//    /**
+//     * 获取发布者的个人信息
+//     * @param userId 发布者Id
+//     * @return Requestor对象
+//     */
+//    Requestor getRequestorInfo(UserId userId);
 }

@@ -99,13 +99,4 @@ public class WorkerController{
         return workerBL.getUserRanking(new UserId(userId));
     }
 
-    /**
-     * 获取工人的个人信息
-     * @param userId 工人Id
-     * @return Worker对象
-     */
-    @RequestMapping(value = "/worker/getWorkerInfo" , method = RequestMethod.GET)
-    public Worker getWorkerInfo(String userId){
-        return workerBL.getWorkerInfo(new UserId(userId));
-    }
 }
