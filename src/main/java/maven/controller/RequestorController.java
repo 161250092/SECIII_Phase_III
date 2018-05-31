@@ -32,14 +32,24 @@ public class RequestorController {
     }
 
     /**
-     * 上传欲发布的任务信息
+     * 提交任务草稿
      * @param publishedTaskVOJSON 发布的任务VO的JSON字符串
      * @param imageFilenameListJSON 任务所含图片的文件名列表的JSON字符串
      * @return 上传任务信息的状态
      */
-    @RequestMapping(value = "/requestor/uploadTaskInfo", method = RequestMethod.GET)
-    public Exception uploadTaskInfo(String publishedTaskVOJSON, String imageFilenameListJSON){
+    @RequestMapping(value = "/requestor/submitTaskDraft", method = RequestMethod.GET)
+    public Exception submitTaskDraft(String publishedTaskVOJSON, String imageFilenameListJSON){
         return requestorBL.uploadTaskInfo((PublishedTaskVO) JsonConverter.jsonToObject(publishedTaskVOJSON, PublishedTaskVO.class), (List<Filename>)JsonConverter.jsonToObject(imageFilenameListJSON, ArrayList.class));
+    }
+
+    /**
+     * 获取用户之前的任务草稿
+     * @param userId 发布者Id
+     * @return 任务草稿信息
+     */
+    @RequestMapping(value = "/requestor/getTaskDraftList", method = RequestMethod.GET)
+    public List<PublishedTaskVO> getTaskDraftList(String userId){
+        return null;
     }
 
     /**
@@ -83,10 +93,21 @@ public class RequestorController {
 //        return requestorBL.getPublishedTaskList(new UserId(userId));
 //    }
 
+//    /**
+//     * 获取所有曾经参与过某任务的工人任务完成情况
+//     * @param taskId 任务Id
+//     * @param userId 发布者Id
+//     * @return 参与过某任务的工人任务列表
+//     */
+//    @RequestMapping(value = "/requestor/getParticipantTaskList", method = RequestMethod.GET)
+//    public List<AcceptedTaskVO> getParticipantTaskList(String taskId, String userId){
+//        return null;
+//    }
+
     /**
      * 获取工人已完成并待审核的任务列表
      * @param userId 发布者Id
-     * @return 待审核的任务列表的Json字符串
+     * @return 待审核的工人任务列表
      */
     @RequestMapping(value = "/requestor/getSubmittedTaskList", method = RequestMethod.GET)
     public List<AcceptedTaskVO> getSubmittedTaskList(String taskId, String userId){
@@ -166,16 +187,5 @@ public class RequestorController {
     @RequestMapping(value="/requestor/getAcceptedTaskVOList",method = RequestMethod.GET )
     public List<AcceptedTaskVO> getAcceptedTaskVOList(String userId, String taskId){
         return requestorBL.getAcceptedTaskVOList(new UserId(userId), new TaskId(taskId));
-    }
-
-
-    /**
-     * 获取发布者的个人信息
-     * @param userId 发布者Id
-     * @return Requestor对象
-     */
-    @RequestMapping(value = "/requestor/getRequestorInfo", method = RequestMethod.GET)
-    public Requestor getRequestorInfo(String userId){
-        return requestorBL.getRequestorInfo(new UserId(userId));
     }
 }

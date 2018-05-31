@@ -20,6 +20,14 @@ public class RequestorBLStub implements RequestorBLService {
     }
 
     @Override
+    public List<PublishedTaskVO> getTaskDraftList(String userId) {
+        List<PublishedTaskVO> publishedTaskVOList = new ArrayList<>();
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(0)));
+        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(2)));
+        return publishedTaskVOList;
+    }
+
+    @Override
     public Exception assignTask(TaskId taskId) {
         return new SuccessException();
     }
@@ -34,18 +42,6 @@ public class RequestorBLStub implements RequestorBLService {
         return new SuccessException();
     }
 
-    @Override
-    public List<PublishedTaskVO> getPublishedTaskList(UserId userId) {
-        List<PublishedTaskVO> publishedTaskVOList = new ArrayList<>();
-        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(0)));
-        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(1)));
-        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(2)));
-        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(3)));
-        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(4)));
-        publishedTaskVOList.add(new PublishedTaskVO(getPublishedTaskListForTest().get(5)));
-
-        return publishedTaskVOList;
-    }
 
     @Override
     public List<AcceptedTaskVO> getSubmittedTaskList(TaskId taskId, UserId userId) {
@@ -105,13 +101,6 @@ public class RequestorBLStub implements RequestorBLService {
         return acceptedTaskVOList;
     }
 
-    @Override
-    public Requestor getRequestorInfo(UserId userId) {
-        Requestor requestor = new Requestor(new UserId("Test0000"), new Username("Test0000"), new Password("123456"),
-                new Email("Test0000@smail.nju.educn"), new Phone("123456789"), new Cash(1000),
-                new Prestige(70), new TaskNum(6));
-        return requestor;
-    }
 
 
     private List<PublishedTask> getPublishedTaskListForTest(){

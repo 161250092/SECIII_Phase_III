@@ -62,11 +62,6 @@ public class WorkerBLImpl implements WorkerBLService {
         return 0;
     }
 
-    @Override
-    public Worker getWorkerInfo(UserId userId) {
-        return null;
-    }
-
 
     //@Override
     //public List<Task> getAcceptedAndAccomplishedTaskList(String userId) {
