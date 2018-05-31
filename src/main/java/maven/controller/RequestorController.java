@@ -74,6 +74,16 @@ public class RequestorController {
     }
 
     /**
+     * 获取发布者已发布的任务
+     * @param userId 发布者Id
+     * @return 已发布的任务列表
+     */
+    @RequestMapping(value = "/requestor/getPublishedTaskList", method = RequestMethod.GET)
+    public List<PublishedTaskVO> getPublishedTaskList(String userId){
+        return requestorBL.getPublishedTaskList(new UserId(userId));
+    }
+
+    /**
      * 获取工人已完成并待审核的任务列表
      * @param userId 发布者Id
      * @return 待审核的任务列表的Json字符串

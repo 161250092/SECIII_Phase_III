@@ -102,7 +102,7 @@ public interface RequestorBLService {
      * @param taskId 任务Id
      * @return 任务详情
      */
-    public PublishedTask getAssignedTask(UserId userId, TaskId taskId);
+    PublishedTask getAssignedTask(UserId userId, TaskId taskId);
 
     /**
      * 查看已接受某任务的工人任务完成情况
@@ -110,7 +110,7 @@ public interface RequestorBLService {
      * @param taskId 任务Id
      * @return 任务列表
      */
-    public List<AcceptedTaskVO> getAcceptedTaskVOList(UserId userId, TaskId taskId);
+    List<AcceptedTaskVO> getAcceptedTaskVOList(UserId userId, TaskId taskId);
 
 
     /**
