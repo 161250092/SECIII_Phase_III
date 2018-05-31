@@ -35,26 +35,6 @@ new Vue({
         });
     },
     methods:{
-        jumpToMarkSample: function () {
-            sendUserId(this.userId);
-            sendTaskId(this.taskId);
-            setUserCanLabel(true);
-
-            switch (this.selectedLabelType){
-                case "ImageLabel":
-                    jumpToAnotherPage(markImageLabelPageUrl);
-                    break;
-                case "FrameLabel":
-                    jumpToAnotherPage(markFrameLabelPageUrl);
-                    break;
-                case "AreaLabel":
-                    jumpToAnotherPage(markAreaLabelPageUrl);
-                    break;
-                default:
-                    alert("标注类型错误");
-                    break;
-            }
-        },
         uploadImage: function (ev) {
             ev.preventDefault();
             let formData = new FormData();

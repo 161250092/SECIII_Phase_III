@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -37,7 +37,7 @@
 </div>
 
 <div align ="center" id="taskDraftInfoContainer">
-    <h3>任务列表</h3>
+    <h3>等待标注样本的任务</h3>
     <table>
         <tr>
             <th>任务Id</th>
@@ -46,12 +46,33 @@
             <th></th>
             <th></th>
         </tr>
-        <tr v-for="(taskDraft, index) in taskDraftList">
+        <tr v-for="(taskDraft, index) in taskDraftListWithoutSample">
             <td>{{taskDraft.taskId}}</td>
             <td>{{chineseLabelTypeName(taskDraft.labelType)}}</td>
             <td>{{chinesePublishedTaskState(taskDraft.publishedTaskState)}}</td>
+            <td><button v-on:click="jumpToMarkSample">标注样本</button></td>
             <td></td>
-            <td></td>
+        </tr>
+    </table>
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <h3>等待发布的任务</h3>
+    <table>
+        <tr>
+            <th>任务Id</th>
+            <th>任务类型</th>
+            <th>任务状态</th>
+            <th></th>
+        </tr>
+        <tr v-for="(taskDraft, index) in taskDraftListWithSample">
+            <td>{{taskDraft.taskId}}</td>
+            <td>{{chineseLabelTypeName(taskDraft.labelType)}}</td>
+            <td>{{chinesePublishedTaskState(taskDraft.publishedTaskState)}}</td>
+            <td><button v-on:click="assignTask">发布任务</button></td>
         </tr>
     </table>
 </div>
@@ -60,5 +81,5 @@
 <script src="../../js/lib/vue.js"></script>
 <script src="../../js/lib/axios.js"></script>
 <script src="../../js/pageJump.js"></script>
-<script src="../../js/requestor/uploadTask.js"></script>
+<script src="../../js/requestor/assignTask.js"></script>
 </html>
