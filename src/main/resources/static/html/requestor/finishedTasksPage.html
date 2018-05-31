@@ -2,6 +2,7 @@
 <head>
       <meta charset="utf-8">
 	  <link rel="stylesheet" href="../../css/lu.css">
+        <link rel="stylesheet" href="../../css/font.css">
       <title>发布且完成任务页面</title>
       
 </head>
@@ -42,7 +43,7 @@
 	</div>
 
 <div align ="center" id="taskInfoContainer">
-	<p>发布且完成的任务</p>
+	<p class="testfont">发布且完成的任务</p>
 	<table border="1" id="TaskTable">
 		<tr>
 			<th>任务编号</th>
@@ -63,7 +64,7 @@
 	</table>
 
 
-	<p>任务详情</p>
+	<p class="testfont">任务详情</p>
 	<table border="1">
 		<tr>
 			<th>工人昵称</th>
@@ -73,10 +74,10 @@
 		</tr>
 
 		<tr v-for="(item, index) in ParticipatorsInfo">
-			<th>{{item1.name}}</th>
-			<th>{item.sys_score}</th>
-			<th>{{item.state}}</th>
-			<th>{{item.score}}</th>
+			<th>{{item1.username}}</th>
+			<th>{item.labelScore}</th>
+			<th>{{item.acceptedTaskState}}</th>
+			<th>{{item.taskPrice}}</th>
 		</tr>
 	</table>
 

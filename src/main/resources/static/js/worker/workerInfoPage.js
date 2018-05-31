@@ -28,7 +28,7 @@ new Vue({
         const _this = this;
         this.$nextTick(function () {
             _this.userId = getUserId();
-            axios.get("/worker/getWorkerInfo",
+            axios.get("/user/getUserInfo",
                 { params:{ userId: this.userId } })
                 .then(function (response) {
                     _this.userId = response.data.userId;

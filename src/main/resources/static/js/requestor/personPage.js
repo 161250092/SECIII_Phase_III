@@ -29,7 +29,7 @@ new Vue({
         const _this = this;
         this.$nextTick(function () {
             _this.userId = getUserId();
-            axios.get("/requestor/getRequestorInfo",
+            axios.get("/user/getUserInfo",
                 { params:{ userId: this.userId } })
                 .then(function (response) {
                     _this.userId = response.data.userId;
