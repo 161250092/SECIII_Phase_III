@@ -3,6 +3,7 @@ package maven.controller;
 import maven.businessLogic.requestorBL.RequestorBLImpl;
 import maven.businessLogic.requestorBL.RequestorBLService;
 import maven.model.JsonConverter;
+import maven.model.primitiveType.Cash;
 import maven.model.primitiveType.Filename;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
@@ -64,11 +65,12 @@ public class RequestorController {
     /**
      * 修改已发布的任务（追加任务的悬赏金额）
      * @param taskId 任务Id
+     * @param cash 追加的金额数
      * @return 后端处理任务修改请求的结果
      */
     @RequestMapping(value = "/requestor/reviseTask", method = RequestMethod.GET)
-    public Exception reviseTask(String taskId){
-        return requestorBL.reviseTask(new TaskId(taskId));
+    public Exception reviseTask(String taskId, double cash){
+        return requestorBL.reviseTask(new TaskId(taskId), new Cash(cash));
     }
 
     /**

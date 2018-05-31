@@ -4,6 +4,7 @@ package maven.businessLogic.requestorBL;
 //import data.TaskData.TaskDataService;
 //import data.UserData.UserDataImpl;
 //import data.UserData.UserDataService;
+import maven.model.primitiveType.Cash;
 import maven.model.primitiveType.Filename;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
@@ -40,7 +41,7 @@ public class RequestorBLImpl implements RequestorBLService{
     }
 
     @Override
-    public Exception reviseTask(TaskId taskId) {
+    public Exception reviseTask(TaskId taskId, Cash cash) {
         return null;
     }
 

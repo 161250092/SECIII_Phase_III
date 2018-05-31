@@ -2,7 +2,6 @@ package maven.model.task;
 
 import maven.model.primitiveType.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,14 +32,14 @@ public class PublishedTask {
     private Cash taskPrice;
 
     //任务状态列表（开始时间，任务金额，任务要求的工人人数，发布者优惠）
-    private ArrayList<PublishedTaskDetail> publishedTaskStateList;
+    private List<PublishedTaskDetail> publishedTaskDetailList;
 
     //该任务的状态
     private PublishedTaskState publishedTaskState;
 
     public PublishedTask(TaskId taskId, UserId userId, LabelType labelType, List<Filename> imageFilenameList,
                          TaskDescription taskDescription, WorkerNum acceptedWorkerNum, WorkerNum finishedWorkerNum, Sample sample,
-                         Cash taskPrice, ArrayList<PublishedTaskDetail> publishedTaskStateList,
+                         Cash taskPrice, List<PublishedTaskDetail> publishedTaskDetailList,
                          PublishedTaskState publishedTaskState) {
         this.taskId = taskId;
         this.userId = userId;
@@ -51,7 +50,7 @@ public class PublishedTask {
         this.finishedWorkerNum = finishedWorkerNum;
         this.sample = sample;
         this.taskPrice = taskPrice;
-        this.publishedTaskStateList = publishedTaskStateList;
+        this.publishedTaskDetailList = publishedTaskDetailList;
         this.publishedTaskState = publishedTaskState;
     }
 
@@ -76,8 +75,8 @@ public class PublishedTask {
     }
 
     public WorkerNum getRequiredWorkerNum() {
-        if(publishedTaskStateList != null){
-            return publishedTaskStateList.get(publishedTaskStateList.size()-1).getRequiredWorkerNum();
+        if(publishedTaskDetailList != null){
+            return publishedTaskDetailList.get(publishedTaskDetailList.size()-1).getRequiredWorkerNum();
         }else {
             return null;
         }
@@ -99,8 +98,8 @@ public class PublishedTask {
         return taskPrice;
     }
 
-    public ArrayList<PublishedTaskDetail> getPublishedTaskStateList() {
-        return publishedTaskStateList;
+    public List<PublishedTaskDetail> getPublishedTaskDetailList() {
+        return publishedTaskDetailList;
     }
 
     public PublishedTaskState getPublishedTaskState() {
