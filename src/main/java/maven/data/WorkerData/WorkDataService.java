@@ -37,7 +37,7 @@ public interface WorkDataService {
     public boolean acceptTask(AcceptedTask acceptedTask);
 
     /**
-     * 众包工人放弃已接受的任务
+     * 众包工人放弃已接受的任务、删除任务信息
      * @param taskId 工人Id
      * @return 是否放弃成功
      */

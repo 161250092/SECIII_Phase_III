@@ -1,17 +1,19 @@
-package maven.data.MarkLabelData;
+package maven.data.MarkLabelData.FrameLabelData;
 
-import maven.model.label.ImageLabel;
+import maven.model.label.frameLabel.FrameLabel;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
 import maven.model.task.AcceptedTaskState;
 
-public interface ImageLabelDataService {
+import java.util.List;
+
+public interface FrameLabelDataService {
     /**
-     * 接受任务
+     * 接受任务或更改标注信息
      * @param imageLabel
      * @return
      */
-    public boolean acceptTask(ImageLabel imageLabel);
+    public boolean acceptTask(UserId userId, TaskId taskId, List<FrameLabel> imageLabel);
 
     /**
      * 更改任务信息
