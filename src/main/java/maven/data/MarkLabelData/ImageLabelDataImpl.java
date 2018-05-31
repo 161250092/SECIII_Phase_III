@@ -1,4 +1,4 @@
 package maven.data.MarkLabelData;
 
-public class ImageLabelDataImpl implements ImageLabelDataServicee {
+public class ImageLabelDataImpl implements ImageLabelDataService {
 }
