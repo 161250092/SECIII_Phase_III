@@ -60,7 +60,7 @@
 		<tr v-for="(item, index) in AllUnfinishedTasks">
 			<th>{{item.taskId}}</th>
 			<th>{{getChineseLabelType(item.labelType)}}</th>
-			<th><button v-on="detailedInfo(index)">任务描述</button></th>
+			<th><button v-on="detailedInfo(index)">查看</button></th>
 			<th>{{item.taskPrice}}</th>
 			<th><button v-on="changeTaskPrice(index)">增加赏金</button></th>
 			<th>{{item.finishedWorkerNum}}</th>
