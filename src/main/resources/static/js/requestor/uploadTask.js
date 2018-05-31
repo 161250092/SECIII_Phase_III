@@ -39,6 +39,7 @@ new Vue({
             sendUserId(this.userId);
             sendTaskId(this.taskId);
             setUserCanLabel(true);
+
             switch (this.selectedLabelType){
                 case "ImageLabel":
                     jumpToAnotherPage(markImageLabelPageUrl);
@@ -85,7 +86,7 @@ new Vue({
 
             let _this = this;
             axios.get('/requestor/uploadTaskInfo', {params: {taskJSON: taskVOJson, imageFilenameListJSON:imageFilenameListJSON}}).then(function (response) {
-                if(response.data.wrongMessage.type === "AssignSuccess"){
+                if(response.data.wrongMessage.type === "Success"){
                     alert("发布成功");
                     _this.jumpToMarkSample();
                 }else{
