@@ -79,13 +79,14 @@ function removeAllParameter() {
 
 //各页面URL
 /* admin */
-const adminPageUrl = "../admin/index.html";
+const adminPageUrl = "../admin/login.html";
 
 /* login */
-const loginPageUrl = "../login/index.html";
+const loginPageUrl = "../login/login.html";
 
 /* mainPage */
-const mainPageUrl = "../mainPage/MainPage.html";
+const requestorMainPageUrl = "../mainPage/requestorMainPage.html";
+const workerMainPageUrl = "../mainPage/requestorMainPage.html";
 
 /* markLabel */
 const markAreaLabelPageUrl = "../markLabel/markAreaLabel.html";
@@ -93,7 +94,7 @@ const markFrameLabelPageUrl = "../markLabel/markFrameLabel.html";
 const markImageLabelPageUrl = "../markLabel/markImageLabel.html";
 
 /* register */
-const registerPageUrl = "../register/index.html";
+const registerPageUrl = "../register/login.html";
 
 /* requestor */
 const assignTaskPageUrl = "../requestor/assignTask.html";

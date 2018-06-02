@@ -10,11 +10,15 @@ new Vue({
             axios.get("/login", { params:{ username: this.username, password: this.password } }).then(function (userException) {
                 let wrongMessage = userException.data.wrongMessage.type;
                 let userId = userException.data.userId;
-                if(wrongMessage === 'OrdinaryLogin'){
+                if(wrongMessage === 'RequestorLogin'){
                     sendUserId(userId);
                     sendUsername(_this.username);
-                    jumpToAnotherPage(mainPageUrl);
-                }else if(wrongMessage === 'AdministerLogin'){
+                    jumpToAnotherPage(requestorMainPageUrl);
+                }else if(wrongMessage === 'AdministerLogin') {
+                    sendUserId(userId);
+                    sendUsername(_this.username);
+                    jumpToAnotherPage(workerMainPageUrl);
+                }else if(wrongMessage === 'WorkerLogin'){
                     sendUserId(userId);
                     sendUsername(_this.username);
                     jumpToAnotherPage(adminPageUrl);
