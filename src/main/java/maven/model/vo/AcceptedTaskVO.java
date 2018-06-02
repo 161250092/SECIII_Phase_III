@@ -37,9 +37,9 @@ public class AcceptedTaskVO implements Serializable{
         this.labelScore = labelScore;
     }
 
-    public AcceptedTaskVO(AcceptedTask acceptedTask, Username username, LabelType labelType, TaskDescription description, LabelScore labelScore){
+    public AcceptedTaskVO(AcceptedTask acceptedTask, Username username, LabelType labelType, TaskDescription description){
         this(acceptedTask.getTaskId().value, acceptedTask.getUserId().value, username.value, labelType.value,
-                description.value, acceptedTask.getActualTaskPrice().value, acceptedTask.getAcceptedTaskState().toString(), labelScore.value);
+                description.value, acceptedTask.getActualTaskPrice().value, acceptedTask.getAcceptedTaskState().toString(), acceptedTask.getLabelScore().value);
     }
 
     public String getTaskId() {

@@ -4,7 +4,6 @@ import maven.model.task.PublishedTask;
 import maven.model.task.PublishedTaskState;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class PublishedTaskVO implements Serializable {
     //任务Id

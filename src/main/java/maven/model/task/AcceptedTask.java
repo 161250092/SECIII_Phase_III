@@ -1,10 +1,8 @@
 package maven.model.task;
 
-import maven.model.label.Label;
 import maven.model.primitiveType.*;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * 工人接受的任务
@@ -17,9 +15,6 @@ public class AcceptedTask {
     //创建时间
     private Date startTime;
 
-    //该用户对该任务的所有标注信息
-    private List<Label> taskLabelList;
-
     //该用户接任务时，任务的价格
     private Cash taskPrice;
     //该用户接任务时所享受的优惠
@@ -27,15 +22,17 @@ public class AcceptedTask {
 
     //该任务的状态
     private AcceptedTaskState acceptedTaskState;
+    //系统对工人标注的评分
+    private LabelScore labelScore;
 
-    public AcceptedTask(UserId userId, TaskId taskId, List<Label> taskLabelList, Cash taskPrice, WorkerDiscount workerDiscount, AcceptedTaskState acceptedTaskState){
+    public AcceptedTask(UserId userId, TaskId taskId, Date startTime, Cash taskPrice, WorkerDiscount workerDiscount, AcceptedTaskState acceptedTaskState, LabelScore labelScore) {
         this.userId = userId;
         this.taskId = taskId;
-        this.startTime = new Date();
-        this.taskLabelList = taskLabelList;
+        this.startTime = startTime;
         this.taskPrice = taskPrice;
         this.workerDiscount = workerDiscount;
         this.acceptedTaskState = acceptedTaskState;
+        this.labelScore = labelScore;
     }
 
     public UserId getUserId() {
@@ -50,12 +47,12 @@ public class AcceptedTask {
         return startTime;
     }
 
-    public List<Label> getTaskLabelList() {
-        return taskLabelList;
-    }
-
     public Cash getOriginalTaskPrice() {
         return taskPrice;
+    }
+
+    public LabelScore getLabelScore() {
+        return labelScore;
     }
 
     /**
