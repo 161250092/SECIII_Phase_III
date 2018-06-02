@@ -72,28 +72,24 @@
       <div id="editable" >
           <span>电子邮箱:</span>
           <input class="input_long" type="text"  id="email" name="tag" value="" v-model="email">
-          <input type="button" id="changeEmail" value="edit" v-on:click="editEmail"></input>
+          <input type="button" id="changeEmail" value="edit" v-on:click="editEmail">
           <br>
           <span>电话号码:</span>
           <input class="input_long" type="text" id="phone" name="tag" value="" v-model="phone">
-          <input type="button" id="changePhone" value="edit" v-on:click="editPhone"></input>
+          <input type="button" id="changePhone" value="edit" v-on:click="editPhone">
 
       </div>
 
-
-      <button v-on:click="checkCharts">看表格</button>
-
       <hr/>
-
-      <h>任务情况</h>
+      <p>任务情况</p>
       <div id="container" style="height: 30%"></div>
 
       <hr/>
-      <h>未完成工作分布</h>
+      <p>未完成工作分布</p>
       <div id="TaskType" style="height: 30%"></div>
 
       <hr/>
-      <h>已完成工作分布</h>
+      <p>已完成工作分布</p>
       <div id="FinishedLayout" style="height:30%"></div>
 
       <hr/>
