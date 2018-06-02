@@ -3,6 +3,15 @@
       <meta charset="utf-8">
       <link rel="stylesheet" href="../../css/lu.css">
     <link rel="stylesheet" href="../../css/input.css">
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
       <title>工人信息页面</title>
 </head>
 
@@ -43,48 +52,49 @@
       <div id="fix">
 
           <span>名称:</span>
-          <input type="text" class="input_short" id="user_name" name="tag" value="" disabled="disabled" v-model="username">{{username}}
+          <input type="text" class="input_short" id="user_name" name="tag" value="" disabled="disabled" v-model="username">
 
           <br>
           <span>声望:</span>
-          <input type="text" class="input_short" id="prestige" name="tag" value="" disabled="disabled" v-model="prestige">{{prestige}}
+          <input type="text" class="input_short" id="prestige" name="tag" value="" disabled="disabled" v-model="prestige">
           <br>
           <span>等级:</span>
-          <input type="text" class="input_short" id="user_level" name="tag" value="" disabled="disabled" v-model="userLevel">{{userLevel}}
+          <input type="text" class="input_short" id="user_level" name="tag" value="" disabled="disabled" v-model="userLevel">
           <br>
           <span>cash:</span>
-          <input type="text" class="input_short" id="cash" name="tag" value="" disabled="disabled" v-model="cash">{{cash}}
+          <input type="text" class="input_short" id="cash" name="tag" value="" disabled="disabled" v-model="cash">
           <br>
           <span>任务上限</span>
-          <input type="text" class="input_short" id="maxAcceptedTaskNum" name="tag" value="" disabled="disabled" v-model="maxAcceptedTaskNum">{{maxAcceptedTaskNum}}
+          <input type="text" class="input_short" id="maxAcceptedTaskNum" name="tag" value="" disabled="disabled" v-model="maxAcceptedTaskNum">
       </div>
 
 
       <div id="editable" >
           <span>电子邮箱:</span>
-          <input type="text"  id="email" name="tag" value="" v-model="email">{{email}}
+          <input class="input_long" type="text"  id="email" name="tag" value="" v-model="email">
           <input type="button" id="changeEmail" value="edit" v-on:click="editEmail"></input>
           <br>
           <span>电话号码:</span>
-          <input type="text" id="phone" name="tag" value="" v-model="phone">{{phone}}
+          <input class="input_long" type="text" id="phone" name="tag" value="" v-model="phone">
           <input type="button" id="changePhone" value="edit" v-on:click="editPhone"></input>
 
       </div>
 
 
+      <button v-on:click="checkCharts">看表格</button>
 
       <hr/>
 
       <h>任务情况</h>
-      <div id="container" style="height: 100%"></div>
+      <div id="container" style="height: 30%"></div>
 
       <hr/>
       <h>未完成工作分布</h>
-      <div id="TaskType" style="height: 100%"></div>
+      <div id="TaskType" style="height: 30%"></div>
 
       <hr/>
       <h>已完成工作分布</h>
-      <div id="FinishedLayout" style="height: 100%"></div>
+      <div id="FinishedLayout" style="height:30%"></div>
 
       <hr/>
       <button id="charge" v-on:click="exchange">积分兑换</button>
