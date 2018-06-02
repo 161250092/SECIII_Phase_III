@@ -16,5 +16,12 @@ public interface AdminDataService {
      *获取管理员信息
      * @return
      */
-    Admin getAllAdmin();
+    List<Admin> getAllAdmin();
+
+    /**
+     * 新建管理员信息
+     * @param admin
+     * @return
+     */
+    boolean newAdmin(Admin admin);
 }
