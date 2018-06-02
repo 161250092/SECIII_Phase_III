@@ -8,8 +8,8 @@ import maven.model.task.AcceptedTaskState;
 import java.util.List;
 
 public class ImageLabelDataImpl implements ImageLabelDataService {
-    @Override
-    public boolean acceptTask(UserId userId, TaskId taskId, List<ImageLabel> imageLabel) {
+   @Override
+    public boolean saveLableList(UserId userId, TaskId taskId, List<ImageLabel> imageLabel) {
         return false;
     }
 

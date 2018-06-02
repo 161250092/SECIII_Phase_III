@@ -15,6 +15,11 @@ public class RequestorDataStub implements RequestorDataService {
     }
 
     @Override
+    public boolean saveTaskSampleInfo(TaskId taskId, int ImageNum, List<Integer> imageIndexList) {
+        return false;
+    }
+
+    @Override
     public boolean saveTaskDetail(TaskId taskId, PublishedTaskDetail publishedTaskDetail) {
         return false;
     }

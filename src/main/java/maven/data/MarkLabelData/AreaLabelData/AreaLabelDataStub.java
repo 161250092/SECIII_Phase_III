@@ -10,7 +10,7 @@ import java.util.List;
 
 public class AreaLabelDataStub implements AreaLabelDataService {
     @Override
-    public boolean acceptTask(UserId userId, TaskId taskId, List<AreaLabel> imageLabel) {
+    public boolean saveLableList(UserId userId, TaskId taskId, List<AreaLabel> imageLabel) {
         return false;
     }
 

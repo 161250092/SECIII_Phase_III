@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface ImageLabelDataService {
     /**
-     * 接受任务或更改标注信息
+     * 覆盖性保存标注信息
      * @param imageLabel
      * @return
      */
-    public boolean acceptTask(UserId userId, TaskId taskId, List<ImageLabel> imageLabel);
+    public boolean saveLableList(UserId userId, TaskId taskId, List<ImageLabel> imageLabel);
 
     /**
      * 更改任务信息

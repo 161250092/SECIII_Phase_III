@@ -25,9 +25,6 @@ public class PublishedTask {
     //标注已通过审核的工人人数
     private WorkerNum finishedWorkerNum;
 
-    //发布者提供的标注样本信息
-    private Sample sample;
-
     //任务状态列表（开始时间，任务金额，任务要求的工人人数，发布者优惠）
     private List<PublishedTaskDetail> publishedTaskDetailList;
 
@@ -35,7 +32,7 @@ public class PublishedTask {
     private PublishedTaskState publishedTaskState;
 
     public PublishedTask(TaskId taskId, UserId userId, LabelType labelType, List<Filename> imageFilenameList,
-                         TaskDescription taskDescription, WorkerNum acceptedWorkerNum, WorkerNum finishedWorkerNum, Sample sample,
+                         TaskDescription taskDescription, WorkerNum acceptedWorkerNum, WorkerNum finishedWorkerNum,
                          List<PublishedTaskDetail> publishedTaskDetailList,
                          PublishedTaskState publishedTaskState) {
         this.taskId = taskId;
@@ -45,7 +42,6 @@ public class PublishedTask {
         this.taskDescription = taskDescription;
         this.acceptedWorkerNum = acceptedWorkerNum;
         this.finishedWorkerNum = finishedWorkerNum;
-        this.sample = sample;
         this.publishedTaskDetailList = publishedTaskDetailList;
         this.publishedTaskState = publishedTaskState;
     }
@@ -80,10 +76,6 @@ public class PublishedTask {
 
     public WorkerNum getAcceptedWorkerNum() {
         return acceptedWorkerNum;
-    }
-
-    public Sample getSample() {
-        return sample;
     }
 
     public WorkerNum getFinishedWorkerNum() {

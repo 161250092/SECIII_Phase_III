@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ImageLabelDataStub implements ImageLabelDataService {
     @Override
-    public boolean acceptTask(UserId userId, TaskId taskId, List<ImageLabel> imageLabel) {
+    public boolean saveLableList(UserId userId, TaskId taskId, List<ImageLabel> imageLabel) {
         return false;
     }
 
