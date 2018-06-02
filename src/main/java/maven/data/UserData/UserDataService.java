@@ -1,8 +1,10 @@
 package maven.data.UserData;
 
 import maven.model.primitiveType.*;
+import maven.model.user.Requestor;
 import maven.model.user.User;
 import maven.model.user.UserLevel;
+import maven.model.user.Worker;
 
 import java.util.List;
 
@@ -16,10 +18,16 @@ public interface UserDataService {
     List<Username> getAllUsernameList();
 
     /**
-     * 获取所有用户信息
-     * @return username的list：发布者、工人
+     * 获取所有工人信息
+     * @return 工人列表
      */
-    public List<User> getAllUser();
+    List<Worker> getAllWorker();
+
+    /**
+     * 获取所有发布者信息
+     * @return 发布者列表
+     */
+    List<Requestor> getAllRequestor();
 
     /**
      * 注册：保存用户信息

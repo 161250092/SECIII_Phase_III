@@ -44,10 +44,4 @@ public interface WorkerDataService {
      * @return
      */
      AcceptedTask getAcceptedTaskById(UserId userId,TaskId taskId);
-
-    /**
-     * 获取所有工人信息
-     * @return
-     */
-     List<Worker> getAllWorker();
 }
