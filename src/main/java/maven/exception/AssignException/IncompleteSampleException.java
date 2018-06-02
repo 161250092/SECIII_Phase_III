@@ -1,4 +1,4 @@
-package maven.exception.RequestorException;
+package maven.exception.AssignException;
 
 import maven.exception.util.WrongMessage;
 

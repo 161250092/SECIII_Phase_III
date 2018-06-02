@@ -1,8 +1,6 @@
 package maven.exception.util;
 
-import maven.exception.util.WrongMessage;
-
-public class PrestigeNotEnoughException {
+public class PrestigeNotEnoughException extends Exception{
     private WrongMessage wrongMessage;
 
     public PrestigeNotEnoughException(){
