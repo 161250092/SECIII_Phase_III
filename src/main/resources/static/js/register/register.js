@@ -4,13 +4,16 @@ new Vue({
         username:"",
         password:"",
         confirmedPassword:"",
+        emailAddress: "",
+        phoneNumber: "",
+
         isUsernameExisted: false,
         isPasswordCorrect: true,
     },
     methods:{
         checkUsername: function () {
             const _this = this;
-            axios.get("/isUsernameExist", { params:{ username: _this.username} }).then(function (response) {
+            axios.get("/register/isUsernameExist", { params:{ username: _this.username} }).then(function (response) {
                 _this.isUsernameExisted = response.data;
             });
         },
@@ -19,11 +22,9 @@ new Vue({
         },
         register: function () {
             const _this = this;
-            console.log(this.isUsernameExisted);
-            console.log(this.isPasswordCorrect);
-            console.log("wocao");
             if(!this.isUsernameExisted && this.isPasswordCorrect){
-                axios.get("/register", { params:{ username: this.username, password: this.password } }).then(function (userException) {
+                axios.get("/register/register",
+                    {params:{username: this.username, password: this.password, email: this.emailAddress, phone: this.phoneNumber}}).then(function (userException) {
                     let wrongMessage = userException.data.wrongMessage.type;
                     let userId = userException.data.userId;
                     if(wrongMessage === 'SuccessfulRegister'){
