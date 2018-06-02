@@ -23,4 +23,12 @@ public interface FrameLabelDataService {
      * @return
      */
     public boolean reviseTaskState(UserId userId, TaskId taskId, AcceptedTaskState acceptedTaskState);
+
+    /**
+     * 获取标注信息
+     * @param userId
+     * @param taskId
+     * @return
+     */
+    public List<FrameLabel> getLabelList(UserId userId,TaskId taskId);
 }

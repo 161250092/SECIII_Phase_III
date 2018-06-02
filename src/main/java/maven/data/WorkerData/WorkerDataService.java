@@ -17,17 +17,11 @@ public interface WorkerDataService {
      List<AcceptedTask> getAcceptedAndAccomplishedTaskList(UserId userId);
 
     /**
-     * 获取所有接受但未完成的任务
+     * 获取所有接受的任务
      * @param userId 工人Id
-     * @return 所有未完成的任务
+     * @return 所有的任务
      */
-     List<AcceptedTask> getAcceptedButIncompleteTaskList(UserId userId);
-
-    /**
-     * 获取所有已发布但未完成的任务
-     * @return 所有已发布但未完成的任务列表
-     */
-     List<PublishedTask> getIncompleteTaskList();
+     List<AcceptedTask> getAcceptedTaskList(UserId userId);
 
     /**
      * 众包工人接受任务
