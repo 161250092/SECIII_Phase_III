@@ -163,8 +163,8 @@ new Vue({
                             }
                         },
                         data:[
-                            {value:AllUnfinishedTasks.length, name:'已接受'},
-                            {value:maxPublishedTaskNum-AllUnfinishedTasks.length, name:'剩余'}
+                            {value:this.AllUnfinishedTasks.length, name:'已接受'},
+                            {value:this.maxPublishedTaskNum-this.AllUnfinishedTasks.length, name:'剩余'}
 
                         ]
                     }
