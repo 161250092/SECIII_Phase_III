@@ -18,12 +18,17 @@ new Vue({
     },
     methods: {
         checkThisLabel: function (workerIndex) {
+            let taskId = this.submittedTaskList[this.selectedTaskIndex].taskId;
+            let userId = this.labelListOfSelectedTask[workerIndex].userId;
+            let labelType = this.labelListOfSelectedTask[workerIndex].labelType;
+
             //////////////////////////////////////////////////////////
             //临时用
-            let taskId = "testTaskID";
-            let userId = "testUserID";
-            let labelType = "ImageLabel";
+            taskId = "testTaskID";
+            userId = "testUserID";
+            labelType = "ImageLabel";
             //////////////////////////////////////////////////////////
+
             sendTaskId(taskId);
             sendUserId(userId);
             setUserCanLabel(false);
