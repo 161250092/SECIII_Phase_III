@@ -1,6 +1,6 @@
 package maven.exception.util;
 
-public class FailureException {
+public class FailureException extends Exception{
     private WrongMessage wrongMessage;
 
     public FailureException(){
