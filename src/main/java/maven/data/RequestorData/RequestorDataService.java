@@ -89,27 +89,20 @@ public interface RequestorDataService {
      */
      boolean approvalTask(TaskId taskId, UserId userId, AcceptedTaskState acceptedTaskState);
 
-    /**
-     * 获取发布且已完成任务的列表
-     * @param userId 发布者Id
-     * @return 发布且已完成任务的列表
-     */
-     List<PublishedTask> getAssignedAndAccomplishedTaskList(UserId userId);
 
     /**
-     * 获取发布但未完成任务的列表
+     * 获取所有任务的列表
      * @param userId 发布者Id
      * @return 发布但未完成任务的列表
      */
-     List<PublishedTask> getAssignedButIncompleteTaskList(UserId userId);
+     List<PublishedTask> getPublishedTaskList(UserId userId);
 
     /**
-     * 获取具体的发布任务的信息
-     * @param userId 发布者Id
+     * 获取具体的发布任务信息
      * @param taskId 任务Id
      * @return 任务详情
      */
-     PublishedTask getAssignedTask(UserId userId, TaskId taskId);
+     PublishedTask getPublishedTask(TaskId taskId);
 
     /**
      * 查看已接受某任务的工人任务完成情况

@@ -5,14 +5,15 @@ import java.sql.*;
 public class MySQLConnector{
 
     // JDBC 驱动名及数据库 URL
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost:3306/SE";
+    static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    static String DB_URL = "jdbc:mysql://localhost:3306/";
 
     // 数据库的用户名与密码
     static final String USER = "root";
     static final String PASS = "123456";
 
     public Connection getConnection(String DataBaseName) {
+        DB_URL = DB_URL + DataBaseName;
         Connection conn = null;
         Statement stmt = null;
         try{
