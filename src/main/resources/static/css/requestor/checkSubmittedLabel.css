@@ -1,6 +1,10 @@
+body {
+    background-image: url("../../images/requestorPageBackground.jpg")
+}
+
 ul.accordionTaskList {
     list-style: none;
-    max-width: 600px;
+    max-width: 1000px;
     margin: 30px auto 20px;
     background: #FFF;
     border-radius: 4px;
