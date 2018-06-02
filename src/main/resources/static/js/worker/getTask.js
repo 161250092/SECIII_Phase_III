@@ -13,7 +13,7 @@ function getMyIntroductionTask(userId){
 	$.ajax({
 			type: "GET",
             async: false,
-			url:"/Worker/getAvailableTaskList",
+			url:"/worker/getAvailableTaskList",
 			data:{
 			    userId:userId
 			},
@@ -43,21 +43,21 @@ function addRow(singleTask,count){
         Cell_1.className="s2";
 
         var Cell_2=tableRow.insertCell(2);
-        Cell_2.innerHTML='<input value="'+oneTask[count].requiredNumber+'"  readonly="true"/>';
+        Cell_2.innerHTML='<input value="'+oneTask[count].requiredWokerNum+'"  readonly="true"/>';
         Cell_2.className="s3";
 
 
         var Cell_3=tableRow.insertCell(3);
-        Cell_3.innerHTML='<input value="'+oneTask[count].finishedNumber+'"  readonly="true"/>';
+        Cell_3.innerHTML='<input value="'+oneTask[count].finishedWorkerNum+'"  readonly="true"/>';
         Cell_3.className="s4";
 
 
         var Cell_4=tableRow.insertCell(4);
-        Cell_4.innerHTML='<input value="'+oneTask[count].description+'"  readonly="true"/>';
+        Cell_4.innerHTML='<input value="'+oneTask[count].taskDescription+'"  readonly="true"/>';
         Cell_4.className="s5";
 
         var Cell_5=tableRow.insertCell(5);
-        Cell_5.innerHTML='<input value="'+oneTask[count].score+'"  readonly="true"/>';
+        Cell_5.innerHTML='<input value="'+oneTask[count].taskPrice+'"  readonly="true"/>';
         Cell_5.className="s6";
 
 
@@ -89,7 +89,7 @@ $("#send").click(function(){
     $.ajax({
         type : "GET",
         async: false,
-        url : "/Worker/acceptTask", //利用ajax发起请求，这里写servlet的路径
+        url : "/worker/acceptTask", //利用ajax发起请求，这里写servlet的路径
 
         data : {
             userId:getUserId(),

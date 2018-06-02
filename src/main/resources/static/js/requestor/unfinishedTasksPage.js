@@ -48,7 +48,7 @@ new Vue({
             axios.get("/requestor/revokeTask", {params: {taskId:AllUnfinishedTasks[index].taskId}})
                 .then(function (Exception) {
                     let message = Exception.data.WrongMessage.type;
-                    if(message=="success")
+                    if(message=="Success")
                         alert("撤销成功")
                     else
                         alert("撤销失败")
@@ -60,17 +60,13 @@ new Vue({
             axios.get("/requestor/reviseTask", {params: {taskId:reviseTaskId,cash:reviseTaskPrice}})
                 .then(function (Exception) {
                     let message = Exception.data.WrongMessage.type;
-                    if(message=="success")
+                    if(message=="Success")
                         alert("修改成功")
                     else
                         alert("修改失败")
 
                 });
-
         }
-
-
-
 
     }
 

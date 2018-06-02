@@ -57,14 +57,15 @@
 		<tr v-for="(item, index) in AllUnfinishedTasks">
 			<th>{{item.taskId}}</th>
 			<th>{{getChineseLabelType(item.labelType)}}</th>
-			<th>{{item.description}}</th>
-			<th>{{item.score}}</th>
+			<th>{{item.taskDescription}}</th>
+			<th>{{item.taskPrice}}</th>
 			<th><a v-on:click="doTask(index)">do it</a></th>
 			<th><a v-on:click="recallTask(index)">撤销任务</a></th>
 		</tr>
 	</table>
 </div>
-<script src="../../js/lib/jquery-1.11.0.min.js"></script>
+
+
 <script src="../../js/lib/axios.js"></script>
 <script src="../../js/lib/vue.js"></script>
 <script src="../../js/pageJump.js"></script>

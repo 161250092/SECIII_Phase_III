@@ -43,13 +43,13 @@ new Vue({
             axios.get("/worker/getAcceptedButIncompleteTaskList",
                 {params:{ userId: this.userId }})
                 .then(function (response){
-                    _this.AllUnfinishedTasks = response;
+                    _this.AllUnfinishedTasks = response.data;
                 })
 
             axios.get("/worker/getAcceptedAndAccomplishedTaskList",
                 {params:{userId:this.userId}})
                 .then(function (response){
-                    _this.AllFinishedTasks = response;
+                    _this.AllFinishedTasks = response.data;
                 })
 
             countLabel();
@@ -64,7 +64,7 @@ new Vue({
             axios.get("/user/reviseUserEmail", {params: {userId:getUserId(),email:_this.email}})
                 .then(function (Exception) {
                     let message = Exception.data.WrongMessage.type;
-                    if(message==="success")
+                    if(message==="Success")
                         alert("修改成功")
                     else
                         alert("修改失败")
@@ -75,7 +75,7 @@ new Vue({
             axios.get("/user/reviseUserPhone", {params: {userId:getUserId(),phone:_this.phone}})
                 .then(function (Exception) {
                     let message = Exception.data.WrongMessage.type;
-                    if(message==="success")
+                    if(message==="Success")
                         alert("修改成功")
                     else
                         alert("修改失败")

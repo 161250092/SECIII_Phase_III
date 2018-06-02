@@ -9,7 +9,7 @@ new Vue({
         const _this = this;
         this.$nextTick(function () {
             _this.userId = getUserId();
-            axios.get("/WorkerController/getAcceptedAndAccomplishedTaskList",
+            axios.get("/worker/getAcceptedAndAccomplishedTaskList",
                 { params:{ userId: this.userId } })
                 .then(function (response) {
                     _this.AllFinishedTasks = response.data;
@@ -18,11 +18,11 @@ new Vue({
     },
     methods: {
         getChineseLabelType: function (labelType) {
-            if (labelType === this.IMAGE_LABEL_TYPE) {
+            if (labelType === IMAGE_LABEL_TYPENAME) {
                 return "整体标注";
-            } else if (labelType === this.FRAME_LABEL_TYPE) {
+            } else if (labelType === FRAME_LABEL_TYPENAME) {
                 return "标框标注";
-            } else if (labelType === this.AREA_LABEL_TYPE) {
+            } else if (labelType === AREA_LABEL_TYPENAME) {
                 return "区域标注";
             }
         }

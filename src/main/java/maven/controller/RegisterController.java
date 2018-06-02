@@ -17,7 +17,7 @@ public class RegisterController {
     private RegisterBLService registerBL;
 
     public RegisterController(){
-        registerBL = new RegisterBLImpl();
+        registerBL = new RegisterBLStub();
     }
 
     /**

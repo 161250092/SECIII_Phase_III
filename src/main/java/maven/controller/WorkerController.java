@@ -2,6 +2,7 @@ package maven.controller;
 
 import maven.businessLogic.workerBL.WorkerBLImpl;
 import maven.businessLogic.workerBL.WorkerBLService;
+import maven.businessLogic.workerBL.WorkerBLStub;
 import maven.model.JsonConverter;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
@@ -25,7 +26,7 @@ public class WorkerController{
     private WorkerBLService workerBL;
 
     public WorkerController(){
-        workerBL = new WorkerBLImpl();
+        workerBL = new WorkerBLStub();
     }
 
     /**
