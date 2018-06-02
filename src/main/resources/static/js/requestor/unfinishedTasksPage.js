@@ -1,15 +1,10 @@
 new Vue({
     el:"#taskInfoContainer",
     data:{
-
         AllUnfinishedTasks:[],
         taskDescription:"请点击要查看的任务",
         reviseTaskId:"无",
         reviseTaskPrice:0,
-
-        IMAGE_LABEL_TYPE: "ImageLabel",
-        FRAME_LABEL_TYPE: "FrameLabel",
-        AREA_LABEL_TYPE: "AreaLabel"
     },
     mounted: function () {
         const _this = this;
@@ -25,11 +20,11 @@ new Vue({
 
     methods:{
         getChineseLabelType: function (labelType) {
-            if(labelType === this.IMAGE_LABEL_TYPE){
+            if(labelType === IMAGE_LABEL_TYPENAME){
                 return "整体标注";
-            }else if(labelType === this.FRAME_LABEL_TYPE){
+            }else if(labelType === FRAME_LABEL_TYPENAME){
                 return "标框标注";
-            }else if(labelType === this.AREA_LABEL_TYPE){
+            }else if(labelType === AREA_LABEL_TYPENAME){
                 return "区域标注";
             }
         },
@@ -45,11 +40,10 @@ new Vue({
 
         // exception unsovled
         recallTask:function(index){
-
             axios.get("/requestor/revokeTask", {params: {taskId:this.AllUnfinishedTasks[index].taskId}})
                 .then(function (Exception) {
                     //let message = Exception.data.WrongMessage.type;
-                    if(message==="Success")
+                    if(message === "Success")
                         alert("撤销成功");
                     else
                         alert("撤销失败")
@@ -58,7 +52,6 @@ new Vue({
         },
 
         addTaskPrice:function(){
-
             axios.get("/requestor/reviseTask", {params: {taskId:this.reviseTaskId,cash:this.reviseTaskPrice}})
                 .then(function (Exception) {
                     //let message = Exception.data.WrongMessage.type;
@@ -69,12 +62,5 @@ new Vue({
 
                 });
         }
-
     }
-
-
-
-
-
-
 });
