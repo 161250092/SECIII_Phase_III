@@ -66,6 +66,11 @@ public class RequestorDataImpl implements RequestorDataService {
     }
 
     @Override
+    public PublishedTask getPublishedTask(TaskId taskId) {
+        return null;
+    }
+
+    @Override
     public List<AcceptedTask> getSubmittedTaskList(TaskId taskId) {
         return null;
     }
@@ -73,21 +78,6 @@ public class RequestorDataImpl implements RequestorDataService {
     @Override
     public boolean approvalTask(TaskId taskId, UserId userId, AcceptedTaskState acceptedTaskState) {
         return false;
-    }
-
-    @Override
-    public List<PublishedTask> getAssignedAndAccomplishedTaskList(UserId userId) {
-        return null;
-    }
-
-    @Override
-    public List<PublishedTask> getAssignedButIncompleteTaskList(UserId userId) {
-        return null;
-    }
-
-    @Override
-    public PublishedTask getAssignedTask(UserId userId, TaskId taskId) {
-        return null;
     }
 
     @Override
