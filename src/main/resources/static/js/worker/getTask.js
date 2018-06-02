@@ -28,22 +28,22 @@ new Vue({
             }
         },
         acceptTasks: function () {
-            let taskIdListJson = JSON.stringify(this.acceptedTaskIdSet);
+            let taskIdList = [];
+            this.acceptedTaskIdSet.forEach(function (element, sameElement, set) {
+                taskIdList.push(element);
+            });
+
+            let taskIdListJson = JSON.stringify(taskIdList);
             axios.get('/worker/acceptTask', {params: {userId: this.userId, taskIdListJSON: taskIdListJson}}).then(function (response) {
-                alert("Success!");
-                jumpToAnotherPage(workerMainPageUrl);
+                if(response.data.wrongMessage.message === 'Success'){
+                    alert("接受成功");
+                    jumpToAnotherPage(workerMainPageUrl);
+                }else{
+                    alert("接受失败");
+                }
             });
         }
     },
-    computed:{
-        t: function () {
-            let temp = [];
-            this.acceptedTaskIdSet.forEach(function (element, sameElement, set) {
-                temp.push(element);
-            });
-            return temp;
-        }
-    }
 });
 
 

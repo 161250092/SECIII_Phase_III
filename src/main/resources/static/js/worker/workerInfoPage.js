@@ -25,50 +25,42 @@ new Vue({
         maxAcceptedTaskNum:10
     },
     mounted: function () {
-        const _this = this;
         this.$nextTick(function () {
-            _this.userId = getUserId();
-            axios.get("/user/getUserInfo",
-                { params:{ userId: this.userId } })
-                .then(function (response) {
-                    _this.username = response.data.username.value;
-                    _this.prestige = response.data.prestige.value;
-                    _this.userLevel = response.data.userLevel;
-                    _this.cash = response.data.cash.value;
-                    _this.email = response.data.email.address;
-                    _this.phone = response.data.phone.number;
-                   // _this.maxAcceptedTaskNum = response.data.maxAcceptedTaskNum.value;
-                })
-            axios.get("/worker/getAcceptedButIncompleteTaskList",
-                {params:{ userId: this.userId }})
-                .then(function (response){
-                    _this.AllUnfinishedTasks = response.data;
-                })
+            this.userId = getUserId();
 
-            axios.get("/worker/getAcceptedAndAccomplishedTaskList",
-                {params:{userId:this.userId}})
-                .then(function (response){
-                    _this.AllFinishedTasks = response.data;
-                })
+            const _this = this;
+            axios.all([this.getUserInfo(), this.getAcceptedButIncompleteTaskList(), this.getAcceptedAndAccomplishedTaskList()])
+                .then(axios.spread(function (userInfo, incompleteTaskList, accomplishedTaskList) {
+                    /* getUserInfo */
+                    _this.username = userInfo.data.username.value;
+                    _this.prestige = userInfo.data.prestige.value;
+                    _this.userLevel = userInfo.data.userLevel;
+                    _this.cash = userInfo.data.cash.value;
+                    _this.email = userInfo.data.email.address;
+                    _this.phone = userInfo.data.phone.number;
 
-        })
+                    /* getAcceptedButIncompleteTaskList */
+                    _this.AllUnfinishedTasks = incompleteTaskList.data;
+
+                    /* getAcceptedAndAccomplishedTaskList */
+                    _this.AllFinishedTasks = accomplishedTaskList.data;
+
+                    /* 显示图表 */
+                    _this.countLabel();
+                    _this.TaskNumcharts();
+                    _this.unfinishedTaskCharts(Type1Num,Type2Num,Type3Num);
+                    _this.finishedTaskCharts(finishedType1,finishedType2,finishedType3);
+                }));
+        });
     },
     methods: {
-        checkCharts:function() {
-            this.countLabel();
-            this.TaskNumcharts();
-            this.unfinishedTaskCharts(Type1Num,Type2Num,Type3Num);
-            this.finishedTaskCharts(finishedType1,finishedType2,finishedType3);
-        },
-
-
         editEmail: function () {
             const _this = this;
             axios.get("/user/reviseUserEmail", {params: {userId: getUserId(), email: _this.email}})
                 .then(function (Exception) {
                     let message = Exception.data.WrongMessage.type;
                     if (message === "Success")
-                        alert("修改成功")
+                        alert("修改成功");
                     else
                         alert("修改失败")
                 })
@@ -79,19 +71,17 @@ new Vue({
                 .then(function (Exception) {
                     let message = Exception.data.WrongMessage.type;
                     if (message === "Success")
-                        alert("修改成功")
+                        alert("修改成功");
                     else
-                        alert("修改失败")
+                        alert("修改失败");
                 })
 
         },
         exchange: function () {
             // const _this = this;
             // this.phone = "充钱是不可能充钱的，这辈子不可能充钱"
-            alert("换钱是不可能换钱的，这辈子都不可能给你换钱")
+            alert("换钱是不可能换钱的，这辈子都不可能给你换钱");
         },
-
-
         countLabel: function () {
             const _this = this;
             for (var i = 0; i < _this.AllUnfinishedTasks.length; i++) {
@@ -116,7 +106,6 @@ new Vue({
                 else if (_this.AllFinishedTasks[i].labelType === type3)
                     finishedType3++;
             }
-
         },
 
         TaskNumcharts: function () {
@@ -173,7 +162,6 @@ new Vue({
                 myChart.setOption(option, true);
             }
         },
-
 
         unfinishedTaskCharts: function (a, b, c) {
             var dom = document.getElementById("TaskType");
@@ -284,13 +272,19 @@ new Vue({
             if (option && typeof option === "object") {
                 myChart.setOption(option, true);
             }
-        }
+        },
 
-
-
+        //用于axios
+        getUserInfo: function () {
+            return axios.get("/user/getUserInfo", {params:{ userId: this.userId }});
+        },
+        getAcceptedButIncompleteTaskList: function () {
+            return axios.get("/worker/getAcceptedButIncompleteTaskList", {params:{ userId: this.userId }});
+        },
+        getAcceptedAndAccomplishedTaskList: function () {
+            return axios.get("/worker/getAcceptedAndAccomplishedTaskList", {params:{userId:this.userId}});
+        },
     }
-
-
 });
 
 
