@@ -7,7 +7,7 @@ new Vue({
     methods:{
         login:function () {
             const _this = this;
-            axios.get("/login", { params:{ username: this.username, password: this.password } }).then(function (userException) {
+            axios.get("login//login", { params:{ username: this.username, password: this.password } }).then(function (userException) {
                 let wrongMessage = userException.data.wrongMessage.type;
                 let userId = userException.data.userId;
                 if(wrongMessage === 'RequestorLogin'){

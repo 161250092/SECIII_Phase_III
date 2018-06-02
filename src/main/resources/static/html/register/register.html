@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<html lang="en" class="no-js" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
@@ -22,35 +22,41 @@
 					<div class="logo_box" id="registerContainer">
 						<h3>欢迎你</h3>
 						<form action="#" name="f" method="post">
-							<div class="input_outer">
+							 <div v-bind:class="{input_outer: isUsernameInput, input_outer_error: !isUsernameInput}">
 								<span class="u_user"></span>
 								<input name="logname" class="text" style="color: #FFFFFF !important"
 									   type="text" id="username" placeholder="请输入你的用户名" v-model="username" v-on:input="checkUsername">
-							</div>
+							 </div>
+                            <p v-if="!isUsernameInput">用户名未输入</p>
 
-							<div class="input_outer">
+							 <div v-bind:class="{input_outer: isEmailAddressInput, input_outer_error: !isEmailAddressInput}">
 								<span class="u_user"></span>
 								<input name="emailAddress" class="text" style="color: #FFFFFF !important"
-									   type="text" id="emailAddress" placeholder="请输入你的邮箱" v-model="emailAddress">
-							</div>
+									   type="email" id="emailAddress" placeholder="请输入你的邮箱" v-model="emailAddress">
+							 </div>
+                            <p v-if="!isEmailAddressInput">邮箱未输入</p>
 
-							<div class="input_outer">
+							 <div v-bind:class="{input_outer: isPhoneNumberInput, input_outer_error: !isPhoneNumberInput}">
 								<span class="u_user"></span>
 								<input name="phoneNumber" class="text" style="color: #FFFFFF !important"
-									   type="text" id="phoneNumber" placeholder="请输入你的电话号码" v-model="phoneNumber">
-							</div>
+									   type="tel" id="phoneNumber" placeholder="请输入你的电话号码" v-model="phoneNumber">
+							 </div>
+                            <p v-if="!isPhoneNumberInput">邮箱未输入</p>
 
-							<div class="input_outer">
+							<div v-bind:class="{input_outer: isPasswordCorrect, input_outer_error: !isPasswordCorrect||!isPasswordInput}">
 								<span class="us_uer"></span>
 								<input name="logpass" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"
 									   type="password"  id="password" placeholder="请输入你的密码" v-model="password">
 							</div>
+                            <p v-if="!isPasswordInput">密码未输入</p>
 
-							<div class="input_outer">
-								<span class="us_uer"></span>
-								<input name="logpass" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"
+							<div v-bind:class="{input_outer: isPasswordCorrect, input_outer_error: !isPasswordCorrect}">
+								 <span class="us_uer"></span>
+								 <input name="logpass" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"
 									 type="password" id="confirmedPassword" placeholder="请再次输入你的密码" v-model="confirmedPassword" v-on:input="checkPassword">
 							</div>
+                            <p v-if="!isPasswordCorrect">密码不相同</p>
+
 							<div class="mb2"><a class="act-but submit" href="javascript:;" style="color: #FFFFFF" v-on:click="register">注册</a></div>
 							<p> <a href="../login/login.html"><font color="white">登录？</font></a> </p>
 						</form>

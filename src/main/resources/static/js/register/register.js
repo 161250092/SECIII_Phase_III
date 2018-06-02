@@ -9,20 +9,16 @@ new Vue({
 
         isUsernameExisted: false,
         isPasswordCorrect: true,
+        
+        isUsernameInput: true,
+        isPasswordInput: true,
+        isEmailAddressInput: true,
+        isPhoneNumberInput: true,
     },
     methods:{
-        checkUsername: function () {
-            const _this = this;
-            axios.get("/register/isUsernameExist", { params:{ username: _this.username} }).then(function (response) {
-                _this.isUsernameExisted = response.data;
-            });
-        },
-        checkPassword: function () {
-            this.isPasswordCorrect = (this.password === this.confirmedPassword);
-        },
         register: function () {
             const _this = this;
-            if(!this.isUsernameExisted && this.isPasswordCorrect){
+            if(!this.isUsernameExisted && this.isPasswordCorrect && this.checkAllInput()){
                 axios.get("/register/register",
                     {params:{username: this.username, password: this.password, email: this.emailAddress, phone: this.phoneNumber}}).then(function (userException) {
                     let wrongMessage = userException.data.wrongMessage.type;
@@ -44,6 +40,23 @@ new Vue({
         },
         getUserIdAxios: function () {
             return axios.get("/getUserId", {params: {username: this.username}});
+        },
+        checkUsername: function () {
+            const _this = this;
+            axios.get("/register/isUsernameExist", { params:{ username: _this.username} }).then(function (response) {
+                _this.isUsernameExisted = response.data;
+            });
+        },
+        checkPassword: function () {
+            this.isPasswordCorrect = (this.password === this.confirmedPassword);
+        },
+        checkAllInput: function () {
+            this.isUsernameInput = this.username !== "";
+            this.isEmailAddressInput = this.emailAddress !== "";
+            this.isPhoneNumberInput = this.phoneNumber !== "";
+            this.isPasswordInput = this.password !== "";
+
+            return this.isUsernameInput && this.isEmailAddressInput && this.isPhoneNumberInput && this.isPasswordInput;
         }
     }
 });
