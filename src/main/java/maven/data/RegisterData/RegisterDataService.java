@@ -9,7 +9,7 @@ public interface RegisterDataService {
      * 获取所有信息
      * @return username的list：管理员、用户、工人
      */
-     List<Username> getAllUsernameList();
+    List<Username> getAllUsernameList();
 
     /**
      * 注册：保存用户信息

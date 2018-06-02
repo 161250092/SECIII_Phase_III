@@ -1,6 +1,7 @@
 package maven.data.AdminData;
 
 import maven.model.task.PublishedTask;
+import maven.model.user.Admin;
 
 import java.util.List;
 
@@ -10,4 +11,17 @@ public interface AdminDataService {
      * @return
      */
     List<PublishedTask> getAllPublishedTask();
+
+    /**
+     *获取管理员信息
+     * @return
+     */
+    List<Admin> getAllAdmin();
+
+    /**
+     * 新建管理员信息
+     * @param admin
+     * @return
+     */
+    boolean newAdmin(Admin admin);
 }

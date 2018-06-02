@@ -8,7 +8,7 @@ import maven.model.user.Worker;
 
 import java.util.List;
 
-public class WorkDataStub implements WorkDataService {
+public class WorkerDataImpl implements WorkerDataService {
     @Override
     public List<AcceptedTask> getAcceptedAndAccomplishedTaskList(UserId userId) {
         return null;

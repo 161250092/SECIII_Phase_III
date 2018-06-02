@@ -13,7 +13,7 @@ public interface FrameLabelDataService {
      * @param imageLabel
      * @return
      */
-    public boolean saveLableList(UserId userId, TaskId taskId, List<FrameLabel> imageLabel);
+    public boolean saveLabelList(UserId userId, TaskId taskId, List<FrameLabel> imageLabel);
 
     /**
      * 更改任务信息

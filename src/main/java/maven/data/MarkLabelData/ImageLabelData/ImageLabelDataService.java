@@ -13,7 +13,7 @@ public interface ImageLabelDataService {
      * @param imageLabel
      * @return
      */
-    public boolean saveLableList(UserId userId, TaskId taskId, List<ImageLabel> imageLabel);
+    public boolean saveLabelList(UserId userId, TaskId taskId, List<ImageLabel> imageLabel);
 
     /**
      * 更改任务信息
