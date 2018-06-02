@@ -48,9 +48,9 @@ public class RequestorBLStub implements RequestorBLService {
 
     @Override
     public List<AcceptedTaskVO> getSubmittedTaskList(TaskId taskId, UserId userId) {
-        ArrayList<AcceptedTaskVO> l = new ArrayList<>();
-        l.add(new AcceptedTaskVO(getAcceptedTaskListForTest().get(0),new Username("userName"), new LabelType("ImageLabel"), new TaskDescription("hello"), new LabelScore(88)));
-        return l;
+        ArrayList<AcceptedTaskVO> list = new ArrayList<>();
+        list.add(new AcceptedTaskVO(getAcceptedTaskListForTest().get(0),new Username("userName"), new LabelType("ImageLabel"), new TaskDescription("hello")));
+        return list;
     }
 
     @Override
@@ -101,8 +101,8 @@ public class RequestorBLStub implements RequestorBLService {
     @Override
     public List<AcceptedTaskVO> getAcceptedTaskVOList(UserId userId, TaskId taskId) {
         List<AcceptedTaskVO> acceptedTaskVOList = new ArrayList<>();
-        acceptedTaskVOList.add(new AcceptedTaskVO(getAcceptedTaskListForTest().get(0),new Username("worker01"), new LabelType("ImageLabel"), new TaskDescription("hello"), new LabelScore(88)));
-        acceptedTaskVOList.add(new AcceptedTaskVO(getAcceptedTaskListForTest().get(1),new Username("worker02"), new LabelType("ImageLabel"), new TaskDescription("hello"), new LabelScore(88)));
+        acceptedTaskVOList.add(new AcceptedTaskVO(getAcceptedTaskListForTest().get(0),new Username("worker01"), new LabelType("ImageLabel"), new TaskDescription("hello")));
+        acceptedTaskVOList.add(new AcceptedTaskVO(getAcceptedTaskListForTest().get(1),new Username("worker02"), new LabelType("ImageLabel"), new TaskDescription("hello")));
         return acceptedTaskVOList;
     }
 
@@ -210,8 +210,8 @@ public class RequestorBLStub implements RequestorBLService {
 
     private List<AcceptedTask> getAcceptedTaskListForTest(){
         List<AcceptedTask> acceptedTaskList = new ArrayList<>();
-        AcceptedTask acceptedTask_1 = new AcceptedTask(new UserId("worker01"), new TaskId("00000001_ImageLabel_1622440190000"), null, new Cash(100), null, AcceptedTaskState.SUBMITTED);
-        AcceptedTask acceptedTask_2 = new AcceptedTask(new UserId("worker02"), new TaskId("00000001_ImageLabel_1622440190000"), null, new Cash(100), null, AcceptedTaskState.SUBMITTED);
+        AcceptedTask acceptedTask_1 = new AcceptedTask(new UserId("worker01"), new TaskId("00000001_ImageLabel_1622440190000"), null, new Cash(100), null, AcceptedTaskState.SUBMITTED, new LabelScore(88));
+        AcceptedTask acceptedTask_2 = new AcceptedTask(new UserId("worker02"), new TaskId("00000001_ImageLabel_1622440190000"), null, new Cash(100), null, AcceptedTaskState.SUBMITTED, new LabelScore(88));
         acceptedTaskList.add(acceptedTask_1);
         acceptedTaskList.add(acceptedTask_2);
         return acceptedTaskList;
