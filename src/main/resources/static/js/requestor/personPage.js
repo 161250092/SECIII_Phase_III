@@ -50,62 +50,48 @@ new Vue({
                         _this.TaskNumcharts();
                         _this.unfinishedTaskCharts(Type1Num,Type2Num,Type3Num);
                         _this.finishedTaskCharts(finishedType1,finishedType2,finishedType3);
-
             }));
         })
     },
     methods: {
         getUserInfo:function(){
             return axios.get("/user/getUserInfo", { params:{ userId: this.userId } });
-
         },
-
         getAssignedButIncompleteTaskList:function(){
            return axios.get("/requestor/getAssignedButIncompleteTaskList", {params:{ userId: this.userId }});
-
         },
-
         getAssignedAndAccomplishedTaskList:function(){
-         return   axios.get("/requestor/getAssignedAndAccomplishedTaskList", {params:{userId:this.userId}});
-
+            return axios.get("/requestor/getAssignedAndAccomplishedTaskList", {params:{userId:this.userId}});
         },
-
 
         editEmail: function () {
             const _this = this;
             axios.get("/user/reviseUserEmail", {params: {userId:getUserId(),email:_this.email}})
                 .then(function (Exception) {
-
                     let message = Exception.data.WrongMessage.type;
                     if(message==="Success")
-                        alert("修改成功")
+                        alert("修改成功");
                     else
                         alert("修改失败")
-
-
-                })
-
+                });
         },
         editPhone: function () {
-
             const _this = this;
             axios.get("/user/reviseUserPhone", {params: {userId:getUserId(),phone:_this.phone}})
                 .then(function (Exception) {
                     let message = Exception.data.WrongMessage.type;
                     if(message==="Success")
-                        alert("修改成功")
+                        alert("修改成功");
                     else
                         alert("修改失败")
-                })
-
+                });
         },
 
         charge: function () {
             // const _this = this;
             // this.phone = "充钱是不可能充钱的，这辈子不可能充钱"
-            alert("充钱是不可能充钱的，这辈子不可能充钱")
+            alert("充钱是不可能充钱的，这辈子不可能充钱");
         },
-
 
         countLabel: function () {
             const _this = this;
@@ -189,7 +175,6 @@ new Vue({
                 myChart.setOption(option, true);
             }
         },
-
 
         unfinishedTaskCharts:function(a,b,c){
             var dom = document.getElementById("TaskType");
@@ -301,10 +286,7 @@ new Vue({
                 myChart.setOption(option, true);
             }
         }
-
     }
-
-
 });
 
 

@@ -125,8 +125,8 @@ new Vue({
             return true;
         },
         returnToMainPage: function () {
-            removeTaskId();
             let userType = getUserType();
+            leaveTheTask();
             if(userType === USERTYPE_WORKER){
                 jumpToAnotherPage(workerMainPageUrl);
             }else if(userType === USERTYPE_REQUESTOR){

@@ -34,7 +34,7 @@ new Vue({
         },
 
         detailedInfo:function(index){
-            taskDescription = this.AllFinishedTasks[index].taskDescription;
+            this.taskDescription = this.AllFinishedTasks[index].taskDescription;
         },
 
         changeTaskPrice:function(index){
@@ -48,32 +48,22 @@ new Vue({
             axios.get("/requestor/revokeTask", {params: {taskId:this.AllUnfinishedTasks[index].taskId}})
                 .then(function (Exception) {
                     let message = Exception.data.WrongMessage.type;
-                    if(message=="Success")
-                        alert("撤销成功")
+                    if(message === "Success")
+                        alert("撤销成功");
                     else
                         alert("撤销失败")
-
                 });
         },
 
         addTaskPrice:function(){
-
             axios.get("/requestor/reviseTask", {params: {taskId:this.reviseTaskId,cash:this.reviseTaskPrice}})
                 .then(function (Exception) {
                     let message = Exception.data.WrongMessage.type;
-                    if(message=="Success")
-                        alert("修改成功")
+                    if(message === "Success")
+                        alert("修改成功");
                     else
                         alert("修改失败")
-
                 });
         }
-
     }
-
-
-
-
-
-
 });

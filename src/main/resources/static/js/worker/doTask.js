@@ -12,20 +12,18 @@ new Vue({
         this.$nextTick(function () {
             this.userId = getUserId();
             this.getAllUnfinishedTask();
-        })
-
-
+        });
     },
     methods: {
        doTask: function (index) {
            let labelType = this.AllUnfinishedTasks[index].labelType;
            let taskId = this.AllUnfinishedTasks[index].taskId;
            if(labelType === this.IMAGE_LABEL_TYPE){
-               jumToTask(markImageLabelPageUrl, this.userId, taskId);
+               jumpToTask(markImageLabelPageUrl, this.userId, taskId, USERTYPE_WORKER, true);
            }else if(labelType === this.FRAME_LABEL_TYPE){
-               jumToTask(markFrameLabelPageUrl, this.userId, taskId);
+               jumpToTask(markFrameLabelPageUrl, this.userId, taskId, USERTYPE_WORKER, true);
            }else if(labelType === this.AREA_LABEL_TYPE){
-               jumToTask(markAreaLabelPageUrl, this.userId, taskId);
+               jumpToTask(markAreaLabelPageUrl, this.userId, taskId, USERTYPE_WORKER, true);
            }else {
                alert("该任务标注类型错误");
            }

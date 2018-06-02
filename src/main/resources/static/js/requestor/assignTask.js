@@ -33,19 +33,15 @@ new Vue({
            let taskId = this.taskDraftListWithoutSample[taskWithoutSampleIndex].taskId;
            let labelType = this.taskDraftListWithoutSample[taskWithoutSampleIndex].labelType;
 
-           sendUserId(this.userId);
-           sendTaskId(taskId);
-           setUserCanLabel(true);
-
            switch (labelType){
                case "ImageLabel":
-                   jumpToAnotherPage(markImageLabelPageUrl);
+                   jumpToTask(markImageLabelPageUrl, this.userId, taskId, USERTYPE_REQUESTOR, true);
                    break;
                case "FrameLabel":
-                   jumpToAnotherPage(markFrameLabelPageUrl);
+                   jumpToTask(markFrameLabelPageUrl, this.userId, taskId, USERTYPE_REQUESTOR, true);
                    break;
                case "AreaLabel":
-                   jumpToAnotherPage(markAreaLabelPageUrl);
+                   jumpToTask(markAreaLabelPageUrl, this.userId, taskId, USERTYPE_REQUESTOR, true);
                    break;
                default:
                    alert("标注类型错误");

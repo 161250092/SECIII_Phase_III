@@ -29,18 +29,15 @@ new Vue({
             labelType = "ImageLabel";
             //////////////////////////////////////////////////////////
 
-            sendTaskId(taskId);
-            sendUserId(userId);
-            setUserCanLabel(false);
             switch (labelType){
                 case "ImageLabel":
-                    jumpToAnotherPage(markImageLabelPageUrl);
+                    jumpToTask(markImageLabelPageUrl, userId, taskId, USERTYPE_REQUESTOR, false);
                     break;
                 case "FrameLabel":
-                    jumpToAnotherPage(markFrameLabelPageUrl);
+                    jumpToTask(markFrameLabelPageUrl, userId, taskId, USERTYPE_REQUESTOR, false);
                     break;
                 case "AreaLabel":
-                    jumpToAnotherPage(markAreaLabelPageUrl);
+                    jumpToTask(markAreaLabelPageUrl, userId, taskId, USERTYPE_REQUESTOR, false);
                     break;
                 default:
                     alert("标注类型错误");

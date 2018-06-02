@@ -18,8 +18,6 @@ new Vue({
                     _this.AllFinishedTasks = response.data;
                 })
         })
-
-
     },
     methods: {
         getChineseLabelType: function (labelType) {
@@ -34,17 +32,12 @@ new Vue({
 
         check: function (index) {
             const _this = this;
-            var  _taskId = this.AllFinishedTasks[index].taskId;
+            var _taskId = this.AllFinishedTasks[index].taskId;
             axios.get("/requestor/getAcceptedTaskVOList", {params: {userId:getUserId(),taskId:_taskId}})
                 .then(function (list) {
-
                     _this.ParticipatorsInfo = list.data;
-
                 });
         }
-
     }
-
-
 });
 

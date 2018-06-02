@@ -38,12 +38,6 @@ function jumpToAnotherPage(url){
     window.location.href = url;
 }
 
-function jumToTask(url,userId,taskId){
-    sendTaskId(taskId);
-    sendUserId(userId);
-    window.location.href = url;
-}
-
 function sendUserType(userTypeStr){
     sessionStorage.setItem('userType',userTypeStr);
 }
@@ -61,12 +55,30 @@ function setUserCanLabel(boolean) {
     sessionStorage.setItem('isUserCanLabel',boolean);
 }
 
+function removeUserCanLabel() {
+    sessionStorage.removeItem('isUserCanLabel');
+}
+
 function isUserCanLabel() {
     if(sessionStorage.getItem('isUserCanLabel') === "true"){
         return true;
     }else{
         return false;
     }
+}
+
+function jumpToTask(url,userId,taskId,userType,isUserCanLabel){
+    sendTaskId(taskId);
+    sendUserId(userId);
+    sendUserType(userType);
+    setUserCanLabel(isUserCanLabel);
+    jumpToAnotherPage(url);
+}
+
+function leaveTheTask() {
+    removeTaskId();
+    removeUserType();
+    removeUserCanLabel();
 }
 
 function removeAllParameter() {

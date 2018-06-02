@@ -13,10 +13,12 @@ new Vue({
                 if(wrongMessage === 'RequestorLogin'){
                     sendUserId(userId);
                     sendUsername(_this.username);
+                    sendUserType(USERTYPE_REQUESTOR);
                     jumpToAnotherPage(requestorMainPageUrl);
                 }else if(wrongMessage === 'WorkerLogin') {
                     sendUserId(userId);
                     sendUsername(_this.username);
+                    sendUserType(USERTYPE_WORKER);
                     jumpToAnotherPage(workerMainPageUrl);
                 }else if(wrongMessage === 'AdministerLogin'){
                     sendUserId(userId);

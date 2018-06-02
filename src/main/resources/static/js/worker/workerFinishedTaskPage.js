@@ -2,7 +2,7 @@ new Vue({
     el: "#taskInfoContainer",
     data:{
         userId:"",
-    AllFinishedTasks:[]
+        AllFinishedTasks:[]
     },
 
     mounted: function () {
@@ -27,6 +27,4 @@ new Vue({
             }
         }
     }
-
-
 });
