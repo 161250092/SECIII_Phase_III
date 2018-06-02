@@ -35,8 +35,12 @@ new Vue({
 
             let taskIdListJson = JSON.stringify(taskIdList);
             axios.get('/worker/acceptTask', {params: {userId: this.userId, taskIdListJSON: taskIdListJson}}).then(function (response) {
-                alert("Success!");
-                jumpToAnotherPage(workerMainPageUrl);
+                if(response.data.wrongMessage.message === 'Success'){
+                    alert("接受成功");
+                    jumpToAnotherPage(workerMainPageUrl);
+                }else{
+                    alert("接受失败");
+                }
             });
         }
     },

@@ -69,7 +69,6 @@ public class WorkerController{
         List<String> taskId_String_List= (List<String>) JsonConverter.jsonToObject(taskIdListJSON, ArrayList.class);
         List<TaskId> taskIdList = new ArrayList<>();
         for(String taskId_String : taskId_String_List){
-            System.out.println(taskId_String);
             taskIdList.add(new TaskId(taskId_String));
         }
         return workerBL.acceptTask(new UserId(userId), taskIdList);
