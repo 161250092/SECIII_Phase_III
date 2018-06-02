@@ -9,11 +9,6 @@ new Vue({
 
         isUsernameExisted: false,
         isPasswordCorrect: true,
-        
-        isUsernameInput: true,
-        isPasswordInput: true,
-        isEmailAddressInput: true,
-        isPhoneNumberInput: true,
     },
     methods:{
         register: function () {
@@ -51,12 +46,22 @@ new Vue({
             this.isPasswordCorrect = (this.password === this.confirmedPassword);
         },
         checkAllInput: function () {
-            this.isUsernameInput = this.username !== "";
-            this.isEmailAddressInput = this.emailAddress !== "";
-            this.isPhoneNumberInput = this.phoneNumber !== "";
-            this.isPasswordInput = this.password !== "";
-
             return this.isUsernameInput && this.isEmailAddressInput && this.isPhoneNumberInput && this.isPasswordInput;
         }
+    },
+    computed:{
+        isUsernameInput: function () {
+            return this.username !== "";
+        },
+        isEmailAddressInput: function () {
+            return this.emailAddress !== "";
+        },
+        isPhoneNumberInput: function () {
+            return this.phoneNumber !== "";
+        },
+        isPasswordInput: function () {
+            return this.password !== "";
+        }
     }
+
 });
