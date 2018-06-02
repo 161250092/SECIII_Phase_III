@@ -31,7 +31,6 @@ new Vue({
 
         hasSavedChanges: true,
         isUserCanLabel: true,
-        isWorker: false,
 
         canvas: undefined,
         canvasContext: undefined,
@@ -251,6 +250,15 @@ new Vue({
                 }
             }
             return true;
+        },
+        returnToMainPage: function () {
+            removeTaskId();
+            let userType = getUserType();
+            if(userType === USERTYPE_WORKER){
+                jumpToAnotherPage(workerMainPageUrl);
+            }else if(userType === USERTYPE_REQUESTOR){
+                jumpToAnotherPage(requestorMainPageUrl);
+            }
         }
     },
     computed:{
