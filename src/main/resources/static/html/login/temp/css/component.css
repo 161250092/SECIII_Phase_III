@@ -50,6 +50,14 @@
 	position: relative;
 	border: rgba(255,255,255,0.2) 2px solid !important;
 }
+.input_outer_error{
+	height: 46px;
+	padding: 0 5px;
+	margin-bottom: 30px;
+	border-radius: 50px;
+	position: relative;
+	border: rgba(255,0,0,1) 2px solid !important;
+}
 .u_user{
 	width: 25px;
 	height: 25px;

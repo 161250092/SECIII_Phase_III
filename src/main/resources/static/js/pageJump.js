@@ -86,7 +86,7 @@ const loginPageUrl = "../login/login.html";
 
 /* mainPage */
 const requestorMainPageUrl = "../mainPage/requestorMainPage.html";
-const workerMainPageUrl = "../mainPage/requestorMainPage.html";
+const workerMainPageUrl = "../mainPage/workerMainPage.html";
 
 /* markLabel */
 const markAreaLabelPageUrl = "../markLabel/markAreaLabel.html";
@@ -110,3 +110,12 @@ const getTaskPageUrl = "../worker/getTask.html";
 const workerCheckTaskPageUrl = "../worker/WorkerCheckTask.html";
 const workerFinishedTaskPageUrl = "../worker/workerFinishedTaskPage.html";
 const workerInfoPageUrl = "../worker/workerInfoPage.html";
+
+
+
+
+
+
+const IMAGE_LABEL_TYPENAME = "ImageLabel";
+const FRAME_LABEL_TYPENAME = "FrameLabel";
+const AREA_LABEL_TYPENAME = "AreaLabel";

@@ -70,13 +70,13 @@ new Vue({
                             },
                             data:[
                                 {value:a, name:'进行中'},
-                                {value:b, name:'完成'},
+                                {value:b, name:'完成'}
 
                             ]
                         }
                     ]
                 };
-                ;
+
                 if (option && typeof option === "object") {
                     myChart.setOption(option, true);
                 }

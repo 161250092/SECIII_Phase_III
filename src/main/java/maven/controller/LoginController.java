@@ -14,7 +14,7 @@ public class LoginController {
     private LoginBLService loginBL;
 
     public LoginController(){
-        loginBL = new LoginBLImpl();
+        loginBL = new LoginBLStub();
     }
 
     /**

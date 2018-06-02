@@ -11,18 +11,9 @@ new Vue({
         isPasswordCorrect: true,
     },
     methods:{
-        checkUsername: function () {
-            const _this = this;
-            axios.get("/register/isUsernameExist", { params:{ username: _this.username} }).then(function (response) {
-                _this.isUsernameExisted = response.data;
-            });
-        },
-        checkPassword: function () {
-            this.isPasswordCorrect = (this.password === this.confirmedPassword);
-        },
         register: function () {
             const _this = this;
-            if(!this.isUsernameExisted && this.isPasswordCorrect){
+            if(!this.isUsernameExisted && this.isPasswordCorrect && this.checkAllInput()){
                 axios.get("/register/register",
                     {params:{username: this.username, password: this.password, email: this.emailAddress, phone: this.phoneNumber}}).then(function (userException) {
                     let wrongMessage = userException.data.wrongMessage.type;
@@ -44,6 +35,33 @@ new Vue({
         },
         getUserIdAxios: function () {
             return axios.get("/getUserId", {params: {username: this.username}});
+        },
+        checkUsername: function () {
+            const _this = this;
+            axios.get("/register/isUsernameExist", { params:{ username: _this.username} }).then(function (response) {
+                _this.isUsernameExisted = response.data;
+            });
+        },
+        checkPassword: function () {
+            this.isPasswordCorrect = (this.password === this.confirmedPassword);
+        },
+        checkAllInput: function () {
+            return this.isUsernameInput && this.isEmailAddressInput && this.isPhoneNumberInput && this.isPasswordInput;
+        }
+    },
+    computed:{
+        isUsernameInput: function () {
+            return this.username !== "";
+        },
+        isEmailAddressInput: function () {
+            return this.emailAddress !== "";
+        },
+        isPhoneNumberInput: function () {
+            return this.phoneNumber !== "";
+        },
+        isPasswordInput: function () {
+            return this.password !== "";
         }
     }
+
 });

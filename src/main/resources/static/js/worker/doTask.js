@@ -9,17 +9,12 @@ new Vue({
        AREA_LABEL_TYPE: "AreaLabel",
    },
     mounted: function () {
-       const _this = this;
         this.$nextTick(function () {
-            _this.userId = getUserId();
-            axios.get("/WorkerController/getAcceptedButIncompleteTaskList", 
-                { params:{ userId: this.userId } })
-                .then(function (response) { 
-                _this.AllUnfinishedTasks = response.data;
-            })
+            this.userId = getUserId();
+            this.getAllUnfinishedTask();
         })
 
-        console.log(AllUnfinishedTasks.length);
+
     },
     methods: {
        doTask: function (index) {
@@ -43,18 +38,32 @@ new Vue({
             }else if(labelType === this.AREA_LABEL_TYPE){
                 return "区域标注";
             }
-        }
-    },
+        },
 
+        getAllUnfinishedTask:function () {
+            const _this = this;
+            axios.get("/worker/getAcceptedButIncompleteTaskList",
+                { params:{ userId: this.userId } })
+                .then(function (response) {
+                    _this.AllUnfinishedTasks = response.data;
+                })
+        },
 
         recallTask:function(index){
             let  recallTaskId = this.AllUnfinishedTasks[index].taskId;
-            axios.get("/getWebsiteStatistics").then(function (response)
+            const _this = this;
+            axios.get("/worker/abandonTaskByWorker").then(function (Exception){
 
-
-
-        }
-
+                let  message = Exception.data.WrongMessage.type;
+                if(message==="Success") {
+                    alert("修改成功");
+                    _this.getAllUnfinishedTask();
+                }
+                else
+                    alert("修改失败")
+            })
+       }
+    }
 });
 
 
