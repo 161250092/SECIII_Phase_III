@@ -8,6 +8,21 @@ import java.util.List;
 
 public class UserDataImpl implements UserDataService{
     @Override
+    public List<Username> getAllUsernameList() {
+        return null;
+    }
+
+    @Override
+    public List<User> getAllUser() {
+        return null;
+    }
+
+    @Override
+    public boolean saveUserInfo(User user) {
+        return false;
+    }
+
+    @Override
     public List<UserId> getAllUserIdList() {
         return null;
     }

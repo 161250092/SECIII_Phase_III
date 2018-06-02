@@ -8,6 +8,26 @@ import java.util.List;
 
 public interface UserDataService {
 
+
+    /**
+     * 获取所有用户昵称的信息
+     * @return username的list：发布者、工人
+     */
+    List<Username> getAllUsernameList();
+
+    /**
+     * 获取所有用户信息
+     * @return username的list：发布者、工人
+     */
+    public List<User> getAllUser();
+
+    /**
+     * 注册：保存用户信息
+     * @param user：用户信息
+     * @return
+     */
+    boolean saveUserInfo(User user);
+
     /**
      * 获取所有信息
      * @return userId的list：管理员、用户、工人
