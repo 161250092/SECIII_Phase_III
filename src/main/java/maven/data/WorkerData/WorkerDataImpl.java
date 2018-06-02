@@ -15,14 +15,10 @@ public class WorkerDataImpl implements WorkerDataService {
     }
 
     @Override
-    public List<AcceptedTask> getAcceptedButIncompleteTaskList(UserId userId) {
+    public List<AcceptedTask> getAcceptedTaskList(UserId userId) {
         return null;
     }
 
-    @Override
-    public List<PublishedTask> getIncompleteTaskList() {
-        return null;
-    }
 
     //@Override
     public List<PublishedTask> getAvailableTaskList() {

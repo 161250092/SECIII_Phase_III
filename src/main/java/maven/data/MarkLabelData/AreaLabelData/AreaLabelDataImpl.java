@@ -17,4 +17,9 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
     public boolean reviseTaskState(UserId userId, TaskId taskId, AcceptedTaskState acceptedTaskState) {
         return false;
     }
+
+    @Override
+    public List<AreaLabel> getLabelList(UserId userId, TaskId taskId) {
+        return null;
+    }
 }

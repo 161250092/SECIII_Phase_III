@@ -24,4 +24,12 @@ public interface AreaLabelDataService {
      * @return
      */
     public boolean reviseTaskState(UserId userId, TaskId taskId, AcceptedTaskState acceptedTaskState);
+
+    /**
+     * 获取标注信息
+     * @param userId
+     * @param taskId
+     * @return
+     */
+    public List<AreaLabel> getLabelList(UserId userId,TaskId taskId);
 }

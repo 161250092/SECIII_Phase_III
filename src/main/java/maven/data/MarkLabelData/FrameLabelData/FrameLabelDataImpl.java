@@ -17,4 +17,9 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
     public boolean reviseTaskState(UserId userId, TaskId taskId, AcceptedTaskState acceptedTaskState) {
         return false;
     }
+
+    @Override
+    public List<FrameLabel> getLabelList(UserId userId, TaskId taskId) {
+        return null;
+    }
 }

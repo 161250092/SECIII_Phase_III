@@ -17,4 +17,9 @@ public class ImageLabelDataImpl implements ImageLabelDataService {
     public boolean reviseTaskState(UserId userId, TaskId taskId, AcceptedTaskState acceptedTaskState) {
         return false;
     }
+
+    @Override
+    public List<ImageLabel> getLabelList(UserId userId, TaskId taskId) {
+        return null;
+    }
 }

@@ -4,7 +4,6 @@ import maven.model.task.PublishedTask;
 import maven.model.task.PublishedTaskState;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class PublishedTaskVO implements Serializable {
     //任务Id
@@ -23,7 +22,7 @@ public class PublishedTaskVO implements Serializable {
     private int finishedWorkerNum;
 
     //任务所需的工人人数
-    private int requiredWokerNum;
+    private int requiredWorkerNum;
 
     //完成该任务可获取的钱数
     private double taskPrice;
@@ -51,6 +50,10 @@ public class PublishedTaskVO implements Serializable {
         return finishedWorkerNum;
     }
 
+    public int getRequiredWorkerNum() {
+        return requiredWorkerNum;
+    }
+
     public double getTaskPrice() {
         return taskPrice;
     }
@@ -66,7 +69,7 @@ public class PublishedTaskVO implements Serializable {
         this.taskDescription = taskDescription;
         this.acceptedWorkerNum = acceptedWorkerNum;
         this.finishedWorkerNum = finishedWorkerNum;
-        this.requiredWokerNum = requiredWorkerNum;
+        this.requiredWorkerNum = requiredWorkerNum;
         this.taskPrice = taskPrice;
         this.publishedTaskState = publishedTaskState;
     }
