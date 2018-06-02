@@ -85,8 +85,4 @@ public class RequestorDataImpl implements RequestorDataService {
         return null;
     }
 
-    //@Override
-    public Requestor getRequestorInfo(UserId userId) {
-        return null;
-    }
 }

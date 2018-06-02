@@ -1,8 +1,10 @@
 package maven.data.UserData;
 
 import maven.model.primitiveType.*;
+import maven.model.user.Requestor;
 import maven.model.user.User;
 import maven.model.user.UserLevel;
+import maven.model.user.Worker;
 
 import java.util.List;
 
@@ -13,9 +15,15 @@ public class UserDataImpl implements UserDataService{
     }
 
     @Override
-    public List<User> getAllUser() {
+    public List<Worker> getAllWorker() {
         return null;
     }
+
+    @Override
+    public List<Requestor> getAllRequestor() {
+        return null;
+    }
+
 
     @Override
     public boolean saveUserInfo(User user) {

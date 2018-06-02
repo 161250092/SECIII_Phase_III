@@ -118,3 +118,8 @@ const workerInfoPageUrl = "../worker/workerInfoPage.html";
 const IMAGE_LABEL_TYPENAME = "ImageLabel";
 const FRAME_LABEL_TYPENAME = "FrameLabel";
 const AREA_LABEL_TYPENAME = "AreaLabel";
+
+
+
+const USERTYPE_REQUESTOR = "requestor";
+const USERTYPE_WORKER = "worker";

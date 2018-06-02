@@ -39,14 +39,4 @@ public class WorkerDataImpl implements WorkerDataService {
     public AcceptedTask getAcceptedTaskById(UserId userId, TaskId taskId) {
         return null;
     }
-
-    @Override
-    public List<Worker> getAllWorker() {
-        return null;
-    }
-
-    //@Override
-    public Worker getWorkerInfo(UserId userId) {
-        return null;
-    }
 }
