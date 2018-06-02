@@ -42,17 +42,17 @@ public class WorkerBLStub implements WorkerBLService {
         publishedTaskDetailList.add(new PublishedTaskDetail(new WorkerNum(10), new Cash(100), null));
 
         PublishedTask publishedTask_1 = new PublishedTask(new TaskId("00000001_ImageLabel_1622440180000"), new UserId("00000001"), new LabelType("ImageLabel"),
-                imageFilenameList, new TaskDescription("It's a published but incomplete Task"), new WorkerNum(0), new WorkerNum(0), null,
+                imageFilenameList, new TaskDescription("It's a published but incomplete Task"), new WorkerNum(0), new WorkerNum(0),
                 publishedTaskDetailList,
                 PublishedTaskState.INCOMPLETE);
 
         PublishedTask publishedTask_2 = new PublishedTask(new TaskId("00000001_FrameLabel_1622440200000"), new UserId("00000001"), new LabelType("FrameLabel"),
-                imageFilenameList, new TaskDescription("It's a published but incomplete Task"), new WorkerNum(0), new WorkerNum(0), null,
+                imageFilenameList, new TaskDescription("It's a published but incomplete Task"), new WorkerNum(0), new WorkerNum(0),
                 publishedTaskDetailList,
                 PublishedTaskState.INCOMPLETE);
 
         PublishedTask publishedTask_3 = new PublishedTask(new TaskId("00000001_AreaLabel_1622440220000"), new UserId("00000001"), new LabelType("AreaLabel"),
-                imageFilenameList, new TaskDescription("It's a published but incomplete Task"), new WorkerNum(0), new WorkerNum(0), null,
+                imageFilenameList, new TaskDescription("It's a published but incomplete Task"), new WorkerNum(0), new WorkerNum(0),
                 publishedTaskDetailList,
                 PublishedTaskState.INCOMPLETE);
 

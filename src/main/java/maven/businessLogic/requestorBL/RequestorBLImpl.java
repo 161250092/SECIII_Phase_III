@@ -1,15 +1,10 @@
 package maven.businessLogic.requestorBL;
 
-//import data.TaskData.TaskDataImpl;
-//import data.TaskData.TaskDataService;
-//import data.UserData.UserDataImpl;
-//import data.UserData.UserDataService;
 import maven.model.primitiveType.Cash;
 import maven.model.primitiveType.Filename;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
 import maven.model.task.PublishedTask;
-import maven.model.user.Requestor;
 import maven.model.vo.AcceptedTaskVO;
 import maven.model.vo.PublishedTaskVO;
 

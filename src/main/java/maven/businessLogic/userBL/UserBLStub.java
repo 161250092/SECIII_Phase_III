@@ -1,5 +1,6 @@
 package maven.businessLogic.userBL;
 
+import maven.exception.util.SuccessException;
 import maven.model.primitiveType.*;
 import maven.model.user.Requestor;
 import maven.model.user.User;
@@ -29,32 +30,32 @@ public class UserBLStub implements UserBLService{
 
     @Override
     public Exception reviseUserEmail(UserId userId, Email email) {
-        return null;
+        return new SuccessException();
     }
 
     @Override
     public Exception reviseUserPhone(UserId userId, Phone phone) {
-        return null;
+        return new SuccessException();
     }
 
     @Override
     public Exception reduceCash(UserId userId, Cash cash) {
-        return null;
+        return new SuccessException();
     }
 
     @Override
     public Exception increaseCash(UserId userId, Cash cash) {
-        return null;
+        return new SuccessException();
     }
 
     @Override
     public Exception reducePrestige(UserId userId, Prestige prestige) {
-        return null;
+        return new SuccessException();
     }
 
     @Override
     public Exception increasePrestige(UserId userId, Prestige prestige) {
-        return null;
+        return new SuccessException();
     }
 
 
