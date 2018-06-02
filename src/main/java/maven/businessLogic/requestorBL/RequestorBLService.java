@@ -1,9 +1,6 @@
 package maven.businessLogic.requestorBL;
 
-import maven.model.primitiveType.Cash;
-import maven.model.primitiveType.Filename;
-import maven.model.primitiveType.TaskId;
-import maven.model.primitiveType.UserId;
+import maven.model.primitiveType.*;
 import maven.model.task.PublishedTask;
 import maven.model.user.Requestor;
 import maven.model.user.User;
@@ -48,11 +45,18 @@ public interface RequestorBLService {
     /**
      * 修改已发布的任务（追加任务的悬赏金额）
      * @param taskId 任务Id
-     * @param cash 追加的金额数
+     * @param cash 修改后的金额数
      * @return 后端处理任务修改请求的结果
      */
-    Exception reviseTask(TaskId taskId, Cash cash);
+    Exception reviseTaskPrice(TaskId taskId, Cash cash);
 
+    /**
+     * 修改已发布的任务（追加任务的需求人数）
+     * @param taskId 任务Id
+     * @param workerNum 修改后的需求工人数
+     * @return 后端处理任务修改请求的结果
+     */
+    Exception reviseTaskRequiredNum(TaskId taskId, WorkerNum workerNum);
 
     /**
      * 获取工人已完成并待审核的任务列表

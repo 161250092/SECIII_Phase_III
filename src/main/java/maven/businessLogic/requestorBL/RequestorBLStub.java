@@ -41,7 +41,12 @@ public class RequestorBLStub implements RequestorBLService {
     }
 
     @Override
-    public Exception reviseTask(TaskId taskId, Cash cash) {
+    public Exception reviseTaskPrice(TaskId taskId, Cash cash) {
+        return new SuccessException();
+    }
+
+    @Override
+    public Exception reviseTaskRequiredNum(TaskId taskId, WorkerNum workerNum) {
         return new SuccessException();
     }
 
@@ -211,7 +216,7 @@ public class RequestorBLStub implements RequestorBLService {
     private List<AcceptedTask> getAcceptedTaskListForTest(){
         List<AcceptedTask> acceptedTaskList = new ArrayList<>();
         AcceptedTask acceptedTask_1 = new AcceptedTask(new UserId("worker01"), new TaskId("00000001_ImageLabel_1622440190000"), null, new Cash(100), null, AcceptedTaskState.SUBMITTED, new LabelScore(88));
-        AcceptedTask acceptedTask_2 = new AcceptedTask(new UserId("worker02"), new TaskId("00000001_ImageLabel_1622440190000"), null, new Cash(100), null, AcceptedTaskState.SUBMITTED, new LabelScore(88));
+        AcceptedTask acceptedTask_2 = new AcceptedTask(new UserId("worker02"), new TaskId("00000001_ImageLabel_1622440190000"), null, new Cash(100), null, AcceptedTaskState.SUBMITTED, new LabelScore(-1));
         acceptedTaskList.add(acceptedTask_1);
         acceptedTaskList.add(acceptedTask_2);
         return acceptedTaskList;

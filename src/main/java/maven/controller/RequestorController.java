@@ -4,13 +4,8 @@ import maven.businessLogic.requestorBL.RequestorBLImpl;
 import maven.businessLogic.requestorBL.RequestorBLService;
 import maven.businessLogic.requestorBL.RequestorBLStub;
 import maven.model.JsonConverter;
-import maven.model.primitiveType.Cash;
-import maven.model.primitiveType.Filename;
-import maven.model.primitiveType.TaskId;
-import maven.model.primitiveType.UserId;
-import maven.model.task.AcceptedTask;
+import maven.model.primitiveType.*;
 import maven.model.task.PublishedTask;
-import maven.model.user.Requestor;
 import maven.model.vo.AcceptedTaskVO;
 import maven.model.vo.PublishedTaskVO;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -79,9 +74,20 @@ public class RequestorController {
      * @param cash 追加的金额数
      * @return 后端处理任务修改请求的结果
      */
-    @RequestMapping(value = "/requestor/reviseTask", method = RequestMethod.GET)
-    public Exception reviseTask(String taskId, double cash){
-        return requestorBL.reviseTask(new TaskId(taskId), new Cash(cash));
+    @RequestMapping(value = "/requestor/reviseTaskPrice", method = RequestMethod.GET)
+    public Exception reviseTaskPrice(String taskId, double cash){
+        return requestorBL.reviseTaskPrice(new TaskId(taskId), new Cash(cash));
+    }
+
+    /**
+     * 修改已发布的任务（追加任务的需求人数）
+     * @param taskId 任务Id
+     * @param workerNum 修改后的需求工人数
+     * @return 后端处理任务修改请求的结果
+     */
+    @RequestMapping(value = "/requestor/reviseTaskRequiredNum", method = RequestMethod.GET)
+    public Exception reviseTaskRequiredNum(String taskId, int workerNum){
+        return requestorBL.reviseTaskRequiredNum(new TaskId(taskId), new WorkerNum(workerNum));
     }
 
 //    /**
