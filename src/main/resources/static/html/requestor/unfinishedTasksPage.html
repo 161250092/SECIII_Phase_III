@@ -55,16 +55,15 @@
 			<th>总人数</th>
 			<th>撤销</th>
 		</tr>
-		<!-- incompleted -->
 		<tr v-for="(item, index) in AllUnfinishedTasks">
-			<th>{{item.taskId}}</th>
-			<th>{{getChineseLabelType(item.labelType)}}</th>
-			<th><button v-on:click="detailedInfo(index)">查看</button></th>
-			<th>{{item.taskPrice}}</th>
-			<th><button v-on:click="changeTaskPrice(index)">增加赏金</button></th>
-			<th>{{item.finishedWorkerNum}}</th>
-			<th>{{item.WorkNum}}</th>
-			<th><button v-on:click="recallTask(index)">撤销</button></th>
+			<td>{{item.taskId}}</td>
+			<td>{{getChineseLabelType(item.labelType)}}</td>
+			<td><button v-on:click="detailedInfo(index)">查看</button></td>
+			<td>{{item.taskPrice}}</td>
+			<td><button v-on:click="changeTaskPrice(index)">增加赏金</button></td>
+			<td>{{item.finishedWorkerNum}}</td>
+			<td>{{item.WorkNum}}</td>
+			<td><button v-on:click="recallTask(index)">撤销</button></td>
 		</tr>
 	</table>
 
@@ -99,7 +98,4 @@
 <script src="../../js/lib/axios.js"></script>
 <script src="../../js/pageJump.js"></script>
 <script src="../../js/requestor/unfinishedTasksPage.js"></script>
-
-
-
 </html>
