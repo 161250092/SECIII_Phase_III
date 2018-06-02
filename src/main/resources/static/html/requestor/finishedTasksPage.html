@@ -2,6 +2,7 @@
 <head>
       <meta charset="utf-8">
 	  <link rel="stylesheet" href="../../css/lu.css">
+		<link rel="stylesheet" href="../../css/table.css">
         <link rel="stylesheet" href="../../css/font.css">
       <title>发布且完成任务页面</title>
       
@@ -59,7 +60,7 @@
 			<th>{{item.finishedWorkerNum}}</th>
 			<th>{{item.taskPrice}}</th>
 			<!-- 查看任务完成情况 incompleted -->
-			<th><a v-on:click="check(index)">查看</a></th>
+			<th><button v-on:click="check(index)">查看</button></th>
 		</tr>
 	</table>
 
@@ -74,8 +75,8 @@
 		</tr>
 
 		<tr v-for="(item, index) in ParticipatorsInfo">
-			<th>{{item1.username}}</th>
-			<th>{item.labelScore}</th>
+			<th>{{item.username}}</th>
+			<th>{{item.labelScore}}</th>
 			<th>{{item.acceptedTaskState}}</th>
 			<th>{{item.taskPrice}}</th>
 		</tr>
@@ -94,7 +95,8 @@
 
 <script src="../../js/lib/vue.js"></script>
 <script src="../../js/lib/axios.js"></script>
-<script src="../../js/lib/jquery-1.11.0.min.js"></script>
+<script src="../../js/pageJump.js"></script>
 <script src="../../js/requestor/finishedTasksPage.js"></script>
+
 
 </html>

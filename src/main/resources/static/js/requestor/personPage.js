@@ -28,42 +28,49 @@ new Vue({
     mounted: function () {
         const _this = this;
         this.$nextTick(function () {
-            _this.userId = getUserId();
-            axios.get("/user/getUserInfo",
-                { params:{ userId: this.userId } })
-                .then(function (response) {
-                    _this.userId = response.data.userId;
-                    _this.username = response.data.username;
-                    _this.prestige = response.data.prestige;
-                    _this.userLevel = response.data.userLevel;
-                    _this.cash = response.data.cash;
-                    _this.email = response.data.email;
-                    _this.phone = response.data.phone;
-                    _this.maxPublishedTaskNum = response.data.maxPublishedTaskNum;
-                })
-            axios.get("/requestor/getAssignedButIncompleteTaskList",
-                {params:{ userId: this.userId }})
-                .then(function (response){
-                _this.AllUnfinishedTasks = response;
-             })
+                _this.userId = getUserId();
+                axios.all([this.getUserInfo(),this.getAssignedButIncompleteTaskList(),this.getAssignedAndAccomplishedTaskList()])
+                    .then(axios.spread(function (userInfo, incompleteTaskList, accomplishedTaskList){
+                        /* getUserInfo */
+                        _this.username = userInfo.data.username.value;
+                        _this.prestige = userInfo.data.prestige.value;
+                        _this.userLevel = userInfo.data.userLevel;
+                        _this.cash = userInfo.data.cash.value;
+                        _this.email = userInfo.data.email.address;
+                        _this.phone = userInfo.data.phone.number;
 
-            axios.get("/requestor/getAssignedAndAccomplishedTaskList",
-                {params:{userId:this.userId}})
-                .then(function (response){
-                  _this.AllFinishedTasks = response;
-                })
+                        /* getAcceptedButIncompleteTaskList */
+                        _this.AllUnfinishedTasks = incompleteTaskList.data;
 
-            console.log(AllUnfinishedTasks.length);
-            console.log(maxPublishedTaskNum);
+                        /* getAcceptedAndAccomplishedTaskList */
+                        _this.AllFinishedTasks = accomplishedTaskList.data;
 
-            countLabel();
-            TaskNumcharts();
-            unfinishedTaskCharts(Type1Num,Type2Num,Type3Num);
-            finishedTaskCharts(finishedType1,finishedType2,finishedType3);
+                        /* 显示图表 */
+                        _this.countLabel();
+                        _this.TaskNumcharts();
+                        _this.unfinishedTaskCharts(Type1Num,Type2Num,Type3Num);
+                        _this.finishedTaskCharts(finishedType1,finishedType2,finishedType3);
 
+            }));
         })
     },
     methods: {
+        getUserInfo:function(){
+            return axios.get("/user/getUserInfo", { params:{ userId: this.userId } });
+
+        },
+
+        getAssignedButIncompleteTaskList:function(){
+           return axios.get("/requestor/getAssignedButIncompleteTaskList", {params:{ userId: this.userId }});
+
+        },
+
+        getAssignedAndAccomplishedTaskList:function(){
+         return   axios.get("/requestor/getAssignedAndAccomplishedTaskList", {params:{userId:this.userId}});
+
+        },
+
+
         editEmail: function () {
             const _this = this;
             axios.get("/user/reviseUserEmail", {params: {userId:getUserId(),email:_this.email}})
@@ -100,31 +107,30 @@ new Vue({
         },
 
 
-        countLabel:function(){
-            for(var i=0;i<AllUnfinishedTasks.length;i++){
-                if(AllUnfinishedTasks[i].labelType===type1)
+        countLabel: function () {
+            const _this = this;
+            for (var i = 0; i < _this.AllUnfinishedTasks.length; i++) {
+                if (_this.AllUnfinishedTasks[i].labelType === type1)
                     Type1Num++;
 
-                else if(AllUnfinishedTasks[i].labelType===type2)
+                else if (_this.AllUnfinishedTasks[i].labelType === type2)
                     Type2Num++;
 
-                else if(AllUnfinishedTasks[i].labelType===type3)
+                else if (_this.AllUnfinishedTasks[i].labelType === type3)
                     Type3Num++;
 
             }
 
-            for(var i=0;i<AllFinishedTasks.length;i++){
-                if(AllFinishedTasks[i].labelType===type1)
+            for (var i = 0; i < _this.AllFinishedTasks.length; i++) {
+                if (_this.AllFinishedTasks[i].labelType === type1)
                     finishedType1++;
 
-                else if(AllFinishedTasks[i].labelType===type2)
+                else if (_this.AllFinishedTasks[i].labelType === type2)
                     finishedType2++;
 
-                else if(AllFinishedTasks[i].labelType===type3)
+                else if (_this.AllFinishedTasks[i].labelType === type3)
                     finishedType3++;
-
             }
-
 
         },
 

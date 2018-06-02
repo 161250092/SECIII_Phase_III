@@ -53,20 +53,20 @@
         <div id="fix">
 
             <span>名称:</span>
-            <input type="text" class="input_short" id="user_name" name="tag" value="" disabled="disabled" v-model="username">{{username}}
+            <input type="text" class="input_short" id="user_name" name="tag" value="" disabled="disabled" v-model="username">
 
           <br>
           <span>声望:</span>
-          <input type="text" class="input_short" id="prestige" name="tag" value="" disabled="disabled" v-model="prestige">{{prestige}}
+          <input type="text" class="input_short" id="prestige" name="tag" value="" disabled="disabled" v-model="prestige">
           <br>
           <span>等级:</span>
-          <input type="text" class="input_short" id="user_level" name="tag" value="" disabled="disabled" v-model="userLevel">{{userLevel}}
+          <input type="text" class="input_short" id="user_level" name="tag" value="" disabled="disabled" v-model="userLevel">
           <br>
           <span>cash:</span>
-          <input type="text" class="input_short" id="cash" name="tag" value="" disabled="disabled" v-model="cash">{{cash}}
+          <input type="text" class="input_short" id="cash" name="tag" value="" disabled="disabled" v-model="cash">
             <br>
             <span>最大发布数</span>
-            <input type="text" class="input_short" id="maxPublishedTaskNum" name="tag" value="" disabled="disabled" v-model="cash">{{maxPublishedTaskNum}}
+            <input type="text" class="input_short" id="maxPublishedTaskNum" name="tag" value="" disabled="disabled" v-model="cash">
         </div>
 
 
@@ -85,15 +85,15 @@
         <hr/>
 
         <h>可接受任务数量</h>
-        <div id="container" style="height: 100%"></div>
+        <div id="container" style="height: 30%"></div>
 
         <hr/>
         <h>未完成工作分布</h>
-        <div id="TaskType" style="height: 100%"></div>
+        <div id="TaskType" style="height: 30%"></div>
 
         <hr/>
         <h>已完成工作分布</h>
-        <div id="FinishedLayout" style="height: 100%"></div>
+        <div id="FinishedLayout" style="height: 30%"></div>
 
         <hr/>
         <button id="charge" v-on:click="charge">充值</button>
@@ -105,7 +105,6 @@
 
 <script src="../../js/lib/vue.js"></script>
 <script src="../../js/lib/axios.js"></script>
-<script src="../../js/lib/jquery-1.11.0.min.js"></script>
 <script src="../../js/requestor/personPage.js"></script>
 <script src="../../js/pageJump.js"></script>
 </html>
