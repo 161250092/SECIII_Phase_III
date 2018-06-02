@@ -107,7 +107,6 @@ const unfinishedTasksPage = "../requestor/unfinishedTasksPage.html";
 /* worker */
 const doTaskPageUrl = "../worker/doTask.html";
 const getTaskPageUrl = "../worker/getTask.html";
-const workerCheckTaskPageUrl = "../worker/WorkerCheckTask.html";
 const workerFinishedTaskPageUrl = "../worker/workerFinishedTaskPage.html";
 const workerInfoPageUrl = "../worker/workerInfoPage.html";
 
