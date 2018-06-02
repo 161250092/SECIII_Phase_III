@@ -13,7 +13,7 @@ public interface AreaLabelDataService {
      * @param imageLabel
      * @return
      */
-    public boolean saveLableList(UserId userId, TaskId taskId, List<AreaLabel> imageLabel);
+    public boolean saveLabelList(UserId userId, TaskId taskId, List<AreaLabel> imageLabel);
 
 
     /**

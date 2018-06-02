@@ -9,7 +9,7 @@ import java.util.List;
 
 public class FrameLabelDataImpl implements FrameLabelDataService{
     @Override
-    public boolean saveLableList(UserId userId, TaskId taskId, List<FrameLabel> imageLabel) {
+    public boolean saveLabelList(UserId userId, TaskId taskId, List<FrameLabel> imageLabel) {
         return false;
     }
 
