@@ -8,7 +8,7 @@ import maven.model.task.PublishedTask;
 
 import java.util.List;
 
-public interface WorkDataService {
+public interface WorkerDataService {
     /**
      * 获取所有接受且已完成的任务
      * @param userId 工人Id
