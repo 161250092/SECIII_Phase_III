@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>发布任务</title>
+
+    <link rel="stylesheet" href="../../css/lu.css">
+    <link rel="stylesheet" href="../../css/requestor/assignTask.css">
 </head>
 <body>
 <div id="home" class="header-wrapper header-top">
@@ -72,7 +75,7 @@
             <td>{{taskDraft.taskId}}</td>
             <td>{{chineseLabelTypeName(taskDraft.labelType)}}</td>
             <td>{{chinesePublishedTaskState(taskDraft.publishedTaskState)}}</td>
-            <td><button v-on:click="assignTask(index)">发布任务</button></td>
+            <td><button v-on:click="assignTask(index)">立即发布</button></td>
         </tr>
     </table>
 </div>

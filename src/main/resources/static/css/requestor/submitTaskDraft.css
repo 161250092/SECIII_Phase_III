@@ -1,3 +1,7 @@
+body {
+    background-image: url("../../images/requestorPageBackground.jpg")
+}
+
 .upload_warp_img_div_del {
     position: absolute;
     top: 6px;

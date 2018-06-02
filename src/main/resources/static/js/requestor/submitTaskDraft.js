@@ -50,10 +50,10 @@ new Vue({
             axios.post('/image/uploadTaskImage', formData, config).then(function (res) {
 
             });
-
-            this.uploadTaskInfo();
         },
-        uploadTaskInfo: function () {
+        submitTaskDraft: function (ev) {
+            this.uploadImage(ev);
+
             let imageFileNameList = [];
             for (let i = 0; i < this.imgList.length; i++){
                 imageFileNameList.push(this.imgList[i].name);
@@ -67,10 +67,10 @@ new Vue({
             let _this = this;
             axios.get('/requestor/submitTaskDraft', {params: {taskJSON: taskVOJson, imageFilenameListJSON:imageFilenameListJSON}}).then(function (response) {
                 if(response.data.wrongMessage.type === "Success"){
-                    alert("发布成功");
-                    _this.jumpToMarkSample();
+                    alert("保存成功，请标注样本");
+                    jumpToAnotherPage(assignTaskPageUrl);
                 }else{
-                    alert("发布失败");
+                    alert("保存失败");
                 }
             });
             this.refreshTaskId();

@@ -45,7 +45,7 @@
     <ul class="accordionTaskList">
         <li v-for="(submittedTask, index) in submittedTaskList">
             <div class="link" v-on:click="showSelectedTask(index)">
-                <p>{{submittedTask.taskId}} {{chineseLabelTypeName(submittedTask.labelType)}}:{{submittedTask.taskDescription}}</p>
+                <p>{{submittedTask.taskId}}    {{chineseLabelTypeName(submittedTask.labelType)}} :   {{submittedTask.taskDescription}}</p>
             </div>
             <ul class="subMenuOfTaskList" v-bind:class="{'subMenuOfTaskListInactive': index != selectedTaskIndex}">
                 <li>
