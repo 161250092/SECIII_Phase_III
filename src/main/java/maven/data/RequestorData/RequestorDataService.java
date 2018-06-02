@@ -29,6 +29,13 @@ public interface RequestorDataService {
      boolean saveTaskSampleInfo(TaskId taskId, int ImageNum, List<Integer> imageIndexList);
 
     /**
+     * 获取样本信息
+     * @param taskId 任务Id
+     * @return 样本信息
+     */
+     Sample getSample(TaskId taskId);
+
+    /**
      * 修改任务信息
      * @param taskId 任务Id
      * @param publishedTaskDetail 任务瞬时状态

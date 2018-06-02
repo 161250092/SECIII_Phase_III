@@ -20,6 +20,11 @@ public class RequestorDataStub implements RequestorDataService {
     }
 
     @Override
+    public Sample getSample(TaskId taskId) {
+        return null;
+    }
+
+    @Override
     public boolean saveTaskDetail(TaskId taskId, PublishedTaskDetail publishedTaskDetail) {
         return false;
     }
