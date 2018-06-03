@@ -68,7 +68,7 @@ new Vue({
             const _this = this;
             axios.get("/user/reviseUserEmail", {params: {userId:getUserId(),email:_this.email}})
                 .then(function (Exception) {
-                    let message = Exception.data.WrongMessage.type;
+                    let message = Exception.data.wrongMessage.type;
                     if(message==="Success")
                         alert("修改成功");
                     else
@@ -79,7 +79,7 @@ new Vue({
             const _this = this;
             axios.get("/user/reviseUserPhone", {params: {userId:getUserId(),phone:_this.phone}})
                 .then(function (Exception) {
-                    let message = Exception.data.WrongMessage.type;
+                    let message = Exception.data.wrongMessage.type;
                     if(message==="Success")
                         alert("修改成功");
                     else
