@@ -24,6 +24,9 @@ public class PublishedTaskVO implements Serializable {
     //任务所需的工人人数
     private int requiredWorkerNum;
 
+    //该任务包含的图片数量
+    private int imageNum;
+
     //完成该任务可获取的钱数
     private double taskPrice;
 
@@ -63,13 +66,14 @@ public class PublishedTaskVO implements Serializable {
     }
 
 
-    private PublishedTaskVO(String taskId, String labelType, String taskDescription, int acceptedWorkerNum, int finishedWorkerNum, int requiredWorkerNum, double taskPrice, PublishedTaskState publishedTaskState) {
+    private PublishedTaskVO(String taskId, String labelType, String taskDescription, int acceptedWorkerNum, int finishedWorkerNum, int requiredWorkerNum, int imageNum, double taskPrice, PublishedTaskState publishedTaskState) {
         this.taskId = taskId;
         this.labelType = labelType;
         this.taskDescription = taskDescription;
         this.acceptedWorkerNum = acceptedWorkerNum;
         this.finishedWorkerNum = finishedWorkerNum;
         this.requiredWorkerNum = requiredWorkerNum;
+        this.imageNum = imageNum;
         this.taskPrice = taskPrice;
         this.publishedTaskState = publishedTaskState;
     }
@@ -85,7 +89,7 @@ public class PublishedTaskVO implements Serializable {
     public PublishedTaskVO(PublishedTask publishedTask){
         this(publishedTask.getTaskId().value, publishedTask.getLabelType().value, publishedTask.getTaskDescription().value,
                 publishedTask.getAcceptedWorkerNum().value, publishedTask.getFinishedWorkerNum().value,
-                publishedTask.getRequiredWorkerNum().value,
+                publishedTask.getRequiredWorkerNum().value, publishedTask.getImageFilenameList().size(),
                 publishedTask.getTaskPrice().value, publishedTask.getPublishedTaskState());
     }
 
