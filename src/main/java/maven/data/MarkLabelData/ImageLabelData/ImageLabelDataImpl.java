@@ -3,7 +3,6 @@ package maven.data.MarkLabelData.ImageLabelData;
 import maven.model.label.ImageLabel;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
-import maven.model.task.AcceptedTaskState;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ public class ImageLabelDataImpl implements ImageLabelDataService {
     }
 
     @Override
-    public boolean deleteLableList(UserId userId, TaskId taskId) {
+    public boolean deleteLable(UserId userId, TaskId taskId) {
         return false;
     }
 
