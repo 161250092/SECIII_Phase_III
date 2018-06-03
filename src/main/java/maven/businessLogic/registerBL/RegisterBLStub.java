@@ -15,7 +15,12 @@ public class RegisterBLStub implements RegisterBLService{
     }
 
     @Override
-    public Exception register(Username username, Password password, Email email, Phone phone) {
-        return new RegisterSuccessException("test8888");
+    public Exception registerRequesotr(Username username, Password password, Email email, Phone phone) {
+        return new RegisterSuccessException("test1111");
+    }
+
+    @Override
+    public Exception registerWorker(Username username, Password password, Email email, Phone phone) {
+        return new RegisterSuccessException("test2222");
     }
 }

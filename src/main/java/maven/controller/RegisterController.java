@@ -31,14 +31,25 @@ public class RegisterController {
     }
 
     /**
-     * 判断是否注册成功
+     * 判断发布者是否注册成功
      * @param username 用户昵称
      * @param password 用户密码
      * @return 是否注册成功
      */
-    @RequestMapping(value = "/register/register", method = RequestMethod.GET)
-    public Exception register(String username, String password, String email, String phone){
-        return registerBL.register(new Username(username), new Password(password), new Email(email), new Phone(phone));
+    @RequestMapping(value = "/register/registerRequesotr", method = RequestMethod.GET)
+    public Exception registerRequesotr(String username, String password, String email, String phone){
+        return registerBL.registerRequesotr(new Username(username), new Password(password), new Email(email), new Phone(phone));
     }
 
+
+    /**
+     * 判断工人是否注册成功
+     * @param username 用户昵称
+     * @param password 用户密码
+     * @return 是否注册成功
+     */
+    @RequestMapping(value = "/register/registerWorker", method = RequestMethod.GET)
+    public Exception registerWorker(String username, String password, String email, String phone){
+        return registerBL.registerWorker(new Username(username), new Password(password), new Email(email), new Phone(phone));
+    }
 }

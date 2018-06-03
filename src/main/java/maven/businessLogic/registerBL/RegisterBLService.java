@@ -14,12 +14,22 @@ public interface RegisterBLService {
     boolean isUsernameExist(Username username);
 
     /**
-     * 判断是否注册成功
+     * 判断发布者是否注册成功
      * @param username 用户昵称
      * @param password 用户密码
      * @param email 邮箱
      * @param phone 电话
      * @return
      */
-    Exception register(Username username, Password password, Email email, Phone phone);
+    Exception registerRequesotr(Username username, Password password, Email email, Phone phone);
+
+    /**
+     * 判断工人是否注册成功
+     * @param username 用户昵称
+     * @param password 用户密码
+     * @param email 邮箱
+     * @param phone 电话
+     * @return
+     */
+    Exception registerWorker(Username username, Password password, Email email, Phone phone);
 }
