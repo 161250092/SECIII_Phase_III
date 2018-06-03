@@ -52,7 +52,7 @@ new Vue({
             const _this = this;
             axios.get("/worker/abandonTaskByWorker").then(function (Exception){
 
-                let  message = Exception.data.WrongMessage.type;
+                let  message = Exception.data.wrongMessage.type;
                 if(message==="Success") {
                     alert("修改成功");
                     _this.getAllUnfinishedTask();
