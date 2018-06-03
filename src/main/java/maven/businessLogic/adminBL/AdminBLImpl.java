@@ -1,17 +1,13 @@
 package maven.businessLogic.adminBL;
 
-//import data.TaskData.TaskDataImpl;
-//import data.TaskData.TaskDataService;
-//import data.UserData.UserDataImpl;
-//import data.UserData.UserDataService;
+import maven.data.AdminData.AdminDataService;
 import maven.model.statistics.WebsiteStatistics;
 
 import java.util.List;
 
 public class AdminBLImpl implements AdminBLService {
 
-    //private TaskDataService taskDataService;
-    //private UserDataService userDataService;
+    private AdminDataService adminDataService;
 
     public AdminBLImpl(){
         //taskDataService = new TaskDataImpl();

@@ -1,66 +1,86 @@
 package maven.businessLogic.userBL;
 
-//import data.UserData.UserDataImpl;
-//import data.UserData.UserDataService;
+import maven.data.UserData.UserDataImpl;
+import maven.data.UserData.UserDataService;
+import maven.exception.util.FailureException;
+import maven.exception.util.SuccessException;
 import maven.model.primitiveType.*;
 import maven.model.user.User;
 
 import java.util.List;
 
 public class UserBLImpl implements UserBLService{
-    //private UserDataService userDataService;
+    private UserDataService userDataService;
 
     public UserBLImpl(){
-        //userDataService = new UserDataImpl();
+        userDataService = new UserDataImpl();
     }
 
     @Override
     public UserId getUserId(Username userName) {
-        return null;
+        return userDataService.getUserId(userName);
     }
 
     @Override
     public User getUserInfo(UserId userId) {
-        return null;
+        return userDataService.getUserByUserId(userId);
     }
 
     @Override
     public Exception reviseUserEmail(UserId userId, Email email) {
-        return null;
+        if(userDataService.reviseUserEmail(userId, email))
+            return new SuccessException();
+        return new FailureException();
     }
 
     @Override
     public Exception reviseUserPhone(UserId userId, Phone phone) {
-        return null;
+        if(userDataService.reviseUserPhone(userId, phone))
+            return new SuccessException();
+        return new FailureException();
     }
 
     @Override
     public Exception reduceCash(UserId userId, Cash cash) {
-        return null;
+        User user = userDataService.getUserByUserId(userId);
+        Cash last_cash = user.getCash();
+        if(userDataService.reviseCash(userId ,new Cash(last_cash.value - cash.value)))
+            return new SuccessException();
+        return new FailureException();
     }
 
     @Override
     public Exception increaseCash(UserId userId, Cash cash) {
-        return null;
+        User user = userDataService.getUserByUserId(userId);
+        Cash last_cash = user.getCash();
+        if(userDataService.reviseCash(userId ,new Cash(last_cash.value + cash.value)))
+            return new SuccessException();
+        return new FailureException();
     }
 
     @Override
     public Exception reducePrestige(UserId userId, Prestige prestige) {
-        return null;
+        User user = userDataService.getUserByUserId(userId);
+        Prestige last_prestige = user.getPrestige();
+        /**
+         * 修改用户等级
+         * 未完成
+         */
+        if(userDataService.revisePrestige(userId, null, new Prestige(last_prestige.value - prestige.value)))
+            return new SuccessException();
+        return new FailureException();
     }
 
     @Override
     public Exception increasePrestige(UserId userId, Prestige prestige) {
-        return null;
+        User user = userDataService.getUserByUserId(userId);
+        Prestige last_prestige = user.getPrestige();
+        /**
+         * 修改用户等级
+         * 未完成
+         */
+        if(userDataService.revisePrestige(userId, null, new Prestige(last_prestige.value + prestige.value)))
+            return new SuccessException();
+        return new FailureException();
     }
-
-    //@Override
-    //public String getUserId(Username userName) {
-    //    List<User> userList = userDataService.getAllUser();
-    //    for(User user : userList){
-    //        if(user.getUserName().equals(userName))
-    //            return user.getUserId();
-    //    }
-    //    return null;
-    //}
 }

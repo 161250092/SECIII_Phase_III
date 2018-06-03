@@ -1,192 +1,209 @@
 package maven.businessLogic.workerBL;
 
-//import data.LabelData.LabelDataImpl;
-//import data.LabelData.LabelDataService;
-//import data.TaskData.TaskDataImpl;
-//import data.TaskData.TaskDataService;
-//import data.UserData.UserDataImpl;
-//import data.UserData.UserDataService;
-import maven.model.primitiveType.TaskId;
-import maven.model.primitiveType.UserId;
-import maven.model.task.AcceptedTask;
-import maven.model.user.Worker;
+import maven.data.MarkLabelData.AreaLabelData.AreaLabelDataImpl;
+import maven.data.MarkLabelData.AreaLabelData.AreaLabelDataService;
+import maven.data.MarkLabelData.FrameLabelData.FrameLabelDataImpl;
+import maven.data.MarkLabelData.FrameLabelData.FrameLabelDataService;
+import maven.data.MarkLabelData.ImageLabelData.ImageLabelDataImpl;
+import maven.data.MarkLabelData.ImageLabelData.ImageLabelDataService;
+import maven.data.RequestorData.RequestorDataImpl;
+import maven.data.RequestorData.RequestorDataService;
+import maven.data.UserData.UserDataImpl;
+import maven.data.UserData.UserDataService;
+import maven.data.WorkerData.WorkerDataImpl;
+import maven.data.WorkerData.WorkerDataService;
+import maven.exception.DataException.TaskNotFoundException;
+import maven.exception.util.FailureException;
+import maven.exception.util.SuccessException;
+import maven.model.label.frameLabel.Frame;
+import maven.model.primitiveType.*;
+import maven.model.task.*;
+import maven.model.user.*;
 import maven.model.vo.AcceptedTaskVO;
 import maven.model.vo.PublishedTaskVO;
 
-import java.util.List;
+import java.util.*;
 
 public class WorkerBLImpl implements WorkerBLService {
-    //private LabelDataService labelDataService;
-    //private TaskDataService taskDataService;
-    //private UserDataService userDataService;
+    private WorkerDataService workerDataService;
+    private RequestorDataService requestorDataService;
+    private UserDataService userDataService;
 
     public WorkerBLImpl(){
-        //labelDataService = new LabelDataImpl();
-        //taskDataService = new TaskDataImpl();
-        //userDataService = new UserDataImpl();
+        workerDataService = new WorkerDataImpl();
+        requestorDataService = new RequestorDataImpl();
+        userDataService = new UserDataImpl();
     }
 
     @Override
     public List<AcceptedTaskVO> getAcceptedAndAccomplishedTaskList(UserId userId) {
-        return null;
+        List<AcceptedTaskVO> list = new ArrayList<>();
+        List<AcceptedTaskVO> allAcceptedTaskVOList = getAcceptedTaskVOList(userId);
+        for(AcceptedTaskVO vo : allAcceptedTaskVOList){
+            //查找状态为 完成、通过、驳回、被发布者废弃 的任务
+            if(!vo.getAcceptedTaskState().equals(AcceptedTaskState.ACCEPTED.toString())
+                    && !vo.getAcceptedTaskState().equals(AcceptedTaskState.ABANDONED_BY_WORKER.toString()) ){
+                list.add(vo);
+            }
+        }
+        return list;
     }
 
     @Override
     public List<AcceptedTaskVO> getAcceptedButIncompleteTaskList(UserId userId) {
-        return null;
+        List<AcceptedTaskVO> list = new ArrayList<>();
+        List<AcceptedTaskVO> allAcceptedTaskVOList = getAcceptedTaskVOList(userId);
+        for(AcceptedTaskVO vo : allAcceptedTaskVOList){
+            //查找状态为 接受 的任务
+            if(vo.getAcceptedTaskState().equals(AcceptedTaskState.ACCEPTED.toString())){
+                list.add(vo);
+            }
+        }
+        return list;
     }
 
     @Override
     public List<PublishedTaskVO> getAvailableTaskList(UserId userId) {
-        return null;
+        List<PublishedTaskVO> list = new ArrayList<>();
+
+        List<Requestor> requestorList = userDataService.getAllRequestor();
+        List<PublishedTask> requestorPublishedTaskList;
+        List<PublishedTask> availableTaskList;
+        for(Requestor requestor : requestorList){
+            //获取该发布者所有的任务
+            requestorPublishedTaskList = requestorDataService.getPublishedTaskList(requestor.getUserId());
+            for(PublishedTask publishedTask : requestorPublishedTaskList){
+                //仅当该任务仍在进行中 且接受人数<需求人数时，该任务可被接受
+                if(publishedTask.getPublishedTaskState() == PublishedTaskState.INCOMPLETE
+                        && publishedTask.getAcceptedWorkerNum().value < publishedTask.getRequiredWorkerNum().value){
+                    //判断工人是否可以接受某任务（排除掉 以往接受过的情况）
+                    if(havePermissionToAcceptTask(userId, publishedTask.getTaskId()))
+                        list.add(new PublishedTaskVO(publishedTask));
+                }
+            }
+        }
+        return list;
     }
 
     @Override
     public Exception acceptTask(UserId userId, List<TaskId> taskIdList) {
-        return null;
+        PublishedTask publishedTask;
+        AcceptedTask acceptedTask;
+        for(TaskId taskId : taskIdList){
+            //查找发布者已发布的任务 并获取信息
+            publishedTask = requestorDataService.getPublishedTask(taskId);
+            if(publishedTask == null)
+                return new TaskNotFoundException();
+            acceptedTask = new AcceptedTask(userId, publishedTask.getTaskId(), new Date(), publishedTask.getTaskPrice(),
+                    null, AcceptedTaskState.ACCEPTED, new LabelScore(-1));
+            if(workerDataService.acceptTask(acceptedTask))
+                return new FailureException();
+        }
+        return new SuccessException();
     }
 
     @Override
     public Exception abandonTaskByWorker(UserId userId, TaskId taskId) {
-        return null;
+        AcceptedTask acceptedTask = workerDataService.getAcceptedTaskById(userId, taskId);
+        if(acceptedTask == null)
+            return new TaskNotFoundException();
+        //若任务已完成 则不允许废弃
+        if(acceptedTask.getAcceptedTaskState() == AcceptedTaskState.PASSED)
+            return new FailureException();
+
+        String[] temp = taskId.value.split("_");
+        String labelType = temp[1];
+        if(labelType.equals("ImageLabel")){
+            ImageLabelDataService imageLabelDataService = new ImageLabelDataImpl();
+            //删除已有的标注信息
+            if(!imageLabelDataService.deleteLableList(userId, taskId))
+                return new FailureException();
+        }
+        else if(labelType.equals("FrameLabel")){
+            FrameLabelDataService frameLabelDataService = new FrameLabelDataImpl();
+            if(frameLabelDataService.deleteLableList(userId, taskId))
+                return new FailureException();
+        }
+        else {
+            AreaLabelDataService areaLabelDataService = new AreaLabelDataImpl();
+            if(!areaLabelDataService.deleteLableList(userId, taskId))
+                return new FailureException();
+        }
+        //修改任务状态
+        if(workerDataService.reviseAcceptedTaskState(userId, taskId, AcceptedTaskState.ABANDONED_BY_WORKER))
+            return new SuccessException();
+
+        return new FailureException();
     }
 
     @Override
     public AcceptedTask getAcceptedTaskById(UserId userId, TaskId taskId) {
-        return null;
+        return workerDataService.getAcceptedTaskById(userId, taskId);
     }
 
 
     @Override
     public int getUserRanking(UserId userId) {
-        return 0;
+            List<Worker> workerList = userDataService.getAllWorker();
+
+
+            //自定义Comparator，为User类提供排序的比较方法
+            Comparator comparator = new Comparator<User>() {
+                @Override
+                public int compare(User user1, User user2) {
+                    //按照积分比较 进行排序
+                    if((int)user1.getPrestige().value <= user2.getPrestige().value)
+                        return 1;
+                    else
+                        return -1;
+                }
+            };
+
+            //对所有用户根据积分值从高到低排序
+            Collections.sort(workerList, comparator);
+
+            User user = userDataService.getUserByUserId(userId);
+
+            //若不存在该用户，则返回-1
+            if(user == null)
+                return -1;
+            for(int i = 0; i < workerList.size(); i++){
+                if(user.getUserId().equals(workerList.get(i).getUserId()))
+                    return i+1;
+            }
+            //若查找的用户不匹配，则返回-1
+            return -1;
     }
 
 
-    //@Override
-    //public List<Task> getAcceptedAndAccomplishedTaskList(String userId) {
-    //    return getTaskList(userId, true);
-    //}
-    //
-    //@Override
-    //public List<Task> getAcceptedButIncompleteTaskList(String userId) {
-    //    return  getTaskList(userId, false);
-    //}
-    //
-    //@Override
-    //public List<Task> getAvailableTaskList(String userId) {
-    //    List<Task> taskList = new ArrayList<>();
-    //    List<String> assignedTaskIdList = null;
-    //    List<String> acceptedAndAccomplishedTaskIdList = taskDataService.getAllAccomplishedAcceptedTaskID(userId);
-    //    List<String> acceptedButIncompleteTaskIdList = taskDataService.getAllIncompleteAcceptedTaskID(userId);
-    //    List<User> userList = userDataService.getAllUser();
-    //
-    //    //遍历所有用户
-    //    for(User user : userList){
-    //        //获取该用户发布且未完成的任务Id列表
-    //        assignedTaskIdList = taskDataService.getAllIncompleteAssignedTaskID(user.getUserId());
-    //        //遍历 任务Id列表，检查 需要接受任务的工人是否曾经接受或完成过某任务
-    //        for(String taskId : assignedTaskIdList) {
-    //            //如果 工人没有接受或完成过，则允许他接受任务
-    //            if(acceptedAndAccomplishedTaskIdList.indexOf(taskId) == -1 && acceptedButIncompleteTaskIdList.indexOf(taskId) == -1)
-    //                taskList.add(taskDataService.getTask(taskId));
-    //        }
-    //    }
-    //    return taskList;
-    //}
-    //
-    //@Override
-    //public boolean acceptTask(String userId, String taskIdListJSON) {
-    //    Gson gson = new GsonBuilder().create();
-    //    List<String> taskIdList = gson.fromJson(taskIdListJSON, ArrayList.class);
-    //
-    //    for(String taskId : taskIdList){
-    //        //获取任务详情
-    //        Task task = taskDataService.getTask(taskId);
-    //        //若任务为null 则报错
-    //        if(task == null)
-    //            return false;
-    //
-    //        //获取任务包含的图片数量
-    //        int imageNumber = task.getImageFileName().length;
-    //
-    //        //如果后端调用失败 则报错
-    //        if(!labelDataService.acceptTask(userId, taskId, imageNumber))
-    //            return false;
-    //    }
-    //
-    //    return true;
-    //}
-    //
-    //@Override
-    //public Task getTaskById(String taskId) {
-    //    return taskDataService.getTask(taskId);
-    //}
-    //
-    //@Override
-    //public int getUserScore(String userId) {
-    //    User user = userDataService.getUser(userId);
-    //    return user.getScore();
-    //}
-    //
-    //@Override
-    //public int getUserRanking(String userId) {
-    //    List<User> userList = userDataService.getAllUser();
-    //
-    //    //自定义Comparator，为User类提供排序的比较方法
-    //    Comparator comparator = new Comparator<User>() {
-    //        @Override
-    //        public int compare(User user1, User user2) {
-    //            //按照积分比较 进行排序
-    //            if((int)user1.getScore() <= user2.getScore())
-    //                return 1;
-    //            else
-    //                return -1;
-    //        }
-    //    };
-    //
-    //    //对所有用户根据积分值从高到低排序
-    //    Collections.sort(userList, comparator);
-    //
-    //    User user = userDataService.getUser(userId);
-    //
-    //    //若不存在该用户，则返回-1
-    //    if(user == null)
-    //        return -1;
-    //
-    //    for(int i = 0; i < userList.size(); i++){
-    //        if(user.getUserId().equals(userList.get(i).getUserId()))
-    //            return i+1;
-    //    }
-    //
-    //    //若查找的用户不匹配，则返回-1
-    //    return -1;
-    //}
-    //
-    //private List<Task> getTaskList(String userId, boolean isAccomplised){
-    //    List<Task> taskList = new ArrayList<>();
-    //    List<String> taskIdList = null;
-    //    Task task = null;
-    //
-    //    if(isAccomplised)
-    //        taskIdList = taskDataService.getAllAccomplishedAcceptedTaskID(userId);
-    //    else
-    //        taskIdList = taskDataService.getAllIncompleteAcceptedTaskID(userId);
-    //
-    //    if(taskIdList == null || taskIdList.size() == 0)
-    //        return null;
-    //    else{
-    //        for(int i = 0; i < taskIdList.size(); i++){
-    //            task = taskDataService.getTask(taskIdList.get(i));
-    //            //假如无法通过taskId找到对应的Task，则返回null
-    //            if(task == null)
-    //                return null;
-    //            taskList.add(task);
-    //        }
-    //        return taskList;
-    //    }
-    //}
+    //获取工人所有已接受的任务
+    private List<AcceptedTaskVO> getAcceptedTaskVOList(UserId userId){
+        List<AcceptedTaskVO> list = new ArrayList<>();
+        List<AcceptedTask> acceptedTaskList = workerDataService.getAcceptedTaskListByUserId(userId);
+        PublishedTask publishedTask;
+        Username username;
+        LabelType labelType;
+        TaskDescription taskDescription;
+        for(AcceptedTask acceptedTask : acceptedTaskList){
+                publishedTask = requestorDataService.getPublishedTask(acceptedTask.getTaskId());
+                username = userDataService.getUserByUserId(userId).getUsername();
+                labelType = publishedTask.getLabelType();
+                taskDescription = publishedTask.getTaskDescription();
+                list.add(new AcceptedTaskVO(acceptedTask, username, labelType, taskDescription));
+        }
+        return list;
+    }
 
-
+    //若工人曾经接受过某任务，则不允许他再次接受
+    private boolean havePermissionToAcceptTask(UserId userId, TaskId taskId){
+        //获取工人接受过的任务列表
+        List<AcceptedTask> acceptedTaskList = workerDataService.getAcceptedTaskListByUserId(userId);
+        for(AcceptedTask acceptedTask : acceptedTaskList){
+            if(taskId.value.equals(acceptedTask.getTaskId().value)){
+                return false;
+            }
+        }
+        return true;
+    }
 
 }
