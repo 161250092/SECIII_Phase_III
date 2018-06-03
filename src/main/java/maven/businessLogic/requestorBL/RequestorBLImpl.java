@@ -207,7 +207,7 @@ public class RequestorBLImpl implements RequestorBLService{
 
     @Override
     public Exception passTask(TaskId taskId, UserId userId) {
-        if(requestorDataService.approvalTask(taskId, userId, AcceptedTaskState.ACCEPTED)){
+        if(workerDataService.reviseAcceptedTaskState(userId, taskId, AcceptedTaskState.ACCEPTED)){
             User user = userDataService.getUserByUserId(userId);
             Cash cash = user.getCash();
             Cash priceOfTask = workerDataService.getAcceptedTaskById(userId, taskId).getActualTaskPrice();
@@ -225,7 +225,7 @@ public class RequestorBLImpl implements RequestorBLService{
 
     @Override
     public Exception rejectTask(TaskId taskId, UserId userId) {
-        if(requestorDataService.approvalTask(taskId, userId, AcceptedTaskState.REJECTED))
+        if(workerDataService.reviseAcceptedTaskState(userId, taskId, AcceptedTaskState.REJECTED))
             return new SuccessException();
         else
             return new FailureException();
@@ -233,7 +233,7 @@ public class RequestorBLImpl implements RequestorBLService{
 
     @Override
     public Exception abandonTaskByRequestor(TaskId taskId, UserId userId) {
-        if(requestorDataService.approvalTask(taskId, userId, AcceptedTaskState.ABANDONED_BY_REQUESTOR)){
+        if(workerDataService.reviseAcceptedTaskState(userId, taskId, AcceptedTaskState.ABANDONED_BY_REQUESTOR)){
 
             /**
              * 修改工人的声望
@@ -275,6 +275,8 @@ public class RequestorBLImpl implements RequestorBLService{
     @Override
     public List<AcceptedTaskVO> getAcceptedTaskVOList(UserId userId, TaskId taskId) {
         PublishedTask publishedTask = requestorDataService.getPublishedTask(taskId);
+        if(publishedTask == null)
+            return null;
         LabelType labelType = publishedTask.getLabelType();
         TaskDescription taskDescription = publishedTask.getTaskDescription();
 
@@ -305,86 +307,4 @@ public class RequestorBLImpl implements RequestorBLService{
         else
             return user.getUsername();
     }
-
-
-    /**
-     * ------未完成------
-     *
-     */
-    //@Override
-    //public void uploadImages() {
-    //
-    //}
-    //
-    //@Override
-    //public Exception assignTask(String taskJSON) {
-    //    Gson gson = new GsonBuilder().create();
-    //    Task task = gson.fromJson(taskJSON, Task.class);
-    //    String userId = null;
-    //
-    //    String taskId = task.getTaskId();
-    //    String[] temp = taskId.split("_");
-    //    userId = temp[0];
-    //
-    //    if(taskDataService.saveTask(userId, task))
-    //        return new SuccessfulAssignException();
-    //    return new FailedLoginException();
-    //}
-    //
-    //@Override
-    //public List<Task> getAssignedAndAccomplishedTaskList(String userId) {
-    //    return getTaskList(userId,true);
-    //}
-    //
-    //@Override
-    //public List<Task> getAssignedButIncompleteTaskList(String userId) {
-    //    return getTaskList(userId,false);
-    //}
-    //
-    //@Override
-    //public int getAssignedTaskNum() {
-    //    int numOfTasks = 0;
-    //    int numOfIncompleteTasks = 0;
-    //    int numOfAccomplishedTasks = 0;
-    //
-    //    List<User> userList = userDataService.getAllUser();
-    //    String userId = null;
-    //    for(User user : userList){
-    //        userId = user.getUserId();
-    //        numOfAccomplishedTasks += taskDataService.getAllAccomplishedAssignedTaskID(userId).size();
-    //        numOfIncompleteTasks += taskDataService.getAllIncompleteAssignedTaskID(userId).size();
-    //    }
-    //    numOfTasks = numOfIncompleteTasks + numOfAccomplishedTasks;
-    //    return numOfTasks;
-    //}
-    //
-    ///**
-    // * 获取用户已接受的任务列表
-    // * @param userId 用户Id
-    // * @param isAccomplised 判断任务是否已完成
-    // * @return 任务列表
-    // */
-    //private List<Task> getTaskList(String userId, boolean isAccomplised){
-    //    List<Task> taskList = new ArrayList<>();
-    //    List<String> taskIdList = null;
-    //    Task task = null;
-    //
-    //    if(isAccomplised)
-    //        taskIdList = taskDataService.getAllAccomplishedAssignedTaskID(userId);
-    //    else
-    //        taskIdList = taskDataService.getAllIncompleteAssignedTaskID(userId);
-    //
-    //    if(taskIdList == null || taskIdList.size() == 0)
-    //        return null;
-    //    else{
-    //        for(int i = 0; i < taskIdList.size(); i++){
-    //            task = taskDataService.getTask(taskIdList.get(i));
-    //            //假如无法通过taskId找到对应的Task，则返回null
-    //            if(task == null)
-    //                return null;
-    //            taskList.add(task);
-    //        }
-    //        return taskList;
-    //    }
-    //}
 }

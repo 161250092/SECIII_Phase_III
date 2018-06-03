@@ -70,11 +70,6 @@ public class RequestorDataImpl implements RequestorDataService {
     }
 
     @Override
-    public boolean approvalTask(TaskId taskId, UserId userId, AcceptedTaskState acceptedTaskState) {
-        return false;
-    }
-
-    @Override
     public List<AcceptedTask> getAcceptedTaskList(TaskId taskId) {
         return null;
     }

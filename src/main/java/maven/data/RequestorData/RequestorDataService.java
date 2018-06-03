@@ -75,16 +75,6 @@ public interface RequestorDataService {
 
 
     /**
-     * 审批工人的任务
-     * @param taskId 任务Id
-     * @param userId 工人Id
-     * @param acceptedTaskState 任务状态
-     * @return 后台处理的结果
-     */
-     boolean approvalTask(TaskId taskId, UserId userId, AcceptedTaskState acceptedTaskState);
-
-
-    /**
      * 获取所有任务的列表
      * @param userId 发布者Id
      * @return 发布但未完成任务的列表
