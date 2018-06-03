@@ -13,17 +13,15 @@ public interface AreaLabelDataService {
      * @param imageLabel
      * @return
      */
-    public boolean saveLabelList(UserId userId, TaskId taskId, List<AreaLabel> imageLabel);
-
+    boolean saveLabelList(UserId userId, TaskId taskId, List<AreaLabel> imageLabel);
 
     /**
-     * 更改任务信息
+     * 删除标注信息
      * @param userId
      * @param taskId
-     * @param acceptedTaskState
      * @return
      */
-    public boolean reviseTaskState(UserId userId, TaskId taskId, AcceptedTaskState acceptedTaskState);
+    boolean deleteLableList(UserId userId, TaskId taskId);
 
     /**
      * 获取标注信息
@@ -31,5 +29,5 @@ public interface AreaLabelDataService {
      * @param taskId
      * @return
      */
-    public List<AreaLabel> getLabelList(UserId userId,TaskId taskId);
+    List<AreaLabel> getLabelList(UserId userId,TaskId taskId);
 }

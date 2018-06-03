@@ -86,7 +86,7 @@ public class RequestorBLImpl implements RequestorBLService{
             else {
                 if(requestor.getCash().value >= taskPrice.value * requiredWorkerNum.value) {
                     //将该任务状态修改为 正在进行中（未完成）
-                    if(requestorDataService.reviseTaskState(taskId, PublishedTaskState.INCOMPLETE)) {
+                    if(requestorDataService.revisePublishedTaskState(taskId, PublishedTaskState.INCOMPLETE)) {
 
                         /**
                          * 增长用户的声望
@@ -111,7 +111,7 @@ public class RequestorBLImpl implements RequestorBLService{
          * 未完成
          *
          */
-        if(requestorDataService.reviseTaskState(taskId, PublishedTaskState.REVOKED)){
+        if(requestorDataService.revisePublishedTaskState(taskId, PublishedTaskState.REVOKED)){
             
             
             return new SuccessException();            

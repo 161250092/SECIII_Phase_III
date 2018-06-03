@@ -3,8 +3,7 @@ package maven.data.WorkerData;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
 import maven.model.task.AcceptedTask;
-import maven.model.task.PublishedTask;
-import maven.model.user.Worker;
+import maven.model.task.AcceptedTaskState;
 
 import java.util.List;
 
@@ -15,13 +14,12 @@ public class WorkerDataImpl implements WorkerDataService {
     }
 
     @Override
-    public List<AcceptedTask> getAcceptedTaskList(UserId userId) {
+    public List<AcceptedTask> getAcceptedTaskListByUserId(UserId userId) {
         return null;
     }
 
-
-    //@Override
-    public List<PublishedTask> getAvailableTaskList() {
+    @Override
+    public List<AcceptedTask> getAcceptedTaskListByTaskId(TaskId taskId) {
         return null;
     }
 
@@ -31,7 +29,7 @@ public class WorkerDataImpl implements WorkerDataService {
     }
 
     @Override
-    public boolean abandonTaskByWorker(UserId userId, TaskId taskId) {
+    public boolean reviseAcceptedTaskState(UserId userId, TaskId taskId, AcceptedTaskState acceptedTaskState) {
         return false;
     }
 

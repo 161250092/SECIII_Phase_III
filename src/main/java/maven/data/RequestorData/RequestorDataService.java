@@ -63,7 +63,7 @@ public interface RequestorDataService {
      * @param publishedTaskState 任务状态
      * @return
      */
-     boolean reviseTaskState(TaskId taskId, PublishedTaskState publishedTaskState);
+     boolean revisePublishedTaskState(TaskId taskId, PublishedTaskState publishedTaskState);
 
 
     /**
@@ -73,12 +73,6 @@ public interface RequestorDataService {
      */
     List<TaskId> getPublishedTaskIdList(UserId userId);
 
-    /**
-     * 获取工人已完成并待审核的任务列表
-     * @param taskId 任务Id
-     * @return 待审核的任务列表
-     */
-     List<AcceptedTask> getSubmittedTaskList(TaskId taskId);
 
     /**
      * 审批工人的任务

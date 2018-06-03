@@ -14,7 +14,7 @@ public class ImageLabelDataImpl implements ImageLabelDataService {
     }
 
     @Override
-    public boolean reviseTaskState(UserId userId, TaskId taskId, AcceptedTaskState acceptedTaskState) {
+    public boolean deleteLableList(UserId userId, TaskId taskId) {
         return false;
     }
 

@@ -4,7 +4,6 @@ import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
 import maven.model.primitiveType.WorkerNum;
 import maven.model.task.*;
-import maven.model.user.Requestor;
 
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class RequestorDataImpl implements RequestorDataService {
     }
 
     @Override
-    public boolean reviseTaskState(TaskId taskId, PublishedTaskState publishedTaskState) {
+    public boolean revisePublishedTaskState(TaskId taskId, PublishedTaskState publishedTaskState) {
         return false;
     }
 
@@ -67,11 +66,6 @@ public class RequestorDataImpl implements RequestorDataService {
 
     @Override
     public PublishedTask getPublishedTask(TaskId taskId) {
-        return null;
-    }
-
-    @Override
-    public List<AcceptedTask> getSubmittedTaskList(TaskId taskId) {
         return null;
     }
 

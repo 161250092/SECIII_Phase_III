@@ -14,10 +14,10 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
     }
 
     @Override
-    public boolean reviseTaskState(UserId userId, TaskId taskId, AcceptedTaskState acceptedTaskState) {
+    public boolean deleteLableList(UserId userId, TaskId taskId) {
         return false;
     }
-
+    
     @Override
     public List<FrameLabel> getLabelList(UserId userId, TaskId taskId) {
         return null;

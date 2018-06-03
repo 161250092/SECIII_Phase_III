@@ -3,6 +3,7 @@ package maven.data.WorkerData;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
 import maven.model.task.AcceptedTask;
+import maven.model.task.AcceptedTaskState;
 import maven.model.user.Worker;
 import maven.model.task.PublishedTask;
 
@@ -17,11 +18,18 @@ public interface WorkerDataService {
      List<AcceptedTask> getAcceptedAndAccomplishedTaskList(UserId userId);
 
     /**
-     * 获取所有接受的任务
+     * 获取某工人所有接受任务完成状况的详情
      * @param userId 工人Id
      * @return 所有的任务
      */
-     List<AcceptedTask> getAcceptedTaskList(UserId userId);
+     List<AcceptedTask> getAcceptedTaskListByUserId(UserId userId);
+
+    /**
+     * 获取某任务的所有工人完成状况的详情
+     * @param taskId 任务Id
+     * @return 所有任务
+     */
+    List<AcceptedTask> getAcceptedTaskListByTaskId(TaskId taskId);
 
     /**
      * 众包工人接受任务
@@ -31,11 +39,13 @@ public interface WorkerDataService {
      boolean acceptTask(AcceptedTask acceptedTask);
 
     /**
-     * 众包工人放弃已接受的任务、删除任务信息
-     * @param taskId 工人Id
-     * @return 是否放弃成功
+     * 更改任务信息
+     * @param userId
+     * @param taskId
+     * @param acceptedTaskState
+     * @return
      */
-     boolean abandonTaskByWorker(UserId userId, TaskId taskId);
+    boolean reviseAcceptedTaskState(UserId userId, TaskId taskId, AcceptedTaskState acceptedTaskState);
 
     /**
      * 获取已接受任务的信息
