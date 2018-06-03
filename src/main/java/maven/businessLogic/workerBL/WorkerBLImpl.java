@@ -15,7 +15,6 @@ import maven.data.WorkerData.WorkerDataService;
 import maven.exception.DataException.TaskNotFoundException;
 import maven.exception.util.FailureException;
 import maven.exception.util.SuccessException;
-import maven.model.label.frameLabel.Frame;
 import maven.model.primitiveType.*;
 import maven.model.task.*;
 import maven.model.user.*;
@@ -68,7 +67,6 @@ public class WorkerBLImpl implements WorkerBLService {
 
         List<Requestor> requestorList = userDataService.getAllRequestor();
         List<PublishedTask> requestorPublishedTaskList;
-        List<PublishedTask> availableTaskList;
         for(Requestor requestor : requestorList){
             //获取该发布者所有的任务
             requestorPublishedTaskList = requestorDataService.getPublishedTaskList(requestor.getUserId());
@@ -113,20 +111,25 @@ public class WorkerBLImpl implements WorkerBLService {
 
         String[] temp = taskId.value.split("_");
         String labelType = temp[1];
-        if(labelType.equals("ImageLabel")){
-            ImageLabelDataService imageLabelDataService = new ImageLabelDataImpl();
-            //删除已有的标注信息
-            if(!imageLabelDataService.deleteLableList(userId, taskId))
-                return new FailureException();
-        }
-        else if(labelType.equals("FrameLabel")){
-            FrameLabelDataService frameLabelDataService = new FrameLabelDataImpl();
-            if(frameLabelDataService.deleteLableList(userId, taskId))
-                return new FailureException();
-        }
-        else {
-            AreaLabelDataService areaLabelDataService = new AreaLabelDataImpl();
-            if(!areaLabelDataService.deleteLableList(userId, taskId))
+
+        //删除已有的标注信息
+        switch (labelType){
+            case "ImageLabel":
+                ImageLabelDataService imageLabelDataService = new ImageLabelDataImpl();
+                if(!imageLabelDataService.deleteLable(userId, taskId))
+                    return new FailureException();
+                break;
+            case "FrameLabel":
+                FrameLabelDataService frameLabelDataService = new FrameLabelDataImpl();
+                if(frameLabelDataService.deleteLable(userId, taskId))
+                    return new FailureException();
+                break;
+            case "AreaLabel":
+                AreaLabelDataService areaLabelDataService = new AreaLabelDataImpl();
+                if(!areaLabelDataService.deleteLable(userId, taskId))
+                    return new FailureException();
+                break;
+            default:
                 return new FailureException();
         }
         //修改任务状态
@@ -160,7 +163,7 @@ public class WorkerBLImpl implements WorkerBLService {
             };
 
             //对所有用户根据积分值从高到低排序
-            Collections.sort(workerList, comparator);
+            workerList.sort(comparator);
 
             User user = userDataService.getUserByUserId(userId);
 
@@ -168,7 +171,7 @@ public class WorkerBLImpl implements WorkerBLService {
             if(user == null)
                 return -1;
             for(int i = 0; i < workerList.size(); i++){
-                if(user.getUserId().equals(workerList.get(i).getUserId()))
+                if(user.getUserId().value.equals(workerList.get(i).getUserId().value))
                     return i+1;
             }
             //若查找的用户不匹配，则返回-1
