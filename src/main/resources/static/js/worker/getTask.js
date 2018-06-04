@@ -45,12 +45,12 @@ new Vue({
         },
 
         upBytaskPrice:function(){
-           for(var i=0;i<availableTaskList.length-1;i++){
-             for(var j=i;j<availableTaskList.length;j++){
-                 if(availableTaskList[i].taskPrice<availableTaskList[j].taskPrice){
-                     var temp = availableTaskList[i];
-                     availableTaskList[i] =  availableTaskList[j];
-                     availableTaskList[j] = temp;
+           for(var i=0;i<this.availableTaskList.length-1;i++){
+             for(var j=i;j<this.availableTaskList.length;j++){
+                 if(this.availableTaskList[i].taskPrice<this.availableTaskList[j].taskPrice){
+                     var temp = this.availableTaskList[i];
+                     this.availableTaskList[i] =  this.availableTaskList[j];
+                     this.availableTaskList[j] = temp;
                  }
              }
            }
@@ -59,12 +59,12 @@ new Vue({
 
 
         downBytaskPrice:function () {
-            for(var i=0;i<availableTaskList.length-1;i++){
-                for(var j=i;j<availableTaskList.length;j++){
-                    if(availableTaskList[i].taskPrice>availableTaskList[j].taskPrice){
-                        var temp = availableTaskList[i];
-                        availableTaskList[i] =  availableTaskList[j];
-                        availableTaskList[j] = temp;
+            for(var i=0;i<this.availableTaskList.length-1;i++){
+                for(var j=i;j<this.availableTaskList.length;j++){
+                    if(this.availableTaskList[i].taskPrice>this.availableTaskList[j].taskPrice){
+                        var temp = this.availableTaskList[i];
+                        this.availableTaskList[i] =  this.availableTaskList[j];
+                        this.availableTaskList[j] = temp;
                     }
                 }
             }
@@ -72,12 +72,12 @@ new Vue({
 
 
         upByImageNum:function(){
-            for(var i=0;i<availableTaskList.length-1;i++) {
-                for (var j = i; j < availableTaskList.length; j++) {
-                    if (availableTaskList[i].imageNum < availableTaskList[j].imageNum) {
-                        var temp = availableTaskList[i];
-                        availableTaskList[i] = availableTaskList[j];
-                        availableTaskList[j] = temp;
+            for(var i=0;i<this.length-1;i++) {
+                for (var j = i; j < this.availableTaskList.length; j++) {
+                    if (this.availableTaskList[i].imageNum <this.availableTaskList[j].imageNum) {
+                        var temp = this.availableTaskList[i];
+                        this.availableTaskList[i] = this.availableTaskList[j];
+                        this.availableTaskList[j] = temp;
                     }
                 }
             }
@@ -86,12 +86,12 @@ new Vue({
 
 
         downByImageNum:function(){
-            for(var i=0;i<availableTaskList.length-1;i++) {
-            for (var j = i; j < availableTaskList.length; j++) {
-                if (availableTaskList[i].imageNum > availableTaskList[j].imageNum) {
-                    var temp = availableTaskList[i];
-                    availableTaskList[i] = availableTaskList[j];
-                    availableTaskList[j] = temp;
+            for(var i=0;i<this.availableTaskList.length-1;i++) {
+            for (var j = i; j < this.availableTaskList.length; j++) {
+                if (this.availableTaskList[i].imageNum > this.availableTaskList[j].imageNum) {
+                    var temp = this.availableTaskList[i];
+                    this.availableTaskList[i] = this.availableTaskList[j];
+                    this.availableTaskList[j] = temp;
                 }
             }
         }}
