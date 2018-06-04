@@ -1,40 +1,95 @@
 package maven.businessLogic.statistics;
 
 import maven.model.label.frameLabel.Frame;
+import maven.model.label.frameLabel.FrameLabel;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 public class FrameLabelStatisticsTest {
 
     FrameLabelStatistics frameLabelStatistics = new FrameLabelStatistics();
 
+
     @Test
-    public void getAccuracyOfFrameLabelSet() {
+    public void accuracyOfLabel1(){
+        ArrayList<Frame> fl = new ArrayList<>();
+        fl.add(new Frame(10, 10, 50 , 50, ""));
+        fl.add(new Frame(70,70,10,10,""));
+        fl.add(new Frame(270,270,20,20,""));
+        FrameLabel frameLabel = new FrameLabel(fl);
+
+        ArrayList<Frame> fl2 = new ArrayList<>();
+        fl2.add(new Frame(0,0,40,40,""));
+        fl2.add(new Frame(50,50,200,200,""));
+        fl2.add(new Frame(300,300,100,100,""));
+        FrameLabel sampleLabel = new FrameLabel(fl2);
+
+        double d = ((30.0*30.0)/(50.0*50.0) + (10.0*10.0)/(200.0*200.0))/3.0;
+        Assert.assertEquals(d, frameLabelStatistics.accuracyOfLabel(frameLabel,sampleLabel), 0.0001);
+    }
+    @Test
+    public void accuracyOfLabel2(){
+        ArrayList<Frame> fl = new ArrayList<>();
+        fl.add(new Frame(10, 10, 50 , 50, ""));
+        fl.add(new Frame(70,70,180,180,""));
+        fl.add(new Frame(270,270,20,20,""));
+        FrameLabel frameLabel = new FrameLabel(fl);
+
+        ArrayList<Frame> fl2 = new ArrayList<>();
+        fl2.add(new Frame(0,0,40,40,""));
+        fl2.add(new Frame(50,50,200,200,""));
+        fl2.add(new Frame(300,300,100,100,""));
+        FrameLabel sampleLabel = new FrameLabel(fl2);
+
+        double d = ((30.0*30.0)/(50.0*50.0) + (180.0*180.0)/(200.0*200.0))/3.0;
+        Assert.assertEquals(d, frameLabelStatistics.accuracyOfLabel(frameLabel,sampleLabel), 0.0001);
+    }
+    @Test
+    public void accuracyOfLabel3(){
+        ArrayList<Frame> fl = new ArrayList<>();
+        fl.add(new Frame(300,300,90,90,""));
+        fl.add(new Frame(10, 10, 50 , 50, ""));
+        fl.add(new Frame(70,70,180,180,""));
+        FrameLabel frameLabel = new FrameLabel(fl);
+
+        ArrayList<Frame> fl2 = new ArrayList<>();
+        fl2.add(new Frame(0,0,40,40,""));
+        fl2.add(new Frame(50,50,200,200,""));
+        fl2.add(new Frame(300,300,100,100,""));
+        FrameLabel sampleLabel = new FrameLabel(fl2);
+
+        double d = ((30.0*30.0)/(50.0*50.0) + (180.0*180.0)/(200.0*200.0) + (90.0*90.0)/(100.0*100.0))/3.0;
+        System.out.println(d);
+        Assert.assertEquals(d, frameLabelStatistics.accuracyOfLabel(frameLabel,sampleLabel), 0.0001);
     }
 
     @Test
-    public void getAccuracyOfFrame() {
+    public void sizeOfOverlappingArea1() {
         Frame sampleFrame = new Frame(10, 20, 100, 200, "tag");
         Frame frame1 = new Frame(15, 25, 100, 200, "tag");
+
+        double st1 = 95*195;
+
+        Assert.assertEquals(st1, frameLabelStatistics.sizeOfOverlappingArea(frame1,sampleFrame), 0.0001);
+    }
+    @Test
+    public void sizeOfOverlappingArea2() {
+        Frame sampleFrame = new Frame(10, 20, 100, 200, "tag");
         Frame frame2 = new Frame(20, 30, 100, 50, "tag");
 
-        double st1 = (frameLabelStatistics.squareOfEuclideanMetric(10,20,15,25) +
-                frameLabelStatistics.squareOfEuclideanMetric(10+100,20,15+100,25)+
-                frameLabelStatistics.squareOfEuclideanMetric(10,20+200,15,25+200)+
-                frameLabelStatistics.squareOfEuclideanMetric(10+100,20+200,15+100,25+200))/4.0;
+        double st2 = 90*50;
 
-        double st2 = (frameLabelStatistics.squareOfEuclideanMetric(10,20,20,30) +
-                frameLabelStatistics.squareOfEuclideanMetric(10+100,20,20+100,30) +
-                frameLabelStatistics.squareOfEuclideanMetric(10,20+200,20,30+50) +
-                frameLabelStatistics.squareOfEuclideanMetric(10+100,20+200,20+100,30+50))/4.0;
-
-        Assert.assertEquals(st1, frameLabelStatistics.getAccuracyOfFrame(sampleFrame, frame1), 0.0001);
-        Assert.assertEquals(st2, frameLabelStatistics.getAccuracyOfFrame(sampleFrame, frame2), 0.0001);
+        Assert.assertEquals(st2, frameLabelStatistics.sizeOfOverlappingArea(frame2,sampleFrame), 0.0001);
     }
-
     @Test
-    public void squareOfEuclideanMetric(){
-        Assert.assertEquals(Math.pow((10-20), 2) + Math.pow((30-40),2), frameLabelStatistics.squareOfEuclideanMetric(10,30, 20,40), 0.0001);
-        Assert.assertEquals(Math.pow((30-10), 2) + Math.pow((50-20),2), frameLabelStatistics.squareOfEuclideanMetric(30,50, 10,20), 0.0001);
+    public void sizeOfOverlappingArea3() {
+        Frame sampleFrame = new Frame(10, 20, 10, 20, "tag");
+        Frame frame = new Frame(30, 50, 10, 20, "tag");
+
+        double st = 0;
+
+        Assert.assertEquals(st, frameLabelStatistics.sizeOfOverlappingArea(frame,sampleFrame), 0.0001);
     }
 }
