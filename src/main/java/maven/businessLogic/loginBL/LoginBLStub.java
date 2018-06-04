@@ -10,6 +10,9 @@ import maven.exception.LoginException.RequestorLoginException;
 public class LoginBLStub implements LoginBLService{
     @Override
     public Exception login(Username username, Password password) {
-        return new RequestorLoginException(new UserId("161250092"));
+        if (username.value =="123")
+            return new RequestorLoginException(new UserId("161250092"));
+        else
+            return new WorkerLoginException(new UserId("test233"));
     }
 }
