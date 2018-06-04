@@ -42,8 +42,62 @@ new Vue({
                     alert("接受失败");
                 }
             });
-        }
-    },
+        },
+
+        upBytaskPrice:function(){
+           for(var i=0;i<availableTaskList.length-1;i++){
+             for(var j=i;j<availableTaskList.length;j++){
+                 if(availableTaskList[i].taskPrice<availableTaskList[j].taskPrice){
+                     var temp = availableTaskList[i];
+                     availableTaskList[i] =  availableTaskList[j];
+                     availableTaskList[j] = temp;
+                 }
+             }
+           }
+
+        },
+
+
+        downBytaskPrice:function () {
+            for(var i=0;i<availableTaskList.length-1;i++){
+                for(var j=i;j<availableTaskList.length;j++){
+                    if(availableTaskList[i].taskPrice>availableTaskList[j].taskPrice){
+                        var temp = availableTaskList[i];
+                        availableTaskList[i] =  availableTaskList[j];
+                        availableTaskList[j] = temp;
+                    }
+                }
+            }
+        },
+
+
+        upByImageNum:function(){
+            for(var i=0;i<availableTaskList.length-1;i++) {
+                for (var j = i; j < availableTaskList.length; j++) {
+                    if (availableTaskList[i].imageNum < availableTaskList[j].imageNum) {
+                        var temp = availableTaskList[i];
+                        availableTaskList[i] = availableTaskList[j];
+                        availableTaskList[j] = temp;
+                    }
+                }
+            }
+        },
+
+
+
+        downByImageNum:function(){
+            for(var i=0;i<availableTaskList.length-1;i++) {
+            for (var j = i; j < availableTaskList.length; j++) {
+                if (availableTaskList[i].imageNum > availableTaskList[j].imageNum) {
+                    var temp = availableTaskList[i];
+                    availableTaskList[i] = availableTaskList[j];
+                    availableTaskList[j] = temp;
+                }
+            }
+        }}
+
+
+    }
 });
 
 

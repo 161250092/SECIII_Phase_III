@@ -1,7 +1,8 @@
 new Vue({
     el:"#exchangeList",
     data:{
-
+        entertainmentList:[],
+        discount_couponList:[]
     },
 
 

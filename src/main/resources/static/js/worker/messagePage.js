@@ -3,7 +3,9 @@ new Vue({
     data:{
         userId:"",
         taskMessageInfo:[],
-        AttentionMessageInfo:[],
+        guyMessageInfo:[],
+        billMessageInfo:[],
+        achievementMessageInfo:[],
         IMAGE_LABEL_TYPE: "ImageLabel",
         FRAME_LABEL_TYPE: "FrameLabel",
         AREA_LABEL_TYPE: "AreaLabel"
