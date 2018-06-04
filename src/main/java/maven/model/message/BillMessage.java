@@ -1,9 +1,12 @@
 package maven.model.message;
 
 import maven.model.primitiveType.Cash;
+import maven.model.primitiveType.MessageId;
 import maven.model.primitiveType.UserId;
 
 public class BillMessage {
+    //消息Id
+    private MessageId messageId;
     //欲通知的用户Id
     private UserId userId;
     //账单类型
@@ -29,7 +32,12 @@ public class BillMessage {
         return cash;
     }
 
-    public BillMessage(UserId userId, BillType billType, BillReason billReason, Cash cash) {
+    public MessageId getMessageId() {
+        return messageId;
+    }
+
+    public BillMessage(MessageId messageId, UserId userId, BillType billType, BillReason billReason, Cash cash) {
+        this.messageId = messageId;
         this.userId = userId;
         this.billType = billType;
         this.billReason = billReason;

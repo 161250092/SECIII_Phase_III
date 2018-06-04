@@ -7,6 +7,8 @@ import maven.model.task.AcceptedTaskState;
  * 给工人看的任务通知信息
  */
 public class AcceptedTaskMessage {
+    //消息Id
+    private MessageId messageId;
     //欲通知的工人Id
     private UserId workerId;
     //任务Id
@@ -32,7 +34,12 @@ public class AcceptedTaskMessage {
         return acceptedTaskState;
     }
 
-    public AcceptedTaskMessage(UserId workerId, TaskId taskId, Cash cash, AcceptedTaskState acceptedTaskState) {
+    public MessageId getMessageId() {
+        return messageId;
+    }
+
+    public AcceptedTaskMessage(MessageId messageId, UserId workerId, TaskId taskId, Cash cash, AcceptedTaskState acceptedTaskState) {
+        this.messageId = messageId;
         this.workerId = workerId;
         this.taskId = taskId;
         this.cash = cash;
