@@ -25,9 +25,6 @@ abstract public class User implements Serializable{
     //威望值
     private Prestige prestige;
 
-    //用户等级
-    private UserLevel userLevel;
-
     public User(UserId userId, Username username, Password password, Email email, Phone phone, Cash cash, Prestige prestige) {
         this.userId = userId;
         this.username = username;
@@ -64,10 +61,6 @@ abstract public class User implements Serializable{
 
     public Prestige getPrestige() {
         return prestige;
-    }
-
-    public UserLevel getUserLevel() {
-        return userLevel;
     }
 
     public void setPassword(Password password) {
