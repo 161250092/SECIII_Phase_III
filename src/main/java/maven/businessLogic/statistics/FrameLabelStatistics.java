@@ -36,8 +36,9 @@ public class FrameLabelStatistics {
                 double ratioOfOverlappingAreaToFrame = overlappingArea / frameArea;
                 double ratioOfOverlappingAreaToSampleFrame = overlappingArea / sampleFrameArea;
 
-                frameAccuracy = (frameAccuracy < Math.min(ratioOfOverlappingAreaToFrame, ratioOfOverlappingAreaToSampleFrame)) ?
-                        Math.min(ratioOfOverlappingAreaToFrame, ratioOfOverlappingAreaToSampleFrame) : frameAccuracy;
+                double estimator = Math.pow(Math.min(ratioOfOverlappingAreaToFrame, ratioOfOverlappingAreaToSampleFrame), 0.5);
+
+                frameAccuracy = (frameAccuracy < estimator) ? estimator : frameAccuracy;
             }
             totalAccuracy += frameAccuracy;
         }

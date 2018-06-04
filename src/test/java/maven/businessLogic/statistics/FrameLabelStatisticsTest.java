@@ -26,7 +26,9 @@ public class FrameLabelStatisticsTest {
         fl2.add(new Frame(300,300,100,100,""));
         FrameLabel sampleLabel = new FrameLabel(fl2);
 
-        double d = ((30.0*30.0)/(50.0*50.0) + (10.0*10.0)/(200.0*200.0))/3.0;
+        //double d = ((30.0*30.0)/(50.0*50.0) + (10.0*10.0)/(200.0*200.0))/3.0;
+        double d = (30.0/50.0 + 10.0/200.0)/3.0;
+        System.out.println(d);
         Assert.assertEquals(d, frameLabelStatistics.accuracyOfLabel(frameLabel,sampleLabel), 0.0001);
     }
     @Test
@@ -43,7 +45,9 @@ public class FrameLabelStatisticsTest {
         fl2.add(new Frame(300,300,100,100,""));
         FrameLabel sampleLabel = new FrameLabel(fl2);
 
-        double d = ((30.0*30.0)/(50.0*50.0) + (180.0*180.0)/(200.0*200.0))/3.0;
+        //double d = ((30.0*30.0)/(50.0*50.0) + (180.0*180.0)/(200.0*200.0))/3.0;
+        double d = (30.0/50.0 + 180.0/200.0)/3.0;
+        System.out.println(d);
         Assert.assertEquals(d, frameLabelStatistics.accuracyOfLabel(frameLabel,sampleLabel), 0.0001);
     }
     @Test
@@ -60,7 +64,8 @@ public class FrameLabelStatisticsTest {
         fl2.add(new Frame(300,300,100,100,""));
         FrameLabel sampleLabel = new FrameLabel(fl2);
 
-        double d = ((30.0*30.0)/(50.0*50.0) + (180.0*180.0)/(200.0*200.0) + (90.0*90.0)/(100.0*100.0))/3.0;
+        //double d = ((30.0*30.0)/(50.0*50.0) + (180.0*180.0)/(200.0*200.0) + (90.0*90.0)/(100.0*100.0))/3.0;
+        double d = (30.0/50.0 + 180.0/200.0 + 90.0/100.0)/3.0;
         System.out.println(d);
         Assert.assertEquals(d, frameLabelStatistics.accuracyOfLabel(frameLabel,sampleLabel), 0.0001);
     }
