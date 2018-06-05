@@ -8,7 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FrameLabelStatistics {
+    /**
+     * 获得方框标注的准确性
+     * @param frameLabelList 工人的标注中对于养不的部分
+     * @param sampleFrameLabelList 样本标注
+     * @return 标注的准确性
+     */
     public double accuracyOfTask(List<FrameLabel> frameLabelList, List<FrameLabel> sampleFrameLabelList){
+        if(frameLabelList.size() != sampleFrameLabelList.size()){
+            System.out.println("传入的两个标注列表长度不同，无法获得准确度");
+            return -1;
+        }
+
         double totalAccuracy = 0;
 
         for (int i = 0; i < sampleFrameLabelList.size(); i++){
