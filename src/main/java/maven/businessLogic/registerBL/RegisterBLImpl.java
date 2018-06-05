@@ -41,7 +41,7 @@ public class RegisterBLImpl implements RegisterBLService {
         String id = String.format("%08d", numberOfUser);
         UserId userId = new UserId(id);
         Requestor requestor = new Requestor(userId, username, password, email, phone, new Cash(0), new Prestige(60), new TaskNum(5));
-        if(userDataService.saveUserInfo(requestor))
+        if(userDataService.saveRequestorInfo(requestor))
             return new RegisterSuccessException(id);
         else
             return new FailureException();
@@ -58,7 +58,7 @@ public class RegisterBLImpl implements RegisterBLService {
         String id = String.format("%08d", numberOfUser);
         UserId userId = new UserId(id);
         Worker worker = new Worker(userId, username, password, email, phone, new Cash(0), new Prestige(60), new TaskNum(5));
-        if(userDataService.saveUserInfo(worker))
+        if(userDataService.saveWorkerInfo(worker))
             return new RegisterSuccessException(id);
         else
             return new FailureException();
