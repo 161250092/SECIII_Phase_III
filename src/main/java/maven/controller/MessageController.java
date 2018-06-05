@@ -43,9 +43,9 @@ public class MessageController {
      * @param messageId 消息Id
      * @return 后台处理结果
      */
-    @RequestMapping(value = "/message/confirmRequestorTaskMessage", method = RequestMethod.GET)
-    public boolean confirmRequestorTaskMessage(String messageId){
-        return messageBLService.confirmRequestorTaskMessage(new MessageId(messageId));
+    @RequestMapping(value = "/message/checkRequestorTaskMessage", method = RequestMethod.GET)
+    public boolean checkRequestorTaskMessage(String messageId){
+        return messageBLService.checkRequestorTaskMessage(new MessageId(messageId));
     }
 
     /**
@@ -53,9 +53,9 @@ public class MessageController {
      * @param messageId 消息Id
      * @return 后台处理结果
      */
-    @RequestMapping(value = "/message/confirmWorkerTaskMessage", method = RequestMethod.GET)
-    public boolean confirmWorkerTaskMessage(String messageId){
-        return messageBLService.confirmWorkerTaskMessage(new MessageId(messageId));
+    @RequestMapping(value = "/message/checkWorkerTaskMessage", method = RequestMethod.GET)
+    public boolean checkWorkerTaskMessage(String messageId){
+        return messageBLService.checkWorkerTaskMessage(new MessageId(messageId));
     }
 
     /**
@@ -63,9 +63,9 @@ public class MessageController {
      * @param messageId 消息Id
      * @return 后台处理结果
      */
-    @RequestMapping(value = "/message/confirmGuyMessage", method = RequestMethod.GET)
-    public boolean confirmGuyMessage(String messageId){
-        return messageBLService.confirmGuyMessage(new MessageId(messageId));
+    @RequestMapping(value = "/message/checkGuyMessage", method = RequestMethod.GET)
+    public boolean checkGuyMessage(String messageId){
+        return messageBLService.checkGuyMessage(new MessageId(messageId));
     }
 
     /**
@@ -73,9 +73,9 @@ public class MessageController {
      * @param messageId 消息Id
      * @return 后台处理结果
      */
-    @RequestMapping(value = "/message/confirmBillMessage", method = RequestMethod.GET)
-    public boolean confirmBillMessage(String messageId){
-        return messageBLService.confirmBillMessage(new MessageId(messageId));
+    @RequestMapping(value = "/message/checkBillMessage", method = RequestMethod.GET)
+    public boolean checkBillMessage(String messageId){
+        return messageBLService.checkBillMessage(new MessageId(messageId));
     }
 
     /**
@@ -83,8 +83,8 @@ public class MessageController {
      * @param messageId 消息Id
      * @return 后台处理结果
      */
-    @RequestMapping(value = "/message/confirmAchievementMessage", method = RequestMethod.GET)
-    public boolean confirmAchievementMessage(String messageId){
-        return messageBLService.confirmAchievementMessage(new MessageId(messageId));
+    @RequestMapping(value = "/message/checkAchievementMessage", method = RequestMethod.GET)
+    public boolean checkAchievementMessage(String messageId){
+        return messageBLService.checkAchievementMessage(new MessageId(messageId));
     }
 }

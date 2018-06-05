@@ -3,7 +3,6 @@ package maven.businessLogic.messageBL;
 import maven.model.message.RequestorMessage;
 import maven.model.message.WorkerMessage;
 import maven.model.primitiveType.MessageId;
-import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
 
 public interface MessageBLService {
@@ -27,33 +26,33 @@ public interface MessageBLService {
      * @param messageId 消息Id
      * @return 后台处理结果
      */
-    boolean confirmRequestorTaskMessage(MessageId messageId);
+    boolean checkRequestorTaskMessage(MessageId messageId);
 
     /**
      * 工人确认任务消息
      * @param messageId 消息Id
      * @return 后台处理结果
      */
-    boolean confirmWorkerTaskMessage(MessageId messageId);
+    boolean checkWorkerTaskMessage(MessageId messageId);
 
     /**
      * 工人确认关注消息
      * @param messageId 消息Id
      * @return 后台处理结果
      */
-    boolean confirmGuyMessage(MessageId messageId);
+    boolean checkGuyMessage(MessageId messageId);
 
     /**
      * 用户确认账单消息
      * @param messageId 消息Id
      * @return 后台处理结果
      */
-    boolean confirmBillMessage(MessageId messageId);
+    boolean checkBillMessage(MessageId messageId);
 
     /**
      * 用户确认成就消息
      * @param messageId 消息Id
      * @return 后台处理结果
      */
-    boolean confirmAchievementMessage(MessageId messageId);
+    boolean checkAchievementMessage(MessageId messageId);
 }

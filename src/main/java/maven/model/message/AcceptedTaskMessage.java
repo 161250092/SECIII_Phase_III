@@ -18,7 +18,7 @@ public class AcceptedTaskMessage {
     //审批后的任务状态
     private AcceptedTaskState acceptedTaskState;
     //是否被用户确认查看过
-    private boolean isConfirmed;
+    private boolean isChecked;
 
     public UserId getWorkerId() {
         return workerId;
@@ -40,8 +40,8 @@ public class AcceptedTaskMessage {
         return messageId;
     }
 
-    public boolean isConfirmed() {
-        return isConfirmed;
+    public boolean isChecked() {
+        return isChecked;
     }
 
     public AcceptedTaskMessage(MessageId messageId, UserId workerId, TaskId taskId, Cash cash, AcceptedTaskState acceptedTaskState) {
@@ -50,6 +50,6 @@ public class AcceptedTaskMessage {
         this.taskId = taskId;
         this.cash = cash;
         this.acceptedTaskState = acceptedTaskState;
-        this.isConfirmed = false;
+        this.isChecked = false;
     }
 }

@@ -16,7 +16,7 @@ public class GuyMessage {
     //工人完成该发布者后获得的金额
     private Cash cash;
     //是否被工人确认查看过
-    private boolean isConfirmed;
+    private boolean isChecked;
 
     public MessageId getMessageId() {
         return messageId;
@@ -42,8 +42,8 @@ public class GuyMessage {
         return cash;
     }
 
-    public boolean isConfirmed() {
-        return isConfirmed;
+    public boolean isChecked() {
+        return isChecked;
     }
 
     public GuyMessage(MessageId messageId, UserId workerId, UserId requestorId, Username requestorName, TaskId taskId, Cash cash) {
@@ -53,6 +53,6 @@ public class GuyMessage {
         this.requestorName = requestorName;
         this.taskId = taskId;
         this.cash = cash;
-        this.isConfirmed = false;
+        this.isChecked = false;
     }
 }

@@ -17,27 +17,27 @@ public class MessageBLStub implements MessageBLService {
     }
 
     @Override
-    public boolean confirmRequestorTaskMessage(MessageId messageId) {
+    public boolean checkRequestorTaskMessage(MessageId messageId) {
         return false;
     }
 
     @Override
-    public boolean confirmWorkerTaskMessage(MessageId messageId) {
+    public boolean checkWorkerTaskMessage(MessageId messageId) {
         return false;
     }
 
     @Override
-    public boolean confirmGuyMessage(MessageId messageId) {
+    public boolean checkGuyMessage(MessageId messageId) {
         return false;
     }
 
     @Override
-    public boolean confirmBillMessage(MessageId messageId) {
+    public boolean checkBillMessage(MessageId messageId) {
         return false;
     }
 
     @Override
-    public boolean confirmAchievementMessage(MessageId messageId) {
+    public boolean checkAchievementMessage(MessageId messageId) {
         return false;
     }
 }

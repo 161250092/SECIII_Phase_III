@@ -19,7 +19,7 @@ public class PublishedTaskMessage {
     //需要支付的金额
     private Cash cash;
     //是否被工人确认查看过
-    private boolean isConfirmed;
+    private boolean isChecked;
 
     public MessageId getMessageId() {
         return messageId;
@@ -45,8 +45,8 @@ public class PublishedTaskMessage {
         return cash;
     }
 
-    public boolean isConfirmed() {
-        return isConfirmed;
+    public boolean isChecked() {
+        return isChecked;
     }
 
     public PublishedTaskMessage(MessageId messageId, UserId requestorId, TaskId taskId, UserId workerId, Username workerName, Cash cash) {
@@ -56,7 +56,7 @@ public class PublishedTaskMessage {
         this.workerId = workerId;
         this.workerName = workerName;
         this.cash = cash;
-        this.isConfirmed = false;
+        this.isChecked = false;
     }
 
 }
