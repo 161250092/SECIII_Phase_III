@@ -15,6 +15,8 @@ public class BillMessage {
     private BillReason billReason;
     //流动的金额
     private Cash cash;
+    //是否被用户确认查看过
+    boolean isConfirmed;
 
     public UserId getUserId() {
         return userId;
@@ -36,11 +38,16 @@ public class BillMessage {
         return messageId;
     }
 
+    public boolean isConfirmed() {
+        return isConfirmed;
+    }
+
     public BillMessage(MessageId messageId, UserId userId, BillType billType, BillReason billReason, Cash cash) {
         this.messageId = messageId;
         this.userId = userId;
         this.billType = billType;
         this.billReason = billReason;
         this.cash = cash;
+        this.isConfirmed = false;
     }
 }

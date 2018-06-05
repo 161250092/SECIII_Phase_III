@@ -18,6 +18,8 @@ public class PublishedTaskMessage {
     private Username workerName;
     //需要支付的金额
     private Cash cash;
+    //是否被工人确认查看过
+    boolean isConfirmed;
 
     public MessageId getMessageId() {
         return messageId;
@@ -43,6 +45,10 @@ public class PublishedTaskMessage {
         return cash;
     }
 
+    public boolean isConfirmed() {
+        return isConfirmed;
+    }
+
     public PublishedTaskMessage(MessageId messageId, UserId requestorId, TaskId taskId, UserId workerId, Username workerName, Cash cash) {
         this.messageId = messageId;
         this.requestorId = requestorId;
@@ -50,6 +56,7 @@ public class PublishedTaskMessage {
         this.workerId = workerId;
         this.workerName = workerName;
         this.cash = cash;
+        this.isConfirmed = false;
     }
 
 }

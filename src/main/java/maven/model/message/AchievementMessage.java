@@ -10,6 +10,8 @@ public class AchievementMessage {
     private UserId userId;
     //达成的成就
     private Achievement achievement;
+    //是否被用户确认查看过
+    boolean isConfirmed;
 
     public UserId getUserId() {
         return userId;
@@ -24,9 +26,14 @@ public class AchievementMessage {
         return messageId;
     }
 
+    public boolean isConfirmed() {
+        return isConfirmed;
+    }
+
     public AchievementMessage(MessageId messageId, UserId userId, Achievement achievement) {
         this.messageId = messageId;
         this.userId = userId;
         this.achievement = achievement;
+        this.isConfirmed = false;
     }
 }
