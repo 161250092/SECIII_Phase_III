@@ -31,10 +31,17 @@ public interface UserDataService {
 
     /**
      * 注册：保存用户信息
-     * @param user：用户信息
+     * @param requestor：用户信息
      * @return
      */
-    boolean saveUserInfo(User user);
+    boolean saverequestorInfo(Requestor requestor);
+
+    /**
+     *注册：保存工人信息
+     * @param worker
+     * @return
+     */
+    boolean saveWorkerInfo(Worker worker);
 
     /**
      * 获取所有信息
@@ -43,7 +50,7 @@ public interface UserDataService {
      List<UserId> getAllUserIdList();
 
     /**
-     * 根据用户名获取用户Id
+     * 根据用户名获取用户Id，用户、工人
      * @param username 用户名
      * @return 用户Id
      */

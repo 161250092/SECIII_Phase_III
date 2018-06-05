@@ -5,8 +5,8 @@ import java.sql.*;
 public class MySQLConnector{
 
     // JDBC 驱动名及数据库 URL
-    static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static String DB_URL = "jdbc:mysql://localhost:3306/";
+    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    private String DB_URL = "jdbc:mysql://localhost:3306/";
 
     // 数据库的用户名与密码
     static final String USER = "root";
@@ -23,20 +23,6 @@ public class MySQLConnector{
             // 打开链接
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
-            System.out.println("连接数据库...");
-
-            // 执行查询
-//            System.out.println(" 实例化Statement对象...");
-//            stmt = conn.createStatement();
-//            String sql;
-//            sql = "insert into websites values ('7', '菜鸟教程', 'http://www.runoob.com', '5892', '')";
-//
-//            stmt.executeQuery(sql);
-//
-//            stmt.close();
-//            stmt.close();
-
-            //conn.close();
         }catch(SQLException se){
             // 处理 JDBC 错误
             se.printStackTrace();
