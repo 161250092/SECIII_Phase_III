@@ -16,7 +16,7 @@ public class GuyMessage {
     //工人完成该发布者后获得的金额
     private Cash cash;
     //是否被工人确认查看过
-    boolean isConfirmed;
+    private boolean isConfirmed;
 
     public MessageId getMessageId() {
         return messageId;

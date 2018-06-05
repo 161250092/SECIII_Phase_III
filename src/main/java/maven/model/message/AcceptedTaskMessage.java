@@ -18,7 +18,7 @@ public class AcceptedTaskMessage {
     //审批后的任务状态
     private AcceptedTaskState acceptedTaskState;
     //是否被用户确认查看过
-    boolean isConfirmed;
+    private boolean isConfirmed;
 
     public UserId getWorkerId() {
         return workerId;

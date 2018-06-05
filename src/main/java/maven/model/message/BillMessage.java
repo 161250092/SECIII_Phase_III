@@ -16,7 +16,7 @@ public class BillMessage {
     //流动的金额
     private Cash cash;
     //是否被用户确认查看过
-    boolean isConfirmed;
+    private boolean isConfirmed;
 
     public UserId getUserId() {
         return userId;

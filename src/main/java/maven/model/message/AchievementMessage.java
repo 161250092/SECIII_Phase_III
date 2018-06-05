@@ -11,7 +11,7 @@ public class AchievementMessage {
     //达成的成就
     private Achievement achievement;
     //是否被用户确认查看过
-    boolean isConfirmed;
+    private boolean isConfirmed;
 
     public UserId getUserId() {
         return userId;
