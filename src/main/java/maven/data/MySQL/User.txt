@@ -1,0 +1,32 @@
+create Database User;
+
+use User;
+
+create table Admin(
+UserId varchar(20),
+UserName varchar(20),
+Password varchar(20)
+);
+
+create table Worker(
+UserId varchar(20),
+UserName varchar(20),
+Password varchar(20),
+Email varchar(30),
+Phone varchar(20),
+Cash double precision,
+Prestige double precision,
+TaskNum integer
+);
+
+create table Requestor(
+UserId varchar(20),
+UserName varchar(20),
+Password varchar(20),
+Email varchar(30),
+Phone varchar(20),
+Cash double precision,
+Prestige double precision,
+TaskNum integer
+);
+
