@@ -1,0 +1,27 @@
+create database Label;
+
+create table iLabel(
+UserId varchar(20),
+TaskId varchar(100),
+Number integer,
+Type varchar(30),
+Content varchar(100)
+),
+
+create table aLabel(
+UserId varchar(20),
+TaskId varchar(100),
+Number integer,
+Type varchar(30),
+aNumber integer,
+Content varchar(1000)
+);
+
+create table fLabel(
+UserId varchar(20),
+TaskId varchar(100),
+Number integer,
+Type varchar(30),
+fNumber integer,
+Content varchar(1000),
+);

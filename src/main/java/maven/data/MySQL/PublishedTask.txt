@@ -1,0 +1,34 @@
+create database PublishedTask;
+
+create table PublishedTask(
+UserId varchar(20),
+TaskId varchar(100),
+LabelType varchar(30),
+Description varchar(1000),
+aWorkerNum integer,
+fWorkerNum integer,
+State varchar(20)
+);
+
+create table Sample(
+UserId varchar(20),
+TaskId varchar(100),
+Num integer,
+Index varchar(100)
+);
+
+create table FileName(
+TaskId varchar(100),
+Number integer,
+value varchar(100)
+);
+
+create table Detail(
+TaskId varchar(100),
+Number integer,
+Date varchar(100),
+WorkerNum integer,
+Cash double precision
+);
+
+
