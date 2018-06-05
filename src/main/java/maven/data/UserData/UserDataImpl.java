@@ -1,6 +1,5 @@
 package maven.data.UserData;
 
-import com.mysql.jdbc.MySQLConnection;
 import maven.data.MySQL.MySQLConnector;
 import maven.model.primitiveType.*;
 import maven.model.user.Requestor;
@@ -11,7 +10,6 @@ import maven.model.user.Worker;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.*;
 
 public class UserDataImpl implements UserDataService{
@@ -146,7 +144,7 @@ public class UserDataImpl implements UserDataService{
     }
 
     @Override
-    public boolean saverequestorInfo(Requestor requestor) {
+    public boolean saveRequestorInfo(Requestor requestor) {
         boolean result = false;
 
         PreparedStatement stmt = null;

@@ -34,7 +34,7 @@ public interface UserDataService {
      * @param requestor：用户信息
      * @return
      */
-    boolean saverequestorInfo(Requestor requestor);
+    boolean saveRequestorInfo(Requestor requestor);
 
     /**
      *注册：保存工人信息
