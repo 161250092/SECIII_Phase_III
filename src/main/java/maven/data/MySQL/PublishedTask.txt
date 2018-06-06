@@ -28,6 +28,7 @@ TaskId varchar(100),
 Number integer,
 Date varchar(100),
 WorkerNum integer,
+Discount varchar(100),
 Cash double precision
 );
 

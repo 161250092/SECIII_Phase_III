@@ -4,7 +4,6 @@ import maven.data.MySQL.MySQLConnector;
 import maven.model.primitiveType.*;
 import maven.model.user.Requestor;
 import maven.model.user.User;
-import maven.model.user.UserLevel;
 import maven.model.user.Worker;
 
 import java.sql.Connection;
@@ -14,15 +13,17 @@ import java.util.*;
 
 public class UserDataImpl implements UserDataService{
 
-    private Connection conn = new MySQLConnector().getConnection("User");
+    private Connection conn;
 
     @Override
     public List<Username> getAllUsernameList() {
-        List<Username> userName = new ArrayList<Username>();
+        conn = new MySQLConnector().getConnection("User");
 
-        PreparedStatement stmt = null;
-        String sql = null;
-        ResultSet rs = null;
+        List<Username> userName = new ArrayList<>();
+
+        PreparedStatement stmt;
+        String sql;
+        ResultSet rs;
         try{
 
             sql = "select Username from Admin";
@@ -43,6 +44,7 @@ public class UserDataImpl implements UserDataService{
         try{
 
             sql = "select Username from Requstor";
+            stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery(sql);
 
             while(rs.next()){
@@ -55,16 +57,19 @@ public class UserDataImpl implements UserDataService{
             e.printStackTrace();
         }
 
-        try{
+        try {
             sql = "select Username from Workrer";
+            stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery(sql);
 
-            while(rs.next()){
+            while (rs.next()) {
                 Username temp = new Username(rs.getString("Username"));
                 userName.add(temp);
             }
 
             stmt.close();
+            conn.close();
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -74,11 +79,13 @@ public class UserDataImpl implements UserDataService{
 
     @Override
     public List<Worker> getAllWorker() {
-        List<Worker> workers = new ArrayList<Worker>();
+        conn = new MySQLConnector().getConnection("User");
 
-        PreparedStatement stmt = null;
-        String sql = null;
-        ResultSet rs = null;
+        List<Worker> workers = new ArrayList<>();
+
+        PreparedStatement stmt;
+        String sql;
+        ResultSet rs;
 
         try{
             sql = "select * from Worker";
@@ -110,11 +117,13 @@ public class UserDataImpl implements UserDataService{
 
     @Override
     public List<Requestor> getAllRequestor() {
-        List<Requestor> requestors = new ArrayList<Requestor>();
+        conn = new MySQLConnector().getConnection("User");
 
-        PreparedStatement stmt = null;
-        String sql = null;
-        ResultSet rs = null;
+        List<Requestor> requestors = new ArrayList<>();
+
+        PreparedStatement stmt;
+        String sql;
+        ResultSet rs;
 
         try{
             sql = "select * from Requestor";
@@ -145,10 +154,12 @@ public class UserDataImpl implements UserDataService{
 
     @Override
     public boolean saveRequestorInfo(Requestor requestor) {
+        conn = new MySQLConnector().getConnection("User");
+
         boolean result = false;
 
-        PreparedStatement stmt = null;
-        String sql = null;
+        PreparedStatement stmt;
+        String sql;
 
         try{
             sql = "insert into Requestor values (?,?,?,?,?,?,?,?)";
@@ -158,7 +169,7 @@ public class UserDataImpl implements UserDataService{
             stmt.setString(2,requestor.getUsername().value);
             stmt.setString(3,requestor.getPassword().value);
             stmt.setString(4,requestor.getEmail().address);
-            stmt.setString(5,requestor.getPassword().value);
+            stmt.setString(5,requestor.getPhone().number);
             stmt.setDouble(6,requestor.getCash().value);
             stmt.setDouble(7,requestor.getPrestige().value);
             stmt.setInt(8,requestor.getMaxPublishedTaskNum().value);
@@ -178,13 +189,15 @@ public class UserDataImpl implements UserDataService{
 
     @Override
     public boolean saveWorkerInfo(Worker worker) {
+        conn = new MySQLConnector().getConnection("User");
+
         boolean result = false;
 
-        PreparedStatement stmt = null;
-        String sql = null;
+        PreparedStatement stmt;
+        String sql;
 
         try{
-            sql = "insert into Worker";
+            sql = "insert into Worker values (?,?,?,?,?,?,?,?)";
             stmt = conn.prepareStatement(sql);
 
             stmt.setString(1,worker.getUserId().value);
@@ -212,11 +225,13 @@ public class UserDataImpl implements UserDataService{
 
     @Override
     public List<UserId> getAllUserIdList() {
-        List<UserId> userIds = new ArrayList<UserId>();
+        conn = new MySQLConnector().getConnection("User");
 
-        PreparedStatement stmt = null;
-        String sql = null;
-        ResultSet rs = null;
+        List<UserId> userIds = new ArrayList<>();
+
+        PreparedStatement stmt;
+        String sql;
+        ResultSet rs;
 
         try{
             sql = "select UserId from Admin";
@@ -228,6 +243,12 @@ public class UserDataImpl implements UserDataService{
                 userIds.add(userId);
             }
 
+            stmt.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try{
             sql = "select UserId from Worker";
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery(sql);
@@ -237,6 +258,12 @@ public class UserDataImpl implements UserDataService{
                 userIds.add(userId);
             }
 
+            stmt.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try{
             sql = "select UserId from Requestor";
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery(sql);
@@ -257,11 +284,13 @@ public class UserDataImpl implements UserDataService{
 
     @Override
     public UserId getUserId(Username username) {
+        conn = new MySQLConnector().getConnection("User");
+
         UserId result = null;
 
-        PreparedStatement stmt = null;
-        String sql = null;
-        ResultSet rs = null;
+        PreparedStatement stmt;
+        String sql;
+        ResultSet rs;
 
         try{
             sql = "select UserId from Worker where Username = ?";
@@ -274,6 +303,13 @@ public class UserDataImpl implements UserDataService{
             while(rs.next()){
                 result = new UserId(rs.getString("UserId"));
             }
+
+            stmt.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try{
 
             sql = "select UserId from Requestor where Username = ?";
             stmt = conn.prepareStatement(sql);
@@ -296,11 +332,13 @@ public class UserDataImpl implements UserDataService{
 
     @Override
     public User getUserByUserId(UserId userId) {
+        conn = new MySQLConnector().getConnection("User");
+
         User result = null;
 
-        PreparedStatement stmt = null;
-        String sql = null;
-        ResultSet rs = null;
+        PreparedStatement stmt;
+        String sql;
+        ResultSet rs;
 
         try{
             sql = "select * from Worker where UserId = ?";
@@ -321,6 +359,13 @@ public class UserDataImpl implements UserDataService{
 
                 result = new Worker(userId,username,password,email,phone,cash,prestige,taskNum);
             }
+
+            stmt.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try{
 
             sql = "select * from Requestor where UserId = ?";
 
@@ -351,15 +396,87 @@ public class UserDataImpl implements UserDataService{
 
     @Override
     public boolean reviseUserEmail(UserId userId, Email email) {
+        conn = new MySQLConnector().getConnection("User");
+
         boolean result = false;
 
-        PreparedStatement stmt = null;
-        String sql = null;
+        PreparedStatement stmt;
+        String sql;
 
         try{
-            sql = "revise Email = ? from  Worker where UserId = ?";
+            sql = "update Worker set  Email = ? where UserId = ?";
             stmt = conn.prepareStatement(sql);
 
+            stmt.setString(1,email.address);
+            stmt.setString(2,userId.value);
+
+            stmt.executeUpdate();
+
+            stmt.close();
+
+            result = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try{
+            sql = "update Requestor set  Email = ? where UserId = ?";
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1,email.address);
+            stmt.setString(2,userId.value);
+
+            stmt.executeUpdate();
+
+            stmt.close();
+            conn.close();
+
+            result = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    @Override
+    public boolean reviseUserPhone(UserId userId, Phone phone) {
+        conn = new MySQLConnector().getConnection("User");
+
+        boolean result = false;
+
+        PreparedStatement stmt;
+        String sql;
+
+        try{
+            sql = "update Worker set Phone = ? where UserId = ?";
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1,phone.number);
+            stmt.setString(2,userId.value);
+
+            stmt.executeUpdate();
+
+            stmt.close();
+
+            result = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try{
+            sql = "update Requestor set Phone = ? where UserId = ?";
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1,phone.number);
+            stmt.setString(2,userId.value);
+
+            stmt.executeUpdate();
+
+            stmt.close();
+            conn.close();
+
+            result = true;
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -369,17 +486,94 @@ public class UserDataImpl implements UserDataService{
     }
 
     @Override
-    public boolean reviseUserPhone(UserId userId, Phone phone) {
-        return false;
-    }
-
-    @Override
     public boolean reviseCash(UserId userId, Cash cash) {
-        return false;
+        conn = new MySQLConnector().getConnection("User");
+
+        boolean result = false;
+
+        PreparedStatement stmt;
+        String sql;
+
+        try{
+            sql = "update Worker set Cash = ? where UserId = ?";
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setDouble(1,cash.value);
+            stmt.setString(2,userId.value);
+
+            stmt.executeUpdate();
+
+            stmt.close();
+
+            result = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try{
+            sql = "update Requestor set Cash = ? where UserId = ?";
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setDouble(1,cash.value);
+            stmt.setString(2,userId.value);
+
+            stmt.executeUpdate();
+
+            stmt.close();
+            conn.close();
+
+            result = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        return result;
     }
 
     @Override
-    public boolean revisePrestige(UserId userId, UserLevel userLevel, Prestige prestige) {
-        return false;
+    public boolean revisePrestige(UserId userId, Prestige prestige) {
+        conn = new MySQLConnector().getConnection("User");
+
+        boolean result = false;
+
+        PreparedStatement stmt;
+        String sql;
+
+        try{
+            sql = "update Worker set Prestige = ? where UserId = ?";
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setDouble(1,prestige.value);
+            stmt.setString(2,userId.value);
+
+            stmt.executeUpdate();
+
+            stmt.close();
+
+            result = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try{
+            sql = "update Requestor set Prestige = ? where UserId = ?";
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setDouble(1,prestige.value);
+            stmt.setString(2,userId.value);
+
+            stmt.executeUpdate();
+
+            stmt.close();
+            conn.close();
+
+            result = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        return result;
     }
 }

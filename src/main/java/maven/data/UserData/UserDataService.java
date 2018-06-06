@@ -3,7 +3,6 @@ package maven.data.UserData;
 import maven.model.primitiveType.*;
 import maven.model.user.Requestor;
 import maven.model.user.User;
-import maven.model.user.UserLevel;
 import maven.model.user.Worker;
 
 import java.util.List;
@@ -32,14 +31,14 @@ public interface UserDataService {
     /**
      * 注册：保存用户信息
      * @param requestor：用户信息
-     * @return
+     * @return 是否保存
      */
     boolean saveRequestorInfo(Requestor requestor);
 
     /**
      *注册：保存工人信息
-     * @param worker
-     * @return
+     * @param worker 工人信息
+     * @return 是否保存
      */
     boolean saveWorkerInfo(Worker worker);
 
@@ -65,24 +64,24 @@ public interface UserDataService {
 
     /**'
      * 修改用户电子邮件
-     * @param userId
-     * @param email
+     * @param userId 用户ID
+     * @param email 电子邮件
      * @return 修改是否成功
      */
      boolean reviseUserEmail(UserId userId, Email email);
 
     /**'
      * 修改用户电话号码
-     * @param userId
-     * @param phone
+     * @param userId 用户ID
+     * @param phone 电话号码
      * @return 修改是否成功
      */
      boolean reviseUserPhone(UserId userId, Phone phone);
 
     /**
      * 修改用户现金
-     * @param userId
-     * @param cash
+     * @param userId 用户ID
+     * @param cash 修改后的值
      * @return 修改是否成功
      */
      boolean reviseCash(UserId userId, Cash cash);
@@ -90,8 +89,8 @@ public interface UserDataService {
     /**
      * 修改用户声望
      * 并根据声望修改用户等级、权限
-     * @param userId
+     * @param userId 用户ID
      * @return 修改是否成功
      */
-     boolean revisePrestige(UserId userId, UserLevel userLevel,Prestige prestige);
+     boolean revisePrestige(UserId userId,Prestige prestige);
 }

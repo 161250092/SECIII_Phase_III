@@ -6,5 +6,6 @@ TaskId varchar(100),
 Date varchar(100),
 Cash double precision,
 State varchar(20),
+Discount varchar(100),
 Score double precision
 );
