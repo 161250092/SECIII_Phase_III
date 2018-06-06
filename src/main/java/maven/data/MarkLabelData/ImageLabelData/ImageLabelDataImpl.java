@@ -13,7 +13,7 @@ public class ImageLabelDataImpl implements ImageLabelDataService {
     }
 
     @Override
-    public boolean deleteLable(UserId userId, TaskId taskId) {
+    public boolean deleteLabel(UserId userId, TaskId taskId) {
         return false;
     }
 

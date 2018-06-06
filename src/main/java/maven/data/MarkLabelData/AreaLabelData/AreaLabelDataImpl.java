@@ -13,7 +13,7 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
     }
 
     @Override
-    public boolean deleteLable(UserId userId, TaskId taskId) {
+    public boolean deleteLabel(UserId userId, TaskId taskId) {
         return false;
     }
 

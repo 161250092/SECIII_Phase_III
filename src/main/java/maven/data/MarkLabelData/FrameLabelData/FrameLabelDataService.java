@@ -22,7 +22,7 @@ public interface FrameLabelDataService {
      * @param taskId 任务Id
      * @return 是否删除成功
      */
-    boolean deleteLable(UserId userId, TaskId taskId);
+    boolean deleteLabel(UserId userId, TaskId taskId);
 
     /**
      * 获取标注信息
