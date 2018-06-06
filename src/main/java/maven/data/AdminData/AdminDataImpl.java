@@ -1,16 +1,17 @@
 package maven.data.AdminData;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import maven.data.MySQL.MySQLConnector;
-import maven.model.primitiveType.Password;
-import maven.model.primitiveType.UserId;
-import maven.model.primitiveType.Username;
-import maven.model.task.PublishedTask;
+import maven.model.primitiveType.*;
+import maven.model.task.*;
 import maven.model.user.Admin;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AdminDataImpl implements AdminDataService {
@@ -18,7 +19,85 @@ public class AdminDataImpl implements AdminDataService {
 
     @Override
     public List<PublishedTask> getAllPublishedTask() {
-        return null;
+        conn = new MySQLConnector().getConnection("PublishedTask");
+        List<PublishedTask> publishedTasks = new ArrayList<>();
+
+        //查询任务基本信息
+        PreparedStatement stmtP;
+        String sqlP;
+        ResultSet rsP;
+
+
+        //查询图片名
+        PreparedStatement stmtN;
+        String sqlN;
+        ResultSet rsN;
+
+        //查询任务状态列表
+        PreparedStatement stmtS;
+        String sqlS;
+        ResultSet rsS;
+
+
+        try{
+            //查询任务基本信息
+            sqlP = "select * from PublishedTask";
+            stmtP = conn.prepareStatement(sqlP);
+            rsP = stmtP.executeQuery(sqlP);
+
+            while(rsP.next()){
+
+                UserId userId = new UserId(rsP.getString("UserId"));
+                TaskId taskId = new TaskId(rsP.getString("TaskId"));
+                LabelType labelType = new LabelType(rsP.getString("LabelType"));
+                TaskDescription taskDescription  = new TaskDescription(rsP.getString("Description"));
+                WorkerNum aWorkerNum = new WorkerNum(rsP.getInt("aWorkerNum"));
+                WorkerNum fWorkerNum = new WorkerNum(rsP.getInt("fWorkerNum"));
+                PublishedTaskState state = PublishedTaskState.valueOf(rsP.getString("State"));
+                List<Filename> filenames = new ArrayList<>();
+                List<PublishedTaskDetail> publishedTaskDetails = new ArrayList<>();
+
+
+                //查询图片名
+                sqlN = "select * from FileName where TaskId = ?order by iNumber ASC";
+                stmtN = conn.prepareStatement(sqlN);
+                stmtN.setString(1,taskId.value);
+                rsN = stmtN.executeQuery(sqlN);
+
+                while(rsN.next()){
+                    Filename fileName = new Filename(rsN.getString("Value"));
+                    filenames.add(fileName);
+                }
+
+
+                //查询任务状态列表
+                sqlS = "select * from Detail where TaskId = ? order by iNumber ASC";
+
+                stmtS = conn.prepareStatement(sqlS);
+                stmtS.setString(1,taskId.value);
+
+                rsS = stmtS.executeQuery(sqlS);
+
+                while(rsS.next()){
+                    Gson gson = new GsonBuilder().create();
+
+                    Date date = gson.fromJson(rsS.getString("Date"),Date.class);
+                    WorkerNum workerNum = new WorkerNum(rsS.getInt("WorkerNum"));
+                    Cash cash = new Cash(rsS.getDouble("Cash"));
+                    RequestorDiscount requestorDiscount = gson.fromJson(rsS.getString("Discount"),RequestorDiscount.class);
+
+                    PublishedTaskDetail publishedTaskDetail = new PublishedTaskDetail(date,workerNum,cash,requestorDiscount);
+                    publishedTaskDetails.add(publishedTaskDetail);
+                }
+
+                PublishedTask publishedTask = new PublishedTask(taskId,userId,labelType,filenames,taskDescription,aWorkerNum,fWorkerNum,publishedTaskDetails,state);
+                publishedTasks.add(publishedTask);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return publishedTasks;
     }
 
     @Override

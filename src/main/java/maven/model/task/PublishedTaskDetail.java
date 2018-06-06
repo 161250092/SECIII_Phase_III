@@ -25,6 +25,13 @@ public class PublishedTaskDetail {
         this.requestorDiscount = requestorDiscount;
     }
 
+    public PublishedTaskDetail(Date date,WorkerNum requiredWorkerNum, Cash taskPricePerWorker, RequestorDiscount requestorDiscount) {
+        this.startTime = date;
+        this.requiredWorkerNum = requiredWorkerNum;
+        this.taskPricePerWorker = taskPricePerWorker;
+        this.requestorDiscount = requestorDiscount;
+    }
+
     public Date getStartTime() {
         return startTime;
     }

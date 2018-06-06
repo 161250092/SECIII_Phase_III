@@ -7,7 +7,7 @@ LabelType varchar(30),
 Description varchar(1000),
 aWorkerNum integer,
 fWorkerNum integer,
-State varchar(20)
+State varchar(30)
 );
 
 create table Sample(
@@ -20,12 +20,12 @@ Index varchar(100)
 create table FileName(
 TaskId varchar(100),
 Number integer,
-value varchar(100)
+Value varchar(100)
 );
 
 create table Detail(
 TaskId varchar(100),
-Number integer,
+iNumber integer,
 Date varchar(100),
 WorkerNum integer,
 Discount varchar(100),

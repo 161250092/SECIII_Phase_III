@@ -5,7 +5,7 @@ UserId varchar(20),
 TaskId varchar(100),
 Date varchar(100),
 Cash double precision,
-State varchar(20),
+State varchar(30),
 Discount varchar(100),
 Score double precision
 );

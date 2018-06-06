@@ -1,10 +1,23 @@
 package maven.data.RequestorData;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import maven.data.MySQL.MySQLConnector;
+import maven.model.label.ImageLabel;
+import maven.model.label.Label;
+import maven.model.label.areaLabel.Area;
+import maven.model.label.areaLabel.AreaLabel;
+import maven.model.label.frameLabel.Frame;
+import maven.model.label.frameLabel.FrameLabel;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
 import maven.model.primitiveType.WorkerNum;
 import maven.model.task.*;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RequestorDataImpl implements RequestorDataService {
@@ -20,6 +33,7 @@ public class RequestorDataImpl implements RequestorDataService {
 
     @Override
     public Sample getSample(TaskId taskId) {
+
         return null;
     }
 
