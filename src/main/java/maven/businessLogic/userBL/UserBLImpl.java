@@ -66,7 +66,7 @@ public class UserBLImpl implements UserBLService{
          * 修改用户等级
          * 未完成
          */
-        if(userDataService.revisePrestige(userId, null, new Prestige(last_prestige.value - prestige.value)))
+        if(userDataService.revisePrestige(userId,  new Prestige(last_prestige.value - prestige.value)))
             return new SuccessException();
         return new FailureException();
     }
@@ -79,7 +79,7 @@ public class UserBLImpl implements UserBLService{
          * 修改用户等级
          * 未完成
          */
-        if(userDataService.revisePrestige(userId, null, new Prestige(last_prestige.value + prestige.value)))
+        if(userDataService.revisePrestige(userId,  new Prestige(last_prestige.value + prestige.value)))
             return new SuccessException();
         return new FailureException();
     }
