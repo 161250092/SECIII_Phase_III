@@ -69,6 +69,7 @@ public class AdminDataImpl implements AdminDataService {
                     filenames.add(fileName);
                 }
 
+                stmtN.close();
 
                 //查询任务状态列表
                 sqlS = "select * from Detail where TaskId = ? order by iNumber ASC";
@@ -90,9 +91,13 @@ public class AdminDataImpl implements AdminDataService {
                     publishedTaskDetails.add(publishedTaskDetail);
                 }
 
+                stmtS.close();
                 PublishedTask publishedTask = new PublishedTask(taskId,userId,labelType,filenames,taskDescription,aWorkerNum,fWorkerNum,publishedTaskDetails,state);
                 publishedTasks.add(publishedTask);
             }
+
+            stmtP.close();
+            conn.close();
         }catch (Exception e){
             e.printStackTrace();
         }
