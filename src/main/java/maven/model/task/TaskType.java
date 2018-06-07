@@ -1,6 +1,6 @@
 package maven.model.task;
 
-public enum  TaskLevel {
+public enum TaskType {
 
 
 
