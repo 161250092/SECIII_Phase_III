@@ -33,7 +33,7 @@ public interface RequestorDataService {
      * @param taskId 任务Id
      * @return 样本信息
      */
-     Sample getSample(TaskId taskId);
+     Sample getSample(TaskId taskId,UserId userId);
 
     /**
      * 修改任务信息
@@ -77,7 +77,7 @@ public interface RequestorDataService {
     /**
      * 获取所有任务的列表
      * @param userId 发布者Id
-     * @return 发布但未完成任务的列表
+     * @return 所有任务的列表
      */
      List<PublishedTask> getPublishedTaskList(UserId userId);
 

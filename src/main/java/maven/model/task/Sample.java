@@ -31,7 +31,8 @@ public class Sample {
         return labelList;
     }
 
-    public Sample(int imageNum, List<Integer> imageIndexList, List<Label> labelList) {
+    public Sample(TaskId taskId,int imageNum, List<Integer> imageIndexList, List<Label> labelList) {
+        this.taskId = taskId;
         this.imageNum = imageNum;
         this.imageIndexList = imageIndexList;
         this.labelList = labelList;
