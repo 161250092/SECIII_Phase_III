@@ -17,6 +17,7 @@ import maven.model.vo.PublishedTaskVO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class RequestorBLImpl implements RequestorBLService{
 
@@ -31,6 +32,11 @@ public class RequestorBLImpl implements RequestorBLService{
     }
 
     @Override
+    public Map<TaskType, Double> getTaskUnitPriceMap() {
+        return null;
+    }
+
+    @Override
     public Exception uploadTaskInfo(PublishedTaskVO publishedTaskVO, List<Filename> imageFilenameList) {
 
         TaskId taskId = new TaskId(publishedTaskVO.getTaskId());
@@ -41,7 +47,7 @@ public class RequestorBLImpl implements RequestorBLService{
         List<PublishedTaskDetail> publishedTaskDetailList = new ArrayList<>();
         publishedTaskDetailList.add(publishedTaskDetail);
 
-        PublishedTask publishedTask = new PublishedTask(taskId, userId, new LabelType(publishedTaskVO.getLabelType()), imageFilenameList,
+        PublishedTask publishedTask = new PublishedTask(taskId, userId, TaskType.valueOf(publishedTaskVO.getLabelType()), new LabelType(publishedTaskVO.getLabelType()), imageFilenameList,
                 new TaskDescription(publishedTaskVO.getTaskDescription()), new WorkerNum(0), new WorkerNum(0),
                 publishedTaskDetailList, PublishedTaskState.DRAFT_WITHOUT_SAMPLE
                 );

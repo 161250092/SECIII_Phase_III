@@ -1,11 +1,11 @@
 package maven.controller;
 
-import maven.businessLogic.requestorBL.RequestorBLImpl;
 import maven.businessLogic.requestorBL.RequestorBLService;
 import maven.businessLogic.requestorBL.RequestorBLStub;
 import maven.model.JsonConverter;
 import maven.model.primitiveType.*;
 import maven.model.task.PublishedTask;
+import maven.model.task.TaskType;
 import maven.model.vo.AcceptedTaskVO;
 import maven.model.vo.PublishedTaskVO;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 众包发起者控制器
@@ -25,6 +26,15 @@ public class RequestorController {
 
     public RequestorController(){
         requestorBL = new RequestorBLStub();
+    }
+
+    /**
+     * 获取任务单张图片标注的价格数组
+     * 与任务等级一一对应
+     * @return 价格数组
+     */
+    public Map<TaskType, Double> getTaskUnitPriceList(){
+        return null;
     }
 
     /**

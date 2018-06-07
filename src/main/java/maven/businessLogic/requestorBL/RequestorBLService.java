@@ -2,16 +2,22 @@ package maven.businessLogic.requestorBL;
 
 import maven.model.primitiveType.*;
 import maven.model.task.PublishedTask;
-import maven.model.user.Requestor;
-import maven.model.user.User;
+import maven.model.task.TaskType;
 import maven.model.vo.AcceptedTaskVO;
 import maven.model.vo.PublishedTaskVO;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RequestorBLService {
+
+    /**
+     * 获取任务单张图片标注的价格数组
+     * 与任务等级一一对应
+     * @return 价格数组
+     */
+    //List<Double> getTaskUnitPriceList();
+    Map<TaskType, Double> getTaskUnitPriceMap();
 
     /**
      * 上传欲发布的任务信息

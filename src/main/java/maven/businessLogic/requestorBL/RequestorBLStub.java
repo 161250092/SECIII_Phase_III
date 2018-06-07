@@ -1,18 +1,21 @@
 package maven.businessLogic.requestorBL;
 
 import maven.exception.util.SuccessException;
-import maven.model.label.ImageLabel;
-import maven.model.label.Label;
 import maven.model.primitiveType.*;
 import maven.model.task.*;
-import maven.model.user.Requestor;
 import maven.model.vo.AcceptedTaskVO;
 import maven.model.vo.PublishedTaskVO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class RequestorBLStub implements RequestorBLService {
+
+    @Override
+    public Map<TaskType, Double> getTaskUnitPriceMap() {
+        return null;
+    }
 
     @Override
     public Exception uploadTaskInfo(PublishedTaskVO publishedTaskVO, List<Filename> imageFilenameList) {
@@ -148,52 +151,62 @@ public class RequestorBLStub implements RequestorBLService {
         List < PublishedTaskDetail > publishedTaskDetailList = new ArrayList<>();
         publishedTaskDetailList.add(new PublishedTaskDetail(new WorkerNum(10), new Cash(100), null));
 
-        PublishedTask publishedTask_1 = new PublishedTask(new TaskId("00000001_ImageLabel_1622440180000"), new UserId("00000001"), new LabelType("ImageLabel"),
+        PublishedTask publishedTask_1 = new PublishedTask(new TaskId("00000001_ImageLabel_1622440180000"),
+                new UserId("00000001"),TaskType.ORDINARY_LEVEL_LABEL_REQUIRED, new LabelType("ImageLabel"),
                 imageFilenameList, new TaskDescription("It's a published but incomplete Task"), new WorkerNum(0), new WorkerNum(0),
                 publishedTaskDetailList,
                 PublishedTaskState.INCOMPLETE);
 
-        PublishedTask publishedTask_2 = new PublishedTask(new TaskId("00000001_ImageLabel_1622440190000"), new UserId("00000001"), new LabelType("ImageLabel"),
+        PublishedTask publishedTask_2 = new PublishedTask(new TaskId("00000001_ImageLabel_1622440190000"),
+                new UserId("00000001"), TaskType.ORDINARY_LEVEL_LABEL_REQUIRED, new LabelType("ImageLabel"),
                 imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10),
                 publishedTaskDetailList,
                 PublishedTaskState.ACCOMPLISHED);
 
-        PublishedTask publishedTask_3 = new PublishedTask(new TaskId("00000001_FrameLabel_1622440200000"), new UserId("00000001"), new LabelType("FrameLabel"),
+        PublishedTask publishedTask_3 = new PublishedTask(new TaskId("00000001_FrameLabel_1622440200000"),
+                new UserId("00000001"), TaskType.ORDINARY_LEVEL_LABEL_REQUIRED, new LabelType("FrameLabel"),
                 imageFilenameList, new TaskDescription("It's a published but incomplete Task"), new WorkerNum(0), new WorkerNum(0),
                 publishedTaskDetailList,
                 PublishedTaskState.INCOMPLETE);
 
-        PublishedTask publishedTask_4 = new PublishedTask(new TaskId("00000001_FrameLabel_1622440210000"), new UserId("00000001"), new LabelType("FrameLabel"),
+        PublishedTask publishedTask_4 = new PublishedTask(new TaskId("00000001_FrameLabel_1622440210000"),
+                new UserId("00000001"), TaskType.ORDINARY_LEVEL_LABEL_REQUIRED, new LabelType("FrameLabel"),
                 imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10),
                 publishedTaskDetailList,
                 PublishedTaskState.ACCOMPLISHED);
 
-        PublishedTask publishedTask_5 = new PublishedTask(new TaskId("00000001_AreaLabel_1622440220000"), new UserId("00000001"), new LabelType("AreaLabel"),
+        PublishedTask publishedTask_5 = new PublishedTask(new TaskId("00000001_AreaLabel_1622440220000"),
+                new UserId("00000001"), TaskType.ORDINARY_LEVEL_LABEL_REQUIRED, new LabelType("AreaLabel"),
                 imageFilenameList, new TaskDescription("It's a published but incomplete Task"), new WorkerNum(0), new WorkerNum(0),
                 publishedTaskDetailList,
                 PublishedTaskState.INCOMPLETE);
 
-        PublishedTask publishedTask_6 = new PublishedTask(new TaskId("00000001_AreaLabel_1622440230000"), new UserId("00000001"), new LabelType("AreaLabel"),
+        PublishedTask publishedTask_6 = new PublishedTask(new TaskId("00000001_AreaLabel_1622440230000"),
+                new UserId("00000001"), TaskType.ORDINARY_LEVEL_LABEL_REQUIRED, new LabelType("AreaLabel"),
                 imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10),
                 publishedTaskDetailList,
                 PublishedTaskState.ACCOMPLISHED);
 
-        PublishedTask publishedTask_7 = new PublishedTask(new TaskId("testTaskId7"), new UserId("00000001"), new LabelType("AreaLabel"),
+        PublishedTask publishedTask_7 = new PublishedTask(new TaskId("testTaskId7"),
+                new UserId("00000001"), TaskType.ORDINARY_LEVEL_LABEL_REQUIRED, new LabelType("AreaLabel"),
                 imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10),
                 publishedTaskDetailList,
                 PublishedTaskState.DRAFT_WITH_SAMPLE);
 
-        PublishedTask publishedTask_8 = new PublishedTask(new TaskId("testTaskId8"), new UserId("00000001"), new LabelType("AreaLabel"),
+        PublishedTask publishedTask_8 = new PublishedTask(new TaskId("testTaskId8"),
+                new UserId("00000001"), TaskType.ORDINARY_LEVEL_LABEL_REQUIRED, new LabelType("AreaLabel"),
                 imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10),
                 publishedTaskDetailList,
                 PublishedTaskState.DRAFT_WITH_SAMPLE);
 
-        PublishedTask publishedTask_9 = new PublishedTask(new TaskId("testTaskId9"), new UserId("00000001"), new LabelType("AreaLabel"),
+        PublishedTask publishedTask_9 = new PublishedTask(new TaskId("testTaskId9"),
+                new UserId("00000001"), TaskType.ORDINARY_LEVEL_LABEL_REQUIRED, new LabelType("AreaLabel"),
                 imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10),
                 publishedTaskDetailList,
                 PublishedTaskState.DRAFT_WITHOUT_SAMPLE);
 
-        PublishedTask publishedTask_10 = new PublishedTask(new TaskId("testTaskId10"), new UserId("00000001"), new LabelType("AreaLabel"),
+        PublishedTask publishedTask_10 = new PublishedTask(new TaskId("testTaskId10"),
+                new UserId("00000001"), TaskType.ORDINARY_LEVEL_LABEL_REQUIRED, new LabelType("AreaLabel"),
                 imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10),
                 publishedTaskDetailList,
                 PublishedTaskState.DRAFT_WITHOUT_SAMPLE);

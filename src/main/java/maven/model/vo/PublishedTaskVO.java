@@ -1,7 +1,6 @@
 package maven.model.vo;
 
 import maven.model.task.PublishedTask;
-import maven.model.task.PublishedTaskState;
 
 import java.io.Serializable;
 
@@ -10,7 +9,7 @@ public class PublishedTaskVO implements Serializable {
     private String taskId;
 
     //任务等级
-    private String taskLevel;
+    private String taskType;
 
     //标注类型
     private String labelType;
@@ -34,14 +33,14 @@ public class PublishedTaskVO implements Serializable {
     private double taskPrice;
 
     //该任务的状态
-    private PublishedTaskState publishedTaskState;
+    private String publishedTaskState;
 
     public String getTaskId() {
         return taskId;
     }
 
-    public String getTaskLevel() {
-        return taskLevel;
+    public String getTaskType() {
+        return taskType;
     }
 
     public int getImageNum() {
@@ -72,14 +71,14 @@ public class PublishedTaskVO implements Serializable {
         return taskPrice;
     }
 
-    public PublishedTaskState getPublishedTaskState() {
+    public String getPublishedTaskState() {
         return publishedTaskState;
     }
 
 
-    private PublishedTaskVO(String taskId, String taskLevel, String labelType, String taskDescription, int acceptedWorkerNum, int finishedWorkerNum, int requiredWorkerNum, int imageNum, double taskPrice, PublishedTaskState publishedTaskState) {
+    private PublishedTaskVO(String taskId, String taskType, String labelType, String taskDescription, int acceptedWorkerNum, int finishedWorkerNum, int requiredWorkerNum, int imageNum, double taskPrice, String publishedTaskState) {
         this.taskId = taskId;
-        this.taskLevel = taskLevel;
+        this.taskType = taskType;
         this.labelType = labelType;
         this.taskDescription = taskDescription;
         this.acceptedWorkerNum = acceptedWorkerNum;
@@ -102,7 +101,7 @@ public class PublishedTaskVO implements Serializable {
         this(publishedTask.getTaskId().value, publishedTask.getTaskType().toString(), publishedTask.getLabelType().value, publishedTask.getTaskDescription().value,
                 publishedTask.getAcceptedWorkerNum().value, publishedTask.getFinishedWorkerNum().value,
                 publishedTask.getRequiredWorkerNum().value, publishedTask.getImageFilenameList().size(),
-                publishedTask.getTaskPrice().value, publishedTask.getPublishedTaskState());
+                publishedTask.getTaskPrice().value, publishedTask.getPublishedTaskState().toString());
     }
 
 }
