@@ -116,17 +116,17 @@ public class WorkerBLImpl implements WorkerBLService {
         switch (labelType){
             case "ImageLabel":
                 ImageLabelDataService imageLabelDataService = new ImageLabelDataImpl();
-                if(!imageLabelDataService.deleteLable(userId, taskId))
+                if(!imageLabelDataService.deleteLabel(userId, taskId))
                     return new FailureException();
                 break;
             case "FrameLabel":
                 FrameLabelDataService frameLabelDataService = new FrameLabelDataImpl();
-                if(frameLabelDataService.deleteLable(userId, taskId))
+                if(frameLabelDataService.deleteLabel(userId, taskId))
                     return new FailureException();
                 break;
             case "AreaLabel":
                 AreaLabelDataService areaLabelDataService = new AreaLabelDataImpl();
-                if(!areaLabelDataService.deleteLable(userId, taskId))
+                if(!areaLabelDataService.deleteLabel(userId, taskId))
                     return new FailureException();
                 break;
             default:

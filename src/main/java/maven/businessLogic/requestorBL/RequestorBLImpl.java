@@ -185,7 +185,7 @@ public class RequestorBLImpl implements RequestorBLService{
     @Override
     public List<AcceptedTaskVO> getSubmittedTaskList(TaskId taskId, UserId userId) {
         List<AcceptedTaskVO> list = new ArrayList<>();
-        List<AcceptedTask> acceptedTaskList = requestorDataService.getAcceptedTaskList(taskId);
+        List<AcceptedTask> acceptedTaskList = workerDataService.getAcceptedTaskList(taskId);
         
         PublishedTask publishedTask;
         Username username;
@@ -280,7 +280,7 @@ public class RequestorBLImpl implements RequestorBLService{
         LabelType labelType = publishedTask.getLabelType();
         TaskDescription taskDescription = publishedTask.getTaskDescription();
 
-        List<AcceptedTask> acceptedTaskList = requestorDataService.getAcceptedTaskList(taskId);
+        List<AcceptedTask> acceptedTaskList = workerDataService.getAcceptedTaskList(taskId);
         List<AcceptedTaskVO> list = new ArrayList<>();
         Username username;
         for(AcceptedTask acceptedTask : acceptedTaskList) {
