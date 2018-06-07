@@ -99,7 +99,7 @@ public class PublishedTaskVO implements Serializable {
      * @param publishedTask PublishedTask类
      */
     public PublishedTaskVO(PublishedTask publishedTask){
-        this(publishedTask.getTaskId().value, publishedTask.getLabelType().value, publishedTask.getTaskDescription().value,
+        this(publishedTask.getTaskId().value, publishedTask.getTaskType().toString(), publishedTask.getLabelType().value, publishedTask.getTaskDescription().value,
                 publishedTask.getAcceptedWorkerNum().value, publishedTask.getFinishedWorkerNum().value,
                 publishedTask.getRequiredWorkerNum().value, publishedTask.getImageFilenameList().size(),
                 publishedTask.getTaskPrice().value, publishedTask.getPublishedTaskState());
