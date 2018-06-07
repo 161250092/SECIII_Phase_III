@@ -2,6 +2,7 @@ package maven.data.WorkerData;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mysql.jdbc.MySQLConnection;
 import maven.data.MySQL.MySQLConnector;
 import maven.model.primitiveType.Cash;
 import maven.model.primitiveType.LabelScore;
@@ -23,22 +24,158 @@ public class WorkerDataImpl implements WorkerDataService {
 
     @Override
     public List<AcceptedTask> getAcceptedTaskListByUserId(UserId userId) {
-        return null;
+        conn = new MySQLConnector().getConnection("AcceptedTask");
+
+        List<AcceptedTask> acceptedTasks = new ArrayList<>();
+
+        PreparedStatement stmt;
+        String sql;
+        ResultSet rs;
+
+        Gson gson = new GsonBuilder().create();
+        try{
+            sql  = "select * from AcceptedTask where UserId = ?";
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1,userId.value);
+
+            rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+                TaskId taskId = new TaskId(rs.getString("TaskId"));
+                Date date = gson.fromJson(rs.getString("Date"),Date.class);
+                Cash cash = new Cash(rs.getDouble("Cash"));
+                WorkerDiscount discount = gson.fromJson(rs.getString("Dsicount"),WorkerDiscount.class);
+                AcceptedTaskState state = AcceptedTaskState.valueOf(rs.getString("State"));
+                LabelScore score = new LabelScore(rs.getDouble("Score"));
+
+                AcceptedTask acceptedTask = new AcceptedTask(userId,taskId,date,cash,discount,state,score);
+
+                acceptedTasks.add(acceptedTask);
+
+            }
+
+            stmt.close();
+            conn.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return acceptedTasks;
     }
 
     @Override
     public boolean acceptTask(AcceptedTask acceptedTask) {
-        return false;
+        conn = new MySQLConnector().getConnection("AcceptedTask");
+
+        boolean result = false;
+
+        PreparedStatement stmt;
+        String sql;
+
+        Gson gson = new GsonBuilder().create();
+        try{
+            sql = "insert into AcceptedTask values (?,?,?,?,?,?,?)";
+
+            stmt = conn.prepareStatement(sql);
+
+            String date = gson.toJson(acceptedTask.getStartTime());
+            String discount = gson.toJson(acceptedTask.getWorkerDiscount());
+
+            stmt.setString(1,acceptedTask.getUserId().value);
+            stmt.setString(2,acceptedTask.getTaskId().value);
+            stmt.setString(3,date);
+            stmt.setDouble(4,acceptedTask.getActualTaskPrice().value);
+            stmt.setString(5,acceptedTask.getAcceptedTaskState().toString());
+            stmt.setString(6,discount);
+            stmt.setDouble(7,acceptedTask.getLabelScore().value);
+
+            stmt.executeUpdate();
+
+            stmt.close();
+            conn.close();
+
+            result = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     @Override
     public boolean reviseAcceptedTaskState(UserId userId, TaskId taskId, AcceptedTaskState acceptedTaskState) {
-        return false;
+        conn = new MySQLConnector().getConnection("AcceptedTask");
+
+        boolean result = false;
+
+        PreparedStatement stmt;
+        String sql;
+
+        try{
+            sql = "update AcceptedTask set State = ? where UserId = ? and TaskId = ?";
+
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1,acceptedTaskState.toString());
+            stmt.setString(2,userId.value);
+            stmt.setString(3,taskId.value);
+
+            stmt.executeUpdate();
+
+            stmt.close();
+            conn.close();
+            result = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        return result;
     }
 
     @Override
     public AcceptedTask getAcceptedTaskById(UserId userId, TaskId taskId) {
-        return null;
+        conn = new MySQLConnector().getConnection("AcceptedTask");
+
+        AcceptedTask acceptedTask = null;
+
+        PreparedStatement stmt;
+        String sql;
+        ResultSet rs;
+
+        Gson gson = new GsonBuilder().create();
+        try{
+            sql = "select * from AcceptedTask where UserId = ? and TaskId = ?";
+
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1,userId.value);
+            stmt.setString(2,taskId.value);
+
+            rs = stmt.executeQuery(sql);
+
+
+            while(rs.next()){
+                Date date = gson.fromJson(rs.getString("Date"),Date.class);
+                Cash cash = new Cash(rs.getDouble("Cash"));
+                WorkerDiscount discount = gson.fromJson(rs.getString("Dsicount"),WorkerDiscount.class);
+                AcceptedTaskState state = AcceptedTaskState.valueOf(rs.getString("State"));
+                LabelScore score = new LabelScore(rs.getDouble("Score"));
+
+                acceptedTask = new AcceptedTask(userId,taskId,date,cash,discount,state,score);
+
+            }
+
+            stmt.close();
+            conn.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return acceptedTask;
     }
 
     @Override
