@@ -31,4 +31,18 @@ Discount varchar(100),
 Cash double precision
 );
 
+create table TaskType(
+TaskId varchar(100),
+TaskType varchar(20)
+);
+
+create table TypeCash(
+TaskType varchar(20),
+Cash double precision
+);
+
+create table TypePrestige(
+TaskType varchar(20),
+Prestige double precision
+);
 

@@ -1,0 +1,47 @@
+create database Message;
+
+create Table AcceptedTaskMessage(
+MessageId varchar(100),
+UserId varchar(20),
+TaskId varchar(100),
+Cash double precision,
+State varchar(30),
+Check boolean
+);
+
+create Table Achievement(
+MessageId varchar(100),
+UserId varchar(20),
+Achievement varchar(200),
+Check boolean
+);
+
+create Table PublishedTaskMessage(
+MessageId varchar(100),
+UserId varchar(20),
+TaskId varchar(100),
+WorkerId varchar(20),
+Username varchar(20),
+Cash double precision,
+Check boolean
+);
+
+create Table BillMessage(
+MessageId varchar(100),
+UserId varchar(20),
+Type varchar(10),
+Reason varchar(30),
+Cash double precision,
+Confirm boolean
+);
+
+create table Guy(
+MessageId varchar(100),
+WorkerId varchar(20),
+RequestorId varchar(20),
+RequestorName varchar(20),
+TaskId varchar(100),
+Cash double precision,
+Check boolean
+);
+

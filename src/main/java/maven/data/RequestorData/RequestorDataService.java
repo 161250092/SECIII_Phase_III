@@ -1,13 +1,11 @@
 package maven.data.RequestorData;
 
-import maven.model.primitiveType.Filename;
-import maven.model.primitiveType.TaskId;
-import maven.model.primitiveType.UserId;
-import maven.model.primitiveType.WorkerNum;
+import maven.model.primitiveType.*;
 import maven.model.task.*;
 import maven.model.user.Requestor;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RequestorDataService {
 
@@ -87,5 +85,32 @@ public interface RequestorDataService {
      * @return 任务详情
      */
      PublishedTask getPublishedTask(TaskId taskId);
+
+    /**
+     * 获取任务等级
+     * @param taskId 任务ID
+     * @return 任务等级
+     */
+     TaskType getTaskType(TaskId taskId);
+
+    /**
+     * 保存任务等级
+     * @param taskId 任务ID
+     * @param taskType 任务等级
+     * @return 是否保存
+     */
+     boolean saveTaskType(TaskId taskId,TaskType taskType);
+
+    /**
+     * 获取金额任务等级映射
+     * @return 金额 任务等级映射
+     */
+     Map getCashTaskType();
+
+    /**
+     * 获取任务等级信誉值映射
+     * @return 信誉 任务等级映射
+     */
+     Map getPrestigeTaskType();
 
 }

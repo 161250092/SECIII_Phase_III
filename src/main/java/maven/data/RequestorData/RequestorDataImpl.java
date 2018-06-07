@@ -17,9 +17,7 @@ import maven.model.task.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class RequestorDataImpl implements RequestorDataService {
     private Connection conn;
@@ -424,6 +422,136 @@ public class RequestorDataImpl implements RequestorDataService {
 
 
         return publishedTask;
+    }
+
+    @Override
+    public TaskType getTaskType(TaskId taskId) {
+        conn = new MySQLConnector().getConnection("PublishedTask");
+
+        TaskType taskType = null;
+
+        PreparedStatement stmt;
+        String sql;
+        ResultSet rs;
+
+        try{
+            sql = "select * from TaskType where TaskId = ?";
+
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1,taskId.value);
+
+            rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+                taskType = TaskType.valueOf(rs.getString("TaskType"));
+            }
+
+            stmt.close();
+            conn.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return taskType;
+    }
+
+    @Override
+    public boolean saveTaskType(TaskId taskId, TaskType taskType) {
+        conn = new MySQLConnector().getConnection("PublishedTask");
+
+        boolean result = false;
+
+        PreparedStatement stmt;
+        String sql;
+
+        try{
+            sql = "insert into TaskType values (?,?)";
+
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1,taskId.value);
+            stmt.setString(2,taskType.toString());
+
+            stmt.executeUpdate();
+
+            stmt.close();
+            conn.close();
+
+            result = true;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    @Override
+    public Map getCashTaskType() {
+        conn = new MySQLConnector().getConnection("PublishedTask");
+
+        HashMap<TaskType,Cash> result = new HashMap<>();
+
+        PreparedStatement stmt;
+        String sql;
+        ResultSet rs;
+
+        try{
+            sql = "select * from TypeCash";
+
+            stmt = conn.prepareStatement(sql);
+
+            rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+                TaskType taskType = TaskType.valueOf(rs.getString("TaskType"));
+                Cash cash = new Cash(rs.getDouble("Cash"));
+                result.put(taskType,cash);
+            }
+
+            stmt.close();
+            conn.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    @Override
+    public Map getPrestigeTaskType() {
+        conn = new MySQLConnector().getConnection("PublishedTask");
+
+        HashMap<TaskType,Prestige> result = new HashMap<>();
+
+        PreparedStatement stmt;
+        String sql;
+        ResultSet rs;
+
+        try{
+            sql = "select * from TypePrestige";
+
+            stmt = conn.prepareStatement(sql);
+
+            rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+                TaskType taskType = TaskType.valueOf(rs.getString("Type"));
+                Prestige prestige = new Prestige(rs.getDouble("Prestige"));
+                result.put(taskType,prestige);
+            }
+
+            stmt.close();
+            conn.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
 }
