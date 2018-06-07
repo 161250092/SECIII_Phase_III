@@ -88,10 +88,4 @@ public interface RequestorDataService {
      */
      PublishedTask getPublishedTask(TaskId taskId);
 
-    /**
-     * 查看已接受某任务的工人任务完成情况
-     * @param taskId 任务Id
-     * @return 任务列表
-     */
-     List<AcceptedTask> getAcceptedTaskList(TaskId taskId);
 }

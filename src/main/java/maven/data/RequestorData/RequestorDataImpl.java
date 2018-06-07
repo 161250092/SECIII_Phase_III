@@ -426,44 +426,4 @@ public class RequestorDataImpl implements RequestorDataService {
         return publishedTask;
     }
 
-    @Override
-    public List<AcceptedTask> getAcceptedTaskList(TaskId taskId) {
-        conn = new MySQLConnector().getConnection("AcceptedTask");
-
-        List<AcceptedTask> acceptedTasks = new ArrayList<>();
-
-        PreparedStatement stmt;
-        String sql;
-        ResultSet rs;
-
-        Gson gson = new GsonBuilder().create();
-        try{
-            sql = "select * from AcceptedTask where TaskId = ?";
-
-            stmt = conn.prepareStatement(sql);
-
-            stmt.setString(1,taskId.value);
-
-            rs = stmt.executeQuery(sql);
-
-            while(rs.next()){
-                UserId userId = new UserId(rs.getString("UserId"));
-                Date date = gson.fromJson(rs.getString("Date"),Date.class);
-                Cash cash = new Cash(rs.getDouble("Cash"));
-                AcceptedTaskState state = AcceptedTaskState.valueOf(rs.getString("State"));
-                WorkerDiscount discount = gson.fromJson(rs.getString("Discount"),WorkerDiscount.class);
-                LabelScore score = new LabelScore(rs.getDouble("Score"));
-
-                AcceptedTask acceptedTask = new AcceptedTask(userId,taskId,date,cash,discount,state,score);
-
-                acceptedTasks.add(acceptedTask);
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return acceptedTasks;
-    }
-
 }

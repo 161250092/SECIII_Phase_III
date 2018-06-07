@@ -10,12 +10,6 @@ import maven.model.task.PublishedTask;
 import java.util.List;
 
 public interface WorkerDataService {
-    /**
-     * 获取所有接受且已完成的任务
-     * @param userId 工人Id
-     * @return 所有已完成的任务
-     */
-     List<AcceptedTask> getAcceptedAndAccomplishedTaskList(UserId userId);
 
     /**
      * 获取某工人所有接受任务完成状况的详情
@@ -23,13 +17,6 @@ public interface WorkerDataService {
      * @return 所有的任务
      */
      List<AcceptedTask> getAcceptedTaskListByUserId(UserId userId);
-
-    /**
-     * 获取某任务的所有工人完成状况的详情
-     * @param taskId 任务Id
-     * @return 所有任务
-     */
-    List<AcceptedTask> getAcceptedTaskListByTaskId(TaskId taskId);
 
     /**
      * 众包工人接受任务
@@ -54,4 +41,11 @@ public interface WorkerDataService {
      * @return
      */
      AcceptedTask getAcceptedTaskById(UserId userId,TaskId taskId);
+
+    /**
+     * 查看已接受某任务的工人任务完成情况
+     * @param taskId 任务Id
+     * @return 任务列表
+     */
+    List<AcceptedTask> getAcceptedTaskList(TaskId taskId);
 }
