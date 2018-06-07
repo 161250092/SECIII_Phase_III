@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="../../css/lu.css">
     <link rel="stylesheet" href="../../css/table.css">
     <link rel="stylesheet" href="../../css/font.css">
+    <link rel="stylesheet" href="../../css/worker/getTask.css">
     <title>通知</title>
 </head>
 <body>
@@ -41,42 +42,75 @@
     <p class="testfont">任务审核通知</p>
     <table border="1">
         <tr>
+            <th>消息ID</th>
             <th>任务编号</th>
-            <th>标注类型</th>
             <th>审批通知</th>
             <th>积分奖励</th>
             <th>确认</th>
+        </tr>
+        <tr v-for="(info, index) in taskMessageInfo">
+            <th>{{info.messageId}}</th>
+            <th>{{info.taskId}}</th>
+            <th>{{info.acceptedTaskState}}</th>
+            <th>{{info.cash}}</th>
+            <th><input type="button" v-on:click="confirmTaskMessageInfo(index)"></th>
         </tr>
 
 
     </table>
 
-
+<hr>
         <p class="testfont">关注通知</p>
         <table border="1">
             <tr>
+                <th>消息ID</th>
                 <th>昵称</th>
                 <th>任务id</th>
                 <th>结付资金</th>
-                <th>同意</th>
-                <th>拒绝</th>
-        </table>
+                <th>确认</th>
+            </tr>
+            <tr v-for="(info,index) in guyMessageInfo">
+                <th>{{info.messageId}}</th>
+                <th>{{info.requestorName}}
+                <th>{{info.taskId}}</th>
+                <th>{{info.cash}}</th>
+                <th><input type="button" v-on:click="confirmGuyMessageInfo(index)">同意</th>
 
+            </tr>
+        </table>
+<hr>
     <p class="testfont">cash收支</p>
     <table border="1">
         <tr>
+            <th>消息ID</th>
             <th>类型</th>
             <th>数额</th>
             <th>原因</th>
             <th>确认</th>
+        </tr>
+        <tr v-for="(info,index) in billMessageInfo">
+            <th>{{info.messageId}}</th>
+            <th>{{info.billType}}</th>
+            <th>{{info.cash}}</th>
+            <th>{{info.billReason}}
+            <th><input type="button" v-on:click="confirmCashMessageInfo(index)">确认</th>
+        </tr>
     </table>
-
+<hr>
     <p class="testfont">成就情况</p>
     <table border="1">
         <tr>
-            <th>名称</th>
-            <th>数额</th>
+            <th>消息ID</th>
+            <th>成就</th>
             <th>确认</th>
+        </tr>
+<!--成就类还没有定义-->
+        <tr v-for="(info,index) in achievementMessageInfo">
+            <th>{{info.messageId}}</th>
+            <th>{{info.achievement}}</th>
+            <th><input type="button" v-on:click="confirmAchievementMessageInfo(index)">确认</th>
+
+
     </table>
 
 </div>
@@ -84,4 +118,9 @@
 
 
 </body>
+
+<script src="../../js/lib/vue.js"></script>
+<script src="../../js/lib/axios.js"></script>
+<script src="../../js/pageJump.js"></script>
+<script src="../../js/worker/messagePage.js"></script>
 </html>

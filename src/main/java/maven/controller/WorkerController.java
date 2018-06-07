@@ -1,9 +1,12 @@
 package maven.controller;
 
+import maven.businessLogic.achievementBL.AchievementBLImpl;
+import maven.businessLogic.achievementBL.AchievementBLService;
 import maven.businessLogic.workerBL.WorkerBLImpl;
 import maven.businessLogic.workerBL.WorkerBLService;
 import maven.businessLogic.workerBL.WorkerBLStub;
 import maven.model.JsonConverter;
+import maven.model.message.Achievement;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
 import maven.model.task.AcceptedTask;
@@ -24,9 +27,11 @@ import java.util.List;
 public class WorkerController{
 
     private WorkerBLService workerBL;
+    private AchievementBLService achievementBL;
 
     public WorkerController(){
         workerBL = new WorkerBLStub();
+        achievementBL = new AchievementBLImpl();
     }
 
     /**
@@ -105,4 +110,28 @@ public class WorkerController{
         return workerBL.getUserRanking(new UserId(userId));
     }
 
+    /**
+     * 获取工人的成就
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value ="/worker/getUserAchievement",method = RequestMethod.GET)
+    public List<Achievement> getUserAchievement(UserId userId){return achievementBL.getUserAchievement(userId);}
+
+    /**
+     * 返回任务奖励是否可以获得
+     * @param userId
+     * @param achievementId
+     * @return
+     */
+    @RequestMapping(value="/worker/getAchievementCash",method =RequestMethod.GET)
+    public boolean getAchievementCash(UserId userId, String achievementId){return achievementBL.getAchievementCash(userId,achievementId);}
+
+    /**
+     * 更新成就信息
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value="/worker/updateAchievementCash",method=RequestMethod.GET)
+    public boolean updateAchievementCash(UserId userId){return achievementBL.updateAchievementCash(userId);}
 }
