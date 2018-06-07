@@ -1,7 +1,5 @@
 package maven.model.task;
 
 public enum TaskType {
-
-
-
+    ORDINARY_LEVEL_LABEL_REQUIRED, HIGH_LEVEL_LABEL_REQUIRED, VERY_HIGH_LEVEL_LABEL_REQUIRED
 }
