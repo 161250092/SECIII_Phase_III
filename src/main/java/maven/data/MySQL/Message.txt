@@ -35,7 +35,7 @@ Cash double precision,
 Confirm boolean
 );
 
-create table Guy(
+create table GuyMessage(
 MessageId varchar(100),
 WorkerId varchar(20),
 RequestorId varchar(20),

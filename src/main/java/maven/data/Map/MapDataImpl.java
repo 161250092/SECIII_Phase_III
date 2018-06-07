@@ -16,7 +16,7 @@ public class MapDataImpl implements MapDataService{
 
     @Override
     public Map getCashTaskType() {
-        conn = new MySQLConnector().getConnection("PublishedTask");
+        conn = new MySQLConnector().getConnection("Map");
 
         HashMap<TaskType,Cash> result = new HashMap<>();
 
@@ -49,7 +49,7 @@ public class MapDataImpl implements MapDataService{
 
     @Override
     public Map getPrestigeTaskType() {
-        conn = new MySQLConnector().getConnection("PublishedTask");
+        conn = new MySQLConnector().getConnection("Map");
 
         HashMap<TaskType,Prestige> result = new HashMap<>();
 
@@ -78,5 +78,38 @@ public class MapDataImpl implements MapDataService{
         }
 
         return result;
+    }
+
+    @Override
+    public Prestige getMaxPrestige(){
+        conn = new MySQLConnector().getConnection("Map");
+
+        Prestige prestige = null;
+
+        PreparedStatement stmt;
+        String sql;
+        ResultSet rs;
+
+        try{
+            sql = "select * from MaxPrestige";
+            stmt = conn.prepareStatement(sql);
+
+            rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+                prestige = new Prestige(rs.getDouble("Prestige"));
+
+            }
+
+
+            stmt.close();
+            conn.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        return  prestige;
     }
 }

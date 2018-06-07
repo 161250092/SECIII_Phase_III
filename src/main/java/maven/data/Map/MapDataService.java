@@ -18,4 +18,10 @@ public interface MapDataService {
      * @return 信誉 任务等级映射
      */
     Map<TaskType,Prestige> getPrestigeTaskType();
+
+    /**
+     * 获取最大威望值
+     * @return 最大威望值
+     */
+    Prestige getMaxPrestige();
 }

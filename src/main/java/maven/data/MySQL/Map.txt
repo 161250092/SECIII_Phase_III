@@ -9,3 +9,7 @@ create table TypePrestige(
 TaskType varchar(20),
 Prestige double precision
 );
+
+create table MaxPrestige(
+Prestige double precision
+);
