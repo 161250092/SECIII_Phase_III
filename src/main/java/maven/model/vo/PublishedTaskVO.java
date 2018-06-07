@@ -9,6 +9,9 @@ public class PublishedTaskVO implements Serializable {
     //任务Id
     private String taskId;
 
+    //任务等级
+    private String taskLevel;
+
     //标注类型
     private String labelType;
 
@@ -35,6 +38,14 @@ public class PublishedTaskVO implements Serializable {
 
     public String getTaskId() {
         return taskId;
+    }
+
+    public String getTaskLevel() {
+        return taskLevel;
+    }
+
+    public int getImageNum() {
+        return imageNum;
     }
 
     public String getLabelType() {
@@ -66,8 +77,9 @@ public class PublishedTaskVO implements Serializable {
     }
 
 
-    private PublishedTaskVO(String taskId, String labelType, String taskDescription, int acceptedWorkerNum, int finishedWorkerNum, int requiredWorkerNum, int imageNum, double taskPrice, PublishedTaskState publishedTaskState) {
+    private PublishedTaskVO(String taskId, String taskLevel, String labelType, String taskDescription, int acceptedWorkerNum, int finishedWorkerNum, int requiredWorkerNum, int imageNum, double taskPrice, PublishedTaskState publishedTaskState) {
         this.taskId = taskId;
+        this.taskLevel = taskLevel;
         this.labelType = labelType;
         this.taskDescription = taskDescription;
         this.acceptedWorkerNum = acceptedWorkerNum;

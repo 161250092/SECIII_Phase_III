@@ -12,6 +12,8 @@ public class PublishedTask {
     private TaskId taskId;
     //发布者Id
     private UserId userId;
+    //任务等级
+    private TaskLevel taskLevel;
     //标注类型
     private LabelType labelType;
 
@@ -31,12 +33,13 @@ public class PublishedTask {
     //该任务的状态
     private PublishedTaskState publishedTaskState;
 
-    public PublishedTask(TaskId taskId, UserId userId, LabelType labelType, List<Filename> imageFilenameList,
+    public PublishedTask(TaskId taskId, UserId userId, TaskLevel taskLevel, LabelType labelType, List<Filename> imageFilenameList,
                          TaskDescription taskDescription, WorkerNum acceptedWorkerNum, WorkerNum finishedWorkerNum,
                          List<PublishedTaskDetail> publishedTaskDetailList,
                          PublishedTaskState publishedTaskState) {
         this.taskId = taskId;
         this.userId = userId;
+        this.taskLevel = taskLevel;
         this.labelType = labelType;
         this.imageFilenameList = imageFilenameList;
         this.taskDescription = taskDescription;
@@ -52,6 +55,10 @@ public class PublishedTask {
 
     public UserId getUserId() {
         return userId;
+    }
+
+    public TaskLevel getTaskLevel() {
+        return taskLevel;
     }
 
     public LabelType getLabelType() {
