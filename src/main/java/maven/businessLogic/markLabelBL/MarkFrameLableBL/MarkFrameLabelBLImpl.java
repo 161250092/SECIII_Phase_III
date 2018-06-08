@@ -32,15 +32,12 @@ public class MarkFrameLabelBLImpl implements MarkFrameLabelBLService {
         for(Filename filename : imageFilenameList){
             filenameList.add(filename.value);
         }
-        FrameLabelSetVO vo = new FrameLabelSetVO(filenameList.size(), labelList, filenameList);
-        return vo;
+        return new FrameLabelSetVO(filenameList.size(), labelList, filenameList);
     }
 
     @Override
-    public boolean saveFrameLabelSet(TaskId taskId, UserId userId, FrameLabelSetVO frameLabelSetVO, boolean isWorker) {
+    public boolean saveFrameLabelSet(TaskId taskId, UserId userId, FrameLabelSetVO frameLabelSetVO) {
         List<FrameLabel> labelList = frameLabelSetVO.getLabelList();
-        if(frameLabelDataService.saveLabelList(userId, taskId, labelList))
-            return true;
-        return false;
+        return frameLabelDataService.saveLabelList(userId, taskId, labelList);
     }
 }

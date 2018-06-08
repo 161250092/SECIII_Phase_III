@@ -18,8 +18,7 @@ public interface MarkAreaLabelBLService {
      * @param taskId 任务Id
      * @param userId 用户Id
      * @param areaLabelSetVO 标注集合
-     * @param isWorker 判断标注者是否为工人
      * @return 是否保存成功
      */
-    boolean saveAreaLabelSet(TaskId taskId, UserId userId, AreaLabelSetVO areaLabelSetVO, boolean isWorker);
+    boolean saveAreaLabelSet(TaskId taskId, UserId userId, AreaLabelSetVO areaLabelSetVO);
 }

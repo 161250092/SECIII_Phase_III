@@ -49,7 +49,7 @@ public class MarkAreaLabelBLStub implements MarkAreaLabelBLService {
     }
 
     @Override
-    public boolean saveAreaLabelSet(TaskId taskId, UserId userId, AreaLabelSetVO areaLabelSetVO, boolean isWorker) {
+    public boolean saveAreaLabelSet(TaskId taskId, UserId userId, AreaLabelSetVO areaLabelSetVO) {
         return true;
     }
 }

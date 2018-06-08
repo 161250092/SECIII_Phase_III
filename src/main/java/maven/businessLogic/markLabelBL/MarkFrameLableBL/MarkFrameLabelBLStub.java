@@ -33,7 +33,7 @@ public class MarkFrameLabelBLStub implements MarkFrameLabelBLService {
     }
 
     @Override
-    public boolean saveFrameLabelSet(TaskId taskId, UserId userId, FrameLabelSetVO labelSetVO, boolean isWorker) {
+    public boolean saveFrameLabelSet(TaskId taskId, UserId userId, FrameLabelSetVO labelSetVO) {
         return true;
     }
 }

@@ -33,15 +33,12 @@ public class MarkImageLabelBLImpl implements MarkImageLabelBLService{
         for(Filename filename : imageFilenameList){
             filenameList.add(filename.value);
         }
-        ImageLabelSetVO vo = new ImageLabelSetVO(filenameList.size(), labelList, filenameList);
-        return vo;
+        return new ImageLabelSetVO(filenameList.size(), labelList, filenameList);
     }
 
     @Override
-    public boolean saveImageLabelSet(TaskId taskId, UserId userId, ImageLabelSetVO imageLabelSetVO, boolean isWorker) {
+    public boolean saveImageLabelSet(TaskId taskId, UserId userId, ImageLabelSetVO imageLabelSetVO) {
         List<ImageLabel> labelList = imageLabelSetVO.getLabelList();
-        if(imageLabelDataService.saveLabelList(userId, taskId, labelList))
-            return true;
-        return false;
+        return imageLabelDataService.saveLabelList(userId, taskId, labelList);
     }
 }

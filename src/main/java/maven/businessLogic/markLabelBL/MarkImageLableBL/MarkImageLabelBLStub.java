@@ -31,7 +31,7 @@ public class MarkImageLabelBLStub implements MarkImageLabelBLService {
     }
 
     @Override
-    public boolean saveImageLabelSet(TaskId taskId, UserId userId, ImageLabelSetVO labelSetVO, boolean isWorker) {
+    public boolean saveImageLabelSet(TaskId taskId, UserId userId, ImageLabelSetVO labelSetVO) {
         return true;
     }
 }

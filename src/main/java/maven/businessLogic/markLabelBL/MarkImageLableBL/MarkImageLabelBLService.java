@@ -18,8 +18,7 @@ public interface MarkImageLabelBLService {
      * @param taskId 任务Id
      * @param userId 用户Id
      * @param imageLabelSetVO 标注集合
-     * @param isWorker 判断标注者是否为工人
      * @return 是否保存成功
      */
-    boolean saveImageLabelSet(TaskId taskId, UserId userId, ImageLabelSetVO imageLabelSetVO, boolean isWorker);
+    boolean saveImageLabelSet(TaskId taskId, UserId userId, ImageLabelSetVO imageLabelSetVO);
 }

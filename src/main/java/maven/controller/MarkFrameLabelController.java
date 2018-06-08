@@ -29,14 +29,14 @@ public class MarkFrameLabelController {
         return markFrameLabelBL.getFrameLabelSetVO(new TaskId(taskId),new UserId(userId));
     }
     @RequestMapping(value = "/markFrameLabel/saveFrameLabel", method = RequestMethod.GET)
-    public boolean saveFrameLabelSetVO(String taskId, String userId, String frameLabelVOSetJSON, boolean isWorker) {
+    public boolean saveFrameLabelSetVO(String taskId, String userId, String frameLabelVOSetJSON) {
         System.out.println(frameLabelVOSetJSON);
-        return markFrameLabelBL.saveFrameLabelSet(new TaskId(taskId), new UserId(userId), (FrameLabelSetVO)JsonConverter.jsonToObject(frameLabelVOSetJSON, FrameLabelSetVO.class), isWorker);
+        return markFrameLabelBL.saveFrameLabelSet(new TaskId(taskId), new UserId(userId), (FrameLabelSetVO)JsonConverter.jsonToObject(frameLabelVOSetJSON, FrameLabelSetVO.class));
     }
 
 
     @RequestMapping(value = "/markFrameLabel/setTaskAccomplished", method = RequestMethod.GET)
-    public boolean setTaskAccomplished(String taskId, String userId, boolean isWorker) {
-        return setTaskAccomplishedBL.setTaskAccomplished(new TaskId(taskId), new UserId(userId), isWorker);
+    public boolean setTaskAccomplished(String taskId, String userId) {
+        return setTaskAccomplishedBL.setTaskAccomplished(new TaskId(taskId), new UserId(userId));
     }
 }

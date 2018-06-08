@@ -32,15 +32,12 @@ public class MarkAreaLabelBLImpl implements MarkAreaLabelBLService {
         for(Filename filename : imageFilenameList){
             filenameList.add(filename.value);
         }
-        AreaLabelSetVO vo = new AreaLabelSetVO(filenameList.size(), labelList, filenameList);
-        return vo;
+        return new AreaLabelSetVO(filenameList.size(), labelList, filenameList);
     }
 
     @Override
-    public boolean saveAreaLabelSet(TaskId taskId, UserId userId, AreaLabelSetVO areaLabelSetVO, boolean isWorker) {
+    public boolean saveAreaLabelSet(TaskId taskId, UserId userId, AreaLabelSetVO areaLabelSetVO) {
         List<AreaLabel> labelList = areaLabelSetVO.getLabelList();
-        if(areaLabelDataService.saveLabelList(userId, taskId, labelList))
-            return true;
-        return false;
+        return areaLabelDataService.saveLabelList(userId, taskId, labelList);
     }
 }
