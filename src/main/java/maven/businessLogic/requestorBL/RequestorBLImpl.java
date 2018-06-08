@@ -1,5 +1,7 @@
 package maven.businessLogic.requestorBL;
 
+import maven.data.Map.MapDataImpl;
+import maven.data.Map.MapDataService;
 import maven.data.RequestorData.RequestorDataImpl;
 import maven.data.RequestorData.RequestorDataService;
 import maven.data.UserData.UserDataImpl;
@@ -24,16 +26,18 @@ public class RequestorBLImpl implements RequestorBLService{
     private RequestorDataService requestorDataService;
     private WorkerDataService workerDataService;
     private UserDataService userDataService;
+    private MapDataService mapDataService;
 
     public RequestorBLImpl(){
         requestorDataService = new RequestorDataImpl();
         workerDataService = new WorkerDataImpl();
         userDataService = new UserDataImpl();
+        mapDataService = new MapDataImpl();
     }
 
     @Override
-    public Map<TaskType, Double> getTaskUnitPriceMap() {
-        return null;
+    public Map<TaskType, Cash> getTaskUnitPriceMap() {
+        return mapDataService.getCashTaskType();
     }
 
     @Override

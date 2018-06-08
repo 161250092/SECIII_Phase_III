@@ -16,8 +16,7 @@ public interface RequestorBLService {
      * 与任务等级一一对应
      * @return 价格数组
      */
-    //List<Double> getTaskUnitPriceList();
-    Map<TaskType, Double> getTaskUnitPriceMap();
+    Map<TaskType, Cash> getTaskUnitPriceMap();
 
     /**
      * 上传欲发布的任务信息

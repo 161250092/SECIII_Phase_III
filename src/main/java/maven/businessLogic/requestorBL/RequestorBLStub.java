@@ -7,14 +7,19 @@ import maven.model.vo.AcceptedTaskVO;
 import maven.model.vo.PublishedTaskVO;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class RequestorBLStub implements RequestorBLService {
 
     @Override
-    public Map<TaskType, Double> getTaskUnitPriceMap() {
-        return null;
+    public Map<TaskType, Cash> getTaskUnitPriceMap() {
+        Map<TaskType, Cash> map = new HashMap<>();
+        map.put(TaskType.ORDINARY_LEVEL_LABEL_REQUIRED, new Cash(10));
+        map.put(TaskType.HIGH_LEVEL_LABEL_REQUIRED, new Cash(12));
+        map.put(TaskType.VERY_HIGH_LEVEL_LABEL_REQUIRED, new Cash(15));
+        return map;
     }
 
     @Override
@@ -124,11 +129,11 @@ public class RequestorBLStub implements RequestorBLService {
         imageFilenameList.add(new Filename("test04"));
         imageFilenameList.add(new Filename("test05"));
 
-        List<Integer> imageInedxList = new ArrayList<>();
-        imageInedxList.add(0);
-        imageInedxList.add(1);
-        imageInedxList.add(2);
-
+//        List<Integer> imageInedxList = new ArrayList<>();
+//        imageInedxList.add(0);
+//        imageInedxList.add(1);
+//        imageInedxList.add(2);
+//
 //        List<String> tagList_1 = new ArrayList<>();
 //        tagList_1.add("ImageLabel01");
 //        tagList_1.add("ImageLabel02");

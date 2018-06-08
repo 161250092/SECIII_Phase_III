@@ -33,8 +33,9 @@ public class RequestorController {
      * 与任务等级一一对应
      * @return 价格数组
      */
-    public Map<TaskType, Double> getTaskUnitPriceList(){
-        return null;
+    @RequestMapping(value = "/requestor/getTaskUnitPriceList", method = RequestMethod.GET)
+    public Map<TaskType, Cash> getTaskUnitPriceList(){
+        return requestorBL.getTaskUnitPriceMap();
     }
 
     /**
