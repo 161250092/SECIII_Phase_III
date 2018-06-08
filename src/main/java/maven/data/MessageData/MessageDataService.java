@@ -64,7 +64,7 @@ public interface MessageDataService {
     List<GuyMessage> getUncheckedGuyMessage(UserId userId);
 
     /**
-     * 获取所有账单消息
+     * 获取所有未查看账单消息
      * @param userId 用户Id
      * @return 账单消息的列表
      */
@@ -72,7 +72,7 @@ public interface MessageDataService {
 
 
     /**
-     * 获取所有成就消息
+     * 获取所有未查看成就消息
      * @param userId 用户Id
      * @return 成就消息的列表
      */

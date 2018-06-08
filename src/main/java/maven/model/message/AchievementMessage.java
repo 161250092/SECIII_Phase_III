@@ -9,7 +9,7 @@ public class AchievementMessage {
     //欲通知的用户Id
     private UserId userId;
     //达成的成就
-    private Achievement achievement;
+    private String AchievementId;
     //是否被用户确认查看过
     private boolean isChecked;
 
@@ -17,8 +17,8 @@ public class AchievementMessage {
         return userId;
     }
 
-    public Achievement getAchievement() {
-        return achievement;
+    public String getAchievementId() {
+        return AchievementId;
     }
 
 
@@ -30,10 +30,10 @@ public class AchievementMessage {
         return isChecked;
     }
 
-    public AchievementMessage(MessageId messageId, UserId userId, Achievement achievement) {
+    public AchievementMessage(MessageId messageId, UserId userId, String AchievementId) {
         this.messageId = messageId;
         this.userId = userId;
-        this.achievement = achievement;
+        this.AchievementId = AchievementId;
         this.isChecked = false;
     }
 }

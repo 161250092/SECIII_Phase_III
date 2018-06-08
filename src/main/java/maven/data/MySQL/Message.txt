@@ -12,7 +12,7 @@ Check boolean
 create Table Achievement(
 MessageId varchar(100),
 UserId varchar(20),
-Achievement varchar(200),
+AchievementId varchar(100),
 Check boolean
 );
 
@@ -21,7 +21,7 @@ MessageId varchar(100),
 UserId varchar(20),
 TaskId varchar(100),
 WorkerId varchar(20),
-Username varchar(20),
+WorkerName varchar(20),
 Cash double precision,
 Check boolean
 );
