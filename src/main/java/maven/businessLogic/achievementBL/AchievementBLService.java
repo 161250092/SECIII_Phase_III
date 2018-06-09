@@ -31,7 +31,7 @@ public interface AchievementBLService {
         boolean   getAchievementCash(UserId userId,String achievementId);
 
     /**
-     * 更新成就信息
+     *
      * @param userId
      * @return
      */
