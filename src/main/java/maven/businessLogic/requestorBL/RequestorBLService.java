@@ -41,11 +41,11 @@ public interface RequestorBLService {
     Exception assignTask(TaskId taskId);
 
     /**
-     * 撤销已发布的任务
+     * 终止已发布的任务
      * @param taskId 任务Id
      * @return 后端处理任务撤销请求的结果
      */
-    Exception revokeTask(TaskId taskId);
+    Exception terminateTask(TaskId taskId);
 
     /**
      * 修改已发布的任务（追加任务的悬赏金额）
@@ -123,12 +123,5 @@ public interface RequestorBLService {
      * @return 任务列表
      */
     List<AcceptedTaskVO> getAcceptedTaskVOList(UserId userId, TaskId taskId);
-
-
-//    /**
-//     * 获取发布者的个人信息
-//     * @param userId 发布者Id
-//     * @return Requestor对象
-//     */
-//    Requestor getRequestorInfo(UserId userId);
+    
 }

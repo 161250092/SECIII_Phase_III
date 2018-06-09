@@ -70,19 +70,19 @@ public class RequestorController {
     }
 
     /**
-     * 撤销已发布的任务
+     * 终止已发布的任务
      * @param taskId 任务Id
      * @return 后端处理任务撤销请求的结果
      */
-    @RequestMapping(value = "/requestor/revokeTask", method = RequestMethod.GET)
-    public Exception revokeTask(String taskId){
-        return requestorBL.revokeTask(new TaskId(taskId));
+    @RequestMapping(value = "/requestor/terminateTask", method = RequestMethod.GET)
+    public Exception terminateTask(String taskId){
+        return requestorBL.terminateTask(new TaskId(taskId));
     }
 
     /**
      * 修改已发布的任务（追加任务的悬赏金额）
      * @param taskId 任务Id
-     * @param cash 追加的金额数
+     * @param cash 修改后的金额数
      * @return 后端处理任务修改请求的结果
      */
     @RequestMapping(value = "/requestor/reviseTaskPrice", method = RequestMethod.GET)
