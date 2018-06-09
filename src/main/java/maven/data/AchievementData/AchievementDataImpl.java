@@ -23,20 +23,20 @@ public class AchievementDataImpl implements AchievementDataService {
         PreparedStatement stmt;
         String sql;
 
-        for(int i = 0;i < list.size();i++){
+        for(Achievement a : list){
             try{
                 sql = "insert into Achievement values (?,?,?,?,?,?,?,?)";
 
                 stmt = conn.prepareStatement(sql);
 
-                stmt.setString(1,list.get(i).getUserId().value);
-                stmt.setString(2,list.get(i).getAchievementId());
-                stmt.setString(3,list.get(i).getAchievementName());
-                stmt.setString(4,list.get(i).getDescription());
-                stmt.setDouble(5,list.get(i).getProcess());
-                stmt.setBoolean(6,list.get(i).isFinished());
-                stmt.setBoolean(7,list.get(i).isRewardGet());
-                stmt.setDouble(8,list.get(i).getCash().value);
+                stmt.setString(1,a.getUserId().value);
+                stmt.setString(2,a.getAchievementId());
+                stmt.setString(3,a.getAchievementName());
+                stmt.setString(4,a.getDescription());
+                stmt.setDouble(5,a.getProcess());
+                stmt.setBoolean(6,a.isFinished());
+                stmt.setBoolean(7,a.isRewardGet());
+                stmt.setDouble(8,a.getCash().value);
 
                 stmt.executeUpdate();
 
@@ -136,7 +136,7 @@ public class AchievementDataImpl implements AchievementDataService {
         }
 
         if(r1){
-            if((achievement.isFinished())&&(achievement.isRewardGet() == false)){
+            if((achievement.isFinished())&&(!achievement.isRewardGet())){
 
                 try {
                     sql = "update Achievement set Reward = ? where UserId = ? and ID = ?";
