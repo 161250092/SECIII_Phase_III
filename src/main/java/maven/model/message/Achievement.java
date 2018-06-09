@@ -31,4 +31,37 @@ public class Achievement {
         this.isRewardGet = isRewardGet;
         this.cash = cash;
     }
+
+
+    public UserId getUserId() {
+        return userId;
+    }
+
+    public String getAchievementId() {
+        return achievementId;
+    }
+
+    public String getAchievementName() {
+        return achievementName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public double getProcess() {
+        return process;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public boolean isRewardGet() {
+        return isRewardGet;
+    }
+
+    public Cash getCash() {
+        return cash;
+    }
 }
