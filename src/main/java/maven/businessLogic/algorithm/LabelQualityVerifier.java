@@ -49,46 +49,15 @@ public class LabelQualityVerifier {
         //获得所有发布者所做过的所有评价以及所有消极评价
         for(AcceptedTaskQuality taskQuality: taskQualityList){
             UserId currentRequesterId = taskQuality.getRequestorId();
-            if (requesterTotalCountMap.containsKey(currentRequesterId)){
-                int requesterTotalCount = requesterTotalCountMap.get(currentRequesterId);
-                requesterTotalCountMap.put(currentRequesterId, requesterTotalCount+1);
-
-                if (taskQuality.getAcceptedTaskState() == AcceptedTaskState.ABANDONED_BY_REQUESTOR){
-                    int requesterDistrustfulCount = requesterTotalCountMap.get(currentRequesterId);
-                    requesterDistrustfulCountMap.put(currentRequesterId, requesterDistrustfulCount+1);
-                }
-            }else {
-                requesterTotalCountMap.put(currentRequesterId, 1);
-
-                if (taskQuality.getAcceptedTaskState() == AcceptedTaskState.ABANDONED_BY_REQUESTOR){
-                    requesterDistrustfulCountMap.put(currentRequesterId, 0);
-                }else {
-                    requesterDistrustfulCountMap.put(currentRequesterId, 1);
-                }
-            }
+            solveCountMap(requesterDistrustfulCountMap, requesterTotalCountMap, taskQuality, currentRequesterId);
         }
 
         //获得发布者的消极评价率
-        for (UserId currentRequesterId: requesterTotalCountMap.keySet()){
-            int requesterDistrustfulCount = requesterDistrustfulCountMap.get(currentRequesterId);
-            int requesterTotalCount = requesterTotalCountMap.get(currentRequesterId);
-            double requesterDistrustfulRate = (double)requesterDistrustfulCount / (double)requesterTotalCount;
+        thisRequesterDistrustfulRate =
+                getRequiredDistrustfulRateAndDistrustfulRateList(requesterId, requesterDistrustfulCountMap, requesterTotalCountMap, requesterDistrustfulRateList);
 
-            requesterDistrustfulRateList.add(requesterDistrustfulRate);
 
-            if (currentRequesterId.value.equals(requesterId.value)){
-                thisRequesterDistrustfulRate = requesterDistrustfulRate;
-            }
-        }
-
-        //假设发布者的消极评价服从正态分布，X ～ N（μ, σ^2）
-        //μ的最大似然估计值为平均值
-        double mu_hat = this.mean(requesterDistrustfulRateList);
-        //σ^2的最大似然估计值为方差
-        double sigma_hat = Math.pow(this.variance(requesterDistrustfulRateList), 0.5);
-
-        //估计量：(X_bar - μ_hat) / σ_hat
-        double estimate = (thisRequesterDistrustfulRate - mu_hat) / sigma_hat;
+        double estimate = getEstimate(requesterDistrustfulRateList, thisRequesterDistrustfulRate);
 
         //若估计量大于Z_0.01，则说明该发布者比其他发布者更容易给出消极评价
         return estimate > z_dot01;
@@ -97,7 +66,29 @@ public class LabelQualityVerifier {
     ////////////////////////
     //未完成
     private boolean doesThisRequesterHavePrejudiceAgainstThisWorker(UserId requesterId, UserId workerId){
-        return false;
+        double workerDistrustedRateFromThisRequester = 0.0;
+
+        Map<UserId, Integer> thisWorkerDistrustedCountMap = new HashMap<>();
+        Map<UserId, Integer> thisWorkerTotalCountMap = new HashMap<>();
+        List<Double> thisWorkerDistrustedRateList = new ArrayList<>();
+
+        for(AcceptedTaskQuality taskQuality: taskQualityList){
+            UserId currentWorkerId = taskQuality.getWorkerId();
+            if (currentWorkerId.value.equals(workerId.value)) continue;
+
+            UserId currentRequesterId = taskQuality.getRequestorId();
+            solveCountMap(thisWorkerDistrustedCountMap, thisWorkerTotalCountMap, taskQuality, currentRequesterId);
+        }
+
+        //获得发布者的消极评价率
+        workerDistrustedRateFromThisRequester
+                = getRequiredDistrustfulRateAndDistrustfulRateList(requesterId, thisWorkerDistrustedCountMap, thisWorkerTotalCountMap, thisWorkerDistrustedRateList);
+
+
+        double estimate = getEstimate(thisWorkerDistrustedRateList, workerDistrustedRateFromThisRequester);
+
+        //若估计量大于Z_0.01，则说明该发布者比其他发布者更容易给出消极评价
+        return estimate > z_dot01;
     }
     ////////////////////////
 
@@ -177,5 +168,52 @@ public class LabelQualityVerifier {
         }
 
         return squareSum / (double)n;
+    }
+
+    private void solveCountMap(Map<UserId, Integer> distrustfulCountMap, Map<UserId, Integer> totalCountMap, AcceptedTaskQuality taskQuality, UserId currentRequesterId) {
+        if (totalCountMap.containsKey(currentRequesterId)){
+            int requesterTotalCount = totalCountMap.get(currentRequesterId);
+            totalCountMap.put(currentRequesterId, requesterTotalCount+1);
+
+            if (taskQuality.getAcceptedTaskState() == AcceptedTaskState.ABANDONED_BY_REQUESTOR){
+                int requesterDistrustfulCount = totalCountMap.get(currentRequesterId);
+                distrustfulCountMap.put(currentRequesterId, requesterDistrustfulCount+1);
+            }
+        }else {
+            totalCountMap.put(currentRequesterId, 1);
+
+            if (taskQuality.getAcceptedTaskState() == AcceptedTaskState.ABANDONED_BY_REQUESTOR){
+                distrustfulCountMap.put(currentRequesterId, 1);
+            }else {
+                distrustfulCountMap.put(currentRequesterId, 0);
+            }
+        }
+    }
+
+    private double getRequiredDistrustfulRateAndDistrustfulRateList(UserId requesterId, Map<UserId, Integer> requesterDistrustfulCountMap, Map<UserId, Integer> requesterTotalCountMap, List<Double> requesterDistrustfulRateList) {
+        double requiredDistrustfulRate = 0.0;
+        for (UserId currentRequesterId: requesterTotalCountMap.keySet()){
+            int requesterDistrustfulCount = requesterDistrustfulCountMap.get(currentRequesterId);
+            int requesterTotalCount = requesterTotalCountMap.get(currentRequesterId);
+            double requesterDistrustfulRate = (double)requesterDistrustfulCount / (double)requesterTotalCount;
+
+            requesterDistrustfulRateList.add(requesterDistrustfulRate);
+
+            if (currentRequesterId.value.equals(requesterId.value)){
+                requiredDistrustfulRate = requesterDistrustfulRate;
+            }
+        }
+        return requiredDistrustfulRate;
+    }
+
+    private double getEstimate(List<Double> distrustfulRateList, double requiredDistrustfulRateList){
+        //假设发布者的消极评价服从正态分布，X ～ N（μ, σ^2）
+        //μ的最大似然估计值为平均值
+        double mu_hat = this.mean(distrustfulRateList);
+        //σ^2的最大似然估计值为方差
+        double sigma_hat = Math.pow(this.variance(distrustfulRateList), 0.5);
+
+        //估计量：(X_bar - μ_hat) / σ_hat
+        return (requiredDistrustfulRateList - mu_hat) / sigma_hat;
     }
 }
