@@ -12,7 +12,7 @@ public interface UserDataService {
 
     /**
      * 获取所有用户昵称的信息
-     * @return username的list：发布者、工人
+     * @return 发布者、工人Name
      */
     List<Username> getAllUsernameList();
 
@@ -44,7 +44,7 @@ public interface UserDataService {
 
     /**
      * 获取所有信息
-     * @return userId的list：管理员、用户、工人
+     * @return 管理员、用户、工人IDList
      */
      List<UserId> getAllUserIdList();
 

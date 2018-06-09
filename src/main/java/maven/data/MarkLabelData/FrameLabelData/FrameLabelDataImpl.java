@@ -3,8 +3,6 @@ package maven.data.MarkLabelData.FrameLabelData;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import maven.data.MySQL.MySQLConnector;
-import maven.model.label.areaLabel.Area;
-import maven.model.label.areaLabel.AreaLabel;
 import maven.model.label.frameLabel.Frame;
 import maven.model.label.frameLabel.FrameLabel;
 import maven.model.primitiveType.TaskId;

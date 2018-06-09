@@ -2,10 +2,8 @@ package maven.data.RequestorData;
 
 import maven.model.primitiveType.*;
 import maven.model.task.*;
-import maven.model.user.Requestor;
 
 import java.util.List;
-import java.util.Map;
 
 public interface RequestorDataService {
 
@@ -22,7 +20,7 @@ public interface RequestorDataService {
      * @param taskId 任务Id
      * @param ImageNum 样本内图片数量
      * @param imageIndexList 图片下标数组
-     * @return
+     * @return 是否保存
      */
      boolean saveTaskSampleInfo(TaskId taskId, int ImageNum, List<Integer> imageIndexList);
 
@@ -37,21 +35,21 @@ public interface RequestorDataService {
      * 修改任务信息
      * @param taskId 任务Id
      * @param publishedTaskDetail 任务瞬时状态
-     * @return
+     * @return 是否修改
      */
      boolean saveTaskDetail(TaskId taskId, PublishedTaskDetail publishedTaskDetail);
 
      /**
       * 修改已接受的工人人数
       * @param acceptedWorkerNum 已接受的工人人数
-      * @return
+      * @return 是否修改
       */
      boolean reviseTaskAcceptedWorkerNum(TaskId taskId, WorkerNum acceptedWorkerNum);
 
      /**
       * 修改已通过审核的工人人数
       * @param finishedWorkerNum 已通过审核的工人人数
-      * @return
+      * @return 是否修改
       */
      boolean reviseTaskFinishedWorkerNum(TaskId taskId, WorkerNum finishedWorkerNum);
 
@@ -59,7 +57,7 @@ public interface RequestorDataService {
      * 修改已发布任务的任务状态
      * @param taskId 任务Id
      * @param publishedTaskState 任务状态
-     * @return
+     * @return 是否修改
      */
      boolean revisePublishedTaskState(TaskId taskId, PublishedTaskState publishedTaskState);
 

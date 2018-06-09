@@ -2,7 +2,6 @@ package maven.data.WorkerData;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mysql.jdbc.MySQLConnection;
 import maven.data.MySQL.MySQLConnector;
 import maven.model.primitiveType.Cash;
 import maven.model.primitiveType.LabelScore;
@@ -45,7 +44,7 @@ public class WorkerDataImpl implements WorkerDataService {
                 TaskId taskId = new TaskId(rs.getString("TaskId"));
                 Date date = gson.fromJson(rs.getString("Date"),Date.class);
                 Cash cash = new Cash(rs.getDouble("Cash"));
-                WorkerDiscount discount = gson.fromJson(rs.getString("Dsicount"),WorkerDiscount.class);
+                WorkerDiscount discount = gson.fromJson(rs.getString("Discount"),WorkerDiscount.class);
                 AcceptedTaskState state = AcceptedTaskState.valueOf(rs.getString("State"));
                 LabelScore score = new LabelScore(rs.getDouble("Score"));
 
@@ -160,7 +159,7 @@ public class WorkerDataImpl implements WorkerDataService {
             while(rs.next()){
                 Date date = gson.fromJson(rs.getString("Date"),Date.class);
                 Cash cash = new Cash(rs.getDouble("Cash"));
-                WorkerDiscount discount = gson.fromJson(rs.getString("Dsicount"),WorkerDiscount.class);
+                WorkerDiscount discount = gson.fromJson(rs.getString("Discount"),WorkerDiscount.class);
                 AcceptedTaskState state = AcceptedTaskState.valueOf(rs.getString("State"));
                 LabelScore score = new LabelScore(rs.getDouble("Score"));
 

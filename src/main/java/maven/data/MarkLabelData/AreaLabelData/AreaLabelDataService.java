@@ -11,10 +11,10 @@ public interface AreaLabelDataService {
      * 覆盖性保存标注信息
      * @param userId 工人Id
      * @param taskId 任务Id
-     * @param lableList 标注列表
+     * @param labelList 标注列表
      * @return 是否保存成功
      */
-    boolean saveLabelList(UserId userId, TaskId taskId, List<AreaLabel> lableList);
+    boolean saveLabelList(UserId userId, TaskId taskId, List<AreaLabel> labelList);
 
     /**
      * 删除标注信息

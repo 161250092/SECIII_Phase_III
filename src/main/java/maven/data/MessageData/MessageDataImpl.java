@@ -1,9 +1,6 @@
 package maven.data.MessageData;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import maven.data.MySQL.MySQLConnector;
-import maven.exception.DataException.UserNotFoundException;
 import maven.model.message.*;
 import maven.model.primitiveType.*;
 import maven.model.task.AcceptedTaskState;

@@ -27,18 +27,18 @@ public interface WorkerDataService {
 
     /**
      * 更改任务信息
-     * @param userId
-     * @param taskId
-     * @param acceptedTaskState
-     * @return
+     * @param userId 工人ID
+     * @param taskId 任务ID
+     * @param acceptedTaskState 任务状态
+     * @return 是否修改
      */
     boolean reviseAcceptedTaskState(UserId userId, TaskId taskId, AcceptedTaskState acceptedTaskState);
 
     /**
      * 获取已接受任务的信息
-     * @param userId
-     * @param taskId
-     * @return
+     * @param userId 工人ID
+     * @param taskId 任务ID
+     * @return 任务信息
      */
      AcceptedTask getAcceptedTaskById(UserId userId,TaskId taskId);
 
