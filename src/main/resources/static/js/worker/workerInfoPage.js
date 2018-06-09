@@ -16,13 +16,13 @@ new Vue({
         userId:"",
         username:"无",
         prestige:0,
-        userLevel:"0",
         cash:0,
         email:"无",
         phone:"无",
         AllFinishedTask:[],
         AllUnfinishedTask:[],
-        maxAcceptedTaskNum:10
+        maxAcceptedTaskNum:10,
+        cashForExchange:0
     },
     mounted: function () {
         this.$nextTick(function () {
@@ -34,7 +34,6 @@ new Vue({
                     /* getUserInfo */
                     _this.username = userInfo.data.username.value;
                     _this.prestige = userInfo.data.prestige.value;
-                    _this.userLevel = userInfo.data.userLevel;
                     _this.cash = userInfo.data.cash.value;
                     _this.email = userInfo.data.email.address;
                     _this.phone = userInfo.data.phone.number;
@@ -284,6 +283,20 @@ new Vue({
         getAcceptedAndAccomplishedTaskList: function () {
             return axios.get("/worker/getAcceptedAndAccomplishedTaskList", {params:{userId:this.userId}});
         },
+
+        exchange:function(){
+            const _this = this;
+            axios.get("/worker/exhcangeCash",{param:{userId:getUserId(),cash:_this.cahs-_this.cashForExchange}}).then(function(response){
+                if(resposne===true)
+                    alert("兑换成功");
+                else
+                     alert("兑换失败");
+            }
+
+            )
+
+        }
+
     }
 });
 

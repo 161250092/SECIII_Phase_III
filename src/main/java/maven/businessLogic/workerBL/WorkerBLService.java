@@ -1,5 +1,6 @@
 package maven.businessLogic.workerBL;
 
+import maven.model.primitiveType.Cash;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
 import maven.model.task.AcceptedTask;
@@ -63,6 +64,14 @@ public interface WorkerBLService {
      */
     int getUserRanking(UserId userId);
 
+    /**
+     * 积分兑换
+     * @param userId
+     * @param cash
+     * @return
+     */
+
+    boolean exchange(UserId userId,Cash cash);
 //    /**
 //     * 获取工人的个人信息
 //     * @param userId 工人Id

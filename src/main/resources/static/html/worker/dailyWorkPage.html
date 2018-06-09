@@ -16,6 +16,7 @@
             <a>查询</a>
             <ul class="submenu">
                 <li><a href="../worker/workerFinishedTaskPage.html">历史任务</a></li>
+                <li><a href="../worker/messagePage.html">消息</a></li>
             </ul>
         </li>
 
@@ -32,10 +33,15 @@
             <ul class="submenu">
                 <li><a href="../login/login.html">登出</a></li>
                 <li><a href="../worker/workerInfoPage.html">个人主页</a></li>
+                <li><a href="../worker/dailyWorkPage.html">成就</a></li>
+
             </ul>
         </li>
+
     </ul>
 </header>
+
+<div id="achievement">
 
 <div id="dailywork">
 <button v-on:click="sign_in()">签到</button>
@@ -50,7 +56,8 @@
 
 
 
-<div id="achievement" align="center">
+<div  align="center">
+    <p> 成就列表</p>
     <table border="1">
         <tr>
             <th>名称</th>
@@ -66,18 +73,19 @@
             <th>{{achieve.process}}</th>
             <th>{{achieve.cash}}</th>
             <th><input type="button" v-on:click="getCash(index)" value="领取"></th>
-
-
-
+        </tr>
     </table>
 
 </div>
 
 
-</body>
+</div>
 <script src="../../js/lib/vue.js"></script>
 <script src="../../js/lib/axios.js"></script>
 <script src="../../js/pageJump.js"></script>
 <script src="../../js/worker/dailyWorkPage.js"></script>
+
+</body>
+
 
 </html>

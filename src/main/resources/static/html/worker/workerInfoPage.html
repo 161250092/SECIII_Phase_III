@@ -17,36 +17,36 @@
 
 
   <body bgcolor="#f0f8ff">
-  <div id="home" class="header-wrapper header-top">
-      <header>
-          <ul class="menu cf">
-              <li>
-                  <a>查询</a>
-                  <ul class="submenu">
-                      <li><a href="../worker/workerFinishedTaskPage.html">历史任务</a></li>
-                  </ul>
-              </li>
+  <header id="home" class="header-wrapper header-top">
+      <ul class="menu cf">
+          <li>
+              <a>查询</a>
+              <ul class="submenu">
+                  <li><a href="../worker/workerFinishedTaskPage.html">历史任务</a></li>
+                  <li><a href="../worker/messagePage.html">消息</a></li>
+              </ul>
+          </li>
 
-              <li>
-                  <a>任务</a>
-                  <ul class="submenu">
-                      <li><a href="../worker/doTask.html">做任务</a></li>
-                      <li><a href="../worker/getTask.html">接任务</a></li>
-                  </ul>
-              </li>
+          <li>
+              <a>任务</a>
+              <ul class="submenu">
+                  <li><a href="../worker/doTask.html">做任务</a></li>
+                  <li><a href="../worker/getTask.html">接任务</a></li>
+              </ul>
+          </li>
 
+          <li>
+              <a>用户中心</a>
+              <ul class="submenu">
+                  <li><a href="../login/login.html">登出</a></li>
+                  <li><a href="../worker/workerInfoPage.html">个人主页</a></li>
+                  <li><a href="../worker/dailyWorkPage.html">成就</a></li>
 
-              <li>
-                  <a>用户中心</a>
-                  <ul class="submenu">
-                      <li><a href="../login/login.html">登出</a></li>
-                      <li><a href="../worker/workerInfoPage.html">个人主页</a></li>
-                  </ul>
-              </li>
+              </ul>
+          </li>
 
-          </ul>
-      </header>
-  </div>
+      </ul>
+  </header>
 
   <div id="workerInfo">
       <div id="fix">
@@ -57,9 +57,6 @@
           <br>
           <span>声望:</span>
           <input type="text" class="input_short" id="prestige" name="tag" value="" disabled="disabled" v-model="prestige">
-          <br>
-          <span>等级:</span>
-          <input type="text" class="input_short" id="user_level" name="tag" value="" disabled="disabled" v-model="userLevel">
           <br>
           <span>cash:</span>
           <input type="text" class="input_short" id="cash" name="tag" value="" disabled="disabled" v-model="cash">
@@ -97,8 +94,15 @@
 
 
       <hr/>
-      <button id="charge" v-on:click="exchange">积分兑换</button>
+      <p class="testfont">现金兑换</p>
+      <p>
+          <a href="http://www.baidu.com">兑现须知</a>
+      </p>
+      <br>
 
+      <label>金额</label>
+      <input type="text" v-model="cashForExchange">
+      <button v-on:click="exchange">兑换</button>
 
 
   </div>

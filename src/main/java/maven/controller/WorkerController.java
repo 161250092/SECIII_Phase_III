@@ -7,9 +7,11 @@ import maven.businessLogic.workerBL.WorkerBLService;
 import maven.businessLogic.workerBL.WorkerBLStub;
 import maven.model.JsonConverter;
 import maven.model.message.Achievement;
+import maven.model.primitiveType.Cash;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
 import maven.model.task.AcceptedTask;
+import maven.model.user.User;
 import maven.model.user.Worker;
 import maven.model.vo.AcceptedTaskVO;
 import maven.model.vo.PublishedTaskVO;
@@ -134,4 +136,15 @@ public class WorkerController{
      */
     @RequestMapping(value="/worker/updateAchievementCash",method=RequestMethod.GET)
     public boolean updateAchievementCash(UserId userId){return achievementBL.updateAchievementCash(userId);}
+
+    /**
+     *积分兑换
+     * 目前只是纯粹的减去兑换额
+     * @param userId
+     * @param cash
+     * @return
+     */
+    @RequestMapping(value="/worker/exhcangeCash",method = RequestMethod.GET)
+    public boolean exhcangeCash(UserId userId,Cash cash){return workerBL.exchange(userId,cash);}
+
 }

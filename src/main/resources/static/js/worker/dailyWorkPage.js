@@ -1,7 +1,8 @@
 new Vue({
-   el:"achievementContainer",
+   el:"#achievement",
     data:{
        achievementList:[]
+
     },
 
    mounted:function() {
@@ -55,21 +56,6 @@ new Vue({
            jumpToAnotherPage(getTaskPageUrl);
        }
 
-
-
-
-
-
-
-
-
-
-
-
    }
-
-
-
-
 
 });

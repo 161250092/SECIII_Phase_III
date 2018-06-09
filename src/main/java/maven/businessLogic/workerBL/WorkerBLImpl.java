@@ -178,6 +178,11 @@ public class WorkerBLImpl implements WorkerBLService {
             return -1;
     }
 
+    @Override
+    public boolean exchange(UserId userId, Cash cash) {
+        return userDataService.reviseCash(userId,cash);
+    }
+
 
     //获取工人所有已接受的任务
     private List<AcceptedTaskVO> getAcceptedTaskVOList(UserId userId){
@@ -208,5 +213,8 @@ public class WorkerBLImpl implements WorkerBLService {
         }
         return true;
     }
+
+
+
 
 }
