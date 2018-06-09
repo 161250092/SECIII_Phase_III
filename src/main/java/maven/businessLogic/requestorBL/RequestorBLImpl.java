@@ -18,6 +18,7 @@ import maven.model.vo.AcceptedTaskVO;
 import maven.model.vo.PublishedTaskVO;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -55,7 +56,39 @@ public class RequestorBLImpl implements RequestorBLService{
                 new TaskDescription(publishedTaskVO.getTaskDescription()), new WorkerNum(0), new WorkerNum(0),
                 publishedTaskDetailList, PublishedTaskState.DRAFT_WITHOUT_SAMPLE
                 );
-        if(requestorDataService.saveTaskInfo(publishedTask))
+
+        //下面生成样本数据
+
+        //原本任务图片集的图片总数
+        int imageNum = imageFilenameList.size();
+        //样本内图片数量
+        int sampleImageNum;
+        //样本图片在原本任务图片集内的下标数组
+        List<Integer> imageIndexList = new ArrayList<>();
+
+        if(imageNum < 5)
+            sampleImageNum = 1;
+        else if(imageNum < 50)
+            sampleImageNum = imageNum/5;
+        else
+            sampleImageNum = 10;
+
+        int temp;
+        boolean isFound;
+        while(imageIndexList.size() < sampleImageNum){
+            temp = (int)(Math.random()*imageNum);
+            isFound = false;
+            for(Integer index : imageIndexList){
+                if(index == temp)
+                    isFound = true;
+            }
+            if(!isFound)
+                imageIndexList.add(temp);
+        }
+        //将imageIndexList 从小到大 进行排序
+        imageIndexList.sort(Comparator.comparing(Integer::intValue));
+
+        if(requestorDataService.saveTaskInfo(publishedTask) && requestorDataService.saveTaskSampleInfo(taskId, sampleImageNum, imageIndexList))
             return new SuccessException();
         else
             return new FailureException();
@@ -85,7 +118,7 @@ public class RequestorBLImpl implements RequestorBLService{
         Cash taskPrice = publishedTask.getTaskPrice();
         WorkerNum requiredWorkerNum = publishedTask.getRequiredWorkerNum();
 
-        //若该任务仍处于 未注样本的草稿状态
+        //若该任务仍处于 未标注样本的草稿状态
         if(publishedTask.getPublishedTaskState() == PublishedTaskState.DRAFT_WITHOUT_SAMPLE)
             return new IncompleteSampleException();
         else{
@@ -113,20 +146,52 @@ public class RequestorBLImpl implements RequestorBLService{
     }
 
     @Override
-    public Exception revokeTask(TaskId taskId) {
+    public Exception terminateTask(TaskId taskId) {
 
-        /**
-         * 金额返还
-         *
-         * 未完成
-         *
-         */
-        if(requestorDataService.revisePublishedTaskState(taskId, PublishedTaskState.REVOKED)){
-            
-            
-            return new SuccessException();            
+        //获取该任务的详情
+        PublishedTask publishedTask = requestorDataService.getPublishedTask(taskId);
+
+        //若当前任务状态 并非 正在进行中
+        if(publishedTask.getPublishedTaskState() != PublishedTaskState.INCOMPLETE)
+            return new FailureException();
+
+        //发布者为该任务支付的全部金额
+        double paidCashByRequestor = publishedTask.getTaskPrice().value * publishedTask.getRequiredWorkerNum().value;
+        //为已经完成并通过审核的工人支付的金额
+        double paidForWorker = 0;
+
+
+        //获取当前已接受该任务的工人任务完成情况
+        List<AcceptedTask> last_acceptedTaskList = workerDataService.getAcceptedTaskList(taskId);
+        for(AcceptedTask acceptedTask : last_acceptedTaskList){
+            //将已完成并待审核的工人任务 通过审核
+            if(acceptedTask.getAcceptedTaskState() == AcceptedTaskState.SUBMITTED){
+                if(passTask(acceptedTask.getTaskId(), acceptedTask.getUserId()) instanceof FailureException)
+                    return new FailureException();
+            }
+            //将已接受但未完成的工人任务 设为结束状态
+            if(acceptedTask.getAcceptedTaskState() == AcceptedTaskState.ACCEPTED){
+                if(!workerDataService.reviseAcceptedTaskState(acceptedTask.getUserId(), acceptedTask.getTaskId(), AcceptedTaskState.TERMINATED))
+                    return new FailureException();
+            }
         }
 
+        //重新获取列表 计算为工人支付的金额
+        List<AcceptedTask> acceptedTaskList = workerDataService.getAcceptedTaskList(taskId);
+        for(AcceptedTask acceptedTask : acceptedTaskList) {
+            if(acceptedTask.getAcceptedTaskState() == AcceptedTaskState.PASSED){
+                paidForWorker += acceptedTask.getOriginalTaskPrice().value;
+            }
+        }
+
+
+        //获取发布者Id
+        UserId userId = getUserIdFromTaskId(taskId);
+        //应该返还给发布者的金额
+        Cash returnCash = new Cash(paidCashByRequestor - paidForWorker);
+        if(requestorDataService.revisePublishedTaskState(taskId, PublishedTaskState.TERMINATED)
+                && increaseUserCash(userId, returnCash))
+            return new SuccessException();
 
         return new FailureException();
     }
@@ -141,13 +206,12 @@ public class RequestorBLImpl implements RequestorBLService{
             WorkerNum lastWorkerNum = publishedTask.getRequiredWorkerNum();
             Cash lastTaskPrice = publishedTask.getTaskPrice();
 
-            if(requestor.getCash().value < (lastTaskPrice.value - cash.value)*lastWorkerNum.value)
+            if(requestor.getCash().value < (cash.value - lastTaskPrice.value)*lastWorkerNum.value)
                 return new CashNotEnoughException();
             else{
 
                 //扣除金额
-                double currentCash = requestor.getCash().value -(lastTaskPrice.value - cash.value)*lastWorkerNum.value;
-                userDataService.reviseCash(userId, new Cash(currentCash));
+                reduceUserCash(userId, new Cash((cash.value - lastTaskPrice.value)*lastWorkerNum.value));
 
                 /**
                  * 修改声望 权限
@@ -176,8 +240,7 @@ public class RequestorBLImpl implements RequestorBLService{
             else{
 
                 //扣除金额
-                double currentCash = requestor.getCash().value -lastTaskPrice.value*(workerNum.value-lastWorkerNum.value);
-                userDataService.reviseCash(userId, new Cash(currentCash));
+                reduceUserCash(userId, new Cash(lastTaskPrice.value*(workerNum.value-lastWorkerNum.value)));
 
                 /**
                  * 修改声望 权限
@@ -217,11 +280,9 @@ public class RequestorBLImpl implements RequestorBLService{
 
     @Override
     public Exception passTask(TaskId taskId, UserId userId) {
-        if(workerDataService.reviseAcceptedTaskState(userId, taskId, AcceptedTaskState.ACCEPTED)){
-            User user = userDataService.getUserByUserId(userId);
-            Cash cash = user.getCash();
+        if(workerDataService.reviseAcceptedTaskState(userId, taskId, AcceptedTaskState.PASSED)){
             Cash priceOfTask = workerDataService.getAcceptedTaskById(userId, taskId).getActualTaskPrice();
-            userDataService.reviseCash(userId, new Cash(cash.value + priceOfTask.value));
+            increaseUserCash(userId, priceOfTask);
 
             /**
              * 修改工人的声望
@@ -300,6 +361,20 @@ public class RequestorBLImpl implements RequestorBLService{
         return list;
     }
 
+
+    private boolean increaseUserCash(UserId userId, Cash cash){
+        User user = userDataService.getUserByUserId(userId);
+        Cash lastCash = user.getCash();
+        Cash currentCash = new Cash(lastCash.value + cash.value);
+        return userDataService.reviseCash(userId, currentCash);
+    }
+
+    private boolean reduceUserCash(UserId userId, Cash cash){
+        User user = userDataService.getUserByUserId(userId);
+        Cash lastCash = user.getCash();
+        Cash currentCash = new Cash(lastCash.value - cash.value);
+        return userDataService.reviseCash(userId, currentCash);
+    }
 
     private UserId getUserIdFromTaskId(TaskId taskId){
         String Task_Id = taskId.value;

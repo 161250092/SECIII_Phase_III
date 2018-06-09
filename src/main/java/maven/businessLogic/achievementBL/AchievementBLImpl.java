@@ -1,14 +1,19 @@
 package maven.businessLogic.achievementBL;
 
+import maven.businessLogic.userBL.UserBLImpl;
+import maven.businessLogic.userBL.UserBLService;
 import maven.businessLogic.workerBL.WorkerBLImpl;
 import maven.businessLogic.workerBL.WorkerBLService;
 import maven.data.AchievementData.AchievementDataImpl;
 import maven.data.AchievementData.AchievementDataService;
+import maven.data.UserData.UserDataImpl;
+import maven.data.UserData.UserDataService;
 import maven.data.WorkerData.WorkerDataService;
 import maven.model.message.Achievement;
 import maven.model.primitiveType.UserId;
 import maven.model.primitiveType.Cash;
 import maven.model.task.AcceptedTask;
+import maven.model.user.User;
 import maven.model.vo.AcceptedTaskVO;
 
 import java.util.ArrayList;
@@ -18,10 +23,14 @@ public class AchievementBLImpl implements AchievementBLService {
 
     private WorkerBLService workerbl;
     private AchievementDataService  dataService;
+    private UserDataService userdata;
+    private UserBLService userbl;
 
     public AchievementBLImpl(){
         dataService = new AchievementDataImpl();
         workerbl = new WorkerBLImpl();
+        userdata = new UserDataImpl();
+        userbl = new UserBLImpl();
     }
 
     @Override
@@ -54,12 +63,23 @@ public class AchievementBLImpl implements AchievementBLService {
 
     @Override
     public List<Achievement> getUserAchievement(UserId userId) {
+
         return dataService.getUserAchievement(userId);
     }
 
     @Override
     public boolean getAchievementCash(UserId userId, String achievementId) {
-        return dataService.getAchievementCash(userId,achievementId);
+
+        Cash  should_pay = AchievementCash(userId,achievementId);
+        Cash cash= userbl.getUserInfo(userId).getCash();
+        Cash result = new Cash(should_pay.value+cash.value);
+         if(dataService.getAchievementCash(userId,achievementId))
+             return userdata.reviseCash(userId,result);
+
+         else
+             return false;
+
+
     }
 
     @Override
@@ -101,6 +121,15 @@ public class AchievementBLImpl implements AchievementBLService {
         return result;
     }
 
+    public Cash AchievementCash(UserId userId, String achievementId){
+        List<Achievement> list = getUserAchievement(userId);
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).getAchievementId()==achievementId)
+                return list.get(i).getCash();
+        }
+
+            return new Cash(0);
+    }
 
 
 

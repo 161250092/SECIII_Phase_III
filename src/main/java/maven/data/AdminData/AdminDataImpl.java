@@ -3,6 +3,7 @@ package maven.data.AdminData;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import maven.data.MySQL.MySQLConnector;
+import maven.data.RequestorData.RequestorDataImpl;
 import maven.model.primitiveType.*;
 import maven.model.task.*;
 import maven.model.user.Admin;
@@ -49,6 +50,7 @@ public class AdminDataImpl implements AdminDataService {
 
                 UserId userId = new UserId(rsP.getString("UserId"));
                 TaskId taskId = new TaskId(rsP.getString("TaskId"));
+                TaskType taskType = new RequestorDataImpl().getTaskType(taskId);
                 LabelType labelType = new LabelType(rsP.getString("LabelType"));
                 TaskDescription taskDescription  = new TaskDescription(rsP.getString("Description"));
                 WorkerNum aWorkerNum = new WorkerNum(rsP.getInt("aWorkerNum"));
@@ -92,7 +94,7 @@ public class AdminDataImpl implements AdminDataService {
                 }
 
                 stmtS.close();
-                PublishedTask publishedTask = new PublishedTask(taskId,userId,labelType,filenames,taskDescription,aWorkerNum,fWorkerNum,publishedTaskDetails,state);
+                PublishedTask publishedTask = new PublishedTask(taskId,userId,taskType,labelType,filenames,taskDescription,aWorkerNum,fWorkerNum,publishedTaskDetails,state);
                 publishedTasks.add(publishedTask);
             }
 

@@ -44,7 +44,7 @@ public class RequestorBLStub implements RequestorBLService {
     }
 
     @Override
-    public Exception revokeTask(TaskId taskId) {
+    public Exception terminateTask(TaskId taskId) {
         return new SuccessException();
     }
 
