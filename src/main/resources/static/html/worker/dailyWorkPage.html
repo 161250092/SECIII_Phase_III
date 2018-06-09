@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <!--日常工作和成就-->
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../css/lu.css">
     <link rel="stylesheet" href="../../css/table.css">
+    <link rel="stylesheet" href="../../css/worker/getTask.css">
+
     <title>Title</title>
 </head>
 <body>
@@ -36,19 +38,19 @@
 </header>
 
 <div id="dailywork">
-<button>签到</button>
+<button v-on:click="sign_in()">签到</button>
     <br>
-<button>查看私信</button>
+<button  v-on:click="checkMessage()">查看私信</button>
     <br>
-<button>接任务</button>
+<button v-on:click="getTask()">接任务</button>
     <br>
-<button>做任务</button>
+<button v-on:click="doTask()">做任务</button>
     <br>
 </div>
 
 
 
-<div id="achievement">
+<div id="achievement" align="center">
     <table border="1">
         <tr>
             <th>名称</th>
@@ -57,10 +59,25 @@
             <th>奖励</th>
             <th>领取奖励</th>
         </tr>
+
+        <tr v-for="(achieve,index) in achievementList">
+            <th>{{achieve.achievementName}}</th>
+            <th>{{achieve.description}}</th>
+            <th>{{achieve.process}}</th>
+            <th>{{achieve.cash}}</th>
+            <th><input type="button" v-on:click="getCash(index)" value="领取"></th>
+
+
+
     </table>
 
 </div>
 
 
 </body>
+<script src="../../js/lib/vue.js"></script>
+<script src="../../js/lib/axios.js"></script>
+<script src="../../js/pageJump.js"></script>
+<script src="../../js/worker/dailyWorkPage.js"></script>
+
 </html>

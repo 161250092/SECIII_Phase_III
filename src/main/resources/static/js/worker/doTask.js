@@ -41,7 +41,7 @@ new Vue({
         getAllUnfinishedTask:function () {
             const _this = this;
             axios.get("/worker/getAcceptedButIncompleteTaskList",
-                { params:{ userId: this.userId } })
+                { params:{ userId: _this.userId } })
                 .then(function (response) {
                     _this.AllUnfinishedTasks = response.data;
                 })
