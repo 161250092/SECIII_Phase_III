@@ -40,7 +40,10 @@ public interface AchievementDataService {
      * @param userId
      * @return
      */
+
+
     boolean updateAchievementCash(UserId userId,String achievementId,double process);
+
 
 
 }
