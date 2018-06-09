@@ -26,8 +26,8 @@ public interface AchievementDataService {
 
     /**
      * 根据USERID ,ACHIEVEMENTID 找到对应的成就信息，
-     * 查找其中的isFinished的值，如果isFinished 是TRUE,则返回TRUE,同时将isRewardGet设为TRUE
-     * 如果isFinished 是False,返回False;
+     *if( isFinished == true && isRewardGet == false )  { isRewardGet =true; return true}
+     * else return false;
      * @param userId
      * @param achievementId
      * @return
