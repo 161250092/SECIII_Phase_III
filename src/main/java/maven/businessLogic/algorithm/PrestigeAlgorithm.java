@@ -7,11 +7,11 @@ import maven.model.task.TaskType;
 
 import java.util.Map;
 
-public class prestigeAlgorithm {
+public class PrestigeAlgorithm {
 
     private MapDataService mapData;
 
-    public prestigeAlgorithm(){
+    public PrestigeAlgorithm(){
 
     }
 
