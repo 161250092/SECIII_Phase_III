@@ -1,5 +1,6 @@
-function TaskVO(taskId,labelType, imageFileName,description,requiredNumber,finishedNumber,score) {
+function TaskVO(taskId, taskType, labelType, imageFileName, description, requiredNumber, finishedNumber, score) {
     this.taskId = taskId;
+    this.taskType = taskType;
     this.labelType = labelType;
     this.imageFileName = imageFileName;
     this.description = description;
@@ -19,9 +20,19 @@ new Vue({
             {labelType: "AreaLabel", labelTypeName: "区域标注"}
         ],
         selectedLabelType: "",
+
+        taskTypeList: [
+            {taskType: "ORDINARY_LEVEL_LABEL_REQUIRED", taskTypeName: "普通标注质量"},
+            {taskType: "HIGH_LEVEL_LABEL_REQUIRED", taskTypeName: "高等级标注质量"},
+            {taskType: "VERY_HIGH_LEVEL_LABEL_REQUIRED", taskTypeName: "最高等级标注质量"},
+        ],
+        selectedTaskType: "",
+
         taskId: "",
         requiredWorkerNum: 1,
         taskDescription: "",
+
+        minScoreList:[],
         score: 0,
 
         imgList: [],
@@ -30,11 +41,42 @@ new Vue({
     mounted: function () {
         this.$nextTick(function () {
             this.selectedLabelType = "ImageLabel";
+            this.selectedTaskType = "ORDINARY_LEVEL_LABEL_REQUIRED";
 
             this.userId = getUserId();
+            this.getMinScoreList();
         });
     },
     methods:{
+        getMinScoreList: function () {
+            let _this = this;
+            axios.get('/requestor/getTaskUnitPriceList').then(function (response) {
+                _this.minScoreList = response.data;
+            });
+        },
+        submitTaskDraft: function (ev) {
+            this.uploadImage(ev);
+
+            let imageFileNameList = [];
+            for (let i = 0; i < this.imgList.length; i++){
+                imageFileNameList.push(this.imgList[i].name);
+            }
+            let taskVO = new TaskVO(this.taskId, this.selectedTaskType, this.selectedLabelType,
+                imageFileNameList, this.taskDescription, this.requiredWorkerNum, 0, this.score);
+            let taskVOJson = JSON.stringify(taskVO);
+            let imageFilenameListJSON = JSON.stringify(imageFileNameList);
+
+            let _this = this;
+            axios.get('/requestor/submitTaskDraft', {params: {publishedTaskVOJSON: taskVOJson, imageFilenameListJSON:imageFilenameListJSON}}).then(function (response) {
+                if(response.data.wrongMessage.type === "Success"){
+                    alert("保存成功，请标注样本");
+                    jumpToAnotherPage(assignTaskPageUrl);
+                }else{
+                    alert("保存失败");
+                }
+            });
+            this.refreshTaskId();
+        },
         uploadImage: function (ev) {
             ev.preventDefault();
             let formData = new FormData();
@@ -51,32 +93,8 @@ new Vue({
 
             });
         },
-        submitTaskDraft: function (ev) {
-            this.uploadImage(ev);
-
-            let imageFileNameList = [];
-            for (let i = 0; i < this.imgList.length; i++){
-                imageFileNameList.push(this.imgList[i].name);
-            }
-            let taskVO = new TaskVO(this.taskId, this.selectedLabelType,
-                imageFileNameList, this.taskDescription,
-                this.requiredWorkerNum, 0, this.score);
-            let taskVOJson = JSON.stringify(taskVO);
-            let imageFilenameListJSON = JSON.stringify(imageFileNameList);
-
-            let _this = this;
-            axios.get('/requestor/submitTaskDraft', {params: {taskJSON: taskVOJson, imageFilenameListJSON:imageFilenameListJSON}}).then(function (response) {
-                if(response.data.wrongMessage.type === "Success"){
-                    alert("保存成功，请标注样本");
-                    jumpToAnotherPage(assignTaskPageUrl);
-                }else{
-                    alert("保存失败");
-                }
-            });
-            this.refreshTaskId();
-        },
         fileClick() {
-            document.getElementById('upload_file').click()
+            document.getElementById('upload_file').click();
         },
         fileChange(el) {
             if (!el.target.files[0].size) return;
@@ -162,6 +180,23 @@ new Vue({
             let time = Date.parse(new Date());
             this.taskId = this.userId + '_' + this.selectedLabelType +
                 '_' + time;
+        },
+        getMinScore: function() {
+            let imageNum = this.imgList.length;
+            let scorePerImage;
+
+            if(this.minScoreList.length === 0) {
+                scorePerImage = 0;
+            }else {
+                switch (this.selectedTaskType) {
+                    case "ORDINARY_LEVEL_LABEL_REQUIRED": scorePerImage = this.minScoreList.ORDINARY_LEVEL_LABEL_REQUIRED.value; break;
+                    case "HIGH_LEVEL_LABEL_REQUIRED": scorePerImage = this.minScoreList.HIGH_LEVEL_LABEL_REQUIRED.value; break;
+                    case "VERY_HIGH_LEVEL_LABEL_REQUIRED": scorePerImage = this.minScoreList.VERY_HIGH_LEVEL_LABEL_REQUIRED.value; break;
+                    default : scorePerImage = -1; break;
+                }
+            }
+
+            return imageNum * scorePerImage;
         }
     },
     watch: {
@@ -174,8 +209,27 @@ new Vue({
             }
         },
         score: function (newScore, oldScore) {
-            if(newScore < 0){
-                this.score = 0;
+            let minScore = this.getMinScore();
+
+            if(newScore < minScore){
+                this.score = minScore;
+            }
+        },
+        imgList: function (newImgList, oldImgList) {
+            this.score = this.getMinScore();
+        },
+        selectedTaskType: function (newSelectedTaskType, oldSelectedTaskType) {
+            this.score = this.getMinScore();
+        }
+    },
+    computed: {
+        scorePerImage: function () {
+            if(this.minScoreList.length === 0) return 0;
+            switch (this.selectedTaskType) {
+                case "ORDINARY_LEVEL_LABEL_REQUIRED": return this.minScoreList.ORDINARY_LEVEL_LABEL_REQUIRED.value;
+                case "HIGH_LEVEL_LABEL_REQUIRED": return this.minScoreList.HIGH_LEVEL_LABEL_REQUIRED.value;
+                case "VERY_HIGH_LEVEL_LABEL_REQUIRED": return this.minScoreList.VERY_HIGH_LEVEL_LABEL_REQUIRED.value;
+                default : return -1;
             }
         }
     }
