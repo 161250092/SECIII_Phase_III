@@ -1,20 +1,27 @@
 package maven.businessLogic.achievementBL;
 
+import maven.businessLogic.workerBL.WorkerBLImpl;
+import maven.businessLogic.workerBL.WorkerBLService;
 import maven.data.AchievementData.AchievementDataImpl;
 import maven.data.AchievementData.AchievementDataService;
+import maven.data.WorkerData.WorkerDataService;
 import maven.model.message.Achievement;
 import maven.model.primitiveType.UserId;
 import maven.model.primitiveType.Cash;
+import maven.model.task.AcceptedTask;
+import maven.model.vo.AcceptedTaskVO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AchievementBLImpl implements AchievementBLService {
 
-    AchievementDataService  dataService;
+    private WorkerBLService workerbl;
+    private AchievementDataService  dataService;
 
     public AchievementBLImpl(){
         dataService = new AchievementDataImpl();
+        workerbl = new WorkerBLImpl();
     }
 
     @Override
@@ -57,8 +64,46 @@ public class AchievementBLImpl implements AchievementBLService {
 
     @Override
     public boolean updateAchievementCash(UserId userId) {
-        return dataService.updateAchievementCash(userId);
+        List<AcceptedTaskVO> user_taskInfo  = getTasks(userId);
+        int total_taskNum  = user_taskInfo.size();
+        int ImageLabelNum = getLabelNum(user_taskInfo,"ImageLabel");
+        int FrameLabelNum = getLabelNum(user_taskInfo,"FrameLabel");
+        int AreaLabelNum = getLabelNum(user_taskInfo,"AreaLabel");
+
+        dataService.updateAchievementCash(userId,"1",total_taskNum/1.0);
+        dataService.updateAchievementCash(userId,"2",total_taskNum/10);
+
+
+        dataService.updateAchievementCash(userId,"3",ImageLabelNum/1.0);
+        dataService.updateAchievementCash(userId,"4",ImageLabelNum/10);
+
+
+        dataService.updateAchievementCash(userId,"5",FrameLabelNum/1.0);
+        dataService.updateAchievementCash(userId,"6",FrameLabelNum/10);
+
+
+        dataService.updateAchievementCash(userId,"7",AreaLabelNum/1.0);
+        dataService.updateAchievementCash(userId,"8",AreaLabelNum/10);
+
+        return true;
     }
+
+
+    public List<AcceptedTaskVO> getTasks(UserId userId){
+        return workerbl.getAcceptedAndAccomplishedTaskList(userId);
+    }
+
+    public int getLabelNum(List<AcceptedTaskVO> list,String labeltype ){
+        int result = 0;
+        for(int i=0;i<list.size();i++)
+            if(list.get(i).getLabelType().equals(labeltype))
+                result++;
+        return result;
+    }
+
+
+
+
 
 
 /**

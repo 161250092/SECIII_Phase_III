@@ -36,20 +36,11 @@ public interface AchievementDataService {
 
     /**
      * 更新成就信息
-     * 对于 achievementId=1  设process＝用户的完成任务数/1 ,如果 process>=1, isFinished设为TRUE
-     * 对于 achievementId=2  设process＝用户的完成任务数/10 ,如果 process>=1, isFinished设为TRUE
-     * 对于 achievementId=3  设process＝用户ImageLabel完成数/1,如果 process>=1, isFinished设为TRUE
-     * 对于 achievementId=4  设process＝用户ImageLabel完成树/10,如果 process>=1, isFinished设为TRUE
-     * 对于 achievementId=5  设process＝用户FrameLabel完成数/1,如果 process>=1, isFinished设为TRUE
-     * 对于 achievementId=6  设process＝用户FrameLabel完成数/10,如果 process>=1, isFinished设为TRUE
-     * 对于 achievementId=7  设process＝用户AreaLabel完成数/1,如果 process>=1, isFinished设为TRUE
-     * 对于 achievementId=8  设process＝用户AreaLabel完成数/10,如果 process>=1, isFinished设为TRUE
+     *如果process>=1 isFinished设为true
      * @param userId
      * @return
      */
-    boolean updateAchievementCash(UserId userId);
-
-
+    boolean updateAchievementCash(UserId userId,String achievementId,double process);
 
 
 }
