@@ -1,12 +1,11 @@
 package maven.businessLogic.algorithm;
 
+import maven.data.LabelQualityData.LabelQualityDataImpl;
 import maven.data.LabelQualityData.LabelQualityDataService;
-import maven.model.label.Label;
 import maven.model.primitiveType.LabelQuality;
 import maven.model.primitiveType.UserId;
 import maven.model.task.AcceptedTaskQuality;
 import maven.model.task.AcceptedTaskState;
-import maven.model.user.User;
 
 import java.util.*;
 
@@ -20,21 +19,35 @@ public class LabelQualityVerifier {
     private List<AcceptedTaskQuality> taskQualityList;
 
     public LabelQualityVerifier(){
-        //labelQualityData
+        labelQualityData = new LabelQualityDataImpl();
         initNormMap();
         initTMap();
     }
 
+    /**
+     * 判断该任务评价是否有效
+     * @param requesterId 该任务的发布者
+     * @param workerId 接受该任务的工人
+     * @param labelQuality 任务评价
+     * @return 该任务评价是否有效
+     */
     public boolean isLabelQualityValid(UserId requesterId, UserId workerId, LabelQuality labelQuality){
         if (labelQuality == LabelQuality.TRUSTFUL){
+            //若为积极评价，则有效
             return true;
         }else {
+            //若为消极评价，则 该发布者比其他发布者更偏激 且 该发布者对该工人有偏见 时无效
             taskQualityList = labelQualityData.getAllAcceptedTaskQualityList();
             return !(this.isThisRequesterMoreNegativeThanOtherRequester(requesterId) &&
                     this.doesThisRequesterHavePrejudiceAgainstThisWorker(requesterId, workerId));
         }
     }
 
+    /**
+     * 判断该发布者是否比其他发布者更偏激
+     * @param requesterId 该发布者
+     * @return 该发布者是否比其他发布者更偏激
+     */
     private boolean isThisRequesterMoreNegativeThanOtherRequester(UserId requesterId){
         //该发布者的消极评价率
         double thisRequesterDistrustfulRate = 0.0;
@@ -63,19 +76,29 @@ public class LabelQualityVerifier {
         return estimate > z_dot01;
     }
 
-    ////////////////////////
-    //未完成
+    /**
+     * 判断该发布者是否对该工人有偏见
+     * @param requesterId 该发布者
+     * @param workerId 该工人
+     * @return 该发布者是否对该工人有偏见
+     */
     private boolean doesThisRequesterHavePrejudiceAgainstThisWorker(UserId requesterId, UserId workerId){
+        //该工人从该发布者获得的消极评价率
         double workerDistrustedRateFromThisRequester = 0.0;
 
+        //所有发布者对该工人的消极评价数
         Map<UserId, Integer> thisWorkerDistrustedCountMap = new HashMap<>();
+        //所有发布者对该工人的总评价数
         Map<UserId, Integer> thisWorkerTotalCountMap = new HashMap<>();
+        //所有发布者对该工人的消极评价率
         List<Double> thisWorkerDistrustedRateList = new ArrayList<>();
 
         for(AcceptedTaskQuality taskQuality: taskQualityList){
+            //只有当前该任务是由该工人接受的才会记录
             UserId currentWorkerId = taskQuality.getWorkerId();
-            if (currentWorkerId.value.equals(workerId.value)) continue;
+            if (!currentWorkerId.value.equals(workerId.value)) continue;
 
+            //该任务是由该工人接受的
             UserId currentRequesterId = taskQuality.getRequestorId();
             solveCountMap(thisWorkerDistrustedCountMap, thisWorkerTotalCountMap, taskQuality, currentRequesterId);
         }
@@ -90,7 +113,6 @@ public class LabelQualityVerifier {
         //若估计量大于Z_0.01，则说明该发布者比其他发布者更容易给出消极评价
         return estimate > z_dot01;
     }
-    ////////////////////////
 
     private void initNormMap(){
         z_dot01 = 2.3263478740408408;
@@ -170,14 +192,21 @@ public class LabelQualityVerifier {
         return squareSum / (double)n;
     }
 
+    /**
+     * 获得消极评价数映射表以及总评价数映射表
+     * @param distrustfulCountMap 消极评价数映射表
+     * @param totalCountMap 总评价数映射表
+     * @param taskQuality 当前任务的任务质量，是积极还是消极
+     * @param currentRequesterId 当前任务的发布者
+     */
     private void solveCountMap(Map<UserId, Integer> distrustfulCountMap, Map<UserId, Integer> totalCountMap, AcceptedTaskQuality taskQuality, UserId currentRequesterId) {
         if (totalCountMap.containsKey(currentRequesterId)){
-            int requesterTotalCount = totalCountMap.get(currentRequesterId);
-            totalCountMap.put(currentRequesterId, requesterTotalCount+1);
+            int totalCount = totalCountMap.get(currentRequesterId);
+            totalCountMap.put(currentRequesterId, totalCount+1);
 
             if (taskQuality.getAcceptedTaskState() == AcceptedTaskState.ABANDONED_BY_REQUESTOR){
-                int requesterDistrustfulCount = totalCountMap.get(currentRequesterId);
-                distrustfulCountMap.put(currentRequesterId, requesterDistrustfulCount+1);
+                int distrustfulCount = totalCountMap.get(currentRequesterId);
+                distrustfulCountMap.put(currentRequesterId, distrustfulCount+1);
             }
         }else {
             totalCountMap.put(currentRequesterId, 1);
@@ -190,14 +219,24 @@ public class LabelQualityVerifier {
         }
     }
 
-    private double getRequiredDistrustfulRateAndDistrustfulRateList(UserId requesterId, Map<UserId, Integer> requesterDistrustfulCountMap, Map<UserId, Integer> requesterTotalCountMap, List<Double> requesterDistrustfulRateList) {
-        double requiredDistrustfulRate = 0.0;
-        for (UserId currentRequesterId: requesterTotalCountMap.keySet()){
-            int requesterDistrustfulCount = requesterDistrustfulCountMap.get(currentRequesterId);
-            int requesterTotalCount = requesterTotalCountMap.get(currentRequesterId);
-            double requesterDistrustfulRate = (double)requesterDistrustfulCount / (double)requesterTotalCount;
+    /**
+     * 获得该用户的消极评价率以及所有用户的消极评价率
+     * @param requesterId 目标发布者
+     * @param distrustfulCountMap 消极评价数映射表
+     * @param totalCountMap 总评价数映射表
+     * @param distrustfulRateList 消极评价率列表
+     * @return 该用户的消极评价率
+     */
+    private double getRequiredDistrustfulRateAndDistrustfulRateList(
+            UserId requesterId, Map<UserId, Integer> distrustfulCountMap, Map<UserId, Integer> totalCountMap, List<Double> distrustfulRateList) {
 
-            requesterDistrustfulRateList.add(requesterDistrustfulRate);
+        double requiredDistrustfulRate = 0.0;
+        for (UserId currentRequesterId: totalCountMap.keySet()){
+            int distrustfulCount = distrustfulCountMap.get(currentRequesterId);
+            int totalCount = totalCountMap.get(currentRequesterId);
+            double requesterDistrustfulRate = (double)distrustfulCount / (double)totalCount;
+
+            distrustfulRateList.add(requesterDistrustfulRate);
 
             if (currentRequesterId.value.equals(requesterId.value)){
                 requiredDistrustfulRate = requesterDistrustfulRate;
@@ -206,6 +245,12 @@ public class LabelQualityVerifier {
         return requiredDistrustfulRate;
     }
 
+    /**
+     * 求估计值
+     * @param distrustfulRateList 消极评价率列表
+     * @param requiredDistrustfulRateList 该用户的消极评价率
+     * @return 估计值
+     */
     private double getEstimate(List<Double> distrustfulRateList, double requiredDistrustfulRateList){
         //假设发布者的消极评价服从正态分布，X ～ N（μ, σ^2）
         //μ的最大似然估计值为平均值
