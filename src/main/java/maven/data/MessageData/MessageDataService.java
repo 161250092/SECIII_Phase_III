@@ -30,14 +30,14 @@ public interface MessageDataService {
 
     /**
      * 保存 账单消息
-     * @param billMessage 消息Id
+     * @param billMessage 账单消息
      * @return 后台处理结果
      */
     boolean saveBillMessage(BillMessage billMessage);
 
     /**
      * 保存 成就消息
-     * @param achievementMessage 消息Id
+     * @param achievementMessage 成就消息
      * @return 后台处理结果
      */
     boolean saveAchievementMessage(AchievementMessage achievementMessage);
@@ -112,4 +112,10 @@ public interface MessageDataService {
      * @return 后台处理结果
      */
     boolean setAchievementMessageChecked(MessageId messageId);
+
+    /**
+     * 新建消息时 获取messageId
+     * @return messageId
+     */
+    MessageId getMessageIdForCreateMessage();
 }

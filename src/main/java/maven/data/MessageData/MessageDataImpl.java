@@ -547,4 +547,9 @@ public class MessageDataImpl implements  MessageDataService{
 
         return result;
     }
+
+    @Override
+    public MessageId getMessageIdForCreateMessage(){
+        return null;
+    }
 }

@@ -10,7 +10,7 @@ public class WorkerMessage {
 
     private List<AcceptedTaskMessage> taskMessageList;
 
-    private List<GuyMessage> GuyMessageList;
+    private List<GuyMessage> guyMessageList;
 
     private List<BillMessage> billMessageList;
 
@@ -25,7 +25,7 @@ public class WorkerMessage {
     }
 
     public List<GuyMessage> getGuyMessageList() {
-        return GuyMessageList;
+        return guyMessageList;
     }
 
     public List<BillMessage> getBillMessageList() {
@@ -39,7 +39,7 @@ public class WorkerMessage {
     public WorkerMessage(UserId userId, List<AcceptedTaskMessage> taskMessageList, List<GuyMessage> guyMessageList, List<BillMessage> billMessageList, List<AchievementMessage> achievementMessageList) {
         this.userId = userId;
         this.taskMessageList = taskMessageList;
-        GuyMessageList = guyMessageList;
+        this.guyMessageList = guyMessageList;
         this.billMessageList = billMessageList;
         this.achievementMessageList = achievementMessageList;
     }
