@@ -122,7 +122,7 @@ const getTaskPageUrl = "../worker/getTask.html";
 const workerFinishedTaskPageUrl = "../worker/workerFinishedTaskPage.html";
 const workerInfoPageUrl = "../worker/workerInfoPage.html";
 
-
+const messagePagePageUrl ="../worker/messagePage.html";
 
 
 
