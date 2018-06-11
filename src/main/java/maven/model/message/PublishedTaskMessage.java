@@ -18,7 +18,7 @@ public class PublishedTaskMessage {
     private Username workerName;
     //需要支付的金额
     private Cash cash;
-    //是否被工人确认查看过
+    //是否被发布者确认查看过
     private boolean isChecked;
 
     public MessageId getMessageId() {

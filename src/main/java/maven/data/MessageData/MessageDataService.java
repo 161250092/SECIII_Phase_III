@@ -115,6 +115,7 @@ public interface MessageDataService {
 
     /**
      * 新建消息时 获取messageId
+     * 根据已有的Message数量 生成新的Id
      * @return messageId
      */
     MessageId getMessageIdForCreateMessage();

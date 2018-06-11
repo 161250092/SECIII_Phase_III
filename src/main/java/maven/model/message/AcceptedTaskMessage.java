@@ -17,7 +17,7 @@ public class AcceptedTaskMessage {
     private Cash cash;
     //审批后的任务状态
     private AcceptedTaskState acceptedTaskState;
-    //是否被用户确认查看过
+    //是否被工人确认查看过
     private boolean isChecked;
 
     public UserId getWorkerId() {
