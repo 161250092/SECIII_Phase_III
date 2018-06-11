@@ -1,5 +1,8 @@
 package maven.businessLogic.workerBL;
 
+import maven.businessLogic.algorithm.PrestigeAlgorithm;
+import maven.businessLogic.manageUserBL.ManageUserBLImpl;
+import maven.businessLogic.manageUserBL.ManageUserBLService;
 import maven.data.MarkLabelData.AreaLabelData.AreaLabelDataImpl;
 import maven.data.MarkLabelData.AreaLabelData.AreaLabelDataService;
 import maven.data.MarkLabelData.FrameLabelData.FrameLabelDataImpl;
@@ -8,8 +11,6 @@ import maven.data.MarkLabelData.ImageLabelData.ImageLabelDataImpl;
 import maven.data.MarkLabelData.ImageLabelData.ImageLabelDataService;
 import maven.data.RequestorData.RequestorDataImpl;
 import maven.data.RequestorData.RequestorDataService;
-import maven.data.UserData.UserDataImpl;
-import maven.data.UserData.UserDataService;
 import maven.data.WorkerData.WorkerDataImpl;
 import maven.data.WorkerData.WorkerDataService;
 import maven.exception.DataException.TaskNotFoundException;
@@ -26,12 +27,14 @@ import java.util.*;
 public class WorkerBLImpl implements WorkerBLService {
     private WorkerDataService workerDataService;
     private RequestorDataService requestorDataService;
-    private UserDataService userDataService;
+    private ManageUserBLService manageUserBLService;
+    private PrestigeAlgorithm prestigeAlgorithm;
 
     public WorkerBLImpl(){
         workerDataService = new WorkerDataImpl();
         requestorDataService = new RequestorDataImpl();
-        userDataService = new UserDataImpl();
+        manageUserBLService = new ManageUserBLImpl();
+        prestigeAlgorithm = new PrestigeAlgorithm();
     }
 
     @Override
@@ -65,7 +68,9 @@ public class WorkerBLImpl implements WorkerBLService {
     public List<PublishedTaskVO> getAvailableTaskList(UserId userId) {
         List<PublishedTaskVO> list = new ArrayList<>();
 
-        List<Requestor> requestorList = userDataService.getAllRequestor();
+        User user = manageUserBLService.getUserByUserId(userId);
+
+        List<Requestor> requestorList = manageUserBLService.getAllRequestor();
         List<PublishedTask> requestorPublishedTaskList;
         for(Requestor requestor : requestorList){
             //获取该发布者所有的任务
@@ -74,8 +79,9 @@ public class WorkerBLImpl implements WorkerBLService {
                 //仅当该任务仍在进行中 且接受人数<需求人数时，该任务可被接受
                 if(publishedTask.getPublishedTaskState() == PublishedTaskState.INCOMPLETE
                         && publishedTask.getAcceptedWorkerNum().value < publishedTask.getRequiredWorkerNum().value){
-                    //判断工人是否可以接受某任务（排除掉 以往接受过的情况）
-                    if(havePermissionToAcceptTask(userId, publishedTask.getTaskId()))
+                    //判断工人是否可以接受某任务（排除掉 以往接受过的情况 及 工人声望不足的情况）
+                    if(havePermissionToAcceptTask(userId, publishedTask.getTaskId())
+                            && prestigeAlgorithm.canWorkerGetThisTask(user.getPrestige(), publishedTask.getTaskType()))
                         list.add(new PublishedTaskVO(publishedTask));
                 }
             }
@@ -147,7 +153,7 @@ public class WorkerBLImpl implements WorkerBLService {
 
     @Override
     public int getUserRanking(UserId userId) {
-            List<Worker> workerList = userDataService.getAllWorker();
+            List<Worker> workerList = manageUserBLService.getAllWorker();
 
 
             //自定义Comparator，为User类提供排序的比较方法
@@ -165,7 +171,7 @@ public class WorkerBLImpl implements WorkerBLService {
             //对所有用户根据积分值从高到低排序
             workerList.sort(comparator);
 
-            User user = userDataService.getUserByUserId(userId);
+            User user = manageUserBLService.getUserByUserId(userId);
 
             //若不存在该用户，则返回-1
             if(user == null)
@@ -180,7 +186,7 @@ public class WorkerBLImpl implements WorkerBLService {
 
     @Override
     public boolean exchange(UserId userId, Cash cash) {
-        return userDataService.reviseCash(userId,cash);
+        return manageUserBLService.reduceCash(userId,cash);
     }
 
 
@@ -194,7 +200,7 @@ public class WorkerBLImpl implements WorkerBLService {
         TaskDescription taskDescription;
         for(AcceptedTask acceptedTask : acceptedTaskList){
                 publishedTask = requestorDataService.getPublishedTask(acceptedTask.getTaskId());
-                username = userDataService.getUserByUserId(userId).getUsername();
+                username = manageUserBLService.getUserByUserId(userId).getUsername();
                 labelType = publishedTask.getLabelType();
                 taskDescription = publishedTask.getTaskDescription();
                 list.add(new AcceptedTaskVO(acceptedTask, username, labelType, taskDescription));

@@ -16,38 +16,40 @@ public class MessageBLImpl implements MessageBLService{
 
     @Override
     public RequestorMessage getAllRequestorMessage(UserId userId) {
-        RequestorMessage requestorMessage = new RequestorMessage(userId, messageDataService.getUncheckedPublishedTaskMessage(userId),
+        return new RequestorMessage(userId, messageDataService.getUncheckedPublishedTaskMessage(userId),
                 messageDataService.getUncheckedBillMessage(userId), messageDataService.getUncheckedAchievementMessage(userId));
-        return requestorMessage;
+
     }
 
     @Override
     public WorkerMessage getAllWorkerMessage(UserId userId) {
-        return null;
+        return new WorkerMessage(userId, messageDataService.getUncheckedAcceptedTaskMessage(userId),
+                messageDataService.getUncheckedGuyMessage(userId), messageDataService.getUncheckedBillMessage(userId),
+                messageDataService.getUncheckedAchievementMessage(userId));
     }
 
     @Override
     public boolean checkRequestorTaskMessage(MessageId messageId) {
-        return false;
+        return messageDataService.setRequestorTaskMessageChecked(messageId);
     }
 
     @Override
     public boolean checkWorkerTaskMessage(MessageId messageId) {
-        return false;
+        return messageDataService.setWorkerTaskMessageChecked(messageId);
     }
 
     @Override
     public boolean checkGuyMessage(MessageId messageId) {
-        return false;
+        return messageDataService.setGuyMessageChecked(messageId);
     }
 
     @Override
     public boolean checkBillMessage(MessageId messageId) {
-        return false;
+        return messageDataService.setBillMessageChecked(messageId);
     }
 
     @Override
     public boolean checkAchievementMessage(MessageId messageId) {
-        return false;
+        return messageDataService.setAchievementMessageChecked(messageId);
     }
 }

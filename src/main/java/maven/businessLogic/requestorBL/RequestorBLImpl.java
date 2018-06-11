@@ -1,19 +1,24 @@
 package maven.businessLogic.requestorBL;
 
+import maven.businessLogic.algorithm.LabelQualityVerifier;
+import maven.businessLogic.algorithm.PrestigeAlgorithm;
+import maven.businessLogic.manageUserBL.ManageUserBLImpl;
+import maven.businessLogic.manageUserBL.ManageUserBLService;
 import maven.data.Map.MapDataImpl;
 import maven.data.Map.MapDataService;
+import maven.data.MessageData.MessageDataImpl;
+import maven.data.MessageData.MessageDataService;
 import maven.data.RequestorData.RequestorDataImpl;
 import maven.data.RequestorData.RequestorDataService;
-import maven.data.UserData.UserDataImpl;
-import maven.data.UserData.UserDataService;
 import maven.data.WorkerData.WorkerDataImpl;
 import maven.data.WorkerData.WorkerDataService;
 import maven.exception.AssignException.*;
 import maven.exception.util.*;
+import maven.model.message.AcceptedTaskMessage;
 import maven.model.primitiveType.*;
 import maven.model.task.*;
 import maven.model.user.Requestor;
-import maven.model.user.User;
+import maven.model.user.Worker;
 import maven.model.vo.AcceptedTaskVO;
 import maven.model.vo.PublishedTaskVO;
 
@@ -26,14 +31,20 @@ public class RequestorBLImpl implements RequestorBLService{
 
     private RequestorDataService requestorDataService;
     private WorkerDataService workerDataService;
-    private UserDataService userDataService;
     private MapDataService mapDataService;
+    private MessageDataService messageDataService;
+    private ManageUserBLService manageUserBLService;
+    private LabelQualityVerifier labelQualityVerifier;
+    private PrestigeAlgorithm prestigeAlgorithm;
 
     public RequestorBLImpl(){
         requestorDataService = new RequestorDataImpl();
         workerDataService = new WorkerDataImpl();
-        userDataService = new UserDataImpl();
         mapDataService = new MapDataImpl();
+        messageDataService = new MessageDataImpl();
+        manageUserBLService = new ManageUserBLImpl();
+        labelQualityVerifier = new LabelQualityVerifier();
+        prestigeAlgorithm = new PrestigeAlgorithm();
     }
 
     @Override
@@ -113,7 +124,7 @@ public class RequestorBLImpl implements RequestorBLService{
     @Override
     public Exception assignTask(TaskId taskId) {
         UserId userId = getUserIdFromTaskId(taskId);
-        Requestor requestor = (Requestor)userDataService.getUserByUserId(userId);
+        Requestor requestor = (Requestor)manageUserBLService.getUserByUserId(userId);
         PublishedTask publishedTask = requestorDataService.getPublishedTask(taskId);
         Cash taskPrice = publishedTask.getTaskPrice();
         WorkerNum requiredWorkerNum = publishedTask.getRequiredWorkerNum();
@@ -130,11 +141,6 @@ public class RequestorBLImpl implements RequestorBLService{
                 if(requestor.getCash().value >= taskPrice.value * requiredWorkerNum.value) {
                     //将该任务状态修改为 正在进行中（未完成）
                     if(requestorDataService.revisePublishedTaskState(taskId, PublishedTaskState.INCOMPLETE)) {
-
-                        /**
-                         * 增长用户的声望
-                         */
-
                         return new AssignSuccessException();
                     }
                 }
@@ -190,7 +196,7 @@ public class RequestorBLImpl implements RequestorBLService{
         //应该返还给发布者的金额
         Cash returnCash = new Cash(paidCashByRequestor - paidForWorker);
         if(requestorDataService.revisePublishedTaskState(taskId, PublishedTaskState.TERMINATED)
-                && increaseUserCash(userId, returnCash))
+                && manageUserBLService.increaseCash(userId, returnCash))
             return new SuccessException();
 
         return new FailureException();
@@ -200,7 +206,7 @@ public class RequestorBLImpl implements RequestorBLService{
     public Exception reviseTaskPrice(TaskId taskId, Cash cash) {
         PublishedTask publishedTask = requestorDataService.getPublishedTask(taskId);
         UserId userId = getUserIdFromTaskId(taskId);
-        Requestor requestor = (Requestor)userDataService.getUserByUserId(userId);
+        Requestor requestor = (Requestor)manageUserBLService.getUserByUserId(userId);
 
         if(publishedTask.getPublishedTaskState() == PublishedTaskState.INCOMPLETE){
             WorkerNum lastWorkerNum = publishedTask.getRequiredWorkerNum();
@@ -211,11 +217,8 @@ public class RequestorBLImpl implements RequestorBLService{
             else{
 
                 //扣除金额
-                reduceUserCash(userId, new Cash((cash.value - lastTaskPrice.value)*lastWorkerNum.value));
-
-                /**
-                 * 修改声望 权限
-                 */
+                if(!manageUserBLService.reduceCash(userId, new Cash((cash.value - lastTaskPrice.value)*lastWorkerNum.value)))
+                    return new FailureException();
 
                 PublishedTaskDetail publishedTaskDetail = new PublishedTaskDetail(lastWorkerNum, cash, null );
                 if(requestorDataService.saveTaskDetail(taskId, publishedTaskDetail))
@@ -229,7 +232,7 @@ public class RequestorBLImpl implements RequestorBLService{
     public Exception reviseTaskRequiredNum(TaskId taskId, WorkerNum workerNum) {
         PublishedTask publishedTask = requestorDataService.getPublishedTask(taskId);
         UserId userId = getUserIdFromTaskId(taskId);
-        Requestor requestor = (Requestor)userDataService.getUserByUserId(userId);
+        Requestor requestor = (Requestor)manageUserBLService.getUserByUserId(userId);
 
         if(publishedTask.getPublishedTaskState() == PublishedTaskState.INCOMPLETE){
             WorkerNum lastWorkerNum = publishedTask.getRequiredWorkerNum();
@@ -240,11 +243,8 @@ public class RequestorBLImpl implements RequestorBLService{
             else{
 
                 //扣除金额
-                reduceUserCash(userId, new Cash(lastTaskPrice.value*(workerNum.value-lastWorkerNum.value)));
-
-                /**
-                 * 修改声望 权限
-                 */
+                if(!manageUserBLService.reduceCash(userId, new Cash(lastTaskPrice.value*(workerNum.value-lastWorkerNum.value))))
+                    return new FailureException();
 
                 PublishedTaskDetail publishedTaskDetail = new PublishedTaskDetail(workerNum, lastTaskPrice, null );
                 if(requestorDataService.saveTaskDetail(taskId, publishedTaskDetail))
@@ -268,7 +268,7 @@ public class RequestorBLImpl implements RequestorBLService{
         for(AcceptedTask acceptedTask : acceptedTaskList){
             if(acceptedTask.getAcceptedTaskState() == AcceptedTaskState.SUBMITTED) {
                 publishedTask = requestorDataService.getPublishedTask(taskId);
-                username = getUsernameByUserId(acceptedTask.getUserId());
+                username = manageUserBLService.getUserByUserId(acceptedTask.getUserId()).getUsername();
                 labelType = publishedTask.getLabelType();
                 taskDescription = publishedTask.getTaskDescription();
                 list.add(new AcceptedTaskVO(acceptedTask, username, labelType, taskDescription));
@@ -281,12 +281,31 @@ public class RequestorBLImpl implements RequestorBLService{
     @Override
     public Exception passTask(TaskId taskId, UserId userId) {
         if(workerDataService.reviseAcceptedTaskState(userId, taskId, AcceptedTaskState.PASSED)){
+            Worker worker = (Worker) manageUserBLService.getUserByUserId(userId);
+            TaskType taskType = requestorDataService.getTaskType(taskId);
             Cash priceOfTask = workerDataService.getAcceptedTaskById(userId, taskId).getActualTaskPrice();
-            increaseUserCash(userId, priceOfTask);
+
+            //通过审核后，给工人发奖励
+            manageUserBLService.increaseCash(userId, priceOfTask);
+            manageUserBLService.revisePrestige(userId, prestigeAlgorithm.renewWorkerPrestige(worker.getPrestige(), LabelQuality.TRUSTFUL, taskType));
 
             /**
-             * 修改工人的声望
+             * 若发布者及时对工人进行审核，则增长发布者声望
              */
+
+
+            //生成给工人的任务通过审核的消息
+            AcceptedTaskMessage acceptedTaskMessage = new AcceptedTaskMessage(messageDataService.getMessageIdForCreateMessage(),
+                    userId, taskId, priceOfTask, AcceptedTaskState.PASSED);
+            messageDataService.saveAcceptedTaskMessage(acceptedTaskMessage);
+
+
+            PublishedTask publishedTask = requestorDataService.getPublishedTask(taskId);
+            //判断该任务是否已完成
+            if(publishedTask.getFinishedWorkerNum().value == publishedTask.getRequiredWorkerNum().value - 1)
+                requestorDataService.revisePublishedTaskState(taskId, PublishedTaskState.ACCOMPLISHED);
+            //修改发布任务的已完成人数
+            requestorDataService.reviseTaskFinishedWorkerNum(taskId, new WorkerNum(publishedTask.getFinishedWorkerNum().value+1));
 
             return new SuccessException();
         }
@@ -296,8 +315,24 @@ public class RequestorBLImpl implements RequestorBLService{
 
     @Override
     public Exception rejectTask(TaskId taskId, UserId userId) {
-        if(workerDataService.reviseAcceptedTaskState(userId, taskId, AcceptedTaskState.REJECTED))
+        if(workerDataService.reviseAcceptedTaskState(userId, taskId, AcceptedTaskState.REJECTED)){
+
+            Cash priceOfTask = workerDataService.getAcceptedTaskById(userId, taskId).getActualTaskPrice();
+
+            //生成给工人的任务被驳回的消息
+            AcceptedTaskMessage acceptedTaskMessage = new AcceptedTaskMessage(messageDataService.getMessageIdForCreateMessage(),
+                    userId, taskId, priceOfTask, AcceptedTaskState.REJECTED);
+            messageDataService.saveAcceptedTaskMessage(acceptedTaskMessage);
+
+            //扣除工人声望
+            manageUserBLService.reducePrestige(userId, new Prestige(0.5));
+
+            /**
+             * 若发布者及时对工人进行审核，则增长发布者声望
+             */
+
             return new SuccessException();
+        }
         else
             return new FailureException();
     }
@@ -305,11 +340,30 @@ public class RequestorBLImpl implements RequestorBLService{
     @Override
     public Exception abandonTaskByRequestor(TaskId taskId, UserId userId) {
         if(workerDataService.reviseAcceptedTaskState(userId, taskId, AcceptedTaskState.ABANDONED_BY_REQUESTOR)){
+            Worker worker = (Worker) manageUserBLService.getUserByUserId(userId);
+            TaskType taskType = requestorDataService.getTaskType(taskId);
+
+            Cash priceOfTask = workerDataService.getAcceptedTaskById(userId, taskId).getActualTaskPrice();
+
+            //生成给工人的任务被废弃的消息
+            AcceptedTaskMessage acceptedTaskMessage = new AcceptedTaskMessage(messageDataService.getMessageIdForCreateMessage(),
+                    userId, taskId, priceOfTask, AcceptedTaskState.ABANDONED_BY_REQUESTOR);
+            messageDataService.saveAcceptedTaskMessage(acceptedTaskMessage);
+
+            UserId requestorId = getUserIdFromTaskId(taskId);
+
+            //判断发布者作出的评价是否有效（即无恶意）
+            if(labelQualityVerifier.isLabelQualityValid(requestorId, userId, LabelQuality.DISTRUSTFUL)){
+                //若为非恶意评价，则扣除工人的声望
+                manageUserBLService.revisePrestige(userId, prestigeAlgorithm.renewWorkerPrestige(worker.getPrestige(), LabelQuality.DISTRUSTFUL, taskType));
+            }else {
+                //若为恶意评价，则扣除发布者的声望
+                manageUserBLService.reducePrestige(requestorId, new Prestige(1));
+            }
 
             /**
-             * 修改工人的声望
+             * 若发布者及时对工人进行审核，则增长发布者声望
              */
-
             return new SuccessException();
         }
         else
@@ -355,41 +409,18 @@ public class RequestorBLImpl implements RequestorBLService{
         List<AcceptedTaskVO> list = new ArrayList<>();
         Username username;
         for(AcceptedTask acceptedTask : acceptedTaskList) {
-            username = getUsernameByUserId(acceptedTask.getUserId());
+            username = manageUserBLService.getUserByUserId(acceptedTask.getUserId()).getUsername();
             list.add(new AcceptedTaskVO(acceptedTask, username, labelType, taskDescription));
         }
         return list;
     }
 
 
-    private boolean increaseUserCash(UserId userId, Cash cash){
-        User user = userDataService.getUserByUserId(userId);
-        Cash lastCash = user.getCash();
-        Cash currentCash = new Cash(lastCash.value + cash.value);
-        return userDataService.reviseCash(userId, currentCash);
-    }
-
-    private boolean reduceUserCash(UserId userId, Cash cash){
-        User user = userDataService.getUserByUserId(userId);
-        Cash lastCash = user.getCash();
-        Cash currentCash = new Cash(lastCash.value - cash.value);
-        return userDataService.reviseCash(userId, currentCash);
-    }
-
-    private UserId getUserIdFromTaskId(TaskId taskId){
+    private UserId getUserIdFromTaskId(TaskId taskId) {
         String Task_Id = taskId.value;
         String[] temp = Task_Id.split("_");
         String User_Id = temp[0];
-        System.out.println(User_Id);
+//        System.out.println(User_Id);
         return new UserId(User_Id);
-    }
-
-    
-    private Username getUsernameByUserId(UserId userId){
-        User user = userDataService.getUserByUserId(userId);
-        if(user == null)
-            return null;
-        else
-            return user.getUsername();
     }
 }
