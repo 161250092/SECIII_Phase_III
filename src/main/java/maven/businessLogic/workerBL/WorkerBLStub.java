@@ -86,6 +86,10 @@ public class WorkerBLStub implements WorkerBLService {
         return 0;
     }
 
+    @Override
+    public boolean exchange(UserId userId, Cash cash) {
+        return false;
+    }
 
 
     private List<AcceptedTask> getAcceptedTaskListForTest(){
