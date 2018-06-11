@@ -550,6 +550,108 @@ public class MessageDataImpl implements  MessageDataService{
 
     @Override
     public MessageId getMessageIdForCreateMessage(){
-        return null;
+        conn = new MySQLConnector().getConnection("Message");
+
+        int num = 0;
+
+        PreparedStatement stmt;
+        String sql;
+        ResultSet rs;
+
+        try{
+            sql = "select Count(*) from PublishedTaskMessage";
+
+            stmt = conn.prepareStatement(sql);
+
+            rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+                num += rs.getInt(1);
+            }
+            stmt.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try{
+            sql = "select Count(*) from AcceptedTaskMessage";
+
+            stmt = conn.prepareStatement(sql);
+
+            rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+                num += rs.getInt(1);
+            }
+            stmt.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        try{
+            sql = "select Count(*) from Achievement";
+
+            stmt = conn.prepareStatement(sql);
+
+            rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+                num += rs.getInt(1);
+            }
+            stmt.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        try{
+            sql = "select Count(*) from BillMessage";
+
+            stmt = conn.prepareStatement(sql);
+
+            rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+                num += rs.getInt(1);
+            }
+            stmt.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        try{
+            sql = "select Count(*) from GuyMessage";
+
+            stmt = conn.prepareStatement(sql);
+
+            rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+                num += rs.getInt(1);
+            }
+            stmt.close();
+            conn.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        int a = num;
+        int b = 10;
+
+        while(a > 1){
+            a = a / 10;
+            b--;
+        }
+
+        String re = String.valueOf(num);
+        for(int i = 0;i < b;i++)
+            re = "0" + re;
+
+
+        return new MessageId(re);
+
     }
 }
