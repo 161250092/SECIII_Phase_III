@@ -401,7 +401,7 @@ public class RequestorDataImpl implements RequestorDataService {
         List<PublishedTask> result = new ArrayList<>();
 
         for(PublishedTask p : publishedTasks){
-            if(p.getUserId().value.equals(userId))
+            if(p.getUserId().value.equals(userId.value))
                 result.add(p);
         }
 
@@ -416,7 +416,7 @@ public class RequestorDataImpl implements RequestorDataService {
         PublishedTask publishedTask = null;
 
         for(PublishedTask p : publishedTasks){
-            if(p.getTaskId().value.equals(taskId))
+            if(p.getTaskId().value.equals(taskId.value))
                 publishedTask = p;
         }
 
