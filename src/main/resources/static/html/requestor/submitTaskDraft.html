@@ -64,7 +64,19 @@
         <!--<p>taskId: {{taskId}}</p>-->
 	</div>
 
-	<div>
+
+    <div>
+        <label>
+            标注类型:
+            <select v-model="selectedTaskType">
+                <option v-for="(item,index) in taskTypeList" v-bind:value="item.taskType"
+                >{{item.taskTypeName}}</option>
+            </select>
+        </label>
+    </div>
+
+
+    <div>
 		<label>
 			批注人数:
 			<input type="text" v-model="requiredWorkerNum">
@@ -79,6 +91,14 @@
 		</label>
         <!--<p>taskDescription: {{taskDescription}}</p>-->
 	</div>
+
+    <div>
+        <label>
+            每张图片最低积分:
+            <input type="text" disabled="disabled" v-model="scorePerImage">
+        </label>
+        <!--<p>score: {{score}}</p>-->
+    </div>
 
 	<div>
 		<label>
