@@ -1,5 +1,7 @@
 package maven.businessLogic.markLabelBL.SetTaskAccomplishedBL;
 
+import maven.businessLogic.evaluateBL.EvaluateLabelBLImpl;
+import maven.businessLogic.evaluateBL.EvaluateLabelBLService;
 import maven.data.MessageData.MessageDataImpl;
 import maven.data.MessageData.MessageDataService;
 import maven.data.RequestorData.RequestorDataImpl;
@@ -23,12 +25,14 @@ public class SetTaskAccomplishedBLImpl implements SetTaskAccomplishedBLService{
     private WorkerDataService workerDataService;
     private UserDataService userDataService;
     private MessageDataService messageDataService;
+    private EvaluateLabelBLService evaluateLabelBLService;
 
     public SetTaskAccomplishedBLImpl(){
         requestorDataService = new RequestorDataImpl();
         workerDataService = new WorkerDataImpl();
         userDataService = new UserDataImpl();
         messageDataService = new MessageDataImpl();
+        evaluateLabelBLService = new EvaluateLabelBLImpl();
     }
 
     @Override
@@ -45,12 +49,15 @@ public class SetTaskAccomplishedBLImpl implements SetTaskAccomplishedBLService{
             User worker = userDataService.getUserByUserId(userId);
             Username workername = worker.getUsername();
             Cash cash = acceptedTask.getOriginalTaskPrice();
+
+            //生成发布任务消息 提醒发布者审核任务
             PublishedTaskMessage publishedTaskMessage = new PublishedTaskMessage(messageDataService.getMessageIdForCreateMessage(),
                     requestorId, taskId, userId, workername, cash);
+            messageDataService.savePublishedTaskMessage(publishedTaskMessage);
 
-            //修改工人任务的状态 保存 提醒发布者审核的任务消息
+            //修改工人任务的状态 并对工人的标注进行评分
             return workerDataService.reviseAcceptedTaskState(userId, taskId, AcceptedTaskState.SUBMITTED)
-                    && messageDataService.savePublishedTaskMessage(publishedTaskMessage);
+                    && evaluateLabelBLService.evaluateLabel(taskId, userId);
         }
 
     }
