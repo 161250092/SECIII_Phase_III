@@ -158,7 +158,7 @@ public class PricingAlgorithm {
      *
      *
      */
-    public double getThresholdPrice(List<WorkerBid> workerBidList, double budget){
+    private double getThresholdPrice(List<WorkerBid> workerBidList, double budget){
         double thresholdPrice = 0.0;
 
         //排序，使 bids服从 b0 ≤ b1 ≤ ... ≤ bm-1
