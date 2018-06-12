@@ -15,6 +15,9 @@ import maven.data.WorkerData.WorkerDataService;
 import maven.exception.AssignException.*;
 import maven.exception.util.*;
 import maven.model.message.AcceptedTaskMessage;
+import maven.model.message.BillMessage;
+import maven.model.message.BillReason;
+import maven.model.message.BillType;
 import maven.model.primitiveType.*;
 import maven.model.task.*;
 import maven.model.user.Requestor;
@@ -140,17 +143,29 @@ public class RequestorBLImpl implements RequestorBLService{
                 return new PrestigeNotEnoughException();
             }
             else {
-                if(requestor.getCash().value >= taskPrice.value * requiredWorkerNum.value) {
-                    //将该任务状态修改为 正在进行中（未完成）
-                    if(requestorDataService.revisePublishedTaskState(taskId, PublishedTaskState.INCOMPLETE)) {
-                        return new AssignSuccessException();
-                    }
-                }
-                else
+                if(requestor.getCash().value < taskPrice.value * requiredWorkerNum.value)
                     return new CashNotEnoughException();
+                else{
+                    //发布者需要支付的金额
+                    Cash payment = new Cash(taskPrice.value * requiredWorkerNum.value);
+
+                    //从发布者的账户里扣除金额
+                    if(!manageUserBLService.reduceCash(userId, payment))
+                        return new FailureException();
+
+                    //将该任务状态修改为 正在进行中（未完成）
+                    requestorDataService.revisePublishedTaskState(taskId, PublishedTaskState.INCOMPLETE);
+
+                    //生成账单消息，提醒发布者 因发布任务而支出
+                    BillMessage billMessage = new BillMessage(messageDataService.getMessageIdForCreateMessage(),
+                            userId, BillType.OUT, BillReason.ASSIGN_TASK, payment);
+                    messageDataService.saveBillMessage(billMessage);
+
+                    return new AssignSuccessException();
+                }
+
             }
         }
-            return new FailureException();
     }
 
     @Override
@@ -177,10 +192,15 @@ public class RequestorBLImpl implements RequestorBLService{
                 if(passTask(acceptedTask.getTaskId(), acceptedTask.getUserId()) instanceof FailureException)
                     return new FailureException();
             }
-            //将已接受但未完成的工人任务 设为结束状态
+            //将已接受但未完成的工人任务 设为终止状态
             if(acceptedTask.getAcceptedTaskState() == AcceptedTaskState.ACCEPTED){
                 if(!workerDataService.reviseAcceptedTaskState(acceptedTask.getUserId(), acceptedTask.getTaskId(), AcceptedTaskState.TERMINATED))
                     return new FailureException();
+
+                //生成工人任务消息，提醒工人 任务被发布者终止
+                AcceptedTaskMessage acceptedTaskMessage = new AcceptedTaskMessage(messageDataService.getMessageIdForCreateMessage(), acceptedTask.getUserId(),
+                        taskId, acceptedTask.getActualTaskPrice(), AcceptedTaskState.TERMINATED);
+                messageDataService.saveAcceptedTaskMessage(acceptedTaskMessage);
             }
         }
 
@@ -217,14 +237,23 @@ public class RequestorBLImpl implements RequestorBLService{
             if(requestor.getCash().value < (cash.value - lastTaskPrice.value)*lastWorkerNum.value)
                 return new CashNotEnoughException();
             else{
+                //发布者需要支付的金额
+                Cash payment = new Cash((cash.value - lastTaskPrice.value)*lastWorkerNum.value);
 
                 //扣除金额
-                if(!manageUserBLService.reduceCash(userId, new Cash((cash.value - lastTaskPrice.value)*lastWorkerNum.value)))
+                if(!manageUserBLService.reduceCash(userId, payment))
                     return new FailureException();
 
+                //更新发布的任务
                 PublishedTaskDetail publishedTaskDetail = new PublishedTaskDetail(lastWorkerNum, cash, null );
-                if(requestorDataService.saveTaskDetail(taskId, publishedTaskDetail))
-                    return new SuccessException();
+                requestorDataService.saveTaskDetail(taskId, publishedTaskDetail);
+
+                //生成账单消息，提醒发布者 因追加任务金额而支出
+                BillMessage billMessage = new BillMessage(messageDataService.getMessageIdForCreateMessage(),
+                            userId, BillType.OUT, BillReason.SUPPLEMENT_TASK_CASH, payment);
+                messageDataService.saveBillMessage(billMessage);
+
+                return new SuccessException();
             }
         }
         return new FailureException();
@@ -243,14 +272,23 @@ public class RequestorBLImpl implements RequestorBLService{
             if(requestor.getCash().value < lastTaskPrice.value*(workerNum.value-lastWorkerNum.value))
                 return new CashNotEnoughException();
             else{
+                //发布者需要支付的金额
+                Cash payment = new Cash(lastTaskPrice.value*(workerNum.value-lastWorkerNum.value));
 
                 //扣除金额
-                if(!manageUserBLService.reduceCash(userId, new Cash(lastTaskPrice.value*(workerNum.value-lastWorkerNum.value))))
+                if(!manageUserBLService.reduceCash(userId, payment))
                     return new FailureException();
 
+                //更新发布的任务
                 PublishedTaskDetail publishedTaskDetail = new PublishedTaskDetail(workerNum, lastTaskPrice, null );
-                if(requestorDataService.saveTaskDetail(taskId, publishedTaskDetail))
-                    return new SuccessException();
+                requestorDataService.saveTaskDetail(taskId, publishedTaskDetail);
+
+                //生成账单消息，提醒发布者 因追加任务需求人数而支出
+                BillMessage billMessage = new BillMessage(messageDataService.getMessageIdForCreateMessage(),
+                        userId, BillType.OUT, BillReason.SUPPLEMENT_TASK_REQUIRED_NUM, payment);
+                messageDataService.saveBillMessage(billMessage);
+
+                return new SuccessException();
             }
         }
         return new FailureException();
@@ -296,10 +334,15 @@ public class RequestorBLImpl implements RequestorBLService{
              */
 
 
-            //生成给工人的任务通过审核的消息
+            //生成工人任务消息，提醒工人 任务通过审核
             AcceptedTaskMessage acceptedTaskMessage = new AcceptedTaskMessage(messageDataService.getMessageIdForCreateMessage(),
                     userId, taskId, priceOfTask, AcceptedTaskState.PASSED);
             messageDataService.saveAcceptedTaskMessage(acceptedTaskMessage);
+
+            //生成账单消息，提醒工人 获得赏金
+            BillMessage billMessage = new BillMessage(messageDataService.getMessageIdForCreateMessage(),
+                    userId, BillType.IN, BillReason.ACCOMPLISH_TASK, priceOfTask);
+            messageDataService.saveBillMessage(billMessage);
 
 
             PublishedTask publishedTask = requestorDataService.getPublishedTask(taskId);
@@ -321,13 +364,13 @@ public class RequestorBLImpl implements RequestorBLService{
 
             Cash priceOfTask = workerDataService.getAcceptedTaskById(userId, taskId).getActualTaskPrice();
 
-            //生成给工人的任务被驳回的消息
+            //生成工人任务消息，提醒工人 任务被驳回
             AcceptedTaskMessage acceptedTaskMessage = new AcceptedTaskMessage(messageDataService.getMessageIdForCreateMessage(),
                     userId, taskId, priceOfTask, AcceptedTaskState.REJECTED);
             messageDataService.saveAcceptedTaskMessage(acceptedTaskMessage);
 
-            //扣除工人声望
-            manageUserBLService.reducePrestige(userId, new Prestige(0.5));
+//            //扣除工人声望
+//            manageUserBLService.reducePrestige(userId, new Prestige(0.5));
 
             /**
              * 若发布者及时对工人进行审核，则增长发布者声望
@@ -347,7 +390,7 @@ public class RequestorBLImpl implements RequestorBLService{
 
             Cash priceOfTask = workerDataService.getAcceptedTaskById(userId, taskId).getActualTaskPrice();
 
-            //生成给工人的任务被废弃的消息
+            //生成工人任务消息，提醒工人 任务被废弃
             AcceptedTaskMessage acceptedTaskMessage = new AcceptedTaskMessage(messageDataService.getMessageIdForCreateMessage(),
                     userId, taskId, priceOfTask, AcceptedTaskState.ABANDONED_BY_REQUESTOR);
             messageDataService.saveAcceptedTaskMessage(acceptedTaskMessage);
