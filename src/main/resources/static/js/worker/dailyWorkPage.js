@@ -8,12 +8,12 @@ new Vue({
    mounted:function() {
        const _this = this;
        this.$nextTick(function () {
+           _this.updateAchievement();
            axios.get("/worker/getUserAchievement",
                {param: {userId: getUserId()}})
                .then(function (response){
                         achievementList=response.data;
            })
-
         })
    },
 
@@ -29,11 +29,11 @@ new Vue({
            })
        },
 
-       updateAchievement:function(index){
+       updateAchievement:function(){
            axios.get("/worker/updateAchievementCash",{param:{userId:getUserId()}})
                .then(function(response){
                    if(response.data===true)
-                       alert("更新成功");
+                       console.log("更新成功");
                    else
                        alert("您可能已经领取过了");
                })
