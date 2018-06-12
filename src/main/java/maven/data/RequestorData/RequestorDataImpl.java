@@ -154,25 +154,6 @@ public class RequestorDataImpl implements RequestorDataService {
 
         int Num = 0;
         List<Integer> Index = new ArrayList<>();
-        String type = "";
-        List<Label> labels = new ArrayList<>();
-
-        try{
-            sql = "select * from PublishedTask where TaskId = ?";
-
-            stmt = conn.prepareStatement(sql);
-
-            rs = stmt.executeQuery(sql);
-
-            while(rs.next()){
-                type = rs.getString("LabelType");
-            }
-
-            stmt.close();
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
 
         try{
             sql = "select * from Sample where TaskId = ?";
@@ -195,22 +176,7 @@ public class RequestorDataImpl implements RequestorDataService {
             e.printStackTrace();
         }
 
-        switch (type){
-            case "ImageLabel":
-                List<ImageLabel> temp = new ImageLabelDataImpl().getLabelList(userId,taskId);
-                labels.addAll(temp);
-                break;
-            case "FrameLabel":
-                List<FrameLabel> temp1 = new FrameLabelDataImpl().getLabelList(userId,taskId);
-                labels.addAll(temp1);
-                break;
-            case "AreaLabel":
-                List<AreaLabel> temp2 = new AreaLabelDataImpl().getLabelList(userId,taskId);
-                labels.addAll(temp2);
-                break;
-
-        }
-        sample = new Sample(taskId,Num,Index,labels);
+        sample = new Sample(taskId,Num,Index);
 
         return sample;
     }

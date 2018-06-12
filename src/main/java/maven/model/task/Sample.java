@@ -16,8 +16,6 @@ public class Sample {
     private int imageNum;
     //样本内图片 在原本的任务图片集合内的下标数组
     private List<Integer> imageIndexList;
-    //发起者作的标注数组
-    private List<Label> labelList;
 
     public int getNumber() {
         return imageNum;
@@ -27,14 +25,9 @@ public class Sample {
         return imageIndexList;
     }
 
-    public List<Label> getLabelList() {
-        return labelList;
-    }
-
-    public Sample(TaskId taskId,int imageNum, List<Integer> imageIndexList, List<Label> labelList) {
+    public Sample(TaskId taskId,int imageNum, List<Integer> imageIndexList) {
         this.taskId = taskId;
         this.imageNum = imageNum;
         this.imageIndexList = imageIndexList;
-        this.labelList = labelList;
     }
 }
