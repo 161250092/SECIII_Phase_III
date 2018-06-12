@@ -135,6 +135,11 @@ public class WorkerDataImpl implements WorkerDataService {
     }
 
     @Override
+    public boolean saveLableScore(UserId userId, TaskId taskId, LabelScore labelScore) {
+        return false;
+    }
+
+    @Override
     public AcceptedTask getAcceptedTaskById(UserId userId, TaskId taskId) {
         conn = new MySQLConnector().getConnection("AcceptedTask");
 

@@ -1,5 +1,6 @@
 package maven.data.WorkerData;
 
+import maven.model.primitiveType.LabelScore;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
 import maven.model.task.AcceptedTask;
@@ -27,17 +28,26 @@ public interface WorkerDataService {
 
     /**
      * 更改任务信息
-     * @param userId 工人ID
-     * @param taskId 任务ID
+     * @param userId 工人Id
+     * @param taskId 任务Id
      * @param acceptedTaskState 任务状态
-     * @return 是否修改
+     * @return 是否修改成功
      */
     boolean reviseAcceptedTaskState(UserId userId, TaskId taskId, AcceptedTaskState acceptedTaskState);
 
     /**
+     * 保存标注评分
+     * @param userId 工人Id
+     * @param taskId 任务Id
+     * @param labelScore 系统评分
+     * @return 是否保存成功
+     */
+    boolean saveLableScore(UserId userId, TaskId taskId, LabelScore labelScore);
+
+    /**
      * 获取已接受任务的信息
-     * @param userId 工人ID
-     * @param taskId 任务ID
+     * @param userId 工人Id
+     * @param taskId 任务Id
      * @return 任务信息
      */
      AcceptedTask getAcceptedTaskById(UserId userId,TaskId taskId);
