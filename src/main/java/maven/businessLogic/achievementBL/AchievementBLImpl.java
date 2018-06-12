@@ -1,13 +1,13 @@
 package maven.businessLogic.achievementBL;
 
+import maven.businessLogic.manageUserBL.ManageUserBLImpl;
+import maven.businessLogic.manageUserBL.ManageUserBLService;
 import maven.businessLogic.userBL.UserBLImpl;
 import maven.businessLogic.userBL.UserBLService;
 import maven.businessLogic.workerBL.WorkerBLImpl;
 import maven.businessLogic.workerBL.WorkerBLService;
 import maven.data.AchievementData.AchievementDataImpl;
 import maven.data.AchievementData.AchievementDataService;
-import maven.data.UserData.UserDataImpl;
-import maven.data.UserData.UserDataService;
 import maven.data.WorkerData.WorkerDataService;
 import maven.model.message.Achievement;
 import maven.model.primitiveType.UserId;
@@ -23,13 +23,13 @@ public class AchievementBLImpl implements AchievementBLService {
 
     private WorkerBLService workerbl;
     private AchievementDataService  dataService;
-    private UserDataService userdata;
+    private ManageUserBLService mangeuserbl;
     private UserBLService userbl;
 
     public AchievementBLImpl(){
         dataService = new AchievementDataImpl();
         workerbl = new WorkerBLImpl();
-        userdata = new UserDataImpl();
+        mangeuserbl = new ManageUserBLImpl();
         userbl = new UserBLImpl();
     }
 
@@ -69,17 +69,8 @@ public class AchievementBLImpl implements AchievementBLService {
 
     @Override
     public boolean getAchievementCash(UserId userId, String achievementId) {
-
-        Cash  should_pay = AchievementCash(userId,achievementId);
-        Cash cash= userbl.getUserInfo(userId).getCash();
-        Cash result = new Cash(should_pay.value+cash.value);
-         if(dataService.getAchievementCash(userId,achievementId))
-             return userdata.reviseCash(userId,result);
-
-         else
-             return false;
-
-
+        Cash  reward = AchievementCash(userId,achievementId);
+        return mangeuserbl.increaseCash(userId,reward);
     }
 
     @Override
