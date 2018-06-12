@@ -4,7 +4,6 @@ import maven.model.massTask.AllocatedTask;
 import maven.model.massTask.ImageNum;
 import maven.model.massTask.WorkerBid;
 import maven.model.primitiveType.Cash;
-import maven.model.user.Worker;
 
 import java.util.*;
 
@@ -196,6 +195,12 @@ public class PricingAlgorithm {
         return thresholdPrice;
     }
 
+    /**
+     * 指定获得已分配图片的总数 ∑j<i w_bar(i)
+     * @param allocatedImageNumList 已分配图片数的列表
+     * @param index 统计到哪，即 j<i 中的 i
+     * @return 所需的已分配图片的总数 ∑j<i w_bar(i)
+     */
     private int getSumOfAllocatedImageNum(List<Integer> allocatedImageNumList, int index){
         int sum = 0;
         for (int j = 0; j < index; j++){
