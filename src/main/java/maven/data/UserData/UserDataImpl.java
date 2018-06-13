@@ -369,7 +369,7 @@ public class UserDataImpl implements UserDataService{
 
         try{
 
-            sql = "select * from Worker where UserId = ?";
+            sql = "select * from Requestor where UserId = ?";
 
             stmt = conn.prepareStatement(sql);
 
