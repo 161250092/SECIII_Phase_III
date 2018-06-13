@@ -10,7 +10,7 @@ create table `PublishedTask`(
 `aWorkerNum` integer,
 `fWorkerNum` integer,
 `State` varchar(30),
-primary key(UserId)
+primary key(UserId, TaskId)
 );
 
 create table `Sample`(
@@ -24,7 +24,7 @@ create table `FileName`(
 `TaskId` varchar(100),
 `iNumber` integer,
 `Value` varchar(100),
-primary key(TaskId)
+primary key(TaskId, iNumber)
 );
 
 create table `Detail`(
@@ -34,7 +34,7 @@ create table `Detail`(
 `WorkerNum` integer,
 `Discount` varchar(100),
 `Cash` double precision,
-primary key(TaskId)
+primary key(TaskId, iNumber)
 );
 
 create table `TaskType`(
