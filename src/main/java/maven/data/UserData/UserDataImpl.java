@@ -43,7 +43,7 @@ public class UserDataImpl implements UserDataService{
 
         try{
 
-            sql = "select Username from Requstor";
+            sql = "select Username from Requestor";
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery(sql);
 
@@ -58,7 +58,7 @@ public class UserDataImpl implements UserDataService{
         }
 
         try {
-            sql = "select Username from Workrer";
+            sql = "select Username from Worker";
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery(sql);
 
