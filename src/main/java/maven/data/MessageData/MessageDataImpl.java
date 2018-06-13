@@ -590,7 +590,7 @@ public class MessageDataImpl implements  MessageDataService{
 
 
         try{
-            sql = "select Count(*) from Achievement";
+            sql = "select Count(*) from AchievementMessage";
 
             stmt = conn.prepareStatement(sql);
 
