@@ -36,7 +36,7 @@ public class RequestorDataImpl implements RequestorDataService {
             sql = "select * from PublishedTask where TaskId = ?";
 
             stmt = conn.prepareStatement(sql);
-
+            stmt.setString(1, publishedTask.getTaskId().value);
             rs = stmt.executeQuery();
 
             while(rs.next()){
@@ -92,7 +92,7 @@ public class RequestorDataImpl implements RequestorDataService {
         Gson gson = new GsonBuilder().create();
         for(int i = 0;i < publishedTask.getPublishedTaskDetailList().size();i++){
             try{
-                sql = "insert into Deatail values (?,?,?,?,?,?)";
+                sql = "insert into Detail values (?,?,?,?,?,?)";
 
                 stmt = conn.prepareStatement(sql);
 
