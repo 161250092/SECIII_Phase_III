@@ -39,7 +39,7 @@ primary key(TaskId, iNumber)
 
 create table `TaskType`(
 `TaskId` varchar(100),
-`TaskType` varchar(20),
+`TaskType` varchar(100),
 primary key(TaskId)
 );
 
