@@ -6,7 +6,9 @@ import maven.model.user.Requestor;
 import maven.model.user.Worker;
 import org.junit.Test;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -31,6 +33,7 @@ public class UserDataImplTest {
         String[] ex = {"requestor1", "requestor2", "requestor3", "worker1", "worker2"};
 
         List<Username> l =  impl.getAllUsernameList();
+        assertEquals(ex.length, l.size());
         for (int i = 0; i < l.size(); i++){
             assertEquals(ex[i], l.get(i).value);
         }
@@ -38,34 +41,55 @@ public class UserDataImplTest {
 
     @Test
     public void getAllWorker() {
+        Set<String> ex = new HashSet<>();
+        ex.add("4");ex.add("5");
+
+        List<Worker> l = impl.getAllWorker();
+        for (Worker aL: l){
+            assertTrue(ex.contains(aL.getUserId().value));
+        }
     }
 
     @Test
     public void getAllRequestor() {
-    }
+        Set<String> ex = new HashSet<>();
+        ex.add("1");ex.add("2");ex.add("3");
 
-    @Test
-    public void saveRequestorInfo() {
-    }
-
-    @Test
-    public void saveWorkerInfo() {
+        List<Requestor> l = impl.getAllRequestor();
+        for (Requestor aL: l){
+            assertTrue(ex.contains(aL.getUserId().value));
+        }
     }
 
     @Test
     public void getAllUserIdList() {
+        Set<String> ex = new HashSet<>();
+        ex.add("1");ex.add("2");ex.add("3");ex.add("4");ex.add("5");
+
+        List<UserId> l = impl.getAllUserIdList();
+        for (UserId aL : l) {
+            assertTrue(ex.contains(aL.value));
+        }
     }
 
     @Test
     public void getUserId() {
+        assertEquals("2", impl.getUserId(new Username("requestor2")).value);
+        assertEquals("4", impl.getUserId(new Username("worker1")).value);
     }
 
     @Test
     public void getUserByUserId() {
+        assertEquals("requestor2", impl.getUserByUserId(new UserId("2")).getUsername().value);
+        assertEquals("worker2", impl.getUserByUserId(new UserId("2")).getUsername().value);
     }
 
     @Test
     public void reviseUserEmail() {
+        impl.reviseUserEmail(new UserId("3"), new Email("hhhh@qq.com"));
+        assertEquals("hhhh@qq.com", impl.getUserByUserId(new UserId("2")).getEmail().address);
+        impl.reviseUserEmail(new UserId("3"), new Email("jsg@qq.com"));
+        //assertEquals("worker2", impl.getUserByUserId(new UserId("2")).getUsername().value);
     }
 
     @Test
