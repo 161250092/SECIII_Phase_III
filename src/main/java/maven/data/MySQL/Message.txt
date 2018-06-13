@@ -8,14 +8,16 @@ create Table `AcceptedTaskMessage`(
 `TaskId` varchar(100),
 `Cash` double precision,
 `State` varchar(30),
-`Check` boolean
+`isChecked` boolean,
+primary key(MessageId)
 );
 
-create Table `Achievement`(
+create Table `AchievementMessage`(
 `MessageId` varchar(100),
 `UserId` varchar(20),
 `AchievementId` varchar(100),
-`Check` boolean
+`isChecked` boolean,
+primary key(MessageId)
 );
 
 create Table `PublishedTaskMessage`(
@@ -25,7 +27,8 @@ create Table `PublishedTaskMessage`(
 `WorkerId` varchar(20),
 `WorkerName` varchar(20),
 `Cash` double precision,
-`Check` boolean
+`isChecked` boolean,
+primary key(MessageId)
 );
 
 create Table `BillMessage`(
@@ -34,7 +37,8 @@ create Table `BillMessage`(
 `Type` varchar(10),
 `Reason` varchar(30),
 `Cash` double precision,
-`Confirm` boolean
+`Confirm` boolean,
+primary key(MessageId)
 );
 
 create table `GuyMessage`(
@@ -44,6 +48,7 @@ create table `GuyMessage`(
 `RequestorName` varchar(20),
 `TaskId` varchar(100),
 `Cash` double precision,
-`Check` boolean
+`isChecked` boolean,
+primary key(MessageId)
 );
 
