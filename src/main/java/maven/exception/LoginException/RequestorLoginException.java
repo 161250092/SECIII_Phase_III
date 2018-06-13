@@ -5,14 +5,14 @@ import maven.model.primitiveType.UserId;
 
 public class RequestorLoginException extends Exception{
     private WrongMessage wrongMessage;
-    private UserId userId;
+    private String userId;
 
     public RequestorLoginException(UserId userId){
         wrongMessage = new WrongMessage("RequestorLogin","Requestor Login!");
-        this.userId = userId;
+        this.userId = userId.value;
     }
 
-    public UserId getUserId() {
+    public String getUserId() {
         return userId;
     }
 

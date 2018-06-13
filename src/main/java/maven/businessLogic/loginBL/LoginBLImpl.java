@@ -46,7 +46,7 @@ public class LoginBLImpl implements LoginBLService {
         for(Admin admin : adminList){
             if(username.value.equals(admin.getUsername().value)){
                 if(password.value.equals(admin.getPassword().value))
-                    return new AdministerLoginException();
+                    return new AdministerLoginException(admin.getUserId());
                 else
                     return new LoginErrorException();
             }
