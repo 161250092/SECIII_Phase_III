@@ -5,14 +5,14 @@ import maven.model.primitiveType.UserId;
 
 public class WorkerLoginException extends Exception{
     private WrongMessage wrongMessage;
-    private UserId userId;
+    private String userId;
 
     public WorkerLoginException(UserId userId){
         wrongMessage = new WrongMessage("WorkerLogin","Worker Login!");
-        this.userId = userId;
+        this.userId = userId.value;
     }
 
-    public UserId getUserId() {
+    public String getUserId() {
         return userId;
     }
 
