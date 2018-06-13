@@ -1,12 +1,14 @@
 create database Achievement;
 
-create table Achievement(
-UserId varchar(20),
-ID varchar(10),
-Name varchar(50),
-Description varchar(200),
-Process double precision,
-Finish boolean,
-Reward boolean,
-Cash double precision
+use Achievement;
+
+create table `Achievement`(
+`UserId` varchar(20),
+`ID` varchar(10),
+`Name` varchar(50),
+`Description` varchar(200),
+`Process` double precision,
+`Finish` boolean,
+`Reward` boolean,
+`Cash` double precision
 );

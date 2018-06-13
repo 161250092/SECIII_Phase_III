@@ -1,11 +1,13 @@
 create database AcceptedTask;
 
-create table AcceptedTask(
-UserId varchar(20),
-TaskId varchar(100),
-Date varchar(100),
-Cash double precision,
-State varchar(30),
-Discount varchar(100),
-Score double precision
+user AcceptedTask;
+
+create table `AcceptedTask`(
+`UserId` varchar(20),
+`TaskId` varchar(100),
+`Date` varchar(100),
+`Cash` double precision,
+`State` varchar(30),
+`Discount` varchar(100),
+`Score` double precision
 );

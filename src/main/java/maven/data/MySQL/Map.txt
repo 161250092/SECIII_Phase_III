@@ -1,15 +1,17 @@
 create database Map;
 
-create table TypeCash(
-TaskType varchar(20),
-Cash double precision
+use map;
+
+create table `TypeCash`(
+`TaskType` varchar(20),
+`Cash` double precision
 );
 
-create table TypePrestige(
-TaskType varchar(20),
-Prestige double precision
+create table `TypePrestige`(
+`TaskType` varchar(20),
+`Prestige` double precision
 );
 
-create table MaxPrestige(
-Prestige double precision
+create table `MaxPrestige`(
+`Prestige` double precision
 );

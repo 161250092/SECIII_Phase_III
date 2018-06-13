@@ -151,7 +151,7 @@ public class AdminDataImpl implements AdminDataService {
         String sql;
 
         try{
-            sql = "insert into Admin values (UserId = ?,Username = ?,Password = ?)";
+            sql = "insert into Admin(UserId, Username, Password) values (?,?,?)";
 
             stmt = conn.prepareStatement(sql);
 

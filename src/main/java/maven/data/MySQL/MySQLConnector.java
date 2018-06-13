@@ -14,7 +14,7 @@ public class MySQLConnector{
         final String USER = "root";
         final String PASS = "123456";
 
-        DB_URL = DB_URL + DataBaseName;
+        DB_URL = DB_URL + DataBaseName + "?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false";
 
         Connection conn = null;
         try{
