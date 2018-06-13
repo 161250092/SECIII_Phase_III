@@ -15,7 +15,7 @@ create Table `AchievementMessage`(
 `MessageId` varchar(100),
 `UserId` varchar(20),
 `AchievementId` varchar(100),
-`Check` boolean
+`isChecked` boolean
 );
 
 create Table `PublishedTaskMessage`(
