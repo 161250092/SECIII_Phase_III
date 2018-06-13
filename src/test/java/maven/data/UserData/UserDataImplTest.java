@@ -30,12 +30,16 @@ public class UserDataImplTest {
 
     @Test
     public void getAllUsernameList() {
-        String[] ex = {"requestor1", "requestor2", "requestor3", "worker1", "worker2"};
+        Set<String> ex = new HashSet<>();
+        ex.add("requestor1");
+        ex.add("requestor2");
+        ex.add("requestor3");
+        ex.add("worker1");
+        ex.add("worker2");
 
         List<Username> l =  impl.getAllUsernameList();
-        assertEquals(ex.length, l.size());
-        for (int i = 0; i < l.size(); i++){
-            assertEquals(ex[i], l.get(i).value);
+        for (Username aL : l) {
+            assertTrue(ex.contains(aL.value));
         }
     }
 
