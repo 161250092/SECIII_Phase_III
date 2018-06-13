@@ -28,7 +28,7 @@ public class UserDataImpl implements UserDataService{
 
             sql = "select Username from Admin";
             stmt = conn.prepareStatement(sql);
-            rs= stmt.executeQuery(sql);
+            rs= stmt.executeQuery();
 
             while(rs.next()){
                 Username temp = new Username(rs.getString("Username"));
@@ -45,7 +45,7 @@ public class UserDataImpl implements UserDataService{
 
             sql = "select Username from Requestor";
             stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 Username temp = new Username(rs.getString("Username"));
@@ -60,7 +60,7 @@ public class UserDataImpl implements UserDataService{
         try {
             sql = "select Username from Worker";
             stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Username temp = new Username(rs.getString("Username"));
@@ -90,7 +90,7 @@ public class UserDataImpl implements UserDataService{
         try{
             sql = "select * from Worker";
             stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 UserId userId = new UserId(rs.getString("UserId"));
@@ -128,7 +128,7 @@ public class UserDataImpl implements UserDataService{
         try{
             sql = "select * from Requestor";
             stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 UserId userId = new UserId(rs.getString("UserId"));
@@ -204,7 +204,7 @@ public class UserDataImpl implements UserDataService{
             stmt.setString(2,worker.getUsername().value);
             stmt.setString(3,worker.getPassword().value);
             stmt.setString(4,worker.getEmail().address);
-            stmt.setString(5,worker.getPassword().value);
+            stmt.setString(5,worker.getPhone().number);
             stmt.setDouble(6,worker.getCash().value);
             stmt.setDouble(7,worker.getPrestige().value);
             stmt.setInt(8,worker.getMaxAcceptedTaskNum().value);
@@ -236,7 +236,7 @@ public class UserDataImpl implements UserDataService{
         try{
             sql = "select UserId from Admin";
             stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 UserId userId = new UserId(rs.getString("UserId"));
@@ -251,7 +251,7 @@ public class UserDataImpl implements UserDataService{
         try{
             sql = "select UserId from Worker";
             stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 UserId userId = new UserId(rs.getString("UserId"));
@@ -266,7 +266,7 @@ public class UserDataImpl implements UserDataService{
         try{
             sql = "select UserId from Requestor";
             stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 UserId userId = new UserId(rs.getString("UserId"));
@@ -298,7 +298,7 @@ public class UserDataImpl implements UserDataService{
 
             stmt.setString(1,username.value);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 result = new UserId(rs.getString("UserId"));
@@ -313,9 +313,11 @@ public class UserDataImpl implements UserDataService{
 
             sql = "select UserId from Requestor where Username = ?";
             stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery(sql);
 
             stmt.setString(1,username.value);
+
+            rs = stmt.executeQuery();
+
 
             while(rs.next()){
                 result = new UserId(rs.getString("UserId"));
@@ -346,12 +348,12 @@ public class UserDataImpl implements UserDataService{
             stmt = conn.prepareStatement(sql);
 
             stmt.setString(1,userId.value);
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 Username username = new Username(rs.getString("Username"));
                 Password password = new Password(rs.getString("Password"));
-                Email email = new Email(rs.getString("Password"));
+                Email email = new Email(rs.getString("Email"));
                 Phone phone = new Phone(rs.getString("Phone"));
                 Cash cash = new Cash(rs.getDouble("Cash"));
                 Prestige prestige = new Prestige(rs.getDouble("Prestige"));
@@ -370,13 +372,14 @@ public class UserDataImpl implements UserDataService{
             sql = "select * from Requestor where UserId = ?";
 
             stmt = conn.prepareStatement(sql);
+
             stmt.setString(1,userId.value);
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 Username username = new Username(rs.getString("Username"));
                 Password password = new Password(rs.getString("Password"));
-                Email email = new Email(rs.getString("Password"));
+                Email email = new Email(rs.getString("Email"));
                 Phone phone = new Phone(rs.getString("Phone"));
                 Cash cash = new Cash(rs.getDouble("Cash"));
                 Prestige prestige = new Prestige(rs.getDouble("Prestige"));

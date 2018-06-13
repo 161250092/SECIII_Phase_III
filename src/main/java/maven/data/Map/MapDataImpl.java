@@ -29,7 +29,7 @@ public class MapDataImpl implements MapDataService{
 
             stmt = conn.prepareStatement(sql);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 TaskType taskType = TaskType.valueOf(rs.getString("TaskType"));
@@ -62,7 +62,7 @@ public class MapDataImpl implements MapDataService{
 
             stmt = conn.prepareStatement(sql);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 TaskType taskType = TaskType.valueOf(rs.getString("Type"));
@@ -94,7 +94,7 @@ public class MapDataImpl implements MapDataService{
             sql = "select * from MaxPrestige";
             stmt = conn.prepareStatement(sql);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 prestige = new Prestige(rs.getDouble("Prestige"));

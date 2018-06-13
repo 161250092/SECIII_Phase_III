@@ -31,7 +31,7 @@ public class LabelQualityDataImpl implements LabelQualityDataService{
             stmt.setString(2,AcceptedTaskState.ABANDONED_BY_REQUESTOR.toString());
             stmt.setString(3,AcceptedTaskState.REJECTED.toString());
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 UserId worker = new UserId(rs.getString("UserId"));

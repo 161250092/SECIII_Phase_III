@@ -16,9 +16,9 @@ new Vue({
             const _this = this;
             if(!this.isUsernameExisted && this.isPasswordCorrect && this.checkAllInput()){
                 let url;
-                if(_this.gender==='worker')
+                if(this.gender === 'worker')
                     url  = "/register/registerWorker";
-                else
+                else if(this.gender === 'requestor')
                     url = "/register/registerRequestor";
 
 
@@ -26,10 +26,14 @@ new Vue({
                     {params:{username: this.username, password: this.password, email: this.emailAddress, phone: this.phoneNumber}}).then(function (userException) {
                     let wrongMessage = userException.data.wrongMessage.type;
                     let userId = userException.data.userId;
-                    if(wrongMessage === 'SuccessfulRegister'){
+                    if(wrongMessage === 'RegisterSuccess'){
                         sendUserId(userId);
                         sendUsername(_this.username);
-                        jumpToAnotherPage(mainPageUrl);
+                        if(_this.gender === 'worker'){
+                            jumpToAnotherPage(workerMainPageUrl);
+                        }else if (_this.gender === 'requestor'){
+                            jumpToAnotherPage(requestorMainPageUrl);
+                        }
                     }else{
                         alert("注册失败");
                         _this.password = "";

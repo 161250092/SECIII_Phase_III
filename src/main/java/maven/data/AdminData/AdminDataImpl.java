@@ -44,7 +44,7 @@ public class AdminDataImpl implements AdminDataService {
             //查询任务基本信息
             sqlP = "select * from PublishedTask";
             stmtP = conn.prepareStatement(sqlP);
-            rsP = stmtP.executeQuery(sqlP);
+            rsP = stmtP.executeQuery();
 
             while(rsP.next()){
 
@@ -64,7 +64,7 @@ public class AdminDataImpl implements AdminDataService {
                 sqlN = "select * from FileName where TaskId = ?order by iNumber ASC";
                 stmtN = conn.prepareStatement(sqlN);
                 stmtN.setString(1,taskId.value);
-                rsN = stmtN.executeQuery(sqlN);
+                rsN = stmtN.executeQuery();
 
                 while(rsN.next()){
                     Filename fileName = new Filename(rsN.getString("Value"));
@@ -79,7 +79,7 @@ public class AdminDataImpl implements AdminDataService {
                 stmtS = conn.prepareStatement(sqlS);
                 stmtS.setString(1,taskId.value);
 
-                rsS = stmtS.executeQuery(sqlS);
+                rsS = stmtS.executeQuery();
 
                 while(rsS.next()){
                     Gson gson = new GsonBuilder().create();
@@ -120,7 +120,7 @@ public class AdminDataImpl implements AdminDataService {
         try{
             sql = "select * from Admin";
             stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 UserId userId = new UserId(rs.getString("UserId"));

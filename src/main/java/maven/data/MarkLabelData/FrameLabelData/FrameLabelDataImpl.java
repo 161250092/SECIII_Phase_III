@@ -105,7 +105,7 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
             stmt.setString(1,userId.value);
             stmt.setString(2,taskId.value);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 num = rs.getInt("iNumber");
@@ -126,7 +126,7 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
                 stmt.setString(1,userId.value);
                 stmt.setString(2,taskId.value);
 
-                rs = stmt.executeQuery(sql);
+                rs = stmt.executeQuery();
 
                 while(rs.next()){
                     List<Frame> frames = new ArrayList<>();

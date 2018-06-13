@@ -204,7 +204,7 @@ public class MessageDataImpl implements  MessageDataService{
             stmt.setString(1,userId.value);
             stmt.setBoolean(2,false);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 MessageId messageId = new MessageId(rs.getString("MessageId"));
@@ -243,7 +243,7 @@ public class MessageDataImpl implements  MessageDataService{
             stmt.setString(1,userId.value);
             stmt.setBoolean(2,false);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 MessageId messageId = new MessageId(rs.getString("MessageId"));
@@ -283,7 +283,7 @@ public class MessageDataImpl implements  MessageDataService{
             stmt.setString(1,userId.value);
             stmt.setBoolean(2,false);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 MessageId messageId = new MessageId(rs.getString("MessageId"));
@@ -327,7 +327,7 @@ public class MessageDataImpl implements  MessageDataService{
             stmt.setString(1,userId.value);
             stmt.setBoolean(2,false);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 MessageId messageId = new MessageId(rs.getString("MessageId"));
@@ -367,7 +367,7 @@ public class MessageDataImpl implements  MessageDataService{
             stmt.setString(1,userId.value);
             stmt.setBoolean(2,false);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 MessageId messageId = new MessageId(rs.getString("MessageId"));
@@ -563,7 +563,7 @@ public class MessageDataImpl implements  MessageDataService{
 
             stmt = conn.prepareStatement(sql);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 num += rs.getInt(1);
@@ -578,7 +578,7 @@ public class MessageDataImpl implements  MessageDataService{
 
             stmt = conn.prepareStatement(sql);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 num += rs.getInt(1);
@@ -594,7 +594,7 @@ public class MessageDataImpl implements  MessageDataService{
 
             stmt = conn.prepareStatement(sql);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 num += rs.getInt(1);
@@ -610,7 +610,7 @@ public class MessageDataImpl implements  MessageDataService{
 
             stmt = conn.prepareStatement(sql);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 num += rs.getInt(1);
@@ -626,7 +626,7 @@ public class MessageDataImpl implements  MessageDataService{
 
             stmt = conn.prepareStatement(sql);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 num += rs.getInt(1);
