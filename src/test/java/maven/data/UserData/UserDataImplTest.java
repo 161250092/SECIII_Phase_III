@@ -1,5 +1,6 @@
 package maven.data.UserData;
 
+import maven.data.TableInitializer;
 import maven.model.primitiveType.*;
 import maven.model.user.Requestor;
 import maven.model.user.Worker;
@@ -12,8 +13,11 @@ import static org.junit.Assert.*;
 public class UserDataImplTest {
 
     UserDataImpl impl = new UserDataImpl();
+    TableInitializer initializer = new TableInitializer();
 
     public UserDataImplTest(){
+        initializer.cleanAllTable();
+
         impl.saveRequestorInfo(new Requestor(new UserId("1"), new Username("requestor1"), new Password("123456") , new Email("re1@"), new Phone("1"), new Cash(100.5), new Prestige(60), new TaskNum(15)));
         impl.saveRequestorInfo(new Requestor(new UserId("2"), new Username("requestor2"), new Password("54623") , new Email("re2@"), new Phone("2"), new Cash(100.5), new Prestige(60), new TaskNum(15)));
         impl.saveRequestorInfo(new Requestor(new UserId("3"), new Username("requestor3"), new Password("987") , new Email("re3@"), new Phone("3"), new Cash(100.5), new Prestige(60), new TaskNum(15)));
