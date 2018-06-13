@@ -12,6 +12,10 @@ public class AdministerLoginException extends Exception{
         this.userId = userId.value;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
     public WrongMessage getWrongMessage() {
         return wrongMessage;
     }
