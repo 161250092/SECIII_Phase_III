@@ -1,5 +1,6 @@
 package maven.controller;
 
+import maven.businessLogic.messageBL.MessageBLImpl;
 import maven.businessLogic.messageBL.MessageBLService;
 import maven.businessLogic.messageBL.MessageBLStub;
 import maven.model.message.RequestorMessage;
@@ -14,7 +15,7 @@ public class MessageController {
     private MessageBLService messageBLService;
 
     public MessageController(){
-        messageBLService = new MessageBLStub();
+        messageBLService = new MessageBLImpl();
     }
 
     /**

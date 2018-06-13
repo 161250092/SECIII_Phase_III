@@ -17,7 +17,7 @@ public class RegisterController {
     private RegisterBLService registerBL;
 
     public RegisterController(){
-        registerBL = new RegisterBLStub();
+        registerBL = new RegisterBLImpl();
     }
 
     /**
@@ -36,7 +36,7 @@ public class RegisterController {
      * @param password 用户密码
      * @return 是否注册成功
      */
-    @RequestMapping(value = "/register/registerRequesotr", method = RequestMethod.GET)
+    @RequestMapping(value = "/register/registerRequestor", method = RequestMethod.GET)
     public Exception registerRequesotr(String username, String password, String email, String phone){
         return registerBL.registerRequesotr(new Username(username), new Password(password), new Email(email), new Phone(phone));
     }

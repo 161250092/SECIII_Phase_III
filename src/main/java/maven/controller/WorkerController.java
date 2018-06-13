@@ -32,7 +32,7 @@ public class WorkerController{
     private AchievementBLService achievementBL;
 
     public WorkerController(){
-        workerBL = new WorkerBLStub();
+        workerBL = new WorkerBLImpl();
         achievementBL = new AchievementBLImpl();
     }
 

@@ -43,6 +43,13 @@
 							 </div>
                             <p v-if="!isPhoneNumberInput">电话未输入</p>
 
+							<div>
+								<label>工人<input id="r1" type="radio" v-model="gender" value="worker"></label>
+
+								<label>发布者<input id="r2" type="radio" v-model="gender" value="requestor"></label>
+							</div>
+
+
 							<div v-bind:class="{input_outer: isPasswordCorrect, input_outer_error: !isPasswordCorrect||!isPasswordInput}">
 								<span class="us_uer"></span>
 								<input name="logpass" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"
