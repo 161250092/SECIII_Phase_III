@@ -136,7 +136,36 @@ public class WorkerDataImpl implements WorkerDataService {
 
     @Override
     public boolean saveLableScore(UserId userId, TaskId taskId, LabelScore labelScore) {
-        return false;
+        conn = new MySQLConnector().getConnection("AcceptedTask");
+
+        boolean result = false;
+
+        PreparedStatement stmt;
+        String sql;
+
+        try{
+            sql = "update AcceptedTask set LabelScore where UserId = ? and TaskId = ?";
+
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setDouble(1,labelScore.value);
+            stmt.setString(2,userId.value);
+            stmt.setString(3,taskId.value);
+
+            stmt.executeUpdate();
+
+            stmt.close();
+
+            conn.close();
+
+            result =  true;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        return result;
     }
 
     @Override
