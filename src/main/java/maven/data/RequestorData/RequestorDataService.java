@@ -90,13 +90,13 @@ public interface RequestorDataService {
      */
      TaskType getTaskType(TaskId taskId);
 
-    /**
-     * 保存任务等级
-     * @param taskId 任务ID
-     * @param taskType 任务等级
-     * @return 是否保存
-     */
-     boolean saveTaskType(TaskId taskId,TaskType taskType);
+    ///**
+    // * 保存任务等级
+    // * @param taskId 任务ID
+    // * @param taskType 任务等级
+    // * @return 是否保存
+    // */
+    // boolean saveTaskType(TaskId taskId,TaskType taskType);
 
 
 }

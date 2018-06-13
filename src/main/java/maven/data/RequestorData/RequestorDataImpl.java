@@ -84,6 +84,7 @@ public class RequestorDataImpl implements RequestorDataService {
 
         }
 
+        boolean r3 = false;
         Gson gson = new GsonBuilder().create();
         for(int i = 0;i < publishedTask.getPublishedTaskDetailList().size();i++){
             try{
@@ -105,16 +106,16 @@ public class RequestorDataImpl implements RequestorDataService {
 
                 if(i == publishedTask.getPublishedTaskDetailList().size() - 1) {
                     conn.close();
-                    if (r1)
-                        if (r2)
-                            result = true;
+                    r3 = true;
                 }
             }catch (Exception e){
                 e.printStackTrace();
             }
         }
 
-        return result;
+        boolean r4 = saveTaskType(publishedTask.getTaskId(), publishedTask.getTaskType());
+
+        return r1 && r2 && r3 && r4;
     }
 
     private boolean deleteTaskInfo(TaskId taskId) {
@@ -432,6 +433,7 @@ public class RequestorDataImpl implements RequestorDataService {
         return taskIds;
     }
 
+    @Override
     public List<PublishedTask> getPublishedTaskList(UserId userId) {
 
         List<PublishedTask> publishedTasks = new AdminDataImpl().getAllPublishedTask();
@@ -495,8 +497,8 @@ public class RequestorDataImpl implements RequestorDataService {
         return taskType;
     }
 
-    @Override
-    public boolean saveTaskType(TaskId taskId, TaskType taskType) {
+    //@Override
+    private boolean saveTaskType(TaskId taskId, TaskType taskType) {
         conn = new MySQLConnector().getConnection("PublishedTask");
 
         boolean result = false;
