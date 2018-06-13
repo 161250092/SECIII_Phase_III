@@ -37,6 +37,9 @@ public class MarkAreaLabelBLImpl implements MarkAreaLabelBLService {
 
     @Override
     public boolean saveAreaLabelSet(TaskId taskId, UserId userId, AreaLabelSetVO areaLabelSetVO) {
+        //清空工人曾经的标注
+        areaLabelDataService.deleteLabel(userId, taskId);
+        //保存标注
         List<AreaLabel> labelList = areaLabelSetVO.getLabelList();
         return areaLabelDataService.saveLabelList(userId, taskId, labelList);
     }

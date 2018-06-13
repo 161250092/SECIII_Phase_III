@@ -38,6 +38,9 @@ public class MarkImageLabelBLImpl implements MarkImageLabelBLService{
 
     @Override
     public boolean saveImageLabelSet(TaskId taskId, UserId userId, ImageLabelSetVO imageLabelSetVO) {
+        //清空工人曾经的标注
+        imageLabelDataService.deleteLabel(userId, taskId);
+        //保存标注
         List<ImageLabel> labelList = imageLabelSetVO.getLabelList();
         return imageLabelDataService.saveLabelList(userId, taskId, labelList);
     }

@@ -37,6 +37,9 @@ public class MarkFrameLabelBLImpl implements MarkFrameLabelBLService {
 
     @Override
     public boolean saveFrameLabelSet(TaskId taskId, UserId userId, FrameLabelSetVO frameLabelSetVO) {
+        //清空工人曾经的标注
+        frameLabelDataService.deleteLabel(userId, taskId);
+        //保存标注
         List<FrameLabel> labelList = frameLabelSetVO.getLabelList();
         return frameLabelDataService.saveLabelList(userId, taskId, labelList);
     }
