@@ -351,7 +351,7 @@ public class UserDataImpl implements UserDataService{
             while(rs.next()){
                 Username username = new Username(rs.getString("Username"));
                 Password password = new Password(rs.getString("Password"));
-                Email email = new Email(rs.getString("Password"));
+                Email email = new Email(rs.getString("Email"));
                 Phone phone = new Phone(rs.getString("Phone"));
                 Cash cash = new Cash(rs.getDouble("Cash"));
                 Prestige prestige = new Prestige(rs.getDouble("Prestige"));
