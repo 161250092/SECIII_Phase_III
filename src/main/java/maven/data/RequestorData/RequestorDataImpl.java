@@ -87,7 +87,7 @@ public class RequestorDataImpl implements RequestorDataService {
         Gson gson = new GsonBuilder().create();
         for(int i = 0;i < publishedTask.getPublishedTaskDetailList().size();i++){
             try{
-                sql = "insert into Deatail values (?,?,?,?,?,?)";
+                sql = "insert into Detail values (?,?,?,?,?,?)";
 
                 stmt = conn.prepareStatement(sql);
 
