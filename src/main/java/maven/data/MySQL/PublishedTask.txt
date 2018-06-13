@@ -9,19 +9,22 @@ create table `PublishedTask`(
 `Description` varchar(1000),
 `aWorkerNum` integer,
 `fWorkerNum` integer,
-`State` varchar(30)
+`State` varchar(30),
+primary key(UserId)
 );
 
 create table `Sample`(
 `TaskId` varchar(100),
 `Num` integer,
-`Index` varchar(100)
+`Index` varchar(100),
+primary key(TaskId)
 );
 
 create table `FileName`(
 `TaskId` varchar(100),
 `iNumber` integer,
-`Value` varchar(100)
+`Value` varchar(100),
+primary key(TaskId)
 );
 
 create table `Detail`(
@@ -30,12 +33,14 @@ create table `Detail`(
 `Date` varchar(100),
 `WorkerNum` integer,
 `Discount` varchar(100),
-`Cash` double precision
+`Cash` double precision,
+primary key(TaskId)
 );
 
 create table `TaskType`(
 `TaskId` varchar(100),
-`TaskType` varchar(20)
+`TaskType` varchar(20),
+primary key(TaskId)
 );
 
 
