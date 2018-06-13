@@ -38,7 +38,7 @@ public class WorkerDataImpl implements WorkerDataService {
 
             stmt.setString(1,userId.value);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 TaskId taskId = new TaskId(rs.getString("TaskId"));
@@ -187,7 +187,7 @@ public class WorkerDataImpl implements WorkerDataService {
             stmt.setString(1,userId.value);
             stmt.setString(2,taskId.value);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
 
             while(rs.next()){
@@ -229,7 +229,7 @@ public class WorkerDataImpl implements WorkerDataService {
 
             stmt.setString(1,taskId.value);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 UserId userId = new UserId(rs.getString("UserId"));

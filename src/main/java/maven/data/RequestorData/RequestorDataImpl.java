@@ -162,7 +162,7 @@ public class RequestorDataImpl implements RequestorDataService {
 
             stmt.setString(1,taskId.value);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 Num = rs.getInt("Num");
@@ -200,7 +200,7 @@ public class RequestorDataImpl implements RequestorDataService {
 
             stmt.setString(1,taskId.value);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 time = rs.getInt("iNumber") + 1;
@@ -347,7 +347,7 @@ public class RequestorDataImpl implements RequestorDataService {
 
             stmt.setString(1,userId.value);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 TaskId taskId = new TaskId(rs.getString("TaskId"));
@@ -407,7 +407,7 @@ public class RequestorDataImpl implements RequestorDataService {
 
             stmt.setString(1,taskId.value);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 taskType = TaskType.valueOf(rs.getString("TaskType"));
