@@ -9,12 +9,20 @@ new Vue({
 
         isUsernameExisted: false,
         isPasswordCorrect: true,
+        gender:''
     },
     methods:{
         register: function () {
             const _this = this;
             if(!this.isUsernameExisted && this.isPasswordCorrect && this.checkAllInput()){
-                axios.get("/register/register",
+                let url;
+                if(_this.gender==='worker')
+                    url  = "/register/registerWorker";
+                else
+                    url = "/register/registerRequestor";
+
+
+                axios.get(url,
                     {params:{username: this.username, password: this.password, email: this.emailAddress, phone: this.phoneNumber}}).then(function (userException) {
                     let wrongMessage = userException.data.wrongMessage.type;
                     let userId = userException.data.userId;

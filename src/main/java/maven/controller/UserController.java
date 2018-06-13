@@ -15,7 +15,7 @@ public class UserController {
     private UserBLService userBL;
 
     public UserController(){
-        userBL = new UserBLStub();
+        userBL = new UserBLImpl();
     }
 
     /**
