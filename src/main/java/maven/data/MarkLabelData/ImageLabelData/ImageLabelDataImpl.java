@@ -98,7 +98,7 @@ public class ImageLabelDataImpl implements ImageLabelDataService {
             stmt.setString(1,userId.value);
             stmt.setString(2,taskId.value);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             Gson gson =  new GsonBuilder().create();
 

@@ -28,7 +28,7 @@ public class UserDataImpl implements UserDataService{
 
             sql = "select Username from Admin";
             stmt = conn.prepareStatement(sql);
-            rs= stmt.executeQuery(sql);
+            rs= stmt.executeQuery();
 
             while(rs.next()){
                 Username temp = new Username(rs.getString("Username"));
@@ -45,7 +45,7 @@ public class UserDataImpl implements UserDataService{
 
             sql = "select Username from Requestor";
             stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 Username temp = new Username(rs.getString("Username"));
@@ -60,7 +60,7 @@ public class UserDataImpl implements UserDataService{
         try {
             sql = "select Username from Worker";
             stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Username temp = new Username(rs.getString("Username"));
@@ -90,7 +90,7 @@ public class UserDataImpl implements UserDataService{
         try{
             sql = "select * from Worker";
             stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 UserId userId = new UserId(rs.getString("UserId"));
@@ -128,7 +128,7 @@ public class UserDataImpl implements UserDataService{
         try{
             sql = "select * from Requestor";
             stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 UserId userId = new UserId(rs.getString("UserId"));
@@ -236,7 +236,7 @@ public class UserDataImpl implements UserDataService{
         try{
             sql = "select UserId from Admin";
             stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 UserId userId = new UserId(rs.getString("UserId"));
@@ -251,7 +251,7 @@ public class UserDataImpl implements UserDataService{
         try{
             sql = "select UserId from Worker";
             stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 UserId userId = new UserId(rs.getString("UserId"));
@@ -266,7 +266,7 @@ public class UserDataImpl implements UserDataService{
         try{
             sql = "select UserId from Requestor";
             stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 UserId userId = new UserId(rs.getString("UserId"));
@@ -298,7 +298,7 @@ public class UserDataImpl implements UserDataService{
 
             stmt.setString(1,username.value);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 result = new UserId(rs.getString("UserId"));
@@ -313,7 +313,7 @@ public class UserDataImpl implements UserDataService{
 
             sql = "select UserId from Requestor where Username = ?";
             stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             stmt.setString(1,username.value);
 
@@ -346,7 +346,7 @@ public class UserDataImpl implements UserDataService{
             stmt = conn.prepareStatement(sql);
 
             stmt.setString(1,userId.value);
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 Username username = new Username(rs.getString("Username"));
@@ -371,7 +371,7 @@ public class UserDataImpl implements UserDataService{
 
             stmt = conn.prepareStatement(sql);
             stmt.setString(1,userId.value);
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 Username username = new Username(rs.getString("Username"));

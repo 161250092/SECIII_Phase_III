@@ -70,7 +70,7 @@ public class AchievementDataImpl implements AchievementDataService {
 
             stmt.setString(1,userId.value);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while (rs.next()){
                 String achievementId = rs.getString("ID");
@@ -116,7 +116,7 @@ public class AchievementDataImpl implements AchievementDataService {
             stmt.setString(1,userId.value);
             stmt.setString(2,achievementId);
 
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery();
 
             while(rs.next()){
                 String name = rs.getString("Name");
