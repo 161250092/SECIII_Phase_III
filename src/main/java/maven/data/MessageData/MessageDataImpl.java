@@ -162,7 +162,7 @@ public class MessageDataImpl implements  MessageDataService{
         String sql;
 
         try{
-            sql = "insert into Achievement values (?,?,?,?)";
+            sql = "insert into AchievementMessage values (?,?,?,?)";
 
             stmt = conn.prepareStatement(sql);
 
@@ -197,7 +197,7 @@ public class MessageDataImpl implements  MessageDataService{
         ResultSet rs;
 
         try{
-            sql = "select * from PublishedTaskMessage where UserId = ? and Check = ?";
+            sql = "select * from PublishedTaskMessage where UserId = ? and isChecked = ?";
 
             stmt = conn.prepareStatement(sql);
 
@@ -236,7 +236,7 @@ public class MessageDataImpl implements  MessageDataService{
         ResultSet rs;
 
         try{
-            sql = "select * from AcceptTaskMessage where UserId  = ? and Check = ?";
+            sql = "select * from AcceptTaskMessage where UserId  = ? and isChecked = ?";
 
             stmt = conn.prepareStatement(sql);
 
@@ -276,7 +276,7 @@ public class MessageDataImpl implements  MessageDataService{
         ResultSet rs;
 
         try{
-            sql = "select * GuyMessage where WorkerId = ? and Check = ?";
+            sql = "select * GuyMessage where WorkerId = ? and isChecked = ?";
 
             stmt = conn.prepareStatement(sql);
 
@@ -360,7 +360,7 @@ public class MessageDataImpl implements  MessageDataService{
         ResultSet rs;
 
         try{
-            sql = "select * from Achievement where UserId = ? and Check = ?";
+            sql = "select * from AchievementMessage where UserId = ? and isChecked = ?";
 
             stmt = conn.prepareStatement(sql);
 
@@ -399,7 +399,7 @@ public class MessageDataImpl implements  MessageDataService{
         String sql;
 
         try{
-            sql = "update PublishedTaskMessage set Check = ? where MessageId = ?";
+            sql = "update PublishedTaskMessage set isChecked = ? where MessageId = ?";
 
             stmt = conn.prepareStatement(sql);
 
@@ -431,7 +431,7 @@ public class MessageDataImpl implements  MessageDataService{
         String sql;
 
         try{
-            sql = "update AcceptedTaskMessage set Check = ? where MessageId = ?";
+            sql = "update AcceptedTaskMessage set isChecked = ? where MessageId = ?";
 
             stmt = conn.prepareStatement(sql);
 
@@ -463,7 +463,7 @@ public class MessageDataImpl implements  MessageDataService{
         String sql;
 
         try{
-            sql = "update GuyMessage set Check = ? where MessaageId = ?";
+            sql = "update GuyMessage set isChecked = ? where MessaageId = ?";
 
             stmt = conn.prepareStatement(sql);
 
@@ -526,7 +526,7 @@ public class MessageDataImpl implements  MessageDataService{
         String sql;
 
         try{
-            sql = "update Achievement set Check = ? where MessageId = ?";
+            sql = "update AchievementMessage set isChecked = ? where MessageId = ?";
 
             stmt = conn.prepareStatement(sql);
 

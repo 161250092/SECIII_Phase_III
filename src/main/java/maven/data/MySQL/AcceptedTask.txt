@@ -1,6 +1,6 @@
 create database AcceptedTask;
 
-user AcceptedTask;
+use AcceptedTask;
 
 create table `AcceptedTask`(
 `UserId` varchar(20),
