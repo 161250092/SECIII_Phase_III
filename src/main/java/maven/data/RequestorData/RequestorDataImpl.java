@@ -101,6 +101,8 @@ public class RequestorDataImpl implements RequestorDataService {
                 stmt.setString(5,discount);
                 stmt.setDouble(6,publishedTask.getPublishedTaskDetailList().get(i).getTaskPricePerWorker().value);
 
+                stmt.executeUpdate();
+
                 stmt.close();
 
                 if(i == publishedTask.getPublishedTaskDetailList().size() - 1) {
@@ -157,7 +159,7 @@ public class RequestorDataImpl implements RequestorDataService {
         }
 
         try{
-            sql = "delete from Deatail where TaskId = ?";
+            sql = "delete from Detail where TaskId = ?";
 
             stmt = conn.prepareStatement(sql);
 
