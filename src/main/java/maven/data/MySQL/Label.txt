@@ -1,24 +1,26 @@
 create database Label;
 
-create table iLabel(
-UserId varchar(20),
-TaskId varchar(100),
-iNumber integer,
-Content varchar(100)
-),
+use Label;
 
-create table aLabel(
-UserId varchar(20),
-TaskId varchar(100),
-iNumber integer,
-aNumber integer,
-Content varchar(1000)
+create table `iLabel`(
+`UserId` varchar(20),
+`TaskId` varchar(100),
+`iNumber` integer,
+`Content` varchar(100)
 );
 
-create table fLabel(
-UserId varchar(20),
-TaskId varchar(100),
-iNumber integer,
-fNumber integer,
-Content varchar(1000),
+create table `aLabel`(
+`UserId` varchar(20),
+`TaskId` varchar(100),
+`iNumber` integer,
+`aNumber` integer,
+`Content` varchar(1000)
+);
+
+create table `fLabel`(
+`UserId` varchar(20),
+`TaskId` varchar(100),
+`iNumber` integer,
+`fNumber` integer,
+`Content` varchar(1000)
 );

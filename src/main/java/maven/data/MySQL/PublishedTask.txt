@@ -1,39 +1,41 @@
 create database PublishedTask;
 
-create table PublishedTask(
-UserId varchar(20),
-TaskId varchar(100),
-LabelType varchar(30),
-Description varchar(1000),
-aWorkerNum integer,
-fWorkerNum integer,
-State varchar(30)
+use PublishedTask;
+
+create table `PublishedTask`(
+`UserId` varchar(20),
+`TaskId` varchar(100),
+`LabelType` varchar(30),
+`Description` varchar(1000),
+`aWorkerNum` integer,
+`fWorkerNum` integer,
+`State` varchar(30)
 );
 
-create table Sample(
-TaskId varchar(100),
-Num integer,
-Index varchar(100)
+create table `Sample`(
+`TaskId` varchar(100),
+`Num` integer,
+`Index` varchar(100)
 );
 
-create table FileName(
-TaskId varchar(100),
-iNumber integer,
-Value varchar(100)
+create table `FileName`(
+`TaskId` varchar(100),
+`iNumber` integer,
+`Value` varchar(100)
 );
 
-create table Detail(
-TaskId varchar(100),
-iNumber integer,
-Date varchar(100),
-WorkerNum integer,
-Discount varchar(100),
-Cash double precision
+create table `Detail`(
+`TaskId` varchar(100),
+`iNumber` integer,
+`Date` varchar(100),
+`WorkerNum` integer,
+`Discount` varchar(100),
+`Cash` double precision
 );
 
-create table TaskType(
-TaskId varchar(100),
-TaskType varchar(20)
+create table `TaskType`(
+`TaskId` varchar(100),
+`TaskType` varchar(20)
 );
 
 
