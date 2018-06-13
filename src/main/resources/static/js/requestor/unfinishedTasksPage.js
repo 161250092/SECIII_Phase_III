@@ -40,7 +40,7 @@ new Vue({
 
         // exception unsovled
         recallTask:function(index){
-            axios.get("/requestor/revokeTask", {params: {taskId:this.AllUnfinishedTasks[index].taskId}})
+            axios.get("/requestor/terminateTask", {params: {taskId:this.AllUnfinishedTasks[index].taskId}})
                 .then(function (Exception) {
                     let message = Exception.data.wrongMessage.type;
                     if(message === "Success")
@@ -52,7 +52,7 @@ new Vue({
         },
 
         addTaskPrice:function(){
-            axios.get("/requestor/reviseTask", {params: {taskId:this.reviseTaskId,cash:this.reviseTaskPrice}})
+            axios.get("/requestor/reviseTaskPrice", {params: {taskId:this.reviseTaskId,cash:this.reviseTaskPrice}})
                 .then(function (Exception) {
                     let message = Exception.data.wrongMessage.type;
                     if(message==="Success")

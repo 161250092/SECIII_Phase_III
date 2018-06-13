@@ -24,13 +24,13 @@ public class AchievementBLImpl implements AchievementBLService {
     private WorkerBLService workerbl;
     private AchievementDataService  dataService;
     private ManageUserBLService mangeuserbl;
-    private UserBLService userbl;
+
 
     public AchievementBLImpl(){
         dataService = new AchievementDataImpl();
         workerbl = new WorkerBLImpl();
         mangeuserbl = new ManageUserBLImpl();
-        userbl = new UserBLImpl();
+
     }
 
     @Override
