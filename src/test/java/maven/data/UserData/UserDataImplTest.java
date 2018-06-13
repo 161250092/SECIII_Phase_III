@@ -20,12 +20,12 @@ public class UserDataImplTest {
     public UserDataImplTest(){
         initializer.cleanAllTable();
 
-        impl.saveRequestorInfo(new Requestor(new UserId("1"), new Username("requestor1"), new Password("123456") , new Email("re1@"), new Phone("1"), new Cash(100.5), new Prestige(60), new TaskNum(15)));
-        impl.saveRequestorInfo(new Requestor(new UserId("2"), new Username("requestor2"), new Password("54623") , new Email("re2@"), new Phone("2"), new Cash(100.5), new Prestige(60), new TaskNum(15)));
-        impl.saveRequestorInfo(new Requestor(new UserId("3"), new Username("requestor3"), new Password("987") , new Email("re3@"), new Phone("3"), new Cash(100.5), new Prestige(60), new TaskNum(15)));
+        impl.saveRequestorInfo(new Requestor(new UserId("1"), new Username("requestor1"), new Password("123456") , new Email("re1@"), new Phone("1"), new Cash(100.1), new Prestige(10), new TaskNum(10)));
+        impl.saveRequestorInfo(new Requestor(new UserId("2"), new Username("requestor2"), new Password("54623") , new Email("re2@"), new Phone("2"), new Cash(200.2), new Prestige(20), new TaskNum(20)));
+        impl.saveRequestorInfo(new Requestor(new UserId("3"), new Username("requestor3"), new Password("987") , new Email("re3@"), new Phone("3"), new Cash(300.3), new Prestige(30), new TaskNum(30)));
 
-        impl.saveWorkerInfo(new Worker(new UserId("4"), new Username("worker1"), new Password("123456") , new Email("wo1@"), new Phone("4"), new Cash(100.5), new Prestige(60), new TaskNum(15)));
-        impl.saveWorkerInfo(new Worker(new UserId("5"), new Username("worker2"), new Password("123456") , new Email("wo1@"), new Phone("5"), new Cash(100.5), new Prestige(60), new TaskNum(15)));
+        impl.saveWorkerInfo(new Worker(new UserId("4"), new Username("worker1"), new Password("123456") , new Email("wo1@"), new Phone("4"), new Cash(400.4), new Prestige(40), new TaskNum(40)));
+        impl.saveWorkerInfo(new Worker(new UserId("5"), new Username("worker2"), new Password("123456") , new Email("wo2@"), new Phone("5"), new Cash(500.5), new Prestige(50), new TaskNum(50)));
     }
 
     @Test
@@ -81,26 +81,50 @@ public class UserDataImplTest {
     @Test
     public void getUserByUserId() {
         assertEquals("requestor2", impl.getUserByUserId(new UserId("2")).getUsername().value);
-        assertEquals("worker2", impl.getUserByUserId(new UserId("2")).getUsername().value);
+        assertEquals("worker2", impl.getUserByUserId(new UserId("5")).getUsername().value);
     }
 
     @Test
     public void reviseUserEmail() {
+        assertEquals("re3@", impl.getUserByUserId(new UserId("3")).getEmail().address);
         impl.reviseUserEmail(new UserId("3"), new Email("hhhh@qq.com"));
-        assertEquals("hhhh@qq.com", impl.getUserByUserId(new UserId("2")).getEmail().address);
-        impl.reviseUserEmail(new UserId("3"), new Email("jsg@qq.com"));
-        //assertEquals("worker2", impl.getUserByUserId(new UserId("2")).getUsername().value);
+        assertEquals("hhhh@qq.com", impl.getUserByUserId(new UserId("3")).getEmail().address);
+
+        assertEquals("wo2@", impl.getUserByUserId(new UserId("5")).getEmail().address);
+        impl.reviseUserEmail(new UserId("5"), new Email("jsg@qq.com"));
+        assertEquals("jsg@qq.com", impl.getUserByUserId(new UserId("5")).getEmail().address);
     }
 
     @Test
     public void reviseUserPhone() {
+        assertEquals("2", impl.getUserByUserId(new UserId("2")).getPhone().number);
+        impl.reviseUserPhone(new UserId("2"), new Phone("1889num"));
+        assertEquals("1889num", impl.getUserByUserId(new UserId("2")).getPhone().number);
+
+        assertEquals("4", impl.getUserByUserId(new UserId("4")).getPhone().number);
+        impl.reviseUserPhone(new UserId("4"), new Phone("kls58965"));
+        assertEquals("kls58965", impl.getUserByUserId(new UserId("4")).getPhone().number);
     }
 
     @Test
     public void reviseCash() {
+        assertEquals(100.1, impl.getUserByUserId(new UserId("1")).getCash().value, 0.001);
+        impl.reviseCash(new UserId("1"), new Cash(10.1));
+        assertEquals(10.1, impl.getUserByUserId(new UserId("1")).getCash().value, 0.001);
+
+        assertEquals(400.4, impl.getUserByUserId(new UserId("4")).getCash().value, 0.001);
+        impl.reviseCash(new UserId("4"), new Cash(40.4));
+        assertEquals(40.4, impl.getUserByUserId(new UserId("4")).getCash().value, 0.001);
     }
 
     @Test
     public void revisePrestige() {
+        assertEquals(30, impl.getUserByUserId(new UserId("3")).getPrestige().value, 0.001);
+        impl.revisePrestige(new UserId("3"), new Prestige(-30));
+        assertEquals(-30, impl.getUserByUserId(new UserId("3")).getPrestige().value, 0.001);
+
+        assertEquals(40, impl.getUserByUserId(new UserId("4")).getPrestige().value, 0.001);
+        impl.revisePrestige(new UserId("4"), new Prestige(-40));
+        assertEquals(-40, impl.getUserByUserId(new UserId("4")).getPrestige().value, 0.001);
     }
 }
