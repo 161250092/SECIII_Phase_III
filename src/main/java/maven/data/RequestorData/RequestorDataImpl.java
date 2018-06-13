@@ -26,13 +26,27 @@ public class RequestorDataImpl implements RequestorDataService {
     public boolean saveTaskInfo(PublishedTask publishedTask) {
         conn = new MySQLConnector().getConnection("PublishedTask");
 
-        //删除任务信息
-        this.deleteTaskInfo(publishedTask.getTaskId());
-
         boolean result = false;
 
         PreparedStatement stmt;
         String sql;
+        ResultSet rs;
+
+        try{
+            sql = "select * from PublishedTask where TaskId = ?";
+
+            stmt = conn.prepareStatement(sql);
+
+            rs = stmt.executeQuery();
+
+            while(rs.next()){
+                //删除任务信息
+                this.deleteTaskInfo(publishedTask.getTaskId());
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         boolean r1 = false;
         try{
