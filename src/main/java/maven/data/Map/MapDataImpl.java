@@ -65,7 +65,7 @@ public class MapDataImpl implements MapDataService{
             rs = stmt.executeQuery();
 
             while(rs.next()){
-                TaskType taskType = TaskType.valueOf(rs.getString("Type"));
+                TaskType taskType = TaskType.valueOf(rs.getString("TaskType"));
                 Prestige prestige = new Prestige(rs.getDouble("Prestige"));
                 result.put(taskType,prestige);
             }
