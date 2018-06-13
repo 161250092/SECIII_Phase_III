@@ -204,7 +204,7 @@ public class UserDataImpl implements UserDataService{
             stmt.setString(2,worker.getUsername().value);
             stmt.setString(3,worker.getPassword().value);
             stmt.setString(4,worker.getEmail().address);
-            stmt.setString(5,worker.getPassword().value);
+            stmt.setString(5,worker.getPhone().number);
             stmt.setDouble(6,worker.getCash().value);
             stmt.setDouble(7,worker.getPrestige().value);
             stmt.setInt(8,worker.getMaxAcceptedTaskNum().value);
