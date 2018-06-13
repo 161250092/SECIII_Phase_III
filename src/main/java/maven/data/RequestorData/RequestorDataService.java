@@ -9,7 +9,6 @@ public interface RequestorDataService {
 
     /**
      * 上传欲发布的任务信息
-     * 覆盖性保存
      * @param publishedTask 发布的任务信息
      * @return 上传任务信息的状态
      */

@@ -2,6 +2,7 @@ package maven.data.RequestorData;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mysql.cj.jdbc.ha.MultiHostMySQLConnection;
 import maven.data.AdminData.AdminDataImpl;
 import maven.data.MarkLabelData.AreaLabelData.AreaLabelDataImpl;
 import maven.data.MarkLabelData.FrameLabelData.FrameLabelDataImpl;
@@ -24,6 +25,9 @@ public class RequestorDataImpl implements RequestorDataService {
     @Override
     public boolean saveTaskInfo(PublishedTask publishedTask) {
         conn = new MySQLConnector().getConnection("PublishedTask");
+
+        //删除任务信息
+        this.deleteTaskInfo(publishedTask.getTaskId());
 
         boolean result = false;
 
@@ -99,6 +103,66 @@ public class RequestorDataImpl implements RequestorDataService {
             }catch (Exception e){
                 e.printStackTrace();
             }
+        }
+
+        return result;
+    }
+
+    private boolean deleteTaskInfo(TaskId taskId) {
+        conn = new MySQLConnector().getConnection("PublishedTask");
+
+        boolean result = false;
+
+        PreparedStatement stmt;
+        String sql;
+
+        boolean r1 = false;
+        try{
+            sql = "delete * from PublishedTask where TaskId = ?";
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1,taskId.value);
+
+            stmt.executeUpdate();
+
+            stmt.close();
+
+            r1 = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        boolean r2 = false;
+        try{
+            sql = "delete * from FileName where TaskId = ?";
+
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1,taskId.value);
+
+            stmt.executeUpdate();
+            stmt.close();
+
+            r2 = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try{
+            sql = "delete * from Deatail where TaskId = ?";
+
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1,taskId.value);
+
+            stmt.executeUpdate();
+            stmt.close();
+
+            if(r1)
+                if(r2)
+                    result = true;
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
         return result;
