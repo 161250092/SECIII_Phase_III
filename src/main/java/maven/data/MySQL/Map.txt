@@ -3,12 +3,12 @@ create database Map;
 use map;
 
 create table `TypeCash`(
-`TaskType` varchar(20),
+`TaskType` varchar(100),
 `Cash` double precision
 );
 
 create table `TypePrestige`(
-`TaskType` varchar(20),
+`TaskType` varchar(100),
 `Prestige` double precision
 );
 
