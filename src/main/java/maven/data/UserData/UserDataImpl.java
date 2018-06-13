@@ -313,9 +313,11 @@ public class UserDataImpl implements UserDataService{
 
             sql = "select UserId from Requestor where Username = ?";
             stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery();
 
             stmt.setString(1,username.value);
+
+            rs = stmt.executeQuery();
+
 
             while(rs.next()){
                 result = new UserId(rs.getString("UserId"));
@@ -367,9 +369,10 @@ public class UserDataImpl implements UserDataService{
 
         try{
 
-            sql = "select * from Requestor where UserId = ?";
+            sql = "select * from Worker where UserId = ?";
 
             stmt = conn.prepareStatement(sql);
+
             stmt.setString(1,userId.value);
             rs = stmt.executeQuery();
 
