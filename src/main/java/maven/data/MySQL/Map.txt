@@ -4,12 +4,14 @@ use map;
 
 create table `TypeCash`(
 `TaskType` varchar(100),
-`Cash` double precision
+`Cash` double precision,
+primary key(TaskType)
 );
 
 create table `TypePrestige`(
 `TaskType` varchar(100),
-`Prestige` double precision
+`Prestige` double precision,
+primary key(TaskType)
 );
 
 create table `MaxPrestige`(
