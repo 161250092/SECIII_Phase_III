@@ -89,14 +89,40 @@ public class RequestorDataImplTest {
 
     @Test
     public void getPublishedTaskList() {
+        Set<String> ex = new HashSet<>();
+        ex.add("00000001_ImageLabel_1622440180000" + "_" + "ImageLabel");
+        ex.add("00000001_ImageLabel_1622440190000" + "_" + "ImageLabel");
+        ex.add("00000001_FrameLabel_1622440200000" + "_" + "FrameLabel");
+        ex.add("00000001_FrameLabel_1622440210000" + "_" + "AreaLabel");
+
+        List<PublishedTask> l = impl.getPublishedTaskList(new UserId("00000001"));
+        for (PublishedTask t: l){
+            assertTrue(t.getTaskId().value, ex.contains(t.getTaskId().value + "_" + t.getLabelType().value));
+        }
     }
 
     @Test
     public void getPublishedTask() {
+        PublishedTask p1 = impl.getPublishedTask(new TaskId("00000001_ImageLabel_1622440180000"));
+        assertEquals("00000001_ImageLabel_1622440180000_ImageLabel_INCOMPLETE",
+                p1.getTaskId().value + "_" + p1.getLabelType().value + "_" + p1.getPublishedTaskState().name());
+
+        PublishedTask p2 = impl.getPublishedTask(new TaskId("00000001_ImageLabel_1622440190000"));
+        assertEquals("00000001_ImageLabel_1622440190000_ImageLabel_ACCOMPLISHED",
+                p2.getTaskId().value  + "_" + p2.getLabelType().value + "_" + p2.getPublishedTaskState().name());
+
+
+        PublishedTask p3 = impl.getPublishedTask(new TaskId("testTaskId10"));
+        assertEquals("testTaskId10_AreaLabel_DRAFT_WITHOUT_SAMPLE",
+                p3.getTaskId().value  + "_" + p3.getLabelType().value + "_" + p3.getPublishedTaskState().name());
     }
 
     @Test
     public void getTaskType() {
+        assertEquals("00000001_AreaLabel_1622440220000", TaskType.ORDINARY_LEVEL_LABEL_REQUIRED, impl.getTaskType(new TaskId("00000001_AreaLabel_1622440220000")));
+        assertEquals("00000001_ImageLabel_1622440190000", TaskType.HIGH_LEVEL_LABEL_REQUIRED, impl.getTaskType(new TaskId("00000001_ImageLabel_1622440190000")));
+        assertEquals("testTaskId8", TaskType.VERY_HIGH_LEVEL_LABEL_REQUIRED, impl.getTaskType(new TaskId("testTaskId8")));
+        assertEquals("testTaskId9", TaskType.ORDINARY_LEVEL_LABEL_REQUIRED, impl.getTaskType(new TaskId("testTaskId9")));
     }
 
 
@@ -118,19 +144,19 @@ public class RequestorDataImplTest {
                 PublishedTaskState.INCOMPLETE);
 
         PublishedTask publishedTask_2 = new PublishedTask(new TaskId("00000001_ImageLabel_1622440190000"),
-                new UserId("00000001"), TaskType.ORDINARY_LEVEL_LABEL_REQUIRED, new LabelType("ImageLabel"),
+                new UserId("00000001"), TaskType.HIGH_LEVEL_LABEL_REQUIRED, new LabelType("ImageLabel"),
                 imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10),
                 publishedTaskDetailList,
                 PublishedTaskState.ACCOMPLISHED);
 
         PublishedTask publishedTask_3 = new PublishedTask(new TaskId("00000001_FrameLabel_1622440200000"),
-                new UserId("00000001"), TaskType.ORDINARY_LEVEL_LABEL_REQUIRED, new LabelType("FrameLabel"),
+                new UserId("00000001"), TaskType.VERY_HIGH_LEVEL_LABEL_REQUIRED, new LabelType("FrameLabel"),
                 imageFilenameList, new TaskDescription("It's a published but incomplete Task"), new WorkerNum(0), new WorkerNum(0),
                 publishedTaskDetailList,
                 PublishedTaskState.INCOMPLETE);
 
         PublishedTask publishedTask_4 = new PublishedTask(new TaskId("00000001_FrameLabel_1622440210000"),
-                new UserId("00000001"), TaskType.ORDINARY_LEVEL_LABEL_REQUIRED, new LabelType("FrameLabel"),
+                new UserId("00000001"), TaskType.HIGH_LEVEL_LABEL_REQUIRED, new LabelType("AreaLabel"),
                 imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10),
                 publishedTaskDetailList,
                 PublishedTaskState.ACCOMPLISHED);
@@ -144,13 +170,13 @@ public class RequestorDataImplTest {
                 PublishedTaskState.INCOMPLETE);
 
         PublishedTask publishedTask_6 = new PublishedTask(new TaskId("00000001_AreaLabel_1622440230000"),
-                new UserId("00000002"), TaskType.ORDINARY_LEVEL_LABEL_REQUIRED, new LabelType("AreaLabel"),
+                new UserId("00000002"), TaskType.VERY_HIGH_LEVEL_LABEL_REQUIRED, new LabelType("AreaLabel"),
                 imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10),
                 publishedTaskDetailList,
                 PublishedTaskState.ACCOMPLISHED);
 
         PublishedTask publishedTask_7 = new PublishedTask(new TaskId("testTaskId7"),
-                new UserId("00000002"), TaskType.ORDINARY_LEVEL_LABEL_REQUIRED, new LabelType("AreaLabel"),
+                new UserId("00000002"), TaskType.HIGH_LEVEL_LABEL_REQUIRED, new LabelType("AreaLabel"),
                 imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10),
                 publishedTaskDetailList,
                 PublishedTaskState.DRAFT_WITH_SAMPLE);
@@ -158,7 +184,7 @@ public class RequestorDataImplTest {
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         PublishedTask publishedTask_8 = new PublishedTask(new TaskId("testTaskId8"),
-                new UserId("00000003"), TaskType.ORDINARY_LEVEL_LABEL_REQUIRED, new LabelType("AreaLabel"),
+                new UserId("00000003"), TaskType.VERY_HIGH_LEVEL_LABEL_REQUIRED, new LabelType("AreaLabel"),
                 imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10),
                 publishedTaskDetailList,
                 PublishedTaskState.DRAFT_WITH_SAMPLE);
@@ -170,7 +196,7 @@ public class RequestorDataImplTest {
                 PublishedTaskState.DRAFT_WITHOUT_SAMPLE);
 
         PublishedTask publishedTask_10 = new PublishedTask(new TaskId("testTaskId10"),
-                new UserId("00000003"), TaskType.ORDINARY_LEVEL_LABEL_REQUIRED, new LabelType("AreaLabel"),
+                new UserId("00000003"), TaskType.HIGH_LEVEL_LABEL_REQUIRED, new LabelType("AreaLabel"),
                 imageFilenameList, new TaskDescription("It's a published and accomplished Task"), new WorkerNum(10), new WorkerNum(10),
                 publishedTaskDetailList,
                 PublishedTaskState.DRAFT_WITHOUT_SAMPLE);

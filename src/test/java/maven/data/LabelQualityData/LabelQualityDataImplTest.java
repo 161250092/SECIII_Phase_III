@@ -16,11 +16,11 @@ import static org.junit.Assert.*;
 
 public class LabelQualityDataImplTest {
 
-    LabelQualityDataImpl limpl = new LabelQualityDataImpl();
-    WorkerDataImpl wimpl = new WorkerDataImpl();
-    TableInitializer initializer = new TableInitializer();
+    private LabelQualityDataImpl limpl = new LabelQualityDataImpl();
+    private WorkerDataImpl wimpl = new WorkerDataImpl();
 
     public LabelQualityDataImplTest(){
+        TableInitializer initializer = new TableInitializer();
         initializer.cleanAllTable();
     }
 
