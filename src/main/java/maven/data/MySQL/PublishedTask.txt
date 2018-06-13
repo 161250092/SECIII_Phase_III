@@ -23,8 +23,7 @@ primary key(TaskId)
 create table `FileName`(
 `TaskId` varchar(100),
 `iNumber` integer,
-`Value` varchar(100),
-primary key(TaskId)
+`Value` varchar(100)
 );
 
 create table `Detail`(
@@ -33,13 +32,12 @@ create table `Detail`(
 `Date` varchar(100),
 `WorkerNum` integer,
 `Discount` varchar(100),
-`Cash` double precision,
-primary key(TaskId)
+`Cash` double precision
 );
 
 create table `TaskType`(
 `TaskId` varchar(100),
-`TaskType` varchar(20),
+`TaskType` varchar(100),
 primary key(TaskId)
 );
 
