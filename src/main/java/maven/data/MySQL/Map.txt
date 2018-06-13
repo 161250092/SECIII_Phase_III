@@ -15,3 +15,13 @@ create table `TypePrestige`(
 create table `MaxPrestige`(
 `Prestige` double precision
 );
+
+insert into TypeCash values('ORDINARY_LEVEL_LABEL_REQUIRED', 0.1);
+insert into TypeCash values('HIGH_LEVEL_LABEL_REQUIRED', 0.3);
+insert into TypeCash values('VERY_HIGH_LEVEL_LABEL_REQUIRED', 0.5);
+
+insert into TypePrestige values('ORDINARY_LEVEL_LABEL_REQUIRED', 60);
+insert into TypePrestige values('HIGH_LEVEL_LABEL_REQUIRED', 80);
+insert into TypePrestige values('VERY_HIGH_LEVEL_LABEL_REQUIRED', 90);
+
+insert into MaxPrestige values(100);

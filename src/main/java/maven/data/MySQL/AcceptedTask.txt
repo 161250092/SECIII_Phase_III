@@ -10,5 +10,5 @@ create table `AcceptedTask`(
 `State` varchar(30),
 `Discount` varchar(100),
 `Score` double precision,
-primary key(UserId)
+primary key(UserId, TaskId)
 );

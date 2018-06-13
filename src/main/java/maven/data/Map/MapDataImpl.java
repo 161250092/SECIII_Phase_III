@@ -15,10 +15,10 @@ public class MapDataImpl implements MapDataService{
     private Connection conn;
 
     @Override
-    public Map getCashTaskType() {
+    public Map<TaskType,Cash> getCashTaskType() {
         conn = new MySQLConnector().getConnection("Map");
 
-        HashMap<TaskType,Cash> result = new HashMap<>();
+        Map<TaskType,Cash> result = new HashMap<>();
 
         PreparedStatement stmt;
         String sql;
@@ -48,10 +48,10 @@ public class MapDataImpl implements MapDataService{
     }
 
     @Override
-    public Map getPrestigeTaskType() {
+    public Map<TaskType,Prestige> getPrestigeTaskType() {
         conn = new MySQLConnector().getConnection("Map");
 
-        HashMap<TaskType,Prestige> result = new HashMap<>();
+        Map<TaskType,Prestige> result = new HashMap<>();
 
         PreparedStatement stmt;
         String sql;
