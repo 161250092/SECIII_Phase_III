@@ -2,16 +2,8 @@ package maven.data.RequestorData;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mysql.cj.jdbc.ha.MultiHostMySQLConnection;
 import maven.data.AdminData.AdminDataImpl;
-import maven.data.MarkLabelData.AreaLabelData.AreaLabelDataImpl;
-import maven.data.MarkLabelData.FrameLabelData.FrameLabelDataImpl;
-import maven.data.MarkLabelData.ImageLabelData.ImageLabelDataImpl;
 import maven.data.MySQL.MySQLConnector;
-import maven.model.label.ImageLabel;
-import maven.model.label.Label;
-import maven.model.label.areaLabel.AreaLabel;
-import maven.model.label.frameLabel.FrameLabel;
 import maven.model.primitiveType.*;
 import maven.model.task.*;
 
@@ -36,6 +28,7 @@ public class RequestorDataImpl implements RequestorDataService {
             sql = "select * from PublishedTask where TaskId = ?";
 
             stmt = conn.prepareStatement(sql);
+            stmt.setString(1, publishedTask.getTaskId().value);
 
             rs = stmt.executeQuery();
 
@@ -43,6 +36,8 @@ public class RequestorDataImpl implements RequestorDataService {
                 //删除任务信息
                 this.deleteTaskInfo(publishedTask.getTaskId());
             }
+
+            stmt.close();
 
         }catch (Exception e){
             e.printStackTrace();
@@ -124,7 +119,6 @@ public class RequestorDataImpl implements RequestorDataService {
 
     private boolean deleteTaskInfo(TaskId taskId) {
         conn = new MySQLConnector().getConnection("PublishedTask");
-
         boolean result = false;
 
         PreparedStatement stmt;
@@ -132,7 +126,7 @@ public class RequestorDataImpl implements RequestorDataService {
 
         boolean r1 = false;
         try{
-            sql = "delete * from PublishedTask where TaskId = ?";
+            sql = "delete from PublishedTask where TaskId = ?";
             stmt = conn.prepareStatement(sql);
 
             stmt.setString(1,taskId.value);
@@ -148,7 +142,7 @@ public class RequestorDataImpl implements RequestorDataService {
 
         boolean r2 = false;
         try{
-            sql = "delete * from FileName where TaskId = ?";
+            sql = "delete from FileName where TaskId = ?";
 
             stmt = conn.prepareStatement(sql);
 
@@ -163,7 +157,7 @@ public class RequestorDataImpl implements RequestorDataService {
         }
 
         try{
-            sql = "delete * from Deatail where TaskId = ?";
+            sql = "delete from Deatail where TaskId = ?";
 
             stmt = conn.prepareStatement(sql);
 

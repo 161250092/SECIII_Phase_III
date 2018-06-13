@@ -47,7 +47,11 @@ public class RequestorController {
      */
     @RequestMapping(value = "/requestor/submitTaskDraft", method = RequestMethod.GET)
     public Exception submitTaskDraft(String publishedTaskVOJSON, String imageFilenameListJSON){
-        return requestorBL.uploadTaskInfo((PublishedTaskVO) JsonConverter.jsonToObject(publishedTaskVOJSON, PublishedTaskVO.class), (List<Filename>)JsonConverter.jsonToObject(imageFilenameListJSON, ArrayList.class));
+        List<String> filenameStringList = (List<String>)JsonConverter.jsonToObject(imageFilenameListJSON, ArrayList.class);
+        List<Filename> imageFilenameList = new ArrayList<>();
+        for(String filenameString : filenameStringList)
+            imageFilenameList.add(new Filename(filenameString));
+        return requestorBL.uploadTaskInfo((PublishedTaskVO) JsonConverter.jsonToObject(publishedTaskVOJSON, PublishedTaskVO.class), imageFilenameList);
     }
 
     /**
