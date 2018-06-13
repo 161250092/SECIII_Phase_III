@@ -122,8 +122,10 @@ public class PricingAlgorithm {
 
                     //w_hat(i) = min{ wi, low_bound(B/p)-∑r∈A w_hat(r) }
                     int allocatedImageNum = Math.min(bid.getMaxWantedImageNum().value, (int)(allocatedBudget / thresholdPrice) - totalSampleAllocatedImageNum);
-                    //将 单价为p，图片数为w_hat(i) 分配给该工人
-                    allocatedTaskList.add(new AllocatedTask(bid.getWorkerId(), new Cash(thresholdPrice), new ImageNum(allocatedImageNum)));
+                    if(allocatedImageNum > 0){
+                        //将 单价为p，图片数为w_hat(i) 分配给该工人
+                        allocatedTaskList.add(new AllocatedTask(bid.getWorkerId(), new Cash(thresholdPrice), new ImageNum(allocatedImageNum)));
+                    }
                 }
             }
         }else {
@@ -142,8 +144,10 @@ public class PricingAlgorithm {
             if(selectedBid != null){
                 //w_hat(i) = min{ w1, low_bound(B/p) }
                 int allocatedImageNum = Math.min(selectedBid.getMaxWantedImageNum().value, (int)(allocatedBudget / thresholdPrice));
-                //将 单价为p，图片数为w_hat(i) 分配给该工人
-                allocatedTaskList.add(new AllocatedTask(selectedBid.getWorkerId(), new Cash(thresholdPrice), new ImageNum(allocatedImageNum)));
+                if(allocatedImageNum > 0){
+                    //将 单价为p，图片数为w_hat(i) 分配给该工人
+                    allocatedTaskList.add(new AllocatedTask(selectedBid.getWorkerId(), new Cash(thresholdPrice), new ImageNum(allocatedImageNum)));
+                }
             }
         }
 
@@ -266,11 +270,13 @@ public class PricingAlgorithm {
 
                         //w_hat(i) = min{ wi, low_bound(B'/p)-∑r∈A w_hat(r) }
                         int allocatedImageNum = Math.min(bid.getMaxWantedImageNum().value, (int)(allocatedBudget / thresholdPrice) - totalSampleAllocatedImageNum);
-                        //将 单价为p，图片数为w_hat(i) 分配给该工人
-                        AllocatedTask allocatedTaskForThisWorker = new AllocatedTask(bid.getWorkerId(), new Cash(thresholdPrice), new ImageNum(allocatedImageNum));
-                        allocatedTaskList.add(allocatedTaskForThisWorker);
-                        //A = A ∪ {i}
-                        sampleAllocatedTaskList.add(allocatedTaskForThisWorker);
+                        if(allocatedImageNum > 0){
+                            //将 单价为p，图片数为w_hat(i) 分配给该工人
+                            AllocatedTask allocatedTaskForThisWorker = new AllocatedTask(bid.getWorkerId(), new Cash(thresholdPrice), new ImageNum(allocatedImageNum));
+                            allocatedTaskList.add(allocatedTaskForThisWorker);
+                            //A = A ∪ {i}
+                            sampleAllocatedTaskList.add(allocatedTaskForThisWorker);
+                        }
                     }
                 }
 
@@ -291,8 +297,10 @@ public class PricingAlgorithm {
                 if(selectedBid != null){
                     //w_hat(i) = min{ w1, low_bound(B'/p) }
                     int allocatedImageNum = Math.min(selectedBid.getMaxWantedImageNum().value, (int)(allocatedBudget / thresholdPrice));
-                    //将 单价为p，图片数为w_hat(i) 分配给该工人
-                    allocatedTaskList.add(new AllocatedTask(selectedBid.getWorkerId(), new Cash(thresholdPrice), new ImageNum(allocatedImageNum)));
+                    if(allocatedImageNum > 0){
+                        //将 单价为p，图片数为w_hat(i) 分配给该工人
+                        allocatedTaskList.add(new AllocatedTask(selectedBid.getWorkerId(), new Cash(thresholdPrice), new ImageNum(allocatedImageNum)));
+                    }
                 }
             }
         }
