@@ -60,7 +60,7 @@ public class MessageDataImpl implements  MessageDataService{
         String sql;
 
         try{
-            sql = "insert into AcceptTaskMessage values (?,?,?,?,?,?)";
+            sql = "insert into AcceptedTaskMessage values (?,?,?,?,?,?)";
 
             stmt = conn.prepareStatement(sql);
 
@@ -70,6 +70,9 @@ public class MessageDataImpl implements  MessageDataService{
             stmt.setDouble(4,acceptedTaskMessage.getCash().value);
             stmt.setString(5,acceptedTaskMessage.getAcceptedTaskState().toString());
             stmt.setBoolean(6,acceptedTaskMessage.isChecked());
+
+
+            stmt.executeUpdate();
 
             stmt.close();
             conn.close();
@@ -104,6 +107,8 @@ public class MessageDataImpl implements  MessageDataService{
             stmt.setString(5,guyMessage.getTaskId().value);
             stmt.setDouble(6,guyMessage.getCash().value);
             stmt.setBoolean(7,guyMessage.isChecked());
+
+            stmt.executeUpdate();
 
             stmt.close();
             conn.close();
@@ -208,7 +213,7 @@ public class MessageDataImpl implements  MessageDataService{
 
             while(rs.next()){
                 MessageId messageId = new MessageId(rs.getString("MessageId"));
-                TaskId taskId = new TaskId(rs.getString("TskId"));
+                TaskId taskId = new TaskId(rs.getString("TaskId"));
                 UserId workerId = new UserId(rs.getString("WorkerId"));
                 Username workerName = new Username(rs.getString("WorkerName"));
                 Cash cash = new Cash(rs.getDouble("Cash"));
@@ -236,7 +241,7 @@ public class MessageDataImpl implements  MessageDataService{
         ResultSet rs;
 
         try{
-            sql = "select * from AcceptTaskMessage where UserId  = ? and isChecked = ?";
+            sql = "select * from AcceptedTaskMessage where UserId  = ? and isChecked = ?";
 
             stmt = conn.prepareStatement(sql);
 
@@ -253,9 +258,6 @@ public class MessageDataImpl implements  MessageDataService{
 
                 AcceptedTaskMessage acceptedTaskMessage  = new AcceptedTaskMessage(messageId,userId,taskId,cash,state);
                 acceptedTaskMessages.add(acceptedTaskMessage);
-
-                stmt.close();
-                conn.close();
 
             }
         }catch (Exception e){
@@ -276,7 +278,7 @@ public class MessageDataImpl implements  MessageDataService{
         ResultSet rs;
 
         try{
-            sql = "select * GuyMessage where WorkerId = ? and isChecked = ?";
+            sql = "select * from GuyMessage where WorkerId = ? and isChecked = ?";
 
             stmt = conn.prepareStatement(sql);
 
@@ -463,7 +465,7 @@ public class MessageDataImpl implements  MessageDataService{
         String sql;
 
         try{
-            sql = "update GuyMessage set isChecked = ? where MessaageId = ?";
+            sql = "update GuyMessage set isChecked = ? where MessageId = ?";
 
             stmt = conn.prepareStatement(sql);
 
@@ -639,13 +641,14 @@ public class MessageDataImpl implements  MessageDataService{
 
 
         int a = num;
-        int b = 10;
+        int b = 11;
 
         while(a > 1){
             a = a / 10;
             b--;
         }
 
+        //  总长度12位
         String re = String.valueOf(num);
         for(int i = 0;i < b;i++)
             re = "0" + re;
