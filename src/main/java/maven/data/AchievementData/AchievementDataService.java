@@ -25,7 +25,7 @@ public interface AchievementDataService {
     List<Achievement>   getUserAchievement(UserId userId);
 
     /**
-     *
+     * 判断是否可以领取成就奖励
      * @param userId 用户ID
      * @param achievementId 成就ID
      * @return  *if( isFinished == true && isRewardGet == false )  { isRewardGet =true; return true}

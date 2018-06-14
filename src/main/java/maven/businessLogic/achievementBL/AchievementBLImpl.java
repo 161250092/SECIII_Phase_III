@@ -70,7 +70,10 @@ public class AchievementBLImpl implements AchievementBLService {
     @Override
     public boolean getAchievementCash(UserId userId, String achievementId) {
         Cash  reward = AchievementCash(userId,achievementId);
+        if(dataService.getAchievementCash(userId,achievementId))
         return mangeuserbl.increaseCash(userId,reward);
+        else
+            return false;
     }
 
     @Override
