@@ -1,38 +1,31 @@
 package maven.businessLogic.markLabelBL.MarkImageLableBL;
 
+import maven.businessLogic.markLabelBL.FilenameGetter;
 import maven.data.MarkLabelData.ImageLabelData.ImageLabelDataImpl;
 import maven.data.MarkLabelData.ImageLabelData.ImageLabelDataService;
-import maven.data.RequestorData.RequestorDataImpl;
-import maven.data.RequestorData.RequestorDataService;
 import maven.model.label.ImageLabel;
-import maven.model.primitiveType.Filename;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
-import maven.model.task.PublishedTask;
 import maven.model.vo.ImageLabelSetVO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MarkImageLabelBLImpl implements MarkImageLabelBLService{
 
     private ImageLabelDataService imageLabelDataService;
-    private RequestorDataService requestorDataService;
+    private FilenameGetter filenameGetter;
 
     public MarkImageLabelBLImpl(){
         imageLabelDataService = new ImageLabelDataImpl();
-        requestorDataService = new RequestorDataImpl();
+        filenameGetter = new FilenameGetter();
     }
 
     @Override
     public ImageLabelSetVO getImageLabelSetVO(TaskId taskId, UserId userId) {
+        //欲返回的图片名称数组
+        List<String> filenameList = filenameGetter.getFilenameList(taskId, userId);
+        //欲返回的标注信息数组
         List<ImageLabel> labelList = imageLabelDataService.getLabelList(userId, taskId);
-        PublishedTask publishedTask = requestorDataService.getPublishedTask(taskId);
-        List<Filename> imageFilenameList = publishedTask.getImageFilenameList();
-        List<String> filenameList = new ArrayList<>();
-        for(Filename filename : imageFilenameList){
-            filenameList.add(filename.value);
-        }
         return new ImageLabelSetVO(filenameList.size(), labelList, filenameList);
     }
 
