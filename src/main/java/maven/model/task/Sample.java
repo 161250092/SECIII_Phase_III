@@ -17,6 +17,10 @@ public class Sample {
     //样本内图片 在原本的任务图片集合内的下标数组
     private List<Integer> imageIndexList;
 
+    public TaskId getTaskId() {
+        return taskId;
+    }
+
     public int getNumber() {
         return imageNum;
     }
