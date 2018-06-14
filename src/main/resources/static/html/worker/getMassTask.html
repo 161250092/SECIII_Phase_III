@@ -12,13 +12,46 @@
 <body>
 
 <div align="center" id="taskListContainer">
+    <div id="home" class="header-wrapper header-top">
+        <header>
+            <ul class="menu cf">
+                <li>
+                    <a>查询</a>
+                    <ul class="submenu">
+                        <li><a href="../worker/workerFinishedTaskPage.html">历史任务</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a>任务</a>
+                    <ul class="submenu">
+                        <li><a href="../worker/doTask.html">做任务</a></li>
+                        <li><a href="../worker/getMassTask.html">自主任务</a></li>
+                        <li><a href="../worker/getTask.html">接任务</a></li>
+                    </ul>
+                </li>
+
+
+                <li>
+                    <a>用户中心</a>
+                    <ul class="submenu">
+                        <li><a href="../login/login.html">登出</a></li>
+                        <li><a href="../worker/workerInfoPage.html">个人主页</a></li>
+                        <li><a href="../worker/dailyWorkPage.html">成就</a></li>
+                    </ul>
+                </li>
+                <li class="headerUsername"><a href="#">用户：{{username}}</a></li>
+
+            </ul>
+        </header>
+    </div>
+
     <p>可接受的任务</p>
 
     <label>预期图片数量</label>
     <input type="text">
     <label>预期积分奖励</label>
     <input type="text">
-    <input type="button" value="筛选">
     <table border="1">
         <tr>
             <th>任务编号</th>
@@ -38,14 +71,11 @@
             <th>{{task.finishedWorkerNum}}</th>
             <th>{{task.taskDescription}}</th>
             <th>{{task.taskPrice}}</th>
-            <th><input type="checkbox" v-on:click="operateOnTaskIdSet(index)"><br></th>
+            <th><input type="button" v-on:click="getMassTask(index)"><br></th>
         </tr>
     </table>
 
-    <br>
-    <br>
-    <br>
-    <button class="button button-3d button-box button-jumbo" v-on:click="acceptTasks"><i class="fa fa-thumbs-up"> 提 交 </i></button>
+
 </div>
 
 <script src="../../js/lib/vue.js"></script>
