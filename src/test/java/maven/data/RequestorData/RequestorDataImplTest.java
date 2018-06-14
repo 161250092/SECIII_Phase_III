@@ -2,10 +2,7 @@ package maven.data.RequestorData;
 
 import maven.data.TableInitializer;
 import maven.model.primitiveType.*;
-import maven.model.task.PublishedTask;
-import maven.model.task.PublishedTaskDetail;
-import maven.model.task.PublishedTaskState;
-import maven.model.task.TaskType;
+import maven.model.task.*;
 import org.junit.Test;
 
 import javax.xml.soap.SAAJResult;
@@ -19,22 +16,43 @@ import static org.junit.Assert.*;
 public class RequestorDataImplTest {
 
     RequestorDataImpl impl = new RequestorDataImpl();
-    List<PublishedTask> list;
 
     public RequestorDataImplTest(){
         TableInitializer initializer = new TableInitializer();
         initializer.cleanAllTable();
 
-        list = this.getPublishedTaskListForTest();
+        List<PublishedTask> list = this.getPublishedTaskListForTest();
+        List<Sample> slist = this.getSampleForTest();
 
         for (PublishedTask publishedTask: list){
             impl.saveTaskInfo(publishedTask);
+        }
+        for (Sample s: slist){
+            impl.saveTaskSampleInfo(s);
         }
     }
 
     @Test
     public void getSample() {
+        Sample a = impl.getSample(new TaskId("00000001_ImageLabel_1622440180000"), null);
+        assertEquals("00000001_ImageLabel_1622440180000",
+                "00000001_ImageLabel_1622440180000", a.getTaskId().value);
+        assertEquals("00000001_ImageLabel_1622440180000",
+                3, a.getNumber());
+        int[] al = {2, 5, 8};
+        assertEquals("00000001_ImageLabel_1622440180000",
+                "00000001_ImageLabel_1622440180000",
+                impl.getSample(new TaskId("00000001_ImageLabel_1622440180000"), null).getTaskId().value);
 
+        assertEquals("00000001_ImageLabel_1622440180000",
+                "00000001_ImageLabel_1622440180000",
+                impl.getSample(new TaskId("00000001_ImageLabel_1622440180000"), null).getTaskId().value);
+        assertEquals("00000001_ImageLabel_1622440180000",
+                "00000001_ImageLabel_1622440180000",
+                impl.getSample(new TaskId("00000001_ImageLabel_1622440180000"), null).getTaskId().value);
+        assertEquals("00000001_ImageLabel_1622440180000",
+                "00000001_ImageLabel_1622440180000",
+                impl.getSample(new TaskId("00000001_ImageLabel_1622440180000"), null).getTaskId().value);
     }
 
     @Test
@@ -273,5 +291,19 @@ public class RequestorDataImplTest {
         list.add(publishedTask_10);
 
         return list;
+    }
+
+    private List<Sample> getSampleForTest(){
+        List<Sample> l = new ArrayList<>();
+
+        List<Integer> a = new ArrayList<>();
+        a.add(2);a.add(5);a.add(8);
+        l.add(new Sample(new TaskId("00000001_ImageLabel_1622440180000"), 3, a));
+
+        List<Integer> b = new ArrayList<>();
+        b.add(0);b.add(1);b.add(2);b.add(3);
+        l.add(new Sample(new TaskId("00000001_AreaLabel_1622440220000"), 4, b));
+
+        return l;
     }
 }

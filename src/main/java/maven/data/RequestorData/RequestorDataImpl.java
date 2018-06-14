@@ -180,7 +180,11 @@ public class RequestorDataImpl implements RequestorDataService {
     }
 
     @Override
-    public boolean saveTaskSampleInfo(TaskId taskId, int ImageNum, List<Integer> imageIndexList) {
+    public boolean saveTaskSampleInfo(Sample taskSample) {
+        TaskId taskId = taskSample.getTaskId();
+        int ImageNum = taskSample.getNumber();
+        List<Integer> imageIndexList = taskSample.getImageIndexList();
+
         conn = new MySQLConnector().getConnection("PublishedTask");
 
         boolean result = false;
@@ -218,7 +222,7 @@ public class RequestorDataImpl implements RequestorDataService {
     }
 
     @Override
-    public Sample getSample(TaskId taskId, UserId userId) {
+    public Sample getSample(TaskId taskId) {
         conn = new MySQLConnector().getConnection("PublishedTask");
 
         Sample sample;
