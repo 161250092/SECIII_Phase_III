@@ -35,7 +35,7 @@ new Vue({
         taskDescription: "",
 
         minScoreList:[],
-        taskPrice: 0,
+        imageUnitPrice: 0,
 
         imgList: [],
         size: 0,
@@ -54,6 +54,7 @@ new Vue({
             let _this = this;
             axios.get('/requestor/getTaskUnitPriceList').then(function (response) {
                 _this.minScoreList = response.data;
+                _this.imageUnitPrice = _this.getMinUnitPrice();
             });
         },
         submitTaskDraft: function (ev) {
@@ -63,8 +64,10 @@ new Vue({
             for (let i = 0; i < this.imgList.length; i++){
                 imageFileNameList.push(this.imgList[i].name);
             }
+
+            let taskPrice = this.getMinUnitPrice() * this.imgList.length;
             let taskVO = new TaskVO(this.taskId, this.selectedTaskType, this.selectedLabelType,
-                this.taskDescription, this.requiredWorkerNum, imageFileNameList.length, this.taskPrice);
+                this.taskDescription, this.requiredWorkerNum, imageFileNameList.length, taskPrice);
             let taskVOJson = JSON.stringify(taskVO);
             let imageFilenameListJSON = JSON.stringify(imageFileNameList);
 
@@ -183,22 +186,22 @@ new Vue({
             this.taskId = this.userId + '_' + this.selectedLabelType +
                 '_' + time;
         },
-        getMinScore: function() {
+        getMinUnitPrice: function() {
             let imageNum = this.imgList.length;
-            let scorePerImage;
+            let minImageUnitPrice;
 
             if(this.minScoreList.length === 0) {
-                scorePerImage = 0;
+                minImageUnitPrice = 0;
             }else {
                 switch (this.selectedTaskType) {
-                    case "ORDINARY_LEVEL_LABEL_REQUIRED": scorePerImage = this.minScoreList.ORDINARY_LEVEL_LABEL_REQUIRED.value; break;
-                    case "HIGH_LEVEL_LABEL_REQUIRED": scorePerImage = this.minScoreList.HIGH_LEVEL_LABEL_REQUIRED.value; break;
-                    case "VERY_HIGH_LEVEL_LABEL_REQUIRED": scorePerImage = this.minScoreList.VERY_HIGH_LEVEL_LABEL_REQUIRED.value; break;
-                    default : scorePerImage = -1; break;
+                    case "ORDINARY_LEVEL_LABEL_REQUIRED": minImageUnitPrice = this.minScoreList.ORDINARY_LEVEL_LABEL_REQUIRED.value; break;
+                    case "HIGH_LEVEL_LABEL_REQUIRED": minImageUnitPrice = this.minScoreList.HIGH_LEVEL_LABEL_REQUIRED.value; break;
+                    case "VERY_HIGH_LEVEL_LABEL_REQUIRED": minImageUnitPrice = this.minScoreList.VERY_HIGH_LEVEL_LABEL_REQUIRED.value; break;
+                    default : minImageUnitPrice = -1; break;
                 }
             }
 
-            return imageNum * scorePerImage;
+            return minImageUnitPrice;
         }
     },
     watch: {
@@ -210,29 +213,23 @@ new Vue({
                 this.requiredWorkerNum = 1;
             }
         },
-        taskPrice: function (newScore, oldScore) {
-            let minScore = this.getMinScore();
-
-            if(newScore < minScore){
-                this.taskPrice = minScore;
-            }
-        },
         imgList: function (newImgList, oldImgList) {
-            this.taskPrice = this.getMinScore();
+            this.imageUnitPrice = this.getMinUnitPrice();
         },
         selectedTaskType: function (newSelectedTaskType, oldSelectedTaskType) {
-            this.taskPrice = this.getMinScore();
+            this.imageUnitPrice = this.getMinUnitPrice();
+        },
+        imageUnitPrice: function (newTaskUnitPrice, oldTaskUnitPrice) {
+            if(newTaskUnitPrice > this.getMinUnitPrice()){
+                this.imageUnitPrice = newTaskUnitPrice;
+            }else {
+                this.imageUnitPrice = this.getMinUnitPrice();
+            }
         }
     },
     computed: {
-        scorePerImage: function () {
-            if(this.minScoreList.length === 0) return 0;
-            switch (this.selectedTaskType) {
-                case "ORDINARY_LEVEL_LABEL_REQUIRED": return this.minScoreList.ORDINARY_LEVEL_LABEL_REQUIRED.value;
-                case "HIGH_LEVEL_LABEL_REQUIRED": return this.minScoreList.HIGH_LEVEL_LABEL_REQUIRED.value;
-                case "VERY_HIGH_LEVEL_LABEL_REQUIRED": return this.minScoreList.VERY_HIGH_LEVEL_LABEL_REQUIRED.value;
-                default : return -1;
-            }
+        taskPrice: function () {
+            return this.imageUnitPrice * this.imgList.length;
         }
     }
 });
