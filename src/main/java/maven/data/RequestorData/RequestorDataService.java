@@ -15,13 +15,11 @@ public interface RequestorDataService {
      boolean saveTaskInfo(PublishedTask publishedTask);
 
     /**
-     * 上传任务的标注信息
-     * @param taskId 任务Id
-     * @param ImageNum 样本内图片数量
-     * @param imageIndexList 图片下标数组
+     * 上传任务的样本信息
+     * @param taskSample 任务样本
      * @return 是否保存
      */
-     boolean saveTaskSampleInfo(TaskId taskId, int ImageNum, List<Integer> imageIndexList);
+     boolean saveTaskSampleInfo(Sample taskSample);
 
     /**
      * 获取样本信息
