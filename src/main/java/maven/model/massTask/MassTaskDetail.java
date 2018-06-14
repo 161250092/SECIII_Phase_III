@@ -20,6 +20,29 @@ public class MassTaskDetail {
     //任务截止时间
     private Date endTime;
 
+    public TaskId getTaskId() {
+        return taskId;
+    }
+
+    public Cash getGivenUnitPrice() {
+        return givenUnitPrice;
+    }
+
+    public Cash getBudget() {
+        return budget;
+    }
+
+    public MassTaskPricingMechanism getMassTaskPricingMechanism() {
+        return massTaskPricingMechanism;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
 
     //最大化 -- 无单价
     public MassTaskDetail(TaskId taskId, Cash budget, Date startTime, Date endTime) {
