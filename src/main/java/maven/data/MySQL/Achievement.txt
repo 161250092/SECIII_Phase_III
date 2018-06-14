@@ -11,5 +11,5 @@ create table `Achievement`(
 `Finish` boolean,
 `Reward` boolean,
 `Cash` double precision,
-primary key(UserId)
+primary key(UserId,ID)
 );

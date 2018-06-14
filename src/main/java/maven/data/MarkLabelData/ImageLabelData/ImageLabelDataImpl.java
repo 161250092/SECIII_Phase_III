@@ -58,24 +58,50 @@ public class ImageLabelDataImpl implements ImageLabelDataService {
 
        PreparedStatement stmt;
        String sql;
+       ResultSet rs;
 
+       boolean exist = false;
        try{
-           sql = "delete from iLabel where UserId = ? and TaskId = ?";
+           sql = "select * from iLabel where UserId = ? and TaskId = ?";
 
            stmt = conn.prepareStatement(sql);
 
            stmt.setString(1,userId.value);
            stmt.setString(2,taskId.value);
 
-           stmt.executeUpdate();
+           rs = stmt.executeQuery();
+
+           while(rs.next()){
+               exist = true;
+           }
 
            stmt.close();
-           conn.close();
-
-           result = true;
        }catch (Exception e){
            e.printStackTrace();
        }
+
+
+       if(exist){
+           try{
+               sql = "delete from iLabel where UserId = ? and TaskId = ?";
+
+               stmt = conn.prepareStatement(sql);
+
+               stmt.setString(1,userId.value);
+               stmt.setString(2,taskId.value);
+
+               stmt.executeUpdate();
+
+               stmt.close();
+               conn.close();
+
+               result = true;
+           }catch (Exception e){
+               e.printStackTrace();
+           }
+       }
+       else
+           result = true;
 
         return result;
     }
