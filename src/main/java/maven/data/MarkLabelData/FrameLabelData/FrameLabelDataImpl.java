@@ -66,7 +66,7 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
         String sql;
 
         try{
-            sql = "delete * from fLabel where UserId = ? and TaskId = ?";
+            sql = "delete from fLabel where UserId = ? and TaskId = ?";
 
             stmt = conn.prepareStatement(sql);
 

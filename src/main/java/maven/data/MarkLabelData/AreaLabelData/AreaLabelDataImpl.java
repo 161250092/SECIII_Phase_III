@@ -66,7 +66,7 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
         String sql;
 
         try{
-            sql = "delete * from aLabel where UserId = ? and TaskId = ?";
+            sql = "delete from aLabel where UserId = ? and TaskId = ?";
 
             stmt = conn.prepareStatement(sql);
 

@@ -60,7 +60,7 @@ public class ImageLabelDataImpl implements ImageLabelDataService {
        String sql;
 
        try{
-           sql = "delete * from iLabel where UserId = ? and TaskId = ?";
+           sql = "delete from iLabel where UserId = ? and TaskId = ?";
 
            stmt = conn.prepareStatement(sql);
 
