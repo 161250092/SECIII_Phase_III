@@ -24,7 +24,7 @@ public class FilenameGetter {
         List<String> filenameList = new ArrayList<>();
 
         //获取发布者Id
-        UserId requestorId = new UserId(taskId.value.split("_")[1]);
+        UserId requestorId = new UserId(taskId.value.split("_")[0]);
 
         //获取发布任务
         PublishedTask publishedTask = requestorDataService.getPublishedTask(taskId);
