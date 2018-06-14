@@ -83,9 +83,7 @@ public class ImageLabelDataImpl implements ImageLabelDataService {
 
        if(exist){
            try{
-               sql = "delete * from iLabel where UserId = ? and TaskId = ?";
-       try{
-           sql = "delete from iLabel where UserId = ? and TaskId = ?";
+               sql = "delete from iLabel where UserId = ? and TaskId = ?";
 
                stmt = conn.prepareStatement(sql);
 
