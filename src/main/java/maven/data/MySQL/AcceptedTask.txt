@@ -12,3 +12,12 @@ create table `AcceptedTask`(
 `LabelScore` double precision,
 primary key(UserId, TaskId)
 );
+
+create table `WorkerBid`(
+`UserId` varchar(20),
+`TaskId` varchar(100),
+`Radio` double precision,
+`Cash` double precision,
+`ImageNum` Integer,
+primary key(UserId, TaskId)
+);
