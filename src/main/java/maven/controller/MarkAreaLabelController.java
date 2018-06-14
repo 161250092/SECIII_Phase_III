@@ -1,9 +1,9 @@
 package maven.controller;
 
 import maven.businessLogic.markLabelBL.MarkAreaLableBL.MarkAreaLabelBLService;
-import maven.businessLogic.markLabelBL.MarkAreaLableBL.MarkAreaLabelBLStub;
+import maven.businessLogic.markLabelBL.MarkAreaLableBL.MarkAreaLabelBLImpl;
 import maven.businessLogic.markLabelBL.SetTaskAccomplishedBL.SetTaskAccomplishedBLService;
-import maven.businessLogic.markLabelBL.SetTaskAccomplishedBL.SetTaskAccomplishedBLStub;
+import maven.businessLogic.markLabelBL.SetTaskAccomplishedBL.SetTaskAccomplishedBLImpl;
 import maven.model.JsonConverter;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
@@ -19,8 +19,8 @@ public class MarkAreaLabelController {
     private SetTaskAccomplishedBLService setTaskAccomplishedBL;
 
     public MarkAreaLabelController(){
-        markAreaLabelBL = new MarkAreaLabelBLStub();
-        setTaskAccomplishedBL = new SetTaskAccomplishedBLStub();
+        markAreaLabelBL = new MarkAreaLabelBLImpl();
+        setTaskAccomplishedBL = new SetTaskAccomplishedBLImpl();
     }
 
     @RequestMapping(value = "/markAreaLabel/getAreaLabel", method = RequestMethod.GET)

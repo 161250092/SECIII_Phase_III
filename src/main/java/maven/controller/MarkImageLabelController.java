@@ -1,9 +1,9 @@
 package maven.controller;
 
 import maven.businessLogic.markLabelBL.MarkImageLableBL.MarkImageLabelBLService;
-import maven.businessLogic.markLabelBL.MarkImageLableBL.MarkImageLabelBLStub;
+import maven.businessLogic.markLabelBL.MarkImageLableBL.MarkImageLabelBLImpl;
 import maven.businessLogic.markLabelBL.SetTaskAccomplishedBL.SetTaskAccomplishedBLService;
-import maven.businessLogic.markLabelBL.SetTaskAccomplishedBL.SetTaskAccomplishedBLStub;
+import maven.businessLogic.markLabelBL.SetTaskAccomplishedBL.SetTaskAccomplishedBLImpl;
 import maven.model.JsonConverter;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
@@ -20,8 +20,8 @@ public class MarkImageLabelController {
 
     public MarkImageLabelController() {
         //stub
-        markImageLabelBL = new MarkImageLabelBLStub();
-        setTaskAccomplishedBL = new SetTaskAccomplishedBLStub();
+        markImageLabelBL = new MarkImageLabelBLImpl();
+        setTaskAccomplishedBL = new SetTaskAccomplishedBLImpl();
     }
 
     @RequestMapping(value = "/markImageLabel/getImageLabel", method = RequestMethod.GET)
