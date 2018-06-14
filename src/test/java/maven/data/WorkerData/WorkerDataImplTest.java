@@ -26,11 +26,6 @@ public class WorkerDataImplTest {
         TableInitializer initializer = new TableInitializer();
         initializer.cleanAllTable();
 
-        impl.acceptTask(new AcceptedTask(new UserId("worker01"), new TaskId("00000001_ImageLabel_1622440180000"), null, new Cash(100), null, AcceptedTaskState.ACCEPTED, new LabelScore(80)));
-        impl.acceptTask(new AcceptedTask(new UserId("worker01"), new TaskId("00000001_FrameLabel_1622440190000"), null, new Cash(100), null, AcceptedTaskState.ACCEPTED, new LabelScore(80)));
-
-        impl.acceptTask(new AcceptedTask(new UserId("worker02"), new TaskId("00000001_ImageLabel_1622440180000"), null, new Cash(100), null, AcceptedTaskState.ACCEPTED, new LabelScore(80)));
-        impl.acceptTask(new AcceptedTask(new UserId("worker02"), new TaskId("00000001_FrameLabel_1622440190000"), null, new Cash(100), null, AcceptedTaskState.ACCEPTED, new LabelScore(80)));
     }
 
     @Test
