@@ -10,13 +10,24 @@ create table `iLabel`(
 primary key(UserId, TaskId, iNumber)
 );
 
-create table `aLabel`(
+create table `aLabel_tag`(
 `UserId` varchar(20),
 `TaskId` varchar(100),
 `iNumber` integer,
 `aNumber` integer,
-`Content` varchar(1000),
+`tag` varchar(100),
 primary key(userId, TaskId, iNumber, aNumber)
+);
+
+create table `aLabel_pixel`(
+`UserId` varchar(20),
+`TaskId` varchar(100),
+`iNumber` integer,
+`aNumber` integer,
+`pNumber` integer,
+`x` double,
+`y` double,
+primary key(userId, TaskId, iNumber, aNumber, pNumber)
 );
 
 create table `fLabel`(
@@ -24,6 +35,6 @@ create table `fLabel`(
 `TaskId` varchar(100),
 `iNumber` integer,
 `fNumber` integer,
-`Content` varchar(1000),
+`Content` varchar(100),
 primary key(UserId, TaskId, iNumber, fNumber)
 );

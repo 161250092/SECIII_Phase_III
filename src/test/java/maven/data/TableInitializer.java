@@ -29,7 +29,10 @@ public class TableInitializer {
             sql = "delete from iLabel";
             stmt = conn.prepareStatement(sql);
             stmt.execute(sql);
-            sql = "delete from aLabel";
+            sql = "delete from aLabel_tag";
+            stmt = conn.prepareStatement(sql);
+            stmt.execute(sql);
+            sql = "delete from aLabel_pixel";
             stmt = conn.prepareStatement(sql);
             stmt.execute(sql);
             sql = "delete from fLabel";
