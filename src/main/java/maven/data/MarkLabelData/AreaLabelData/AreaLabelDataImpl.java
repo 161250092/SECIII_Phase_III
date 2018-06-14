@@ -114,7 +114,7 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
 
     @Override
     public List<AreaLabel> getLabelList(UserId userId, TaskId taskId) {
-        conn = new MySQLConnector().getConnection("fLabel");
+        conn = new MySQLConnector().getConnection("Label");
 
         List<AreaLabel> areaLabels = new ArrayList<>();
 

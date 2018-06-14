@@ -2,9 +2,9 @@ package maven.controller;
 
 
 import maven.businessLogic.markLabelBL.MarkFrameLableBL.MarkFrameLabelBLService;
-import maven.businessLogic.markLabelBL.MarkFrameLableBL.MarkFrameLabelBLStub;
+import maven.businessLogic.markLabelBL.MarkFrameLableBL.MarkFrameLabelBLImpl;
 import maven.businessLogic.markLabelBL.SetTaskAccomplishedBL.SetTaskAccomplishedBLService;
-import maven.businessLogic.markLabelBL.SetTaskAccomplishedBL.SetTaskAccomplishedBLStub;
+import maven.businessLogic.markLabelBL.SetTaskAccomplishedBL.SetTaskAccomplishedBLImpl;
 import maven.model.JsonConverter;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
@@ -20,8 +20,8 @@ public class MarkFrameLabelController {
     private SetTaskAccomplishedBLService setTaskAccomplishedBL;
 
     public MarkFrameLabelController(){
-        markFrameLabelBL = new MarkFrameLabelBLStub();
-        setTaskAccomplishedBL = new SetTaskAccomplishedBLStub();
+        markFrameLabelBL = new MarkFrameLabelBLImpl();
+        setTaskAccomplishedBL = new SetTaskAccomplishedBLImpl();
     }
 
     @RequestMapping(value = "/markFrameLabel/getFrameLabel", method = RequestMethod.GET)
