@@ -40,10 +40,6 @@ public class WorkerDataImplTest {
         AcceptedTask u2t1 = new AcceptedTask(new UserId("worker02"), new TaskId("00000001_ImageLabel_1622440180000"), null, new Cash(100), null, AcceptedTaskState.ACCEPTED, new LabelScore(80));
         AcceptedTask u2t2 = new AcceptedTask(new UserId("worker02"), new TaskId("00000001_FrameLabel_1622440190000"), null, new Cash(100), null, AcceptedTaskState.ACCEPTED, new LabelScore(80));
 
-        assertTrue(impl.acceptTask(u1t1));
-        assertTrue(impl.acceptTask(u1t2));
-        assertTrue(impl.acceptTask(u2t1));
-        assertTrue(impl.acceptTask(u2t2));
         assertEquals(u1t1,impl.getAcceptedTaskById(u1,t1));
         assertEquals(u1t2,impl.getAcceptedTaskById(u1,t2));
         assertEquals(u2t1,impl.getAcceptedTaskById(u2,t1));

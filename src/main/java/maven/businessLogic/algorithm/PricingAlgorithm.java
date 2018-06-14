@@ -314,8 +314,8 @@ public class PricingAlgorithm {
      * @param budget 该任务的预算 B
      * @return 该任务在当前工人列表中的图片单价 p
      */
-    public double getThresholdPrice(List<WorkerBid> workerBidList, Cash budget){
-        return this.getThresholdPrice(workerBidList, budget.value);
+    public Cash getThresholdPrice(List<WorkerBid> workerBidList, Cash budget){
+        return new Cash(this.getThresholdPrice(workerBidList, budget.value));
     }
 
     /**
