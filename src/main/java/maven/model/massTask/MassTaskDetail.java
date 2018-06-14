@@ -1,4 +1,4 @@
-package maven.model.task;
+package maven.model.massTask;
 
 import maven.model.massTask.MassTaskPricingMechanism;
 import maven.model.primitiveType.Cash;
