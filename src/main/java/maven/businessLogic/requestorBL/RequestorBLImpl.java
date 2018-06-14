@@ -102,8 +102,8 @@ public class RequestorBLImpl implements RequestorBLService{
         //将imageIndexList 从小到大 进行排序
         imageIndexList.sort(Comparator.comparing(Integer::intValue));
 
-        //保存发布任务信息、保存任务类型、保存样本数据
-        if(requestorDataService.saveTaskInfo(publishedTask) && requestorDataService.saveTaskType(taskId, publishedTask.getTaskType())
+        //保存发布任务信息、保存样本数据
+        if(requestorDataService.saveTaskInfo(publishedTask)
                 && requestorDataService.saveTaskSampleInfo(taskId, sampleImageNum, imageIndexList))
             return new SuccessException();
         else
