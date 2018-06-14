@@ -24,22 +24,6 @@ public class UserDataImpl implements UserDataService{
         PreparedStatement stmt;
         String sql;
         ResultSet rs;
-        try{
-
-            sql = "select Username from Admin";
-            stmt = conn.prepareStatement(sql);
-            rs= stmt.executeQuery();
-
-            while(rs.next()){
-                Username temp = new Username(rs.getString("Username"));
-                userName.add(temp);
-            }
-
-
-            stmt.close();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
 
         try{
 
