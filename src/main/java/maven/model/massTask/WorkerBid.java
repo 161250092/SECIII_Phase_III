@@ -12,6 +12,7 @@ import java.awt.*;
 public class WorkerBid {
     //工人ID
     private UserId workerId;
+    //工人所竞标的任务ID
     private TaskId chosenTaskId;
     /**
      * ratioOfArrivedTime 为 到达时间占任务发布时间的比例
@@ -30,8 +31,9 @@ public class WorkerBid {
     //工人渴望完成的最大图片数
     private ImageNum maxWantedImageNum;
 
-    public WorkerBid(UserId workerId, double ratioOfArrivedTime, Cash wantedPrice, ImageNum maxWantedImageNum) {
+    public WorkerBid(UserId workerId, TaskId chosenTaskId, double ratioOfArrivedTime, Cash wantedPrice, ImageNum maxWantedImageNum) {
         this.workerId = workerId;
+        this.chosenTaskId = chosenTaskId;
         this.ratioOfArrivedTime = ratioOfArrivedTime;
         this.wantedUnitPrice = wantedPrice;
         this.maxWantedImageNum = maxWantedImageNum;
@@ -39,6 +41,10 @@ public class WorkerBid {
 
     public UserId getWorkerId() {
         return workerId;
+    }
+
+    public TaskId getChosenTaskId() {
+        return chosenTaskId;
     }
 
     public double getRatioOfArrivedTime() {
