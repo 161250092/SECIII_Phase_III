@@ -12,10 +12,10 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class ImageLabelDataImplTest {
-    ImageLabelDataImpl impl = new ImageLabelDataImpl();
-    TableInitializer initializer = new TableInitializer();
+    private ImageLabelDataImpl impl = new ImageLabelDataImpl();
 
     public ImageLabelDataImplTest(){
+        TableInitializer initializer = new TableInitializer();
         initializer.cleanAllTable();
 
         List<ImageLabel> l = new ArrayList<>();
@@ -49,6 +49,7 @@ public class ImageLabelDataImplTest {
                 {"tag0-1", "tag0-2", "tag0-3"},
                 {"tag1-1", "tag1-2", "tag1-3", "tag1-4"}
         };
+        assertEquals(2, l.size());
         for (int i = 0; i < l.size(); i++){
             for (int j = 0; j < l.get(i).getTagList().size(); j++){
                 assertEquals(t[i][j], l.get(i).getTagList().get(j));

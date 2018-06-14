@@ -26,8 +26,8 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
         String sql;
         Gson gson = new GsonBuilder().create();
 
-        for(int i = 0;i < labelList.size();i++){
-            for(int j = 0;j < labelList.get(i).getFrameList().size();i++){
+        for(int i = 0; i < labelList.size(); i++){
+            for(int j = 0; j < labelList.get(i).getFrameList().size(); j++){
 
                 try{
                     sql = "insert into fLabel values (?,?,?,?,?)";
@@ -88,7 +88,7 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
 
     @Override
     public List<FrameLabel> getLabelList(UserId userId, TaskId taskId) {
-        conn = new MySQLConnector().getConnection("fLabel");
+        conn = new MySQLConnector().getConnection("Label");
 
         List<FrameLabel> frameLabels = new ArrayList<>();
 
@@ -96,19 +96,15 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
         String sql;
         ResultSet rs;
 
-        int num = 0;
+        int count_iNumber = 0;
         try{
-            sql = "select max(iNumber) from fLabel where UserId = ? and TaskId = ?";
-
+            sql = "select count(distinct iNumber) as count_inumber from fLabel where UserId = ? and TaskId = ?";
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,userId.value);
             stmt.setString(2,taskId.value);
-
             rs = stmt.executeQuery();
-
             while(rs.next()){
-                num = rs.getInt("iNumber");
+                count_iNumber = rs.getInt("count_inumber");
             }
 
             stmt.close();
@@ -117,24 +113,22 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
         }
 
         Gson gson = new  GsonBuilder().create();
-        for(int i = 0;i < num;i++){
-
+        for (int i = 0; i < count_iNumber; i++){
             try{
-                sql = "select * from fLabel where UserId = ? and TaskId = ? order by aNumber";
+                sql = "select * from fLabel where UserId = ? and TaskId = ? and iNumber = ? order by fNumber";
                 stmt = conn.prepareStatement(sql);
-
                 stmt.setString(1,userId.value);
                 stmt.setString(2,taskId.value);
-
+                stmt.setInt(3, i);
                 rs = stmt.executeQuery();
 
+                List<Frame> frames = new ArrayList<>();
                 while(rs.next()){
-                    List<Frame> frames = new ArrayList<>();
-                    Frame frame = gson.fromJson(rs.getString("Content"),Frame.class);
-                    frames.add(frame);
-                    FrameLabel frameLabel = new FrameLabel(frames);
-                    frameLabels.add(frameLabel);
+                    frames.add(gson.fromJson(rs.getString("Content"),Frame.class));
                 }
+                frameLabels.add(new FrameLabel(frames));
+
+                stmt.close();
             }catch (Exception e){
                 e.printStackTrace();
             }
