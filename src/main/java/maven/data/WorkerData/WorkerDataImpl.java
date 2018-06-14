@@ -144,7 +144,7 @@ public class WorkerDataImpl implements WorkerDataService {
         String sql;
 
         try{
-            sql = "update AcceptedTask set LabelScore where UserId = ? and TaskId = ?";
+            sql = "update AcceptedTask set LabelScore = ? where UserId = ? and TaskId = ?";
 
             stmt = conn.prepareStatement(sql);
 

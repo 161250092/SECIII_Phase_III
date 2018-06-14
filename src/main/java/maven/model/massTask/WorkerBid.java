@@ -1,6 +1,7 @@
 package maven.model.massTask;
 
 import maven.model.primitiveType.Cash;
+import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
 
 import java.awt.*;
@@ -11,6 +12,7 @@ import java.awt.*;
 public class WorkerBid {
     //工人ID
     private UserId workerId;
+    private TaskId chosenTaskId;
     /**
      * ratioOfArrivedTime 为 到达时间占任务发布时间的比例
      * 其值 ∈ (0 , 1]
