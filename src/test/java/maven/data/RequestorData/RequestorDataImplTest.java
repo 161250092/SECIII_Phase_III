@@ -34,25 +34,27 @@ public class RequestorDataImplTest {
 
     @Test
     public void getSample() {
-        Sample a = impl.getSample(new TaskId("00000001_ImageLabel_1622440180000"), null);
-        assertEquals("00000001_ImageLabel_1622440180000",
+        Sample a = impl.getSample(new TaskId("00000001_ImageLabel_1622440180000"));
+        assertEquals("00000001_ImageLabel_1622440180000 id",
                 "00000001_ImageLabel_1622440180000", a.getTaskId().value);
-        assertEquals("00000001_ImageLabel_1622440180000",
+        assertEquals("00000001_ImageLabel_1622440180000 number",
                 3, a.getNumber());
         int[] al = {2, 5, 8};
-        assertEquals("00000001_ImageLabel_1622440180000",
-                "00000001_ImageLabel_1622440180000",
-                impl.getSample(new TaskId("00000001_ImageLabel_1622440180000"), null).getTaskId().value);
+        List<Integer> atl = a.getImageIndexList();
+        for (int i = 0; i < atl.size(); i++){
+            assertEquals(al[i], (int)atl.get(i));
+        }
 
-        assertEquals("00000001_ImageLabel_1622440180000",
-                "00000001_ImageLabel_1622440180000",
-                impl.getSample(new TaskId("00000001_ImageLabel_1622440180000"), null).getTaskId().value);
-        assertEquals("00000001_ImageLabel_1622440180000",
-                "00000001_ImageLabel_1622440180000",
-                impl.getSample(new TaskId("00000001_ImageLabel_1622440180000"), null).getTaskId().value);
-        assertEquals("00000001_ImageLabel_1622440180000",
-                "00000001_ImageLabel_1622440180000",
-                impl.getSample(new TaskId("00000001_ImageLabel_1622440180000"), null).getTaskId().value);
+        Sample b = impl.getSample(new TaskId("00000001_AreaLabel_1622440220000"));
+        assertEquals("00000001_AreaLabel_1622440220000 id",
+                "00000001_AreaLabel_1622440220000", b.getTaskId().value);
+        assertEquals("00000001_AreaLabel_1622440220000 number",
+                4, b.getNumber());
+        int[] bl = {0, 1, 2, 3};
+        List<Integer> btl = b.getImageIndexList();
+        for (int i = 0; i < atl.size(); i++){
+            assertEquals(bl[i], (int)btl.get(i));
+        }
     }
 
     @Test
