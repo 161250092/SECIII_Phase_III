@@ -32,7 +32,7 @@ public class FilenameGetter {
         List<Filename> imageFilenameList = publishedTask.getImageFilenameList();
 
         //若是工人做标注
-        if(userId.value.equals(requestorId.value)){
+        if(!userId.value.equals(requestorId.value)){
             for(Filename filename : imageFilenameList){
                 filenameList.add(filename.value);
             }
