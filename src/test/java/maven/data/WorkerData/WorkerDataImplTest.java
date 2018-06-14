@@ -20,10 +20,10 @@ import static org.junit.Assert.*;
 public class WorkerDataImplTest {
 
     WorkerDataImpl impl = new WorkerDataImpl();
-    TableInitializer initializer = new TableInitializer();
 
 
     public WorkerDataImplTest(){
+        TableInitializer initializer = new TableInitializer();
         initializer.cleanAllTable();
 
         impl.acceptTask(new AcceptedTask(new UserId("worker01"), new TaskId("00000001_ImageLabel_1622440180000"), null, new Cash(100), null, AcceptedTaskState.ACCEPTED, new LabelScore(80)));
