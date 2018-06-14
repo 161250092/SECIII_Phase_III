@@ -3,7 +3,7 @@ new Vue({
    data:{
        userId: "",
        taskDraftListWithoutSample: [],
-       taskDraftListWithSample: [],
+       taskDraftListWithSample: []
    },
    mounted: function () {
        this.$nextTick(function () {

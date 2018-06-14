@@ -34,11 +34,10 @@ new Vue({
         requiredWorkerNum: 1,
         taskDescription: "",
 
-        minScoreList:[],
-        imageUnitPrice: 0,
 
         imgList: [],
         size: 0,
+
     },
     mounted: function () {
         this.$nextTick(function () {
