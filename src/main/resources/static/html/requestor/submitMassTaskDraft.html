@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>大批量任务编辑页面</title>
+
+    <link rel="stylesheet" href="../../css/lu.css">
+    <link rel="stylesheet" href="../../css/requestor/submitTaskDraft.css">
+</head>
+<body>
+
+
+<div align="center">
+    <section id="inputTaskInfo">
+        <div>
+            <label>
+                标注类型:
+                <select v-model="selectedLabelType">
+                    <option v-for="(item,index) in labelTypeList" v-bind:value="item.labelType"
+                    >{{item.labelTypeName}}</option>
+                </select>
+            </label>
+        </div>
+
+        <div>
+            <label>
+                任务编号:
+                <input type="text" disabled="disabled" v-bind:value="taskId">
+            </label>
+            <!--<p>taskId: {{taskId}}</p>-->
+        </div>
+
+
+        <div>
+            <label>
+                标注类型:
+                <select v-model="selectedTaskType">
+                    <option v-for="(item,index) in taskTypeList" v-bind:value="item.taskType"
+                    >{{item.taskTypeName}}</option>
+                </select>
+            </label>
+        </div>
+
+
+        <div>
+            <label>
+                批注人数:
+                <input type="text" v-model="requiredWorkerNum">
+            </label>
+            <!--<p>requiredWorkerNum: {{requiredWorkerNum}}</p>-->
+        </div>
+
+        <div>
+            <label>
+                任务描述:
+                <textarea type="text" v-model="taskDescription"></textarea>
+            </label>
+            <!--<p>taskDescription: {{taskDescription}}</p>-->
+        </div>
+
+        <div>
+            <label>
+                每张图片最低积分:
+                <input type="text" disabled="disabled" v-model="scorePerImage">
+            </label>
+            <!--<p>score: {{score}}</p>-->
+        </div>
+
+        <div>
+            <label>
+                积分预算:
+                <input type="text" v-model="score">
+            </label>
+            <!--<p>score: {{score}}</p>-->
+        </div>
+
+        <div class="upload">
+            <div class="upload_warp">
+                <div class="upload_warp_left" @click="fileClick">
+                    <img src="../../images/uploadTask/upload.png">
+                </div>
+                <div class="upload_warp_right" @drop="drop($event)" @dragenter="dragenter($event)" @dragover="dragover($event)">
+                    或者将文件拖到此处
+                </div>
+            </div>
+            <div class="upload_warp_text">
+                选中{{imgList.length}}张文件，共{{bytesToSize(this.size)}}
+                <button class="uploadSectionButton" v-on:click="submitTaskDraft">保存为草稿</button>
+            </div>
+            <input @change="fileChange($event)" type="file" id="upload_file" multiple style="display: none" accept="image/*"/>
+            <div class="upload_warp_img" v-show="imgList.length!=0">
+                <div class="upload_warp_img_div" v-for="(item,index) of imgList">
+                    <div class="upload_warp_img_div_top">
+                        <div class="upload_warp_img_div_text">
+                            {{item.name}}
+                        </div>
+                        <img src="../../images/uploadTask/del.png" class="upload_warp_img_div_del" @click="fileDel(index)">
+                    </div>
+                    <img :src="item.src">
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+</body>
+<script src="../../js/lib/vue.js"></script>
+<script src="../../js/lib/axios.js"></script>
+<script src="../../js/pageJump.js"></script>
+<script src="../../js/requestor/submitTaskDraft.js"></script>
+</html>

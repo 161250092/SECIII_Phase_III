@@ -15,20 +15,18 @@ public interface RequestorDataService {
      boolean saveTaskInfo(PublishedTask publishedTask);
 
     /**
-     * 上传任务的标注信息
-     * @param taskId 任务Id
-     * @param ImageNum 样本内图片数量
-     * @param imageIndexList 图片下标数组
+     * 上传任务的样本信息
+     * @param taskSample 任务样本
      * @return 是否保存
      */
-     boolean saveTaskSampleInfo(TaskId taskId, int ImageNum, List<Integer> imageIndexList);
+     boolean saveTaskSampleInfo(Sample taskSample);
 
     /**
      * 获取样本信息
      * @param taskId 任务Id
      * @return 样本信息
      */
-     Sample getSample(TaskId taskId,UserId userId);
+     Sample getSample(TaskId taskId);
 
     /**
      * 修改任务信息
@@ -90,13 +88,13 @@ public interface RequestorDataService {
      */
      TaskType getTaskType(TaskId taskId);
 
-    /**
-     * 保存任务等级
-     * @param taskId 任务ID
-     * @param taskType 任务等级
-     * @return 是否保存
-     */
-     boolean saveTaskType(TaskId taskId,TaskType taskType);
+    ///**
+    // * 保存任务等级
+    // * @param taskId 任务ID
+    // * @param taskType 任务等级
+    // * @return 是否保存
+    // */
+    // boolean saveTaskType(TaskId taskId,TaskType taskType);
 
 
 }

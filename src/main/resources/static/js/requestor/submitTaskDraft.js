@@ -1,12 +1,14 @@
-function TaskVO(taskId, taskType, labelType, imageFileName, description, requiredNumber, finishedNumber, score) {
+function TaskVO(taskId, taskType, labelType, taskDescription, requiredWorkerNum, imageNum, taskPrice) {
     this.taskId = taskId;
     this.taskType = taskType;
     this.labelType = labelType;
-    this.imageFileName = imageFileName;
-    this.description = description;
-    this.requiredNumber = requiredNumber;
-    this.finishedNumber = finishedNumber;
-    this.score = score;
+    this.taskDescription = taskDescription;
+    this.acceptedWorkerNum = 0;
+    this.finishedWorkerNum = 0;
+    this.requiredWorkerNum = requiredWorkerNum;
+    this.imageNum = imageNum;
+    this.taskPrice = taskPrice;
+    this.publishedTaskState = "DRAFT_WITHOUT_SAMPLE";
 }
 
 new Vue({
@@ -33,7 +35,7 @@ new Vue({
         taskDescription: "",
 
         minScoreList:[],
-        score: 0,
+        taskPrice: 0,
 
         imgList: [],
         size: 0,
@@ -62,7 +64,7 @@ new Vue({
                 imageFileNameList.push(this.imgList[i].name);
             }
             let taskVO = new TaskVO(this.taskId, this.selectedTaskType, this.selectedLabelType,
-                imageFileNameList, this.taskDescription, this.requiredWorkerNum, 0, this.score);
+                this.taskDescription, this.requiredWorkerNum, imageFileNameList.length, this.taskPrice);
             let taskVOJson = JSON.stringify(taskVO);
             let imageFilenameListJSON = JSON.stringify(imageFileNameList);
 
@@ -208,18 +210,18 @@ new Vue({
                 this.requiredWorkerNum = 1;
             }
         },
-        score: function (newScore, oldScore) {
+        taskPrice: function (newScore, oldScore) {
             let minScore = this.getMinScore();
 
             if(newScore < minScore){
-                this.score = minScore;
+                this.taskPrice = minScore;
             }
         },
         imgList: function (newImgList, oldImgList) {
-            this.score = this.getMinScore();
+            this.taskPrice = this.getMinScore();
         },
         selectedTaskType: function (newSelectedTaskType, oldSelectedTaskType) {
-            this.score = this.getMinScore();
+            this.taskPrice = this.getMinScore();
         }
     },
     computed: {

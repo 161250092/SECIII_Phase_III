@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>接大批量任务</title>
+
+    <link rel="stylesheet" href="../../css/lu.css">
+    <link rel="stylesheet" href="../../css/button.css">
+    <link rel="stylesheet" href="../../css/table.css">
+    <link rel="stylesheet" href="../../css/worker/getTask.css">
+</head>
+<body>
+
+<div align="center" id="taskListContainer">
+    <p>可接受的任务</p>
+
+    <label>预期图片数量</label>
+    <input type="text">
+    <label>预期积分奖励</label>
+    <input type="text">
+    <input type="button" value="筛选">
+    <table border="1">
+        <tr>
+            <th>任务编号</th>
+            <th>标注类型</th>
+            <th>图片数</th>
+            <th>需要人数</th>
+            <th>完成的人数</th>
+            <th>任务描述</th>
+            <th>积分奖励</th>
+            <th>是否接受</th>
+        </tr>
+        <tr v-for="(task, index) in availableTaskList">
+            <th>{{task.taskId}}</th>
+            <th>{{task.labelType}}</th>
+            <th>{{task.imageNum}}</th>
+            <th>{{task.requiredWorkerNum}}</th>
+            <th>{{task.finishedWorkerNum}}</th>
+            <th>{{task.taskDescription}}</th>
+            <th>{{task.taskPrice}}</th>
+            <th><input type="checkbox" v-on:click="operateOnTaskIdSet(index)"><br></th>
+        </tr>
+    </table>
+
+    <br>
+    <br>
+    <br>
+    <button class="button button-3d button-box button-jumbo" v-on:click="acceptTasks"><i class="fa fa-thumbs-up"> 提 交 </i></button>
+</div>
+
+<script src="../../js/lib/vue.js"></script>
+<script src="../../js/lib/axios.js"></script>
+<script src="../../js/pageJump.js"></script>
+<script src="../../js/worker/allNeed.js"></script>
+<script src="../../js/worker/getTask.js"></script>
+</body>
+</html>

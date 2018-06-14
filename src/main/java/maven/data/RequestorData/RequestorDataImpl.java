@@ -2,16 +2,8 @@ package maven.data.RequestorData;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mysql.cj.jdbc.ha.MultiHostMySQLConnection;
 import maven.data.AdminData.AdminDataImpl;
-import maven.data.MarkLabelData.AreaLabelData.AreaLabelDataImpl;
-import maven.data.MarkLabelData.FrameLabelData.FrameLabelDataImpl;
-import maven.data.MarkLabelData.ImageLabelData.ImageLabelDataImpl;
 import maven.data.MySQL.MySQLConnector;
-import maven.model.label.ImageLabel;
-import maven.model.label.Label;
-import maven.model.label.areaLabel.AreaLabel;
-import maven.model.label.frameLabel.FrameLabel;
 import maven.model.primitiveType.*;
 import maven.model.task.*;
 
@@ -36,6 +28,7 @@ public class RequestorDataImpl implements RequestorDataService {
             sql = "select * from PublishedTask where TaskId = ?";
 
             stmt = conn.prepareStatement(sql);
+            stmt.setString(1, publishedTask.getTaskId().value);
 
             rs = stmt.executeQuery();
 
@@ -43,6 +36,8 @@ public class RequestorDataImpl implements RequestorDataService {
                 //删除任务信息
                 this.deleteTaskInfo(publishedTask.getTaskId());
             }
+
+            stmt.close();
 
         }catch (Exception e){
             e.printStackTrace();
@@ -89,10 +84,11 @@ public class RequestorDataImpl implements RequestorDataService {
 
         }
 
+        boolean r3 = false;
         Gson gson = new GsonBuilder().create();
         for(int i = 0;i < publishedTask.getPublishedTaskDetailList().size();i++){
             try{
-                sql = "insert into Deatail values (?,?,?,?,?,?)";
+                sql = "insert into Detail values (?,?,?,?,?,?)";
 
                 stmt = conn.prepareStatement(sql);
 
@@ -106,25 +102,26 @@ public class RequestorDataImpl implements RequestorDataService {
                 stmt.setString(5,discount);
                 stmt.setDouble(6,publishedTask.getPublishedTaskDetailList().get(i).getTaskPricePerWorker().value);
 
+                stmt.executeUpdate();
+
                 stmt.close();
 
                 if(i == publishedTask.getPublishedTaskDetailList().size() - 1) {
                     conn.close();
-                    if (r1)
-                        if (r2)
-                            result = true;
+                    r3 = true;
                 }
             }catch (Exception e){
                 e.printStackTrace();
             }
         }
 
-        return result;
+        boolean r4 = saveTaskType(publishedTask.getTaskId(), publishedTask.getTaskType());
+
+        return r1 && r2 && r3 && r4;
     }
 
     private boolean deleteTaskInfo(TaskId taskId) {
         conn = new MySQLConnector().getConnection("PublishedTask");
-
         boolean result = false;
 
         PreparedStatement stmt;
@@ -132,7 +129,7 @@ public class RequestorDataImpl implements RequestorDataService {
 
         boolean r1 = false;
         try{
-            sql = "delete * from PublishedTask where TaskId = ?";
+            sql = "delete from PublishedTask where TaskId = ?";
             stmt = conn.prepareStatement(sql);
 
             stmt.setString(1,taskId.value);
@@ -148,7 +145,7 @@ public class RequestorDataImpl implements RequestorDataService {
 
         boolean r2 = false;
         try{
-            sql = "delete * from FileName where TaskId = ?";
+            sql = "delete from FileName where TaskId = ?";
 
             stmt = conn.prepareStatement(sql);
 
@@ -163,7 +160,7 @@ public class RequestorDataImpl implements RequestorDataService {
         }
 
         try{
-            sql = "delete * from Deatail where TaskId = ?";
+            sql = "delete from Detail where TaskId = ?";
 
             stmt = conn.prepareStatement(sql);
 
@@ -183,7 +180,11 @@ public class RequestorDataImpl implements RequestorDataService {
     }
 
     @Override
-    public boolean saveTaskSampleInfo(TaskId taskId, int ImageNum, List<Integer> imageIndexList) {
+    public boolean saveTaskSampleInfo(Sample taskSample) {
+        TaskId taskId = taskSample.getTaskId();
+        int ImageNum = taskSample.getNumber();
+        List<Integer> imageIndexList = taskSample.getImageIndexList();
+
         conn = new MySQLConnector().getConnection("PublishedTask");
 
         boolean result = false;
@@ -221,7 +222,7 @@ public class RequestorDataImpl implements RequestorDataService {
     }
 
     @Override
-    public Sample getSample(TaskId taskId, UserId userId) {
+    public Sample getSample(TaskId taskId) {
         conn = new MySQLConnector().getConnection("PublishedTask");
 
         Sample sample;
@@ -438,6 +439,7 @@ public class RequestorDataImpl implements RequestorDataService {
         return taskIds;
     }
 
+    @Override
     public List<PublishedTask> getPublishedTaskList(UserId userId) {
 
         List<PublishedTask> publishedTasks = new AdminDataImpl().getAllPublishedTask();
@@ -501,8 +503,8 @@ public class RequestorDataImpl implements RequestorDataService {
         return taskType;
     }
 
-    @Override
-    public boolean saveTaskType(TaskId taskId, TaskType taskType) {
+    //@Override
+    private boolean saveTaskType(TaskId taskId, TaskType taskType) {
         conn = new MySQLConnector().getConnection("PublishedTask");
 
         boolean result = false;

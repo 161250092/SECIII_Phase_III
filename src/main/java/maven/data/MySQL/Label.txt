@@ -7,7 +7,7 @@ create table `iLabel`(
 `TaskId` varchar(100),
 `iNumber` integer,
 `Content` varchar(100),
-primary key(UserId)
+primary key(UserId, TaskId, iNumber)
 );
 
 create table `aLabel`(
@@ -16,7 +16,7 @@ create table `aLabel`(
 `iNumber` integer,
 `aNumber` integer,
 `Content` varchar(1000),
-primary key(userId)
+primary key(userId, TaskId, iNumber, aNumber)
 );
 
 create table `fLabel`(
@@ -25,5 +25,5 @@ create table `fLabel`(
 `iNumber` integer,
 `fNumber` integer,
 `Content` varchar(1000),
-primary key(UserId)
+primary key(UserId, TaskId, iNumber, fNumber)
 );

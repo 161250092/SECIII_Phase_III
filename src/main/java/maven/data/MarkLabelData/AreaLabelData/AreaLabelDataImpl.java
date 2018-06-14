@@ -87,23 +87,23 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
 
         if(exist){
 
-            try{
-                sql = "delete * from aLabel where UserId = ? and TaskId = ?";
+        try{
+            sql = "delete from aLabel where UserId = ? and TaskId = ?";
 
-                stmt = conn.prepareStatement(sql);
+            stmt = conn.prepareStatement(sql);
 
-                stmt.setString(1,userId.value);
-                stmt.setString(2,taskId.value);
+            stmt.setString(1,userId.value);
+            stmt.setString(2,taskId.value);
 
-                stmt.executeUpdate();
+            stmt.executeUpdate();
 
-                stmt.close();
-                conn.close();
+            stmt.close();
+            conn.close();
 
-                result = true;
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+            result = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         }
         else
