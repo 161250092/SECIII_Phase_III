@@ -9,6 +9,6 @@ create table `AcceptedTask`(
 `Cash` double precision,
 `State` varchar(30),
 `Discount` varchar(100),
-`Score` double precision,
+`LabelScore` double precision,
 primary key(UserId, TaskId)
 );
