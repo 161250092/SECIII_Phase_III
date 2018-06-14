@@ -54,6 +54,23 @@ public class PublishedTask {
         this.massTaskDetail = massTaskDetail;
     }
 
+    public PublishedTask(TaskId taskId, UserId userId, TaskType taskType, LabelType labelType, List<Filename> imageFilenameList,
+                         TaskDescription taskDescription, WorkerNum acceptedWorkerNum, WorkerNum finishedWorkerNum,
+                         List<PublishedTaskDetail> publishedTaskDetailList,
+                         PublishedTaskState publishedTaskState) {
+        this.taskId = taskId;
+        this.userId = userId;
+        this.taskType = taskType;
+        this.labelType = labelType;
+        this.imageFilenameList = imageFilenameList;
+        this.taskDescription = taskDescription;
+        this.acceptedWorkerNum = acceptedWorkerNum;
+        this.finishedWorkerNum = finishedWorkerNum;
+        this.publishedTaskDetailList = publishedTaskDetailList;
+        this.publishedTaskState = publishedTaskState;
+        this.massTaskDetail = null;
+    }
+
     public TaskId getTaskId() {
         return taskId;
     }
