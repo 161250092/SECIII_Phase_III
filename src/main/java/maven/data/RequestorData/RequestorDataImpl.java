@@ -222,7 +222,7 @@ public class RequestorDataImpl implements RequestorDataService {
     }
 
     @Override
-    public Sample getSample(TaskId taskId, UserId userId) {
+    public Sample getSample(TaskId taskId) {
         conn = new MySQLConnector().getConnection("PublishedTask");
 
         Sample sample;

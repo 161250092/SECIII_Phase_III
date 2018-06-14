@@ -26,7 +26,7 @@ public interface RequestorDataService {
      * @param taskId 任务Id
      * @return 样本信息
      */
-     Sample getSample(TaskId taskId,UserId userId);
+     Sample getSample(TaskId taskId);
 
     /**
      * 修改任务信息
