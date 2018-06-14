@@ -40,7 +40,7 @@ public class FilenameGetter {
         //若是发布者标注样本
         else{
             //获取样本
-            Sample sample = requestorDataService.getSample(taskId, userId);
+            Sample sample = requestorDataService.getSample(taskId);
             List<Integer> imageIndexList = sample.getImageIndexList();
             for(int i : imageIndexList){
                 filenameList.add(imageFilenameList.get(i).value);

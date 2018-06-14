@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 public class RequestorDataImplTest {
 
-    RequestorDataImpl impl = new RequestorDataImpl();
+    private RequestorDataImpl impl = new RequestorDataImpl();
 
     public RequestorDataImplTest(){
         TableInitializer initializer = new TableInitializer();

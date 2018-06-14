@@ -53,7 +53,7 @@ public class EvaluateLabelBLImpl implements EvaluateLabelBLService {
     public boolean evaluateLabel(TaskId taskId, UserId userId) {
         PublishedTask publishedTask = requestorDataService.getPublishedTask(taskId);
         LabelType labelType = publishedTask.getLabelType();
-        Sample sample = requestorDataService.getSample(taskId, userId);
+        Sample sample = requestorDataService.getSample(taskId);
 
         List<Integer> imageIndexList = sample.getImageIndexList();
 
