@@ -125,6 +125,9 @@ new Vue({
             if(this.currentLabelIndex < (this.taskImageNum - 1)){
                 this.currentAreaBorder = [];
                 this.currentLabelIndex++;
+                if (this.labelList.length < this.currentLabelIndex + 1){
+                    this.labelList.push(new AreaLabel([]));
+                }
                 this.paintAreaBorderOnCanvas();
             }else{
                 alert("当前是最后一张图片");

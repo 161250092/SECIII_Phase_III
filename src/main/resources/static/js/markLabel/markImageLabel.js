@@ -80,6 +80,9 @@ new Vue({
         nextLabel: function () {
             if(this.currentLabelIndex < (this.taskImageNum - 1)){
                 this.currentLabelIndex++;
+                if(this.labelList.length < this.currentLabelIndex + 1){
+                    this.labelList.push(new ImageLabel([]));
+                }
             }else{
                 alert("当前是最后一张图片");
             }

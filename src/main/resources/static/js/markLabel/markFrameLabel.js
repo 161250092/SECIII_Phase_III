@@ -138,6 +138,9 @@ new Vue({
             //最后一张图片时没有后一张图片
             if(this.currentLabelIndex < (this.taskImageNum - 1)){
                 this.currentLabelIndex++;
+                if (this.labelList.length < this.currentLabelIndex + 1){
+                    this.labelList.push(new FrameLabel([]));
+                }
                 this.paintFrameOnCanvas();
             }else{
                 alert("当前是最后一张图片");
