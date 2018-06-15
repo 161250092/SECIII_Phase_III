@@ -37,7 +37,7 @@ new Vue({
                     _this.cash = userInfo.data.cash.value;
                     _this.email = userInfo.data.email.address;
                     _this.phone = userInfo.data.phone.number;
-                    _this.maxAcceptedTaskNum = useInfo.data.taskNum.value;
+                    _this.maxAcceptedTaskNum = userInfo.data.taskNum.value;
                     /* getAcceptedButIncompleteTaskList */
                     _this.AllUnfinishedTasks = incompleteTaskList.data;
 
