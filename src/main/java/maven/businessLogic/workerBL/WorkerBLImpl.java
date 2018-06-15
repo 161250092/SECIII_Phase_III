@@ -107,7 +107,7 @@ public class WorkerBLImpl implements WorkerBLService {
                 return new TaskNotFoundException();
             acceptedTask = new AcceptedTask(userId, publishedTask.getTaskId(), new Date(), publishedTask.getTaskPrice(),
                     null, AcceptedTaskState.ACCEPTED, new LabelScore(-1));
-            if(workerDataService.acceptTask(acceptedTask))
+            if(!workerDataService.acceptTask(acceptedTask))
                 return new FailureException();
         }
         return new SuccessException();
