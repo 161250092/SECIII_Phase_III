@@ -27,6 +27,7 @@
 								<input name="logname" class="text" style="color: #FFFFFF !important"
 									   type="text" id="username" placeholder="请输入你的用户名" v-model="username" v-on:input="checkUsername">
 							 </div>
+							 <p v-if="isUsernameExisted">该用户名已存在</p>
                             <p v-if="!isUsernameInput">用户名未输入</p>
 
 							 <div v-bind:class="{input_outer: isEmailAddressInput, input_outer_error: !isEmailAddressInput}">
