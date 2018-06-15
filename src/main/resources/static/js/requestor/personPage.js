@@ -92,7 +92,7 @@ new Vue({
 
             axios.get("/requestor/charge", {params: {userId:getUserId(),email:_this.chargeCash}})
                 .then(function (Exception) {
-                    let message = Exception.data.wrongMessage.type;
+                    let message = Exception.data;
                     if(message==="Success")
                         alert("充值成功");
                     else
