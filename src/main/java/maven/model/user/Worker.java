@@ -14,7 +14,7 @@ public class Worker extends User implements Serializable {
     public Worker(UserId userId, Username username, Password password,
                   Email email, Phone phone, Cash cash,
                   Prestige prestige, TaskNum maxAcceptedTaskNum) {
-        super(userId, username, password, email, phone, cash, prestige);
+        super(userId, username, password, email, phone, cash, prestige, maxAcceptedTaskNum);
         this.maxAcceptedTaskNum = maxAcceptedTaskNum;
     }
 

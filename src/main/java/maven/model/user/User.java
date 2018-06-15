@@ -24,8 +24,10 @@ abstract public class User implements Serializable{
     private Cash cash;
     //威望值
     private Prestige prestige;
+    //最大任务数
+    private TaskNum taskNum;
 
-    public User(UserId userId, Username username, Password password, Email email, Phone phone, Cash cash, Prestige prestige) {
+    public User(UserId userId, Username username, Password password, Email email, Phone phone, Cash cash, Prestige prestige, TaskNum taskNum) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -33,6 +35,7 @@ abstract public class User implements Serializable{
         this.phone = phone;
         this.cash = cash;
         this.prestige = prestige;
+        this.taskNum = taskNum;
     }
 
     public UserId getUserId() {
@@ -61,6 +64,10 @@ abstract public class User implements Serializable{
 
     public Prestige getPrestige() {
         return prestige;
+    }
+
+    public TaskNum getTaskNum() {
+        return taskNum;
     }
 
     public void setPassword(Password password) {
