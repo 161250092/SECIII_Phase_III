@@ -1,5 +1,7 @@
 package maven.businessLogic.registerBL;
 
+import maven.businessLogic.achievementBL.AchievementBLImpl;
+import maven.businessLogic.achievementBL.AchievementBLService;
 import maven.data.UserData.UserDataImpl;
 import maven.data.UserData.UserDataService;
 import maven.exception.RegisterException.RegisterSuccessException;
@@ -14,9 +16,11 @@ import java.util.List;
 public class RegisterBLImpl implements RegisterBLService {
 
     private UserDataService userDataService;
+    private AchievementBLService achievementBLService;
 
     public RegisterBLImpl(){
         userDataService = new UserDataImpl();
+        achievementBLService = new AchievementBLImpl();
     }
 
     @Override
@@ -58,7 +62,7 @@ public class RegisterBLImpl implements RegisterBLService {
         String id = String.format("%08d", numberOfUser);
         UserId userId = new UserId(id);
         Worker worker = new Worker(userId, username, password, email, phone, new Cash(0), new Prestige(60), new TaskNum(5));
-        if(userDataService.saveWorkerInfo(worker))
+        if(userDataService.saveWorkerInfo(worker) && achievementBLService.init_user_achievement(userId))
             return new RegisterSuccessException(id);
         else
             return new FailureException();
