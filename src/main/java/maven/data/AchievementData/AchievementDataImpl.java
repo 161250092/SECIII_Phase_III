@@ -102,7 +102,7 @@ public class AchievementDataImpl implements AchievementDataService {
     }
 
     @Override
-    public boolean getAchievementCash(UserId userId, int achievementId) {
+    public boolean testAndGetAchievementReward(UserId userId, int achievementId) {
         conn = new MySQLConnector().getConnection("Achievement");
 
         boolean result = false;
@@ -124,55 +124,38 @@ public class AchievementDataImpl implements AchievementDataService {
                 finish = rs.getBoolean("Finish");
                 reward = rs.getBoolean("Reward");
             }
-
-            if (finish && reward){
-                sql = "update UserAchievement set Reward = ? where UserId = ? and ID = ?";
-            }
-
             stmt.close();
         }catch (Exception e){
             e.printStackTrace();
             return false;
         }
 
-        if(r1){
-            if((achievement.isFinished())&&(!achievement.isRewardGet())){
+        if(finish && !reward){
+            try {
+                sql = "update UserAchievement set Reward = ? where UserId = ? and ID = ?";
+                stmt = conn.prepareStatement(sql);
+                stmt.setBoolean(1, true);
+                stmt.setString(2, userId.value);
+                stmt.setInt(3, achievementId);
+                stmt.executeUpdate();
 
-                try {
-                    sql = "update Achievement set Reward = ? where UserId = ? and ID = ?";
-
-                    stmt = conn.prepareStatement(sql);
-
-                    stmt.setBoolean(1,true);
-                    stmt.setString(2,userId.value);
-                    stmt.setString(3,achievementId);
-
-                    stmt.executeUpdate();
-
-                    stmt.close();
-
-                    conn.close();
-
-                    result = true;
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
+                stmt.close();
+                return true;
+            }catch (Exception e){
+                e.printStackTrace();
+                return false;
             }
+        }else {
+            return false;
         }
-
-        return result;
     }
 
     @Override
     public boolean updateAchievementCash(UserId userId, int achievementId, double process) {
         conn = new MySQLConnector().getConnection("Achievement");
 
-        boolean result = false;
-
         PreparedStatement stmt;
         String sql;
-
         try{
             boolean finish = process >= 1.0;
 
