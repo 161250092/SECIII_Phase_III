@@ -76,7 +76,7 @@ public class AchievementDataImpl implements AchievementDataService {
         }
 
         try{
-            sql = "select * from Achievement where UserId = ? order by ID";
+            sql = "select * from UserAchievement where UserId = ? order by ID";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1,userId.value);
             rs = stmt.executeQuery();
@@ -86,9 +86,9 @@ public class AchievementDataImpl implements AchievementDataService {
                 boolean finish = rs.getBoolean("Finish");
                 boolean reward = rs.getBoolean("Reward");
 
-                String name = achievementCharacteristic.get(achievementId).get(NAME_INDEX);
-                String description = achievementCharacteristic.get(achievementId).get(DESCRIPTION_INDEX);
-                double cash = Double.parseDouble(achievementCharacteristic.get(achievementId).get(CASH_INDEX));
+                String name = achievementCharacteristic.get(achievementId - 1).get(NAME_INDEX);
+                String description = achievementCharacteristic.get(achievementId - 1).get(DESCRIPTION_INDEX);
+                double cash = Double.parseDouble(achievementCharacteristic.get(achievementId - 1).get(CASH_INDEX));
 
                 Achievement achievement = new Achievement(userId, achievementId, name,description,process, finish,reward,new Cash(cash));
                 achievements.add(achievement);
