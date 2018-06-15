@@ -123,13 +123,13 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
 
         int count_iNumber = 0;
         try{
-            sql = "select count(distinct iNumber) as count_inumber from fLabel where UserId = ? and TaskId = ?";
+            sql = "select max(iNumber) as max_inumber from fLabel where UserId = ? and TaskId = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1,userId.value);
             stmt.setString(2,taskId.value);
             rs = stmt.executeQuery();
             while(rs.next()){
-                count_iNumber = rs.getInt("count_inumber");
+                count_iNumber = rs.getInt("max_inumber") + 1;
             }
 
             stmt.close();
