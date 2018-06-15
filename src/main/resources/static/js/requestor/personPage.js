@@ -89,11 +89,10 @@ new Vue({
 
         charge: function () {
             const _this = this;
-
-            axios.get("/requestor/charge", {params: {userId:getUserId(),email:_this.chargeCash}})
+            axios.get("/requestor/charge", {params: {userId:getUserId(),cash:_this.chargeCash}})
                 .then(function (Exception) {
                     let message = Exception.data;
-                    if(message==="Success")
+                    if(message===true)
                         alert("充值成功");
                     else
                         alert("充值失败")

@@ -72,7 +72,7 @@
           <input type="text" class="input_short" id="cash" name="tag" value="" disabled="disabled" v-model="cash">
             <br>
             <span>最大发布数</span>
-            <input type="text" class="input_short" id="maxPublishedTaskNum" name="tag" value="" disabled="disabled" v-model="cash">
+            <input type="text" class="input_short" id="maxPublishedTaskNum" name="tag" value="" disabled="disabled" v-model="maxPublishedTaskNum">
         </div>
 
 
@@ -103,8 +103,8 @@
         <hr/>
 
       <label>金额</label>
-      <input type="text" v-model="chargeCash">
-        <button id="charge" v-on:click="charge">充值</button>
+      <input type="text" v-model="chargeCash" id="chargeNum">
+        <button  v-on:click="charge">充值</button>
   </div>
   </body>
 
