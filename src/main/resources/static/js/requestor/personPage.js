@@ -16,7 +16,6 @@ new Vue({
         userId:"",
         username:"无",
         prestige:0,
-        userLevel:"0",
         cash:0,
         email:"无",
         phone:"无",
@@ -34,11 +33,11 @@ new Vue({
                         /* getUserInfo */
                         _this.username = userInfo.data.username.value;
                         _this.prestige = userInfo.data.prestige.value;
-                        _this.userLevel = userInfo.data.userLevel;
+
                         _this.cash = userInfo.data.cash.value;
                         _this.email = userInfo.data.email.address;
                         _this.phone = userInfo.data.phone.number;
-
+                        _this.maxPublishedTaskNum = userInfo.data.taskNum.value;
                         /* getAcceptedButIncompleteTaskList */
                         _this.AllUnfinishedTasks = incompleteTaskList.data;
 
@@ -136,7 +135,7 @@ new Vue({
                     orient: 'vertical',
                     x: 'left',
 
-                    data:['接受的任务','可接受任务数']
+                    data:['发布任务数','剩余可发布数']
                 },
                 series: [
                     {
@@ -163,7 +162,7 @@ new Vue({
                             }
                         },
                         data:[
-                            {value:this.AllUnfinishedTasks.length, name:'已接受'},
+                            {value:this.AllUnfinishedTasks.length, name:'已发布'},
                             {value:this.maxPublishedTaskNum-this.AllUnfinishedTasks.length, name:'剩余'}
 
                         ]
