@@ -46,7 +46,7 @@ public class WorkerDataImpl implements WorkerDataService {
                 Cash cash = new Cash(rs.getDouble("Cash"));
                 WorkerDiscount discount = gson.fromJson(rs.getString("Discount"),WorkerDiscount.class);
                 AcceptedTaskState state = AcceptedTaskState.valueOf(rs.getString("State"));
-                LabelScore score = new LabelScore(rs.getDouble("Score"));
+                LabelScore score = new LabelScore(rs.getDouble("LabelScore"));
 
                 AcceptedTask acceptedTask = new AcceptedTask(userId,taskId,date,cash,discount,state,score);
 
@@ -135,7 +135,7 @@ public class WorkerDataImpl implements WorkerDataService {
     }
 
     @Override
-    public boolean saveLableScore(UserId userId, TaskId taskId, LabelScore labelScore) {
+    public boolean saveLabelScore(UserId userId, TaskId taskId, LabelScore labelScore) {
         conn = new MySQLConnector().getConnection("AcceptedTask");
 
         boolean result = false;
@@ -195,7 +195,7 @@ public class WorkerDataImpl implements WorkerDataService {
                 Cash cash = new Cash(rs.getDouble("Cash"));
                 WorkerDiscount discount = gson.fromJson(rs.getString("Discount"),WorkerDiscount.class);
                 AcceptedTaskState state = AcceptedTaskState.valueOf(rs.getString("State"));
-                LabelScore score = new LabelScore(rs.getDouble("Score"));
+                LabelScore score = new LabelScore(rs.getDouble("LabelScore"));
 
                 acceptedTask = new AcceptedTask(userId,taskId,date,cash,discount,state,score);
 
@@ -237,7 +237,7 @@ public class WorkerDataImpl implements WorkerDataService {
                 Cash cash = new Cash(rs.getDouble("Cash"));
                 AcceptedTaskState state = AcceptedTaskState.valueOf(rs.getString("State"));
                 WorkerDiscount discount = gson.fromJson(rs.getString("Discount"),WorkerDiscount.class);
-                LabelScore score = new LabelScore(rs.getDouble("Score"));
+                LabelScore score = new LabelScore(rs.getDouble("LabelScore"));
 
                 AcceptedTask acceptedTask = new AcceptedTask(userId,taskId,date,cash,discount,state,score);
 

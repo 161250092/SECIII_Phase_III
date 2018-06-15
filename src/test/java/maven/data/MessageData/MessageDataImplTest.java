@@ -1,9 +1,9 @@
 package maven.data.MessageData;
 
+import maven.data.TableInitializer;
 import maven.model.message.*;
 import maven.model.primitiveType.*;
 import maven.model.task.AcceptedTaskState;
-import maven.runner.TableInitializer;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -13,10 +13,10 @@ import static org.junit.Assert.assertEquals;
 
 public class MessageDataImplTest {
 
-    MessageDataImpl impl = new MessageDataImpl();
-    TableInitializer initializer = new TableInitializer();
+    private MessageDataImpl impl = new MessageDataImpl();
 
     public MessageDataImplTest(){
+        TableInitializer initializer = new TableInitializer();
         initializer.cleanAllTable();
         List<PublishedTaskMessage> publishedTaskMessages = getPublishedTaskMessageListForTest();
         List<AcceptedTaskMessage> acceptedTaskMessages = getAcceptedTaskListForTest();

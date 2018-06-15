@@ -42,7 +42,7 @@ public interface WorkerDataService {
      * @param labelScore 系统评分
      * @return 是否保存成功
      */
-    boolean saveLableScore(UserId userId, TaskId taskId, LabelScore labelScore);
+    boolean saveLabelScore(UserId userId, TaskId taskId, LabelScore labelScore);
 
     /**
      * 获取已接受任务的信息

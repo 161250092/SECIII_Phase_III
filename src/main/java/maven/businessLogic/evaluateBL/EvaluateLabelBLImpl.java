@@ -92,6 +92,6 @@ public class EvaluateLabelBLImpl implements EvaluateLabelBLService {
                 break;
         }
 
-        return workerDataService.saveLableScore(userId, taskId, new LabelScore(result));
+        return workerDataService.saveLabelScore(userId, taskId, new LabelScore(result));
     }
 }
