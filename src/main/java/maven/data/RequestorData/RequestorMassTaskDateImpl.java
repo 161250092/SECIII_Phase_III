@@ -13,7 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
 
-public class RequestorMassDateImpl implements RequestorMassTaskDataService {
+public class RequestorMassTaskDateImpl implements RequestorMassTaskDataService {
     private Connection conn;
 
     @Override
