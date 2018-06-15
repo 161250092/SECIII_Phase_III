@@ -211,6 +211,10 @@ public class RequestorController {
     public List<AcceptedTaskVO> getAcceptedTaskVOList(String userId, String taskId){
         return requestorBL.getAcceptedTaskVOList(new UserId(userId), new TaskId(taskId));
     }
+
+    @RequestMapping(value="/requestor/charge",method= RequestMethod.GET)
+    public boolean charge(String userId, double cash) {return requestorBL.charge(new UserId(userId),new Cash(cash));}
+
 }
 
 

@@ -1,10 +1,7 @@
 package maven.model.massTask;
 
-import maven.model.massTask.MassTaskPricingMechanism;
 import maven.model.primitiveType.Cash;
 import maven.model.primitiveType.TaskId;
-
-import java.util.Date;
 
 public class MassTaskDetail {
     //任务Id
@@ -16,9 +13,9 @@ public class MassTaskDetail {
     //大任务分配的选择机制
     private MassTaskPricingMechanism massTaskPricingMechanism;
     //任务发布时间
-    private Date startTime;
+    private long startTime;
     //任务截止时间
-    private Date endTime;
+    private long endTime;
 
     public TaskId getTaskId() {
         return taskId;
@@ -36,16 +33,16 @@ public class MassTaskDetail {
         return massTaskPricingMechanism;
     }
 
-    public Date getStartTime() {
+    public long getStartTime() {
         return startTime;
     }
 
-    public Date getEndTime() {
+    public long getEndTime() {
         return endTime;
     }
 
     //最大化 -- 无单价
-    public MassTaskDetail(TaskId taskId, Cash budget, Date startTime, Date endTime) {
+    public MassTaskDetail(TaskId taskId, Cash budget, long startTime, long endTime) {
         this.taskId = taskId;
         this.givenUnitPrice = new Cash(0);
         this.budget = budget;
@@ -55,7 +52,7 @@ public class MassTaskDetail {
     }
 
     //最小支出 -- 有单价
-    public MassTaskDetail(TaskId taskId, Cash givenUnitPrice, Cash budget, Date startTime, Date endTime){
+    public MassTaskDetail(TaskId taskId, Cash givenUnitPrice, Cash budget, long startTime, long endTime){
         this.taskId = taskId;
         this.givenUnitPrice = givenUnitPrice;
         this.budget = budget;
