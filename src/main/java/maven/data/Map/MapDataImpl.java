@@ -29,9 +29,9 @@ public class MapDataImpl implements MapDataService{
 
             stmt = conn.prepareStatement(sql);
 
-            rs = stmt.executeQuery();
+                rs = stmt.executeQuery();
 
-            while(rs.next()){
+                while(rs.next()){
                 TaskType taskType = TaskType.valueOf(rs.getString("TaskType"));
                 Cash cash = new Cash(rs.getDouble("Cash"));
                 result.put(taskType,cash);

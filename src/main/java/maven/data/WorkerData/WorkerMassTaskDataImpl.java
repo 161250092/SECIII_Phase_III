@@ -3,6 +3,7 @@ package maven.data.WorkerData;
 import maven.data.MySQL.MySQLConnector;
 import maven.model.massTask.ImageNum;
 import maven.model.massTask.WorkerBid;
+import maven.model.massTask.WorkerBidState;
 import maven.model.primitiveType.Cash;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
@@ -26,7 +27,7 @@ public class WorkerMassTaskDataImpl implements WorkerMassTaskDataService {
         String sql;
 
         try{
-            sql = "insert into WorkerBid values (?,?,?,?,?)";
+            sql = "insert into WorkerBid values (?,?,?,?,?,?)";
 
             stmt = conn.prepareStatement(sql);
 
@@ -35,6 +36,7 @@ public class WorkerMassTaskDataImpl implements WorkerMassTaskDataService {
             stmt.setDouble(3,workerBid.getRatioOfArrivedTime());
             stmt.setDouble(4,workerBid.getWantedUnitPrice().value);
             stmt.setInt(5,workerBid.getMaxWantedImageNum().value);
+            stmt.setString(6,workerBid.getWorkerBidState().toString());
 
             stmt.executeUpdate();
 
@@ -74,8 +76,9 @@ public class WorkerMassTaskDataImpl implements WorkerMassTaskDataService {
                 double radio = rs.getDouble("Radio");
                 Cash cash = new Cash(rs.getDouble("Cash"));
                 ImageNum imageNum = new ImageNum(rs.getInt("ImageNum"));
+                WorkerBidState state = WorkerBidState.valueOf(rs.getString("State"));
 
-                WorkerBid temp = new WorkerBid(userId,taskId,radio,cash,imageNum);
+                WorkerBid temp = new WorkerBid(userId,taskId,radio,cash,imageNum,state);
                 result.add(temp);
             }
 

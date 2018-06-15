@@ -19,5 +19,6 @@ create table `WorkerBid`(
 `Radio` double precision,
 `Cash` double precision,
 `ImageNum` Integer,
+`State` varchar(30),
 primary key(UserId, TaskId)
 );
