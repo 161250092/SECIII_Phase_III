@@ -40,6 +40,12 @@ new Vue({
                         _this.confirmedPassword = "";
                     }
                 });
+            }else if (this.isUsernameExisted) {
+                alert("该用户名已存在");
+            }else if (!this.isPasswordCorrect) {
+                alert("二次密码不相同");
+            }else if (this.checkAllInput()) {
+                alert("有信息未输入");
             }
         },
         registerAxios: function () {
