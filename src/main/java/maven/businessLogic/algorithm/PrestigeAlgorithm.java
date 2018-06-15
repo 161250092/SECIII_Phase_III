@@ -1,5 +1,6 @@
 package maven.businessLogic.algorithm;
 
+import maven.data.Map.MapDataImpl;
 import maven.data.Map.MapDataService;
 import maven.model.primitiveType.LabelQuality;
 import maven.model.primitiveType.Prestige;
@@ -12,7 +13,7 @@ public class PrestigeAlgorithm {
     private MapDataService mapData;
 
     public PrestigeAlgorithm(){
-
+        mapData = new MapDataImpl();
     }
 
     /**
