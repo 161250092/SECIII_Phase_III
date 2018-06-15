@@ -21,7 +21,8 @@ new Vue({
         phone:"无",
         AllFinishedTasks:[],
         AllUnfinishedTasks:[],
-        maxPublishedTaskNum:0
+        maxPublishedTaskNum:0,
+        chargeCash:0
 
 },
     mounted: function () {
@@ -87,9 +88,18 @@ new Vue({
         },
 
         charge: function () {
-            // const _this = this;
-            // this.phone = "充钱是不可能充钱的，这辈子不可能充钱"
-            alert("充钱是不可能充钱的，这辈子不可能充钱");
+            const _this = this;
+
+            axios.get("/requestor/charge", {params: {userId:getUserId(),email:_this.chargeCash}})
+                .then(function (Exception) {
+                    let message = Exception.data.wrongMessage.type;
+                    if(message==="Success")
+                        alert("充值成功");
+                    else
+                        alert("充值失败")
+                });
+
+
         },
 
         countLabel: function () {

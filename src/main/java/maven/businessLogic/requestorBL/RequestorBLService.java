@@ -123,5 +123,14 @@ public interface RequestorBLService {
      * @return 任务列表
      */
     List<AcceptedTaskVO> getAcceptedTaskVOList(UserId userId, TaskId taskId);
-    
+
+
+    /**
+     * 积分充值
+     * @param userId
+     * @param cash
+     * @return
+     */
+
+    boolean charge(UserId userId,Cash cash);
 }
