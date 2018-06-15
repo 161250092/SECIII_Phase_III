@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../css/lu.css">
+    <link rel="stylesheet" href="../../css/table.css">
+    <link rel="stylesheet" href="../../css/font.css">
+    <link rel="stylesheet" href="../../css/worker/getTask.css">
+    <title>通知</title>
+</head>
+<body>
+<div id="home" class="header-wrapper header-top">
+    <header>
+        <ul class="menu cf">
+            <li>
+                <a>发布与编辑</a>
+                <ul class="submenu">
+                    <li><a href="../requestor/submitTaskDraft.html">编辑任务</a></li>
+                    <li><a href="../requestor/submitMassTaskDraft.html">编辑大任务</a></li>
+                    <li><a href="../requestor/assignTask.html">发布任务</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a>任务信息</a>
+                <ul class="submenu">
+                    <li><a href="../requestor/finishedTasksPage.html">历史记录</a></li>
+                    <li><a href="../requestor/unfinishedTasksPage.html">当前任务</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>审核提交</a>
+                <ul class="submenu">
+                    <li><a href="../requestor/checkSubmittedLabel.html">审核</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a>用户中心</a>
+                <ul class="submenu">
+                    <li><a href="../login/login.html">登出</a></li>
+                    <li><a href="../requestor/messagePage.html">消息</a></li>
+                    <li><a href="../requestor/personPage.html">个人主页</a></li>
+                </ul>
+            </li>
+            <li class="headerUsername">
+                <a href="#">用户：{{username}}</a>
+            </li>
+
+        </ul>
+    </header>
+</div>
+
+
+<div align ="center" id="InfoContainer">
+
+    <p class="testfont">任务请求审核通知</p>
+    <table border="1">
+        <tr>
+            <th>消息ID</th>
+            <th>任务编号</th>
+            <th>工人名称</th>
+            <th>积分奖励</th>
+            <th>确认</th>
+        </tr>
+        <tr v-for="(info, index) in taskMessageInfo">
+            <th>{{info.messageId}}</th>
+            <th>{{info.taskId}}</th>
+            <th>{{info.workId}}</th>
+            <th>{{info.cash}}</th>
+            <th><input type="button" v-on:click="confirmTaskMessageInfo(index)"></th>
+        </tr>
+
+
+    </table>
+
+    <hr>
+    <p class="testfont">cash收支</p>
+    <table border="1">
+        <tr>
+            <th>消息ID</th>
+            <th>类型</th>
+            <th>数额</th>
+            <th>原因</th>
+            <th>确认</th>
+        </tr>
+        <tr v-for="(info,index) in billMessageInfo">
+            <th>{{info.messageId}}</th>
+            <th>{{info.billType}}</th>
+            <th>{{info.cash}}</th>
+            <th>{{info.billReason}}
+            <th><input type="button" v-on:click="confirmCashMessageInfo(index)">确认</th>
+        </tr>
+    </table>
+    <hr>
+</div>
+</body>
+
+<script src="../../js/lib/vue.js"></script>
+<script src="../../js/lib/axios.js"></script>
+<script src="../../js/pageJump.js"></script>
+<script src="../../js/worker/messagePage.js"></script>
+</html>
