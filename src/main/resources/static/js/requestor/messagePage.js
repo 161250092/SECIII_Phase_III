@@ -10,7 +10,7 @@ new Vue({
         const _this = this;
         this.$nextTick(function () {
             _this.userId = getUserId();
-            axios.get("/message/getAllWorkerMessage",
+            axios.get("/message/getAllRequestorMessage",
                 { params:{ userId: this.userId } })
                 .then(function (response) {
                     _this.taskMessageInfo= response.data.taskMessageList;
@@ -24,7 +24,7 @@ new Vue({
         updateMessage:function(){
             const _this = this;
             _this.userId = getUserId();
-            axios.get("/message/getAllWorkerMessage",
+            axios.get("/message/getAllRequestorMessage",
                 { params:{ userId: this.userId } })
                 .then(function (response) {
                     _this.taskMessageInfo= response.data.taskMessageList;
@@ -33,7 +33,7 @@ new Vue({
         },
         confirmTaskMessageInfo:function (index) {
             const _this = this;
-            axios.get("/message/checkWorkerTaskMessage", {params: {messageId: _this.taskMessageInfo[index].messageId}}).then(function (response) {
+            axios.get("/message/checkRequestorTaskMessage", {params: {messageId: _this.taskMessageInfo[index].messageId}}).then(function (response) {
                 if(response === true) {
                     alert("已确认");
                     _this.updateAchievement();

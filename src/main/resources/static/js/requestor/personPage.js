@@ -34,7 +34,6 @@ new Vue({
                         /* getUserInfo */
                         _this.username = userInfo.data.username.value;
                         _this.prestige = userInfo.data.prestige.value;
-
                         _this.cash = userInfo.data.cash.value;
                         _this.email = userInfo.data.email.address;
                         _this.phone = userInfo.data.phone.number;
