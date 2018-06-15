@@ -9,7 +9,9 @@ import maven.model.primitiveType.MessageId;
 import maven.model.primitiveType.UserId;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class MessageController {
 
     private MessageBLService messageBLService;
