@@ -27,7 +27,7 @@ public class WorkerMassTaskDataImpl implements WorkerMassTaskDataService {
         String sql;
 
         try{
-            sql = "insert into WorkerBid values (?,?,?,?,?,?)";
+            sql = "insert into WorkerBid values (?,?,?,?,?)";
 
             stmt = conn.prepareStatement(sql);
 
@@ -76,9 +76,9 @@ public class WorkerMassTaskDataImpl implements WorkerMassTaskDataService {
                 double radio = rs.getDouble("Radio");
                 Cash cash = new Cash(rs.getDouble("Cash"));
                 ImageNum imageNum = new ImageNum(rs.getInt("ImageNum"));
-                WorkerBidState state = WorkerBidState.valueOf(rs.getString("State"));
+                WorkerBidState workerBidState = Enum.valueOf(WorkerBidState.class, rs.getString("WorkerBidState"));
 
-                WorkerBid temp = new WorkerBid(userId,taskId,radio,cash,imageNum,state);
+                WorkerBid temp = new WorkerBid(userId,taskId,radio,cash,imageNum, workerBidState);
                 result.add(temp);
             }
 
