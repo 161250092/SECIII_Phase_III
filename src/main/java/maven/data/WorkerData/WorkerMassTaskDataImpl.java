@@ -27,7 +27,7 @@ public class WorkerMassTaskDataImpl implements WorkerMassTaskDataService {
         String sql;
 
         try{
-            sql = "insert into WorkerBid values (?,?,?,?,?)";
+            sql = "insert into WorkerBid values (?,?,?,?,?,?)";
 
             stmt = conn.prepareStatement(sql);
 
