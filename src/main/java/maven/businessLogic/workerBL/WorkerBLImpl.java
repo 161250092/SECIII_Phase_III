@@ -9,6 +9,8 @@ import maven.data.MarkLabelData.FrameLabelData.FrameLabelDataImpl;
 import maven.data.MarkLabelData.FrameLabelData.FrameLabelDataService;
 import maven.data.MarkLabelData.ImageLabelData.ImageLabelDataImpl;
 import maven.data.MarkLabelData.ImageLabelData.ImageLabelDataService;
+import maven.data.MessageData.MessageDataImpl;
+import maven.data.MessageData.MessageDataService;
 import maven.data.RequestorData.RequestorDataImpl;
 import maven.data.RequestorData.RequestorDataService;
 import maven.data.WorkerData.WorkerDataImpl;
@@ -16,6 +18,9 @@ import maven.data.WorkerData.WorkerDataService;
 import maven.exception.DataException.TaskNotFoundException;
 import maven.exception.util.FailureException;
 import maven.exception.util.SuccessException;
+import maven.model.message.BillMessage;
+import maven.model.message.BillReason;
+import maven.model.message.BillType;
 import maven.model.primitiveType.*;
 import maven.model.task.*;
 import maven.model.user.*;
@@ -29,12 +34,14 @@ public class WorkerBLImpl implements WorkerBLService {
     private RequestorDataService requestorDataService;
     private ManageUserBLService manageUserBLService;
     private PrestigeAlgorithm prestigeAlgorithm;
+    private MessageDataService messageDataService;
 
     public WorkerBLImpl(){
         workerDataService = new WorkerDataImpl();
         requestorDataService = new RequestorDataImpl();
         manageUserBLService = new ManageUserBLImpl();
         prestigeAlgorithm = new PrestigeAlgorithm();
+        messageDataService = new MessageDataImpl();
     }
 
     @Override
@@ -186,6 +193,10 @@ public class WorkerBLImpl implements WorkerBLService {
 
     @Override
     public boolean exchange(UserId userId, Cash cash) {
+        //生成账单消息 因工人提现而扣除金额
+        BillMessage billMessage = new BillMessage(messageDataService.getMessageIdForCreateMessage(), userId,
+                BillType.OUT, BillReason.EXCHANGE, cash);
+        messageDataService.saveBillMessage(billMessage);
         return manageUserBLService.reduceCash(userId,cash);
     }
 

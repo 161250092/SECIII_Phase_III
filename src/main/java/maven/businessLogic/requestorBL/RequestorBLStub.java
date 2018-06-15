@@ -119,6 +119,10 @@ public class RequestorBLStub implements RequestorBLService {
         return acceptedTaskVOList;
     }
 
+    @Override
+    public boolean charge(UserId userId, Cash cash) {
+        return false;
+    }
 
 
     private List<PublishedTask> getPublishedTaskListForTest(){

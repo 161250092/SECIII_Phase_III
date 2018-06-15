@@ -6,5 +6,9 @@ public enum BillReason {
     //（退还发布者金额）终止任务
     TERMINATE_TASK,
     //（工人获取赏金）完成任务并通过审核，
-    ACCOMPLISH_TASK
+    ACCOMPLISH_TASK,
+    //（发布者）充值，
+    CHARGE,
+    //（工人）提现
+    EXCHANGE
 }
