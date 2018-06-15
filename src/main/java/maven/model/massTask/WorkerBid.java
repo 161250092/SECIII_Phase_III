@@ -3,6 +3,7 @@ package maven.model.massTask;
 import maven.model.primitiveType.Cash;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
+import maven.model.vo.WorkerBidVO;
 
 import java.awt.*;
 
@@ -40,6 +41,10 @@ public class WorkerBid {
         this.wantedUnitPrice = wantedUnitPrice;
         this.maxWantedImageNum = maxWantedImageNum;
         this.workerBidState = workerBidState;
+    }
+    public WorkerBid(WorkerBidVO bidVO) {
+        this(new UserId(bidVO.getWorkerId()), new TaskId(bidVO.getChosenTaskId()), bidVO.getRatioOfArrivedTime(),
+                new Cash(bidVO.getWantedUnitPrice()), new ImageNum(bidVO.getMaxWantedImageNum()), WorkerBidState.valueOf(bidVO.getWorkerBidState()));
     }
 
     public UserId getWorkerId() {
