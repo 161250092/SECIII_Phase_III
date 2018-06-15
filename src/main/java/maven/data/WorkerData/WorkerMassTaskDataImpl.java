@@ -3,6 +3,7 @@ package maven.data.WorkerData;
 import maven.data.MySQL.MySQLConnector;
 import maven.model.massTask.ImageNum;
 import maven.model.massTask.WorkerBid;
+import maven.model.massTask.WorkerBidState;
 import maven.model.primitiveType.Cash;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
@@ -74,8 +75,9 @@ public class WorkerMassTaskDataImpl implements WorkerMassTaskDataService {
                 double radio = rs.getDouble("Radio");
                 Cash cash = new Cash(rs.getDouble("Cash"));
                 ImageNum imageNum = new ImageNum(rs.getInt("ImageNum"));
+                WorkerBidState workerBidState = Enum.valueOf(WorkerBidState.class, rs.getString("WorkerBidState"));
 
-                WorkerBid temp = new WorkerBid(userId,taskId,radio,cash,imageNum);
+                WorkerBid temp = new WorkerBid(userId,taskId,radio,cash,imageNum, workerBidState);
                 result.add(temp);
             }
 
