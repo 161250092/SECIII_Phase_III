@@ -61,7 +61,7 @@ public class WorkerMassTaskDataImpl implements WorkerMassTaskDataService {
                 double radio = rs.getDouble("Radio");
                 Cash cash = new Cash(rs.getDouble("Cash"));
                 ImageNum imageNum = new ImageNum(rs.getInt("ImageNum"));
-                WorkerBidState workerBidState = Enum.valueOf(WorkerBidState.class, rs.getString("WorkerBidState"));
+                WorkerBidState workerBidState = WorkerBidState.valueOf(rs.getString("WorkerBidState"));
 
                 result.add(new WorkerBid(userId,taskId,radio,cash,imageNum, workerBidState));
             }

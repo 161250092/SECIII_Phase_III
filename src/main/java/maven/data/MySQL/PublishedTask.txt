@@ -48,8 +48,8 @@ create table `MassTaskDetail`(
 `UnitPrice` double precision,
 `Budget` double precision,
 `PricingMechanism` varchar(20),
-`sDate` varchar(100),
-`eDate` varchar(100),
+`sDate` long,
+`eDate` long,
 primary key(TaskId)
 );
 
