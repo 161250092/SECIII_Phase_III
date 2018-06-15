@@ -463,6 +463,15 @@ public class RequestorBLImpl implements RequestorBLService{
         return list;
     }
 
+    @Override
+    public boolean charge(UserId userId, Cash cash) {
+        //生成账单消息 因工人提现而扣除金额
+        BillMessage billMessage = new BillMessage(messageDataService.getMessageIdForCreateMessage(), userId,
+                BillType.IN, BillReason.CHARGE, cash);
+        messageDataService.saveBillMessage(billMessage);
+        return manageUserBLService.increaseCash(userId,cash);
+    }
+
 
     private UserId getUserIdFromTaskId(TaskId taskId) {
         String Task_Id = taskId.value;
