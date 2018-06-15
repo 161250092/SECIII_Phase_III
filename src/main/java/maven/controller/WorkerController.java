@@ -118,7 +118,7 @@ public class WorkerController{
      * @return
      */
     @RequestMapping(value ="/worker/getUserAchievement",method = RequestMethod.GET)
-    public List<Achievement> getUserAchievement(UserId userId){return achievementBL.getUserAchievement(userId);}
+    public List<Achievement> getUserAchievement(String userId){return achievementBL.getUserAchievement(new UserId(userId));}
 
     /**
      * 返回任务奖励是否可以获得
@@ -127,7 +127,7 @@ public class WorkerController{
      * @return
      */
     @RequestMapping(value="/worker/getAchievementCash",method =RequestMethod.GET)
-    public boolean getAchievementCash(UserId userId, String achievementId){return achievementBL.getAchievementCash(userId,achievementId);}
+    public boolean getAchievementCash(String userId, int achievementId){return achievementBL.getAchievementCash(new UserId(userId),achievementId);}
 
     /**
      * 更新成就信息
@@ -135,7 +135,7 @@ public class WorkerController{
      * @return
      */
     @RequestMapping(value="/worker/updateAchievementCash",method=RequestMethod.GET)
-    public boolean updateAchievementCash(UserId userId){return achievementBL.updateAchievementCash(userId);}
+    public boolean updateAchievementCash(String userId){return achievementBL.updateAchievementCash(new UserId(userId));}
 
     /**
      *积分兑换
@@ -145,6 +145,6 @@ public class WorkerController{
      * @return
      */
     @RequestMapping(value="/worker/exhcangeCash",method = RequestMethod.GET)
-    public boolean exhcangeCash(UserId userId,Cash cash){return workerBL.exchange(userId,cash);}
+    public boolean exhcangeCash(String userId, double cash){return workerBL.exchange(new UserId(userId),new Cash(cash));}
 
 }

@@ -19,11 +19,11 @@ import static org.junit.Assert.*;
 
 public class AdminDataImplTest {
 
-    AdminDataImpl imp = new AdminDataImpl();
-    RequestorDataImpl rimpl = new RequestorDataImpl();
-    TableInitializer initializer = new TableInitializer();
+    private AdminDataImpl imp = new AdminDataImpl();
+    private RequestorDataImpl rimpl = new RequestorDataImpl();
 
     public AdminDataImplTest(){
+        TableInitializer initializer = new TableInitializer();
         initializer.cleanAllTable();
     }
 

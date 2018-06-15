@@ -7,20 +7,19 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class TableInitializer {
-    private Connection conn;
-    
+
     public void cleanAllTable(){
         String sql;
         PreparedStatement stmt;
         try{
-            conn = new MySQLConnector().getConnection("AcceptedTask");
+            Connection conn = new MySQLConnector().getConnection("AcceptedTask");
             sql = "delete from AcceptedTask";
             stmt = conn.prepareStatement(sql);
             stmt.execute(sql);
             stmt.close();
 
             conn = new MySQLConnector().getConnection("Achievement");
-            sql = "delete from Achievement";
+            sql = "delete from UserAchievement";
             stmt = conn.prepareStatement(sql);
             stmt.execute(sql);
             stmt.close();
