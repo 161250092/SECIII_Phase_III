@@ -76,7 +76,7 @@ public class AchievementDataImpl implements AchievementDataService {
         }
 
         try{
-            sql = "select * from Achievement where UserId = ?";
+            sql = "select * from Achievement where UserId = ? order by ID";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1,userId.value);
             rs = stmt.executeQuery();
