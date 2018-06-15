@@ -5,7 +5,7 @@ use Achievement;
 create table `UserAchievement`(
 `UserId` varchar(20),
 `ID` int,
-`Process` double precision,
+`rateOfProgress` double precision,
 `Finish` boolean,
 `Reward` boolean,
 primary key(UserId,ID)

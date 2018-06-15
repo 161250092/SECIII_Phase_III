@@ -82,7 +82,7 @@ public class AchievementDataImpl implements AchievementDataService {
             rs = stmt.executeQuery();
             while (rs.next()){
                 int achievementId = rs.getInt("ID");
-                double process = rs.getDouble("Process");
+                double process = rs.getDouble("rateOfProgress");
                 boolean finish = rs.getBoolean("Finish");
                 boolean reward = rs.getBoolean("Reward");
 
@@ -159,7 +159,7 @@ public class AchievementDataImpl implements AchievementDataService {
         try{
             boolean finish = process >= 1.0;
 
-            sql = "update UserAchievement set precess = ? and Finish = ? where UserId = ? and ID = ?";
+            sql = "update UserAchievement set rateOfProgress = ?, Finish = ? where UserId = ? and ID = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setDouble(1,process);
             stmt.setBoolean(2,finish);
