@@ -14,7 +14,7 @@ public class Requestor extends User implements Serializable {
     public Requestor(UserId userId, Username username, Password password,
                      Email email, Phone phone, Cash cash,
                      Prestige prestige, TaskNum maxPublishedTaskNum) {
-        super(userId, username, password, email, phone, cash, prestige);
+        super(userId, username, password, email, phone, cash, prestige, maxPublishedTaskNum);
         this.maxPublishedTaskNum = maxPublishedTaskNum;
     }
 
