@@ -47,7 +47,7 @@ new Vue({
                     }else{
                         alert("撤销失败");
                     }
-                    _this.getAcceptedAndAccomplishedTaskList();
+                    _this.getAssignedButIncompleteTaskList();
                 });
         },
         addTaskPrice:function(){
@@ -60,7 +60,7 @@ new Vue({
                     }else {
                         alert("修改失败");
                     }
-                    _this.getAcceptedAndAccomplishedTaskList();
+                    _this.getAssignedButIncompleteTaskList();
                 });
         }
     }

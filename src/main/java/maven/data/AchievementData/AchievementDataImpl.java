@@ -87,8 +87,6 @@ public class AchievementDataImpl implements AchievementDataService {
             }
 
             stmt.close();
-            conn.close();
-
         }catch (Exception e){
             e.printStackTrace();
         }

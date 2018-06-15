@@ -162,12 +162,12 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
         ResultSet rs;
         int count_iNumber = 0;
         try{
-            sql = "select count(distinct iNumber) as count_iNumber from aLabel_tag where UserId = ? and TaskId = ?";
+            sql = "select max(iNumber) as max_iNumber from aLabel_tag where UserId = ? and TaskId = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1,userId.value);
             stmt.setString(2,taskId.value);
             rs = stmt.executeQuery();
-            while(rs.next()){ count_iNumber = rs.getInt("count_iNumber"); }
+            while(rs.next()){ count_iNumber = rs.getInt("max_iNumber") + 1; }
             stmt.close();
         }catch (Exception e){
             e.printStackTrace();

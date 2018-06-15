@@ -1,5 +1,6 @@
 package maven.data.Map;
 
+import maven.data.TableInitializer;
 import maven.model.primitiveType.Cash;
 import maven.model.primitiveType.Prestige;
 import maven.model.task.TaskType;
@@ -12,6 +13,11 @@ import static org.junit.Assert.*;
 public class MapDataImplTest {
 
     MapDataImpl impl = new MapDataImpl();
+
+    public MapDataImplTest(){
+        TableInitializer initializer = new TableInitializer();
+        initializer.cleanAllTable();
+    }
 
     @Test
     public void getCashTaskType() {
