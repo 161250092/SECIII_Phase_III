@@ -8,48 +8,43 @@ import maven.model.primitiveType.UserId;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AchievementDataImpl implements AchievementDataService {
     private Connection conn;
 
-    @Override
-    public boolean init_user_achievement(ArrayList<Achievement> list) {
-        conn = new MySQLConnector().getConnection("Achievement");
+    private static int[] achievementIdList = {1, 2 ,3, 4, 5, 6, 7, 8};
+    private static int NAME_INDEX = 0;
+    private static int DESCRIPTION_INDEX = 1;
+    private static int CASH_INDEX = 2;
 
-        boolean result = false;
+    @Override
+    public boolean init_user_achievement(UserId userId) {
+        conn = new MySQLConnector().getConnection("Achievement");
 
         PreparedStatement stmt;
         String sql;
-
-        for(Achievement a : list){
+        boolean result = false;
+        for(int achievementId : achievementIdList){
             try{
-                sql = "insert into Achievement values (?,?,?,?,?,?,?,?)";
-
+                sql = "insert into UserAchievement values (?,?,?,?,?)";
                 stmt = conn.prepareStatement(sql);
-
-                stmt.setString(1,a.getUserId().value);
-                stmt.setString(2,a.getAchievementId());
-                stmt.setString(3,a.getAchievementName());
-                stmt.setString(4,a.getDescription());
-                stmt.setDouble(5,a.getProcess());
-                stmt.setBoolean(6,a.isFinished());
-                stmt.setBoolean(7,a.isRewardGet());
-                stmt.setDouble(8,a.getCash().value);
-
+                stmt.setString(1,userId.value);
+                stmt.setInt(2, achievementId);
+                stmt.setDouble(3, 0);
+                stmt.setBoolean(4, false);
+                stmt.setBoolean(5, false);
                 stmt.executeUpdate();
-
                 stmt.close();
-                conn.close();
-
                 result = true;
-
             }catch (Exception e){
                 e.printStackTrace();
+                result = false;
+                break;
             }
         }
-
         return result;
     }
 
@@ -63,29 +58,41 @@ public class AchievementDataImpl implements AchievementDataService {
         String sql;
         ResultSet rs;
 
+        List<List<String>> achievementCharacteristic = new ArrayList<>();
+        try{
+            sql = "select * from AchievementCharacteristic order by ID";
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                List<String> temp = new ArrayList<>();
+                temp.add(rs.getString("Name"));
+                temp.add(rs.getString("Description"));
+                temp.add(String.valueOf(rs.getDouble("Cash")));
+                achievementCharacteristic.add(temp);
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         try{
             sql = "select * from Achievement where UserId = ?";
-
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,userId.value);
-
             rs = stmt.executeQuery();
-
             while (rs.next()){
-                String achievementId = rs.getString("ID");
-                String name = rs.getString("Name");
-                String description = rs.getString("Description");
+                int achievementId = rs.getInt("ID");
                 double process = rs.getDouble("Process");
                 boolean finish = rs.getBoolean("Finish");
                 boolean reward = rs.getBoolean("Reward");
-                Cash cash = new Cash(rs.getDouble("Cash"));
 
-                Achievement achievement = new Achievement(userId,achievementId,name,description,process,finish,reward,cash);
+                String name = achievementCharacteristic.get(achievementId).get(NAME_INDEX);
+                String description = achievementCharacteristic.get(achievementId).get(DESCRIPTION_INDEX);
+                double cash = Double.parseDouble(achievementCharacteristic.get(achievementId).get(CASH_INDEX));
 
+                Achievement achievement = new Achievement(userId, achievementId, name,description,process, finish,reward,new Cash(cash));
                 achievements.add(achievement);
             }
-
             stmt.close();
         }catch (Exception e){
             e.printStackTrace();
@@ -95,7 +102,7 @@ public class AchievementDataImpl implements AchievementDataService {
     }
 
     @Override
-    public boolean getAchievementCash(UserId userId, String achievementId) {
+    public boolean getAchievementCash(UserId userId, int achievementId) {
         conn = new MySQLConnector().getConnection("Achievement");
 
         boolean result = false;
@@ -104,33 +111,28 @@ public class AchievementDataImpl implements AchievementDataService {
         String sql;
         ResultSet rs;
 
-        boolean r1 = false;
+        boolean finish = false, reward = false;
         Achievement achievement = null;
         try {
-            sql = "select * from Achievement where UserId = ? and ID = ?";
-
+            sql = "select Finish, Reward from UserAchievement where UserId = ? and ID = ?";
             stmt = conn.prepareStatement(sql);
-
-            stmt.setString(1,userId.value);
-            stmt.setString(2,achievementId);
+            stmt.setString(1, userId.value);
+            stmt.setInt(2, achievementId);
 
             rs = stmt.executeQuery();
-
             while(rs.next()){
-                String name = rs.getString("Name");
-                String description = rs.getString("Description");
-                double process = rs.getDouble("Process");
-                boolean finish = rs.getBoolean("Finish");
-                boolean reward = rs.getBoolean("Reward");
-                Cash cash = new Cash(rs.getDouble("Cash"));
+                finish = rs.getBoolean("Finish");
+                reward = rs.getBoolean("Reward");
+            }
 
-                achievement = new Achievement(userId,achievementId,name,description,process,finish,reward,cash);
-                r1 = true;
+            if (finish && reward){
+                sql = "update UserAchievement set Reward = ? where UserId = ? and ID = ?";
             }
 
             stmt.close();
         }catch (Exception e){
             e.printStackTrace();
+            return false;
         }
 
         if(r1){
@@ -163,7 +165,7 @@ public class AchievementDataImpl implements AchievementDataService {
     }
 
     @Override
-    public boolean updateAchievementCash(UserId userId, String achievementId, double process) {
+    public boolean updateAchievementCash(UserId userId, int achievementId, double process) {
         conn = new MySQLConnector().getConnection("Achievement");
 
         boolean result = false;
@@ -172,45 +174,22 @@ public class AchievementDataImpl implements AchievementDataService {
         String sql;
 
         try{
-            if(process >= 1.0){
-                sql = "update Achievement set precess = ? and Finish = ? where UserId = ? and ID = ?";
+            boolean finish = process >= 1.0;
 
-                stmt = conn.prepareStatement(sql);
+            sql = "update UserAchievement set precess = ? and Finish = ? where UserId = ? and ID = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setDouble(1,process);
+            stmt.setBoolean(2,finish);
+            stmt.setString(3,userId.value);
+            stmt.setInt(4,achievementId);
+            stmt.executeUpdate();
 
-                stmt.setDouble(1,process);
-                stmt.setBoolean(2,true);
-                stmt.setString(3,userId.value);
-                stmt.setString(4,achievementId);
-
-                stmt.executeUpdate();
-
-                stmt.close();
-                conn.close();
-
-                result = true;
-            }
-            else{
-                sql = "update Achievement set precess = ? where UserId = ? and ID = ?";
-
-                stmt = conn.prepareStatement(sql);
-
-                stmt.setDouble(1,process);
-                stmt.setString(2,userId.value);
-                stmt.setString(3,achievementId);
-
-                stmt.executeUpdate();
-
-                stmt.close();
-                conn.close();
-
-                result = true;
-            }
+            stmt.close();
+            return true;
         }catch (Exception e){
             e.printStackTrace();
+            return false;
         }
-
-
-        return result;
     }
 
 }

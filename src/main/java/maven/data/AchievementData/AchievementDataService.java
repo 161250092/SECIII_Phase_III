@@ -30,7 +30,7 @@ public interface AchievementDataService {
      * @param achievementId 成就ID
      * @return  *if( isFinished == true && isRewardGet == false )  { isRewardGet =true; return true}
      */
-    boolean getAchievementCash(UserId userId, int achievementId);
+    boolean testAndGetAchievementReward(UserId userId, int achievementId);
 
     /**
      * 更新成就信息

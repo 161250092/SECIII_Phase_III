@@ -8,7 +8,6 @@ create table `UserAchievement`(
 `Process` double precision,
 `Finish` boolean,
 `Reward` boolean,
-`Cash` double precision,
 primary key(UserId,ID)
 );
 
@@ -16,14 +15,15 @@ create table `AchievementCharacteristic`(
 `ID` int,
 `Name` varchar(50),
 `Description` varchar(200),
+`Cash` double precision,
 primary key(ID)
 );
 
-insert into AchievementCharacteristic values(1,"1_finished","finish 1 task");
-insert into AchievementCharacteristic values(2,"10_finished","finish 10 tasks");
-insert into AchievementCharacteristic values(3,"1_ImageLabelFinished","finish 1 ImageLabel");
-insert into AchievementCharacteristic values(4,"10_ImageLabelFinished","finish 10 ImageLabel");
-insert into AchievementCharacteristic values(5,"1_FrameLabelFinished","finish 1 FrameLabel");
-insert into AchievementCharacteristic values(6,"10_FrameLabelFinished","finish 10 FrameLabel");
-insert into AchievementCharacteristic values(7,"1_AreaLabelFinished","finish 1 AreaLabel");
-insert into AchievementCharacteristic values(8,"10_AreaLabelFinished","finish 10 AreaLabel");
+insert into AchievementCharacteristic values(1,"1_finished","finish 1 task",5);
+insert into AchievementCharacteristic values(2,"10_finished","finish 10 tasks",20);
+insert into AchievementCharacteristic values(3,"1_ImageLabelFinished","finish 1 ImageLabel",5);
+insert into AchievementCharacteristic values(4,"10_ImageLabelFinished","finish 10 ImageLabel",20);
+insert into AchievementCharacteristic values(5,"1_FrameLabelFinished","finish 1 FrameLabel",5);
+insert into AchievementCharacteristic values(6,"10_FrameLabelFinished","finish 10 FrameLabel",20);
+insert into AchievementCharacteristic values(7,"1_AreaLabelFinished","finish 1 AreaLabel",5);
+insert into AchievementCharacteristic values(8,"10_AreaLabelFinished","finish 10 AreaLabel",20);
