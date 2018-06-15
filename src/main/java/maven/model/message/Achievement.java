@@ -7,7 +7,7 @@ public class Achievement {
     //userID
     private UserId userId;
     //成就ID
-    private  String achievementId;
+    private  int achievementId;
    //成就名称
     private  String achievementName;
     //成就描述
@@ -21,7 +21,7 @@ public class Achievement {
     //成就奖励
     private Cash cash;
 
-    public Achievement(UserId userId, String achievementId, String achievementName, String description, double process, boolean isFinished, boolean isRewardGet, Cash cash) {
+    public Achievement(UserId userId, int achievementId, String achievementName, String description, double process, boolean isFinished, boolean isRewardGet, Cash cash) {
         this.userId = userId;
         this.achievementId = achievementId;
         this.achievementName = achievementName;
@@ -37,7 +37,7 @@ public class Achievement {
         return userId;
     }
 
-    public String getAchievementId() {
+    public int getAchievementId() {
         return achievementId;
     }
 

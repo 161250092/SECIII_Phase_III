@@ -9,12 +9,12 @@ import java.util.List;
 public interface AchievementDataService {
     /**
      * 将Achievement的LIST插入数据库
-     * @param list 成就信息
+     * @param userId 用户ID
      * @return 是否保存
      */
 
 
-    boolean init_user_achievement(ArrayList<Achievement> list);
+    boolean init_user_achievement(UserId userId);
 
 
     /**
@@ -30,7 +30,7 @@ public interface AchievementDataService {
      * @param achievementId 成就ID
      * @return  *if( isFinished == true && isRewardGet == false )  { isRewardGet =true; return true}
      */
-    boolean getAchievementCash(UserId userId, String achievementId);
+    boolean getAchievementCash(UserId userId, int achievementId);
 
     /**
      * 更新成就信息
@@ -40,7 +40,7 @@ public interface AchievementDataService {
      */
 
 
-    boolean updateAchievementCash(UserId userId,String achievementId,double process);
+    boolean updateAchievementCash(UserId userId, int achievementId, double process);
 
 
 
