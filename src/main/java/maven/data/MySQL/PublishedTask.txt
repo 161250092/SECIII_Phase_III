@@ -43,5 +43,16 @@ create table `TaskType`(
 primary key(TaskId)
 );
 
+create table `MassTaskDeatil`(
+`TaskId` varchar(100),
+`UnitPrice` double precision,
+`Budget` double precision,
+`PricingMechanism` varchar(20),
+`sDate` varchar(100),
+`eDare` varchar(100),
+primary key(TaskId)
+);
+
+
 
 
