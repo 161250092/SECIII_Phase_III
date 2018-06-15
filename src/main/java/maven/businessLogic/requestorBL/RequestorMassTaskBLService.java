@@ -1,4 +1,4 @@
-package maven.businessLogic.massTaskBL.massTaskRequestorBL;
+package maven.businessLogic.requestorBL;
 
 import maven.model.massTask.MassTaskDetail;
 import maven.model.primitiveType.UserId;
@@ -6,7 +6,7 @@ import maven.model.vo.PublishedMassTaskVO;
 
 import java.util.List;
 
-public interface MassTaskRequestorBLService {
+public interface RequestorMassTaskBLService {
 
     /**
      * 发布者上传大任务细节
