@@ -4,6 +4,9 @@ function AreaLabelSetVO(taskImageNum, labelList, filenameList) {
     this.labelList = labelList;
     this.filenameList = filenameList;
 }
+function AreaLabel(areaList) {
+    this.areaList = areaList;
+}
 function Area(tag, areaBorder) {
     this.tag = tag;
     this.areaBorder = areaBorder;
@@ -63,6 +66,9 @@ new Vue({
             axios.get("/markAreaLabel/getAreaLabel", { params: { taskId: _this.taskId, userId: _this.userId} }).then(function (response) {
                 _this.taskImageNum = response.data.taskImageNum;
                 _this.labelList = response.data.labelList;
+                if(_this.labelList.length === 0){
+                    _this.labelList.push(new AreaLabel([]));
+                }
                 _this.filenameList = response.data.filenameList;
                 _this.paintAreaBorderOnCanvas();
             });

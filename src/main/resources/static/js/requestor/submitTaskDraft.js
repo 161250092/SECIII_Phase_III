@@ -229,7 +229,7 @@ new Vue({
     },
     computed: {
         taskPrice: function () {
-            return this.imageUnitPrice * this.imgList.length;
+            return this.imageUnitPrice * this.imgList.length * this.requiredWorkerNum;
         }
     }
 });

@@ -4,6 +4,9 @@ function FrameLabelVOSet(taskImageNum, labelList, filenameList) {
     this.labelList = labelList;
     this.filenameList = filenameList;
 }
+function FrameLabel(frameList) {
+    this.frameList = frameList;
+}
 //框中的标签类
 function Frame(startX, startY, width, height, tag){
     this.startX = startX;
@@ -72,6 +75,9 @@ new Vue({
             axios.get("/markFrameLabel/getFrameLabel", { params: {taskId: _this.taskId, userId: _this.userId} }).then(function (response) {
                 _this.taskImageNum = response.data.taskImageNum;
                 _this.labelList = response.data.labelList;
+                if (_this.labelList.length === 0){
+                    _this.labelList.push(new FrameLabel([]));
+                }
                 _this.filenameList = response.data.filenameList;
                 _this.paintFrameOnCanvas();
             });

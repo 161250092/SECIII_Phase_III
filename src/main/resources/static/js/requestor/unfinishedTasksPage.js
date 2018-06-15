@@ -10,7 +10,7 @@ new Vue({
         const _this = this;
         this.$nextTick(function () {
             _this.userId = getUserId();
-            _this.getAcceptedAndAccomplishedTaskList();
+            _this.getAssignedButIncompleteTaskList();
         })
     },
     methods:{
