@@ -17,18 +17,25 @@
 </head>
 
 <body>
-<div id="home" class="header-wrapper header-top">
+<<div id="home" class="header-wrapper header-top">
     <header>
         <ul class="menu cf">
             <li>
-                <a>发布与查询</a>
+                <a>发布与编辑</a>
                 <ul class="submenu">
                     <li><a href="../requestor/submitTaskDraft.html">编辑任务</a></li>
+                    <li><a href="../requestor/submitMassTaskDraft.html">编辑大任务</a></li>
                     <li><a href="../requestor/assignTask.html">发布任务</a></li>
-                    <li><a href="../requestor/unfinishedTasksPage.html">当前任务</a></li>
                 </ul>
             </li>
 
+            <li>
+                <a>任务信息</a>
+                <ul class="submenu">
+                    <li><a href="../requestor/finishedTasksPage.html">历史记录</a></li>
+                    <li><a href="../requestor/unfinishedTasksPage.html">当前任务</a></li>
+                </ul>
+            </li>
             <li>
                 <a>审核提交</a>
                 <ul class="submenu">
@@ -40,10 +47,11 @@
                 <a>用户中心</a>
                 <ul class="submenu">
                     <li><a href="../login/login.html">登出</a></li>
-                    <li><a href="../requestor/finishedTasksPage.html">历史记录</a></li>
+                    <li><a href="../requestor/messagePage.html">消息</a></li>
                     <li><a href="../requestor/personPage.html">个人主页</a></li>
                 </ul>
             </li>
+            <li class="headerUsername"><a href="#">用户：{{username}}</a></li>
 
         </ul>
     </header>
@@ -59,9 +67,6 @@
           <br>
           <span>声望:</span>
           <input type="text" class="input_short" id="prestige" name="tag" value="" disabled="disabled" v-model="prestige">
-          <br>
-          <span>等级:</span>
-          <input type="text" class="input_short" id="user_level" name="tag" value="" disabled="disabled" v-model="userLevel">
           <br>
           <span>金额:</span>
           <input type="text" class="input_short" id="cash" name="tag" value="" disabled="disabled" v-model="cash">
