@@ -31,12 +31,15 @@ public class WorkerBid {
     //工人渴望完成的最大图片数
     private ImageNum maxWantedImageNum;
 
-    public WorkerBid(UserId workerId, TaskId chosenTaskId, double ratioOfArrivedTime, Cash wantedPrice, ImageNum maxWantedImageNum) {
+    private WorkerBidState workerBidState;
+
+    public WorkerBid(UserId workerId, TaskId chosenTaskId, double ratioOfArrivedTime, Cash wantedUnitPrice, ImageNum maxWantedImageNum, WorkerBidState workerBidState) {
         this.workerId = workerId;
         this.chosenTaskId = chosenTaskId;
         this.ratioOfArrivedTime = ratioOfArrivedTime;
-        this.wantedUnitPrice = wantedPrice;
+        this.wantedUnitPrice = wantedUnitPrice;
         this.maxWantedImageNum = maxWantedImageNum;
+        this.workerBidState = workerBidState;
     }
 
     public UserId getWorkerId() {
@@ -57,5 +60,9 @@ public class WorkerBid {
 
     public ImageNum getMaxWantedImageNum() {
         return maxWantedImageNum;
+    }
+
+    public WorkerBidState getWorkerBidState() {
+        return workerBidState;
     }
 }
