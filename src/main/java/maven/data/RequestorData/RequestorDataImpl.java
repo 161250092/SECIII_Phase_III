@@ -273,7 +273,7 @@ public class RequestorDataImpl implements RequestorDataService {
         int time = 0;
 
         try{
-            sql = "select max(iNumber) from Detail where TaskId = ?";
+            sql = "select max(iNumber) as max_iNumber from Detail where TaskId = ?";
 
             stmt = conn.prepareStatement(sql);
 
@@ -282,7 +282,7 @@ public class RequestorDataImpl implements RequestorDataService {
             rs = stmt.executeQuery();
 
             while(rs.next()){
-                time = rs.getInt("iNumber") + 1;
+                time = rs.getInt("max_iNumber") + 1;
             }
 
             stmt.close();
@@ -293,7 +293,7 @@ public class RequestorDataImpl implements RequestorDataService {
 
         Gson gson = new GsonBuilder().create();
         try{
-            sql = "insert into Deatai values (?,?,?,?,?,?)";
+            sql = "insert into Detail values (?,?,?,?,?,?)";
             stmt = conn.prepareStatement(sql);
 
             String date = gson.toJson(publishedTaskDetail.getStartTime());
