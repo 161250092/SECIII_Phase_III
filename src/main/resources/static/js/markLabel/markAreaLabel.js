@@ -138,7 +138,11 @@ new Vue({
                     .then(function (response) {
                         if(response.data === true){
                             alert("提交成功");
-                            jumpToAnotherPage(mainPageUrl);
+                            if (getUserType() === USERTYPE_REQUESTOR) {
+                                jumpToAnotherPage(requestorMainPageUrl);
+                            }else if (getUserType() === USERTYPE_WORKER){
+                                jumpToAnotherPage(workerMainPageUrl)
+                            }
                         }else {
                             alert("提交失败");
                         }

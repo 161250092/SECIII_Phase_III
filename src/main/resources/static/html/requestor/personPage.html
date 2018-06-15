@@ -63,7 +63,7 @@
           <span>等级:</span>
           <input type="text" class="input_short" id="user_level" name="tag" value="" disabled="disabled" v-model="userLevel">
           <br>
-          <span>cash:</span>
+          <span>金额:</span>
           <input type="text" class="input_short" id="cash" name="tag" value="" disabled="disabled" v-model="cash">
             <br>
             <span>最大发布数</span>
@@ -73,11 +73,11 @@
 
         <div id="editable" >
            <span>电子邮箱:</span>
-          <input type="text"  id="email" name="tag" value="" v-model="email">{{email}}
+          <input type="text"  id="email" name="tag" value="" v-model="email">
           <input type="button" id="changeEmail" value="edit" v-on:click="editEmail"></input>
             <br>
           <span>电话号码:</span>
-          <input type="text" id="phone" name="tag" value="" v-model="phone">{{phone}}
+          <input type="text" id="phone" name="tag" value="" v-model="phone">
           <input type="button" id="changePhone" value="edit" v-on:click="editPhone"></input>
         </div>
 

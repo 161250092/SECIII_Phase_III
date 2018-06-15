@@ -53,6 +53,18 @@ new Vue({
 
            let _this = this;
            axios.get('/requestor/assignTask',{params: {taskId: taskId}}).then(function (response) {
+               let wrongMessageType = response.data.wrongMessage.type;
+               if (wrongMessageType === "IncompleteSample"){
+                   alert("未完成该任务的样本标注");
+               }else if (wrongMessageType === "PrestigeNotEnough") {
+                   alert("威望过低，无法发布任务");
+               }else if (wrongMessageType === "CashNotEnough") {
+                   alert("账户余额不足，无法发布任务");
+               }else if (wrongMessageType === "AssignSuccess") {
+                   alert("发布成功");
+               }else {
+                   alert("**返回类型错误**");
+               }
                _this.getTaskDraftList();
            });
        },

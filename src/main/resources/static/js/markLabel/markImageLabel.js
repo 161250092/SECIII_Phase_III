@@ -4,6 +4,9 @@ function ImageLabelSetVO(taskImageNum, labelList, filenameList){
     this.labelList = labelList;
     this.filenameList = filenameList;
 }
+function ImageLabel(tagList){
+    this.tagList = tagList;
+}
 
 new Vue({
     el: "#markLabelContainer",
@@ -38,6 +41,9 @@ new Vue({
             axios.get("/markImageLabel/getImageLabel", { params: {taskId: this.taskId ,userId: this.userId} }).then(function (response) {
                 _this.taskImageNum = response.data.taskImageNum;
                 _this.labelList = response.data.labelList;
+                if(_this.labelList.length === 0){
+                    _this.labelList.push(new ImageLabel([]));
+                }
                 _this.filenameList = response.data.filenameList;
             });
         },
@@ -90,7 +96,11 @@ new Vue({
                     .then(function (response) {
                         if(response.data === true){
                             alert("提交成功");
-                            jumpToAnotherPage(mainPageUrl);
+                            if (getUserType() === USERTYPE_REQUESTOR) {
+                                jumpToAnotherPage(requestorMainPageUrl);
+                            }else if (getUserType() === USERTYPE_WORKER){
+                                jumpToAnotherPage(workerMainPageUrl)
+                            }
                         }else {
                             alert("提交失败");
                         }

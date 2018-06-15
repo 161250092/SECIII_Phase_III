@@ -34,10 +34,11 @@ new Vue({
         requiredWorkerNum: 1,
         taskDescription: "",
 
-
+        minImageUnitPriceList: [],
+        imageUnitPrice: 0,
+        
         imgList: [],
         size: 0,
-
     },
     mounted: function () {
         this.$nextTick(function () {
@@ -45,14 +46,14 @@ new Vue({
             this.selectedTaskType = "ORDINARY_LEVEL_LABEL_REQUIRED";
 
             this.userId = getUserId();
-            this.getMinScoreList();
+            this.getminImageUnitPriceList();
         });
     },
     methods:{
-        getMinScoreList: function () {
+        getminImageUnitPriceList: function () {
             let _this = this;
             axios.get('/requestor/getTaskUnitPriceList').then(function (response) {
-                _this.minScoreList = response.data;
+                _this.minImageUnitPriceList = response.data;
                 _this.imageUnitPrice = _this.getMinUnitPrice();
             });
         },
@@ -189,13 +190,13 @@ new Vue({
             let imageNum = this.imgList.length;
             let minImageUnitPrice;
 
-            if(this.minScoreList.length === 0) {
+            if(this.minImageUnitPriceList.length === 0) {
                 minImageUnitPrice = 0;
             }else {
                 switch (this.selectedTaskType) {
-                    case "ORDINARY_LEVEL_LABEL_REQUIRED": minImageUnitPrice = this.minScoreList.ORDINARY_LEVEL_LABEL_REQUIRED.value; break;
-                    case "HIGH_LEVEL_LABEL_REQUIRED": minImageUnitPrice = this.minScoreList.HIGH_LEVEL_LABEL_REQUIRED.value; break;
-                    case "VERY_HIGH_LEVEL_LABEL_REQUIRED": minImageUnitPrice = this.minScoreList.VERY_HIGH_LEVEL_LABEL_REQUIRED.value; break;
+                    case "ORDINARY_LEVEL_LABEL_REQUIRED": minImageUnitPrice = this.minImageUnitPriceList.ORDINARY_LEVEL_LABEL_REQUIRED.value; break;
+                    case "HIGH_LEVEL_LABEL_REQUIRED": minImageUnitPrice = this.minImageUnitPriceList.HIGH_LEVEL_LABEL_REQUIRED.value; break;
+                    case "VERY_HIGH_LEVEL_LABEL_REQUIRED": minImageUnitPrice = this.minImageUnitPriceList.VERY_HIGH_LEVEL_LABEL_REQUIRED.value; break;
                     default : minImageUnitPrice = -1; break;
                 }
             }

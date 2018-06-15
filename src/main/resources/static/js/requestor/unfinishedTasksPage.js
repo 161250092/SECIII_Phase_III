@@ -10,15 +10,18 @@ new Vue({
         const _this = this;
         this.$nextTick(function () {
             _this.userId = getUserId();
+            _this.getAcceptedAndAccomplishedTaskList();
+        })
+    },
+    methods:{
+        getAssignedButIncompleteTaskList: function () {
+            const _this = this;
             axios.get("/requestor/getAssignedButIncompleteTaskList",
                 { params:{ userId: getUserId() } })
                 .then(function (response) {
                     _this.AllUnfinishedTasks = response.data;
-                })
-        })
-    },
-
-    methods:{
+                });
+        },
         getChineseLabelType: function (labelType) {
             if(labelType === IMAGE_LABEL_TYPENAME){
                 return "整体标注";
@@ -28,38 +31,36 @@ new Vue({
                 return "区域标注";
             }
         },
-
         detailedInfo:function(index){
             this.taskDescription = this.AllUnfinishedTasks[index].taskDescription;
         },
-
         changeTaskPrice:function(index){
             this.reviseTaskId = this.AllUnfinishedTasks[index].taskId;
         },
-
-
-        // exception unsovled
         recallTask:function(index){
+            const _this = this;
             axios.get("/requestor/terminateTask", {params: {taskId:this.AllUnfinishedTasks[index].taskId}})
                 .then(function (Exception) {
                     let message = Exception.data.wrongMessage.type;
-                    if(message === "Success")
+                    if(message === "Success"){
                         alert("撤销成功");
-                    else
-                        alert("撤销失败")
-
+                    }else{
+                        alert("撤销失败");
+                    }
+                    _this.getAcceptedAndAccomplishedTaskList();
                 });
         },
-
         addTaskPrice:function(){
+            const _this = this;
             axios.get("/requestor/reviseTaskPrice", {params: {taskId:this.reviseTaskId,cash:this.reviseTaskPrice}})
                 .then(function (Exception) {
                     let message = Exception.data.wrongMessage.type;
-                    if(message==="Success")
+                    if(message==="Success"){
                         alert("修改成功");
-                    else
-                        alert("修改失败")
-
+                    }else {
+                        alert("修改失败");
+                    }
+                    _this.getAcceptedAndAccomplishedTaskList();
                 });
         }
     }
