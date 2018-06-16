@@ -129,12 +129,12 @@ public class RequestorController {
 
     /**
      * 获取工人已完成并待审核的任务列表
-     * @param userId 发布者Id
+     * @param taskId 任务Id
      * @return 待审核的工人任务列表
      */
     @RequestMapping(value = "/requestor/getSubmittedTaskList", method = RequestMethod.GET)
-    public List<AcceptedTaskVO> getSubmittedTaskList(String taskId, String userId){
-        return requestorBL.getSubmittedTaskList(new TaskId(taskId), new UserId(userId));
+    public List<AcceptedTaskVO> getSubmittedTaskList(String taskId){
+        return requestorBL.getSubmittedTaskList(new TaskId(taskId));
     }
 
     /**

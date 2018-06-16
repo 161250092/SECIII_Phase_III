@@ -65,10 +65,10 @@ public interface RequestorBLService {
 
     /**
      * 获取工人已完成并待审核的任务列表
-     * @param userId 发布者Id
+     * @param taskId 任务Id
      * @return 待审核的任务列表
      */
-    List<AcceptedTaskVO> getSubmittedTaskList(TaskId taskId, UserId userId);
+    List<AcceptedTaskVO> getSubmittedTaskList(TaskId taskId);
 
     /**
      * 审批工人的任务时 选择通过
