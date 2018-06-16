@@ -9,10 +9,7 @@ import maven.model.task.AcceptedTask;
 import maven.model.task.AcceptedTaskState;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -77,6 +74,15 @@ public class WorkerDataImplTest {
     }
 
     @Test
+    public void reviseAcceptedTaskTime(){
+        assertEquals(new Date(2018,6,18,10,10,10),
+                impl.getAcceptedTaskById(new UserId("worker01"), new TaskId("00000001_ImageLabel_1622440180000")).getStartTime());
+        impl.reviseAcceptedTaskTime(new UserId("worker01"), new TaskId("00000001_ImageLabel_1622440180000"), new Date(2018,6,18,12,12,12));
+        assertEquals(new Date(2018,6,18,12,12,12),
+                impl.getAcceptedTaskById(new UserId("worker01"), new TaskId("00000001_ImageLabel_1622440180000")).getStartTime());
+    }
+
+    @Test
     public void saveLabelScore() {
         assertEquals(82 ,
                 impl.getAcceptedTaskById(new UserId("worker01"), new TaskId("00000001_AreaLabel_1622440200000")).getLabelScore().value, 0.001);
@@ -122,7 +128,7 @@ public class WorkerDataImplTest {
     private List<AcceptedTask> getAcceptedTaskListForTest(){
         List<AcceptedTask> acceptedTaskList = new ArrayList<>();
         AcceptedTask acceptedTask_1 = new AcceptedTask(new UserId("worker01"), new TaskId("00000001_ImageLabel_1622440180000"),
-                null, new Cash(100), null, AcceptedTaskState.ACCEPTED, new LabelScore(80));
+                new Date(2018,6,18,10,10,10), new Cash(100), null, AcceptedTaskState.ACCEPTED, new LabelScore(80));
         AcceptedTask acceptedTask_2 = new AcceptedTask(new UserId("worker01"), new TaskId("00000001_FrameLabel_1622440190000"),
                 null, new Cash(100), null, AcceptedTaskState.ACCEPTED, new LabelScore(81));
         AcceptedTask acceptedTask_3 = new AcceptedTask(new UserId("worker01"), new TaskId("00000001_AreaLabel_1622440200000"),
