@@ -29,3 +29,5 @@ create table `Requestor`(
 `Prestige` double precision,
 `TaskNum` integer
 );
+
+insert into Admin values("00000000","admin","123456");
