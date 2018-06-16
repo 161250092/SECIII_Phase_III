@@ -2,6 +2,7 @@ package maven.model.massTask;
 
 import maven.model.primitiveType.Cash;
 import maven.model.primitiveType.TaskId;
+import maven.model.vo.MassTaskDetailVO;
 
 public class MassTaskDetail {
     //任务Id
@@ -59,5 +60,22 @@ public class MassTaskDetail {
         this.massTaskPricingMechanism = MassTaskPricingMechanism.MINIMIZE_PAYMENTS;
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    public MassTaskDetail(MassTaskDetailVO massTaskDetailVO){
+        this.taskId = new TaskId(massTaskDetailVO.getTaskId());
+        this.budget = new Cash(massTaskDetailVO.getBudget());
+        this.massTaskPricingMechanism = MassTaskPricingMechanism.valueOf(massTaskDetailVO.getMassTaskPricingMechanism());
+        this.startTime = massTaskDetailVO.getStartTime();
+        this.endTime = massTaskDetailVO.getEndTime();
+        if (massTaskDetailVO.getMassTaskPricingMechanism().equals(MassTaskPricingMechanism.MAXIMIZE_TASKS.name())){
+            this.givenUnitPrice = new Cash(0);
+        }else if (massTaskDetailVO.getMassTaskPricingMechanism().equals(MassTaskPricingMechanism.MINIMIZE_PAYMENTS.name())){
+            this.givenUnitPrice = new Cash(massTaskDetailVO.getGivenUnitPrice());
+        }
+    }
+
+    public void setGivenUnitPrice(Cash givenUnitPrice) {
+        this.givenUnitPrice = givenUnitPrice;
     }
 }

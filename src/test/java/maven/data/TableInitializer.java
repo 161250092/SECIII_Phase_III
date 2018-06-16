@@ -16,6 +16,9 @@ public class TableInitializer {
             sql = "delete from AcceptedTask";
             stmt = conn.prepareStatement(sql);
             stmt.execute(sql);
+            sql = "delete from WorkerBid";
+            stmt = conn.prepareStatement(sql);
+            stmt.execute(sql);
             stmt.close();
 
             conn = new MySQLConnector().getConnection("Achievement");
@@ -71,6 +74,9 @@ public class TableInitializer {
             stmt = conn.prepareStatement(sql);
             stmt.execute(sql);
             sql = "delete from TaskType";
+            stmt = conn.prepareStatement(sql);
+            stmt.execute(sql);
+            sql = "delete from massTaskDetail";
             stmt = conn.prepareStatement(sql);
             stmt.execute(sql);
             stmt.close();

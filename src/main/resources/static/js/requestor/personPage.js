@@ -34,7 +34,6 @@ new Vue({
                         /* getUserInfo */
                         _this.username = userInfo.data.username.value;
                         _this.prestige = userInfo.data.prestige.value;
-
                         _this.cash = userInfo.data.cash.value;
                         _this.email = userInfo.data.email.address;
                         _this.phone = userInfo.data.phone.number;
@@ -89,11 +88,10 @@ new Vue({
 
         charge: function () {
             const _this = this;
-
-            axios.get("/requestor/charge", {params: {userId:getUserId(),email:_this.chargeCash}})
+            axios.get("/requestor/charge", {params: {userId:getUserId(),cash:_this.chargeCash}})
                 .then(function (Exception) {
-                    let message = Exception.data.wrongMessage.type;
-                    if(message==="Success")
+                    let message = Exception.data;
+                    if(message===true)
                         alert("充值成功");
                     else
                         alert("充值失败")

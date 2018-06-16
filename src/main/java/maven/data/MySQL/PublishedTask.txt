@@ -50,6 +50,7 @@ create table `MassTaskDetail`(
 `PricingMechanism` varchar(20),
 `sDate` long,
 `eDate` long,
+`isAllocated` boolean,
 primary key(TaskId)
 );
 

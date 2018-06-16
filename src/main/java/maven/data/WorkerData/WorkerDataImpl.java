@@ -85,7 +85,7 @@ public class WorkerDataImpl implements WorkerDataService {
             stmt.setString(1,acceptedTask.getUserId().value);
             stmt.setString(2,acceptedTask.getTaskId().value);
             stmt.setString(3,date);
-            stmt.setDouble(4,acceptedTask.getActualTaskPrice().value);
+            stmt.setDouble(4,acceptedTask.getOriginalTaskPrice().value);
             stmt.setString(5,acceptedTask.getAcceptedTaskState().toString());
             stmt.setString(6,discount);
             stmt.setDouble(7,acceptedTask.getLabelScore().value);

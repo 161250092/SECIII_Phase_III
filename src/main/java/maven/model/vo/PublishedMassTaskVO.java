@@ -4,18 +4,18 @@ import maven.model.massTask.MassTaskDetail;
 
 public class PublishedMassTaskVO {
     private PublishedTaskVO publishedTaskVO;
-    private MassTaskDetail massTaskDetail;
+    private MassTaskDetailVO massTaskDetailVO;
 
     public PublishedTaskVO getPublishedTaskVO() {
         return publishedTaskVO;
     }
 
-    public MassTaskDetail getMassTaskDetail() {
-        return massTaskDetail;
+    public MassTaskDetailVO getMassTaskDetailVO() {
+        return massTaskDetailVO;
     }
 
-    public PublishedMassTaskVO(PublishedTaskVO publishedTaskVO, MassTaskDetail massTaskDetail) {
+    public PublishedMassTaskVO(PublishedTaskVO publishedTaskVO, MassTaskDetailVO massTaskDetailVO) {
         this.publishedTaskVO = publishedTaskVO;
-        this.massTaskDetail = massTaskDetail;
+        this.massTaskDetailVO = massTaskDetailVO;
     }
 }
