@@ -131,4 +131,15 @@ public class UserDataImplTest {
         impl.revisePrestige(new UserId("4"), new Prestige(-40));
         assertEquals(-40, impl.getUserByUserId(new UserId("4")).getPrestige().value, 0.001);
     }
+
+    @Test
+    public void reviseTaskNum(){
+        assertEquals(30, impl.getUserByUserId(new UserId("3")).getTaskNum().value, 0.001);
+        impl.reviseTaskNum(new UserId("3"), new TaskNum(-30));
+        assertEquals(-30, impl.getUserByUserId(new UserId("3")).getTaskNum().value, 0.001);
+
+        assertEquals(40, impl.getUserByUserId(new UserId("4")).getTaskNum().value, 0.001);
+        impl.reviseTaskNum(new UserId("4"), new TaskNum(-40));
+        assertEquals(-40, impl.getUserByUserId(new UserId("4")).getTaskNum().value, 0.001);
+    }
 }

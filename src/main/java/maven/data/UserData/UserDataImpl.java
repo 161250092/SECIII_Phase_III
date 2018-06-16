@@ -424,4 +424,35 @@ public class UserDataImpl implements UserDataService{
 
         return result;
     }
+
+    @Override
+    public boolean reviseTaskNum(UserId userId, TaskNum taskNum) {
+        conn = new MySQLConnector().getConnection("User");
+
+        boolean result = false;
+
+        PreparedStatement stmt;
+        String sql;
+
+        try{
+            sql = "update Worker set TaskNum = ? where UserId = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setDouble(1,taskNum.value);
+            stmt.setString(2,userId.value);
+            stmt.executeUpdate();
+
+            sql = "update Requestor set TaskNum = ? where UserId = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setDouble(1,taskNum.value);
+            stmt.setString(2,userId.value);
+            stmt.executeUpdate();
+
+            stmt.close();
+            result = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 }
