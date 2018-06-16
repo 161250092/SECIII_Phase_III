@@ -77,7 +77,7 @@ function jumpToTask(url,userId,taskId,userType,isUserCanLabel){
 
 function leaveTheTask() {
     removeTaskId();
-    removeUserType();
+    //removeUserType();
     removeUserCanLabel();
 }
 

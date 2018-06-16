@@ -10,6 +10,8 @@ new Vue({
     },
     mounted: function () {
         this.$nextTick(function () {
+            this.userId = getUserId();
+
             const _this = this;
             axios.get('/requestor/getAssignedButIncompleteTaskList', {params:{userId: _this.userId}}).then(function (response) {
                 _this.submittedTaskList = response.data;
@@ -22,11 +24,6 @@ new Vue({
             let userId = this.labelListOfSelectedTask[workerIndex].userId;
             let labelType = this.labelListOfSelectedTask[workerIndex].labelType;
 
-            //////////////////////////////////////////////////////////
-            //临时用
-            taskId = "testTaskID";
-            userId = "testUserID";
-            labelType = "ImageLabel";
             //////////////////////////////////////////////////////////
 
             switch (labelType){

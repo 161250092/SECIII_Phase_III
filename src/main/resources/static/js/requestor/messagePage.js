@@ -36,7 +36,7 @@ new Vue({
             axios.get("/message/checkRequestorTaskMessage", {params: {messageId: _this.taskMessageInfo[index].messageId.value}}).then(function (response) {
                 if(response.data === true) {
                     alert("已确认");
-                    _this.updateAchievement();
+                    _this.updateMessage();
                 }
                 else
                     alert("error:fail to confirm task message");
@@ -48,7 +48,7 @@ new Vue({
             axios.get("/message/checkBillMessage", {params: {messageId: _this.billMessageInfo[index].messageId.value}}).then(function (response) {
                 if(response.data === true) {
                     alert("已确认");
-                    _this.updateAchievement();
+                    _this.updateMessage();
                 }
                 else
                     alert("error:fail to confirm cash message");
