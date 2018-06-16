@@ -11,7 +11,7 @@ new Vue({
         this.$nextTick(function () {
             _this.userId = getUserId();
             axios.get("/message/getAllRequestorMessage",
-                { params:{ userId: this.userId } })
+                { params:{ userId:  _this.userId } })
                 .then(function (response) {
                     _this.taskMessageInfo= response.data.taskMessageList;
                     _this.billMessageInfo = response.data.billMessageList;
@@ -25,7 +25,7 @@ new Vue({
             const _this = this;
             _this.userId = getUserId();
             axios.get("/message/getAllRequestorMessage",
-                { params:{ userId: this.userId } })
+                { params:{ userId: _this.userId } })
                 .then(function (response) {
                     _this.taskMessageInfo= response.data.taskMessageList;
                     _this.billMessageInfo = response.data.billMessageList;
@@ -33,8 +33,8 @@ new Vue({
         },
         confirmTaskMessageInfo:function (index) {
             const _this = this;
-            axios.get("/message/checkRequestorTaskMessage", {params: {messageId: _this.taskMessageInfo[index].messageId}}).then(function (response) {
-                if(response === true) {
+            axios.get("/message/checkRequestorTaskMessage", {params: {messageId: _this.taskMessageInfo[index].messageId.value}}).then(function (response) {
+                if(response.data === true) {
                     alert("已确认");
                     _this.updateAchievement();
                 }
@@ -45,8 +45,8 @@ new Vue({
 
         confirmCashMessageInfo:function(index){
             const _this = this;
-            axios.get("/message/checkBillMessage", {params: {messageId: _this.billMessageInfo[index].messageId}}).then(function (response) {
-                if(response === true) {
+            axios.get("/message/checkBillMessage", {params: {messageId: _this.billMessageInfo[index].messageId.value}}).then(function (response) {
+                if(response.data === true) {
                     alert("已确认");
                     _this.updateAchievement();
                 }

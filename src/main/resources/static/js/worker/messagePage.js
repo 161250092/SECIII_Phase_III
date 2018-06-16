@@ -5,10 +5,8 @@ new Vue({
         taskMessageInfo:[],
         guyMessageInfo:[],
         billMessageInfo:[],
-        achievementMessageInfo:[],
-        IMAGE_LABEL_TYPE: "ImageLabel",
-        FRAME_LABEL_TYPE: "FrameLabel",
-        AREA_LABEL_TYPE: "AreaLabel"
+        achievementMessageInfo:[]
+
     },
 
 
@@ -45,8 +43,8 @@ new Vue({
 
         confirmTaskMessageInfo:function (index) {
             const _this = this;
-            axios.get("/message/checkWorkerTaskMessage", {params: {messageId: _this.taskMessageInfo[index].messageId}}).then(function (response) {
-                if(response === true) {
+            axios.get("/message/checkWorkerTaskMessage", {params: {messageId: _this.taskMessageInfo[index].messageId.value}}).then(function (response) {
+                if(response.data === true) {
                     alert("已确认");
                     _this.updateAchievement();
                 }
@@ -57,8 +55,8 @@ new Vue({
 
         confirmGuyMessageInfo:function(index){
             const _this = this;
-            axios.get("/message/checkGuyMessage", {params: {messageId: _this.guyMessageInfo[index].messageId}}).then(function (response) {
-                if(response === true) {
+            axios.get("/message/checkGuyMessage", {params: {messageId: _this.guyMessageInfo[index].messageId.value}}).then(function (response) {
+                if(response.data === true) {
                     alert("已确认");
                     _this.updateAchievement();
                 }
@@ -71,8 +69,8 @@ new Vue({
 
         confirmCashMessageInfo:function(index){
             const _this = this;
-            axios.get("/message/checkBillMessage", {params: {messageId: _this.billMessageInfo[index].messageId}}).then(function (response) {
-                if(response === true) {
+            axios.get("/message/checkBillMessage", {params: {messageId: _this.billMessageInfo[index].messageId.value}}).then(function (response) {
+                if(response.data === true) {
                     alert("已确认");
                     _this.updateAchievement();
                 }
@@ -83,8 +81,8 @@ new Vue({
 
         confirmAchievementMessageInfo:function(index){
             const _this = this;
-            axios.get("/message/checkAchievementMessage", {params: {messageId: _this.achievementMessageInfo[index].messageId}}).then(function (response) {
-                if(response === true) {
+            axios.get("/message/checkAchievementMessage", {params: {messageId: _this.achievementMessageInfo[index].messageId.value}}).then(function (response) {
+                if(response.data === true) {
                     alert("已确认");
                     _this.updateAchievement();
                 }
