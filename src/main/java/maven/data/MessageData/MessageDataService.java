@@ -114,6 +114,12 @@ public interface MessageDataService {
     boolean setAchievementMessageChecked(MessageId messageId);
 
     /**
+     * 获取所有的账单消息
+     * @return 账单消息列表
+     */
+    List<BillMessage> getAllBillMessage();
+
+    /**
      * 新建消息时 获取messageId
      * 根据已有的Message数量 生成新的Id
      * @return messageId

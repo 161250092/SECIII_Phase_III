@@ -551,6 +551,45 @@ public class MessageDataImpl implements  MessageDataService{
     }
 
     @Override
+    public List<BillMessage> getAllBillMessage() {
+        conn = new MySQLConnector().getConnection("Message");
+
+        List<BillMessage> billMessageList = new ArrayList<>();
+
+        PreparedStatement stmt;
+        String sql;
+        ResultSet rs;
+
+        try{
+            sql = "select * from BillMessage";
+
+            stmt = conn.prepareStatement(sql);
+
+            rs = stmt.executeQuery();
+
+            while(rs.next()){
+                MessageId messageId = new MessageId(rs.getString("MessageId"));
+                UserId userId = new UserId(rs.getString("UserId"));
+                BillType billType = BillType.valueOf(rs.getString("Type"));
+                BillReason billReason = BillReason.valueOf(rs.getString("Reason"));
+                Cash cash = new Cash(rs.getDouble("Cash"));
+                boolean confirm = new Boolean(rs.getBoolean("Confirm"));
+
+                BillMessage billMessage = new BillMessage(messageId,userId,billType,billReason,cash);
+
+                billMessageList.add(billMessage);
+            }
+
+            stmt.close();
+            conn.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return billMessageList;
+    }
+
+    @Override
     public MessageId getMessageIdForCreateMessage(){
         conn = new MySQLConnector().getConnection("Message");
 

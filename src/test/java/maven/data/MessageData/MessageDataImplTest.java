@@ -239,6 +239,56 @@ public class MessageDataImplTest {
         assertEquals("The size of l2", 0, l2.size());
     }
 
+    @Test
+    public void getAllBillMessage(){
+        List<BillMessage> l = impl.getAllBillMessage();
+        assertEquals("The size of l", 5, l.size());
+
+
+        assertEquals("ASSIGN_TASK",
+                "ASSIGN_TASK", l.get(0).getBillReason().toString());
+
+        assertEquals("SUPPLEMENT_TASK_CASH",
+                "SUPPLEMENT_TASK_CASH", l.get(1).getBillReason().toString());
+
+        assertEquals("SUPPLEMENT_TASK_REQUIRED_NUM",
+                "SUPPLEMENT_TASK_REQUIRED_NUM", l.get(2).getBillReason().toString());
+
+        assertEquals("TERMINATE_TASK",
+                "TERMINATE_TASK", l.get(3).getBillReason().toString());
+
+        assertEquals("ACCOMPLISH_TASK",
+                "ACCOMPLISH_TASK", l.get(4).getBillReason().toString());
+
+        assertEquals("000000000009 MessageId",
+                "000000000009", l.get(0).getMessageId().value);
+
+        assertEquals("100 Cash",
+                100, l.get(0).getCash().value, 0.01);
+
+        assertEquals("000000000010 MessageId",
+                "000000000010", l.get(1).getMessageId().value);
+        assertEquals("200 Cash",
+                200, l.get(1).getCash().value, 0.01);
+
+        assertEquals("000000000011 MessageId",
+                "000000000011", l.get(2).getMessageId().value);
+        assertEquals("300 Cash",
+                300, l.get(2).getCash().value, 0.01);
+
+        assertEquals("000000000012 MessageId",
+                "000000000012", l.get(3).getMessageId().value);
+        assertEquals("400 Cash",
+                400, l.get(3).getCash().value, 0.01);
+
+        assertEquals("000000000013 MessageId",
+                "000000000013", l.get(4).getMessageId().value);
+        assertEquals("500 Cash",
+                500, l.get(4).getCash().value, 0.01);
+    }
+
+
+
     private List<PublishedTaskMessage> getPublishedTaskMessageListForTest(){
         List<PublishedTaskMessage> list = new ArrayList<>();
         list.add(new PublishedTaskMessage(new MessageId("000000000001"), new UserId("00000001"),
