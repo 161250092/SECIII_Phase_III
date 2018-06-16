@@ -106,16 +106,17 @@ public class WorkerMassTaskDataImpl implements WorkerMassTaskDataService {
     }
 
     @Override
-    public boolean updateWorkerBidState(UserId workerId, WorkerBidState workerBidState) {
+    public boolean updateWorkerBidState(UserId workerId, TaskId taskId, WorkerBidState workerBidState) {
         conn = new MySQLConnector().getConnection("AcceptedTask");
 
         PreparedStatement stmt;
         String sql;
         try {
-            sql = "update WorkerBid set WorkerBidState = ? where UserId = ?";
+            sql = "update WorkerBid set WorkerBidState = ? where UserId = ? and TaskId = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, workerBidState.name());
             stmt.setString(2, workerId.value);
+            stmt.setString(3, taskId.value);
             stmt.executeUpdate();
 
             stmt.close();

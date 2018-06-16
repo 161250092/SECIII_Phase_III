@@ -37,5 +37,5 @@ public interface WorkerMassTaskDataService {
      * @param workerBidState 竞标的新状态
      * @return 是否更新成功
      */
-    boolean updateWorkerBidState(UserId workerId, WorkerBidState workerBidState);
+    boolean updateWorkerBidState(UserId workerId, TaskId taskId, WorkerBidState workerBidState);
 }
