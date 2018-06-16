@@ -86,10 +86,10 @@ public class WorkerDataImplTest {
                 impl.getAcceptedTaskById(new UserId("worker01"), new TaskId("00000001_AreaLabel_1622440200000")).getLabelScore().value, 0.001);
 
         assertEquals(85 ,
-                impl.getAcceptedTaskById(new UserId("worker03"), new TaskId("00000004_ImageLabel_1622440180002")).getLabelScore().value, 0.001);
-        impl.saveLabelScore(new UserId("worker03"), new TaskId("00000004_ImageLabel_1622440180002"), new LabelScore(58));
+                impl.getAcceptedTaskById(new UserId("worker03"), new TaskId("00000004_ImageLabel_1622440180000")).getLabelScore().value, 0.001);
+        impl.saveLabelScore(new UserId("worker03"), new TaskId("00000004_ImageLabel_1622440180000"), new LabelScore(58));
         assertEquals(58 ,
-                impl.getAcceptedTaskById(new UserId("worker03"), new TaskId("00000004_ImageLabel_1622440180002")).getLabelScore().value, 0.001);
+                impl.getAcceptedTaskById(new UserId("worker03"), new TaskId("00000004_ImageLabel_1622440180000")).getLabelScore().value, 0.001);
     }
 
     @Test
@@ -125,13 +125,13 @@ public class WorkerDataImplTest {
         AcceptedTask acceptedTask_1 = new AcceptedTask(new UserId("worker01"), new TaskId("00000001_ImageLabel_1622440180000"),
                 null, new Cash(100), null, AcceptedTaskState.ACCEPTED, new LabelScore(80));
         AcceptedTask acceptedTask_2 = new AcceptedTask(new UserId("worker01"), new TaskId("00000001_FrameLabel_1622440190000"),
-                null, new Cash(100), null, AcceptedTaskState.SUBMITTED, new LabelScore(81));
+                null, new Cash(100), null, AcceptedTaskState.ACCEPTED, new LabelScore(81));
         AcceptedTask acceptedTask_3 = new AcceptedTask(new UserId("worker01"), new TaskId("00000001_AreaLabel_1622440200000"),
                 null, new Cash(100), null, AcceptedTaskState.ACCEPTED, new LabelScore(82));
 
         //完成、待审核
         AcceptedTask acceptedTask_4 = new AcceptedTask(new UserId("worker02"), new TaskId("00000002_ImageLabel_1922440180000"),
-                null, new Cash(100), null, AcceptedTaskState.ACCEPTED, new LabelScore(83));
+                null, new Cash(100), null, AcceptedTaskState.SUBMITTED, new LabelScore(83));
         //通过
         AcceptedTask acceptedTask_5 = new AcceptedTask(new UserId("worker02"), new TaskId("00000001_ImageLabel_1622440180000"),
                 null, new Cash(100), null, AcceptedTaskState.PASSED, new LabelScore(84));
