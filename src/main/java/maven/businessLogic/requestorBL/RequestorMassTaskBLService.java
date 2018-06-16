@@ -15,6 +15,11 @@ public interface RequestorMassTaskBLService {
      */
     Exception uploadMassTaskDetail(MassTaskDetail massTaskDetail);
 
-    List<PublishedMassTaskVO> getPublishedMassTaskVOList(UserId userId);
+    /**
+     * 查看发布者自己发的大任务
+     * @param requestorId 发布者ID
+     * @return 该发布者自己发的大任务
+     */
+    List<PublishedMassTaskVO> getPublishedMassTaskVOList(UserId requestorId);
 
 }

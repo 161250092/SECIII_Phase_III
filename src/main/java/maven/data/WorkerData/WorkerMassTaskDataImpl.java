@@ -7,10 +7,12 @@ import maven.model.massTask.WorkerBidState;
 import maven.model.primitiveType.Cash;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
+import maven.model.user.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +45,37 @@ public class WorkerMassTaskDataImpl implements WorkerMassTaskDataService {
     }
 
     @Override
-    public List<WorkerBid> getAllWorkerBid(TaskId taskId) {
+    public List<WorkerBid> getAllWorkerBidOfThisTask(TaskId taskId) {
+        conn = new MySQLConnector().getConnection("AcceptedTask");
+
+        List<WorkerBid> result = new ArrayList<>();
+
+        PreparedStatement stmt;
+        String sql;
+        ResultSet rs;
+        try {
+            sql = "select * from WorkerBid where TaskId = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, taskId.value);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                UserId workerId = new UserId(rs.getString("UserId"));
+                double radio = rs.getDouble("Radio");
+                Cash cash = new Cash(rs.getDouble("Cash"));
+                ImageNum imageNum = new ImageNum(rs.getInt("ImageNum"));
+                WorkerBidState workerBidState = WorkerBidState.valueOf(rs.getString("WorkerBidState"));
+
+                result.add(new WorkerBid(workerId,taskId,radio,cash,imageNum, workerBidState));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<WorkerBid> getAllBidOfThisWorker(UserId workerId) {
         conn = new MySQLConnector().getConnection("AcceptedTask");
 
         List<WorkerBid> result = new ArrayList<>();
@@ -52,18 +84,18 @@ public class WorkerMassTaskDataImpl implements WorkerMassTaskDataService {
         String sql;
         ResultSet rs;
         try{
-            sql = "select * from WorkerBid where TaskId = ?";
+            sql = "select * from WorkerBid where UserId = ?";
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1,taskId.value);
+            stmt.setString(1,workerId.value);
             rs = stmt.executeQuery();
             while(rs.next()){
-                UserId userId = new UserId(rs.getString("UserId"));
+                TaskId taskId = new TaskId(rs.getString("TaskId"));
                 double radio = rs.getDouble("Radio");
                 Cash cash = new Cash(rs.getDouble("Cash"));
                 ImageNum imageNum = new ImageNum(rs.getInt("ImageNum"));
                 WorkerBidState workerBidState = WorkerBidState.valueOf(rs.getString("WorkerBidState"));
 
-                result.add(new WorkerBid(userId,taskId,radio,cash,imageNum, workerBidState));
+                result.add(new WorkerBid(workerId,taskId,radio,cash,imageNum, workerBidState));
             }
             stmt.close();
         }catch (Exception e){
