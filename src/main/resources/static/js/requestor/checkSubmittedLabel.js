@@ -24,8 +24,6 @@ new Vue({
             let userId = this.labelListOfSelectedTask[workerIndex].userId;
             let labelType = this.labelListOfSelectedTask[workerIndex].labelType;
 
-            //////////////////////////////////////////////////////////
-
             switch (labelType){
                 case "ImageLabel":
                     jumpToTask(markImageLabelPageUrl, userId, taskId, USERTYPE_REQUESTOR, false);
@@ -42,28 +40,19 @@ new Vue({
             }
         },
         passThisLabel: function (workerIndex) {
-            let taskId = "temporary";
-            let userId = "TEMPORARY";
-            axios.get('/requestor/passTask', {params:{taskId: taskId, userId: userId}}).then(function (response) {
-
+            axios.get('/requestor/passTask', {params:{taskId: this.taskId, userId: this.userId}}).then(function (response) {
+                alert("sss")
             });
-            alert(workerIndex)
         },
         rejectThisLabel: function (workerIndex) {
-            let taskId = "temporary";
-            let userId = "TEMPORARY";
-            axios.get('/requestor/rejectTask', {params:{taskId: taskId, userId: userId}}).then(function (response) {
-
+            axios.get('/requestor/rejectTask', {params:{taskId: this.taskId, userId: this.userId}}).then(function (response) {
+                alert("sss")
             });
-            alert(workerIndex)
         },
         abandonThisLabel: function (workerIndex) {
-            let taskId = "temporary";
-            let userId = "TEMPORARY";
-            axios.get('/requestor/abandonTaskByRequestor', {params:{taskId: taskId, userId: userId}}).then(function (response) {
-
+            axios.get('/requestor/abandonTaskByRequestor', {params:{taskId: this.taskId, userId: this.userId}}).then(function (response) {
+                alert("sss")
             });
-            alert(workerIndex)
         },
         showSelectedTask: function (taskIndex) {
             if(this.selectedTaskIndex === taskIndex){
