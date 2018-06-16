@@ -1,6 +1,8 @@
 package maven.businessLogic.requestorBL;
 
+import maven.data.RequestorData.RequestorDataImpl;
 import maven.data.RequestorData.RequestorDataService;
+import maven.data.RequestorData.RequestorMassTaskDataImpl;
 import maven.data.RequestorData.RequestorMassTaskDataService;
 import maven.exception.util.FailureException;
 import maven.exception.util.SuccessException;
@@ -18,6 +20,11 @@ public class RequestorMassTaskBLImpl implements RequestorMassTaskBLService{
 
     private RequestorMassTaskDataService requestorMassTaskData;
     private RequestorDataService requestorData;
+
+    public RequestorMassTaskBLImpl() {
+        requestorMassTaskData = new RequestorMassTaskDataImpl();
+        requestorData = new RequestorDataImpl();
+    }
 
     @Override
     public Exception uploadMassTaskDetail(MassTaskDetail massTaskDetail) {

@@ -1,5 +1,6 @@
 package maven.controller;
 
+import maven.businessLogic.workerBL.WorkerMassTaskBLImpl;
 import maven.businessLogic.workerBL.WorkerMassTaskBLService;
 import maven.model.massTask.WorkerBid;
 import maven.model.primitiveType.UserId;
@@ -17,7 +18,7 @@ public class WorkerMassTaskController {
     private WorkerMassTaskBLService workerMassTaskBL;
 
     public WorkerMassTaskController(){
-
+        workerMassTaskBL = new WorkerMassTaskBLImpl();
     }
 
     @RequestMapping(value = "/workerMassTask/bidForMassTask", method = RequestMethod.GET)

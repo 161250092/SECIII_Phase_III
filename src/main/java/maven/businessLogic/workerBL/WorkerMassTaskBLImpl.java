@@ -1,14 +1,16 @@
 package maven.businessLogic.workerBL;
 
 import maven.businessLogic.algorithm.PricingAlgorithm;
+import maven.data.RequestorData.RequestorDataImpl;
 import maven.data.RequestorData.RequestorDataService;
+import maven.data.RequestorData.RequestorMassTaskDataImpl;
 import maven.data.RequestorData.RequestorMassTaskDataService;
+import maven.data.WorkerData.WorkerMassTaskDataImpl;
 import maven.data.WorkerData.WorkerMassTaskDataService;
 import maven.exception.util.FailureException;
 import maven.exception.util.SuccessException;
 import maven.model.massTask.MassTaskDetail;
 import maven.model.massTask.WorkerBid;
-import maven.model.primitiveType.Cash;
 import maven.model.primitiveType.UserId;
 import maven.model.task.PublishedTask;
 import maven.model.vo.MassTaskDetailVO;
@@ -26,6 +28,13 @@ public class WorkerMassTaskBLImpl implements WorkerMassTaskBLService{
     private RequestorDataService requestorData;
 
     private PricingAlgorithm pricingAlgorithm;
+
+    public WorkerMassTaskBLImpl(){
+        workerMassTaskData = new WorkerMassTaskDataImpl();
+        requestorMassTaskData = new RequestorMassTaskDataImpl();
+        requestorData = new RequestorDataImpl();
+        pricingAlgorithm = new PricingAlgorithm();
+    }
 
     @Override
     public Exception bidForMassTask(WorkerBidVO workerBidVO) {
