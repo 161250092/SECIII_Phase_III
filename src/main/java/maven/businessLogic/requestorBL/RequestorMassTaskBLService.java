@@ -13,7 +13,7 @@ public interface RequestorMassTaskBLService {
      * @param massTaskDetail 大任务细节
      * @return 是否上传成功
      */
-    Exception uploadMassTaskDetail(MassTaskDetail massTaskDetail);
+    Exception uploadMassTaskDetail(UserId requestorId, MassTaskDetail massTaskDetail);
 
     /**
      * 查看发布者自己发的大任务

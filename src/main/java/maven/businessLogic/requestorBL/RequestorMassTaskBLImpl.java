@@ -1,5 +1,6 @@
 package maven.businessLogic.requestorBL;
 
+import maven.businessLogic.manageUserBL.ManageUserBLImpl;
 import maven.data.RequestorData.RequestorDataImpl;
 import maven.data.RequestorData.RequestorDataService;
 import maven.data.RequestorData.RequestorMassTaskDataImpl;
@@ -20,15 +21,20 @@ public class RequestorMassTaskBLImpl implements RequestorMassTaskBLService{
 
     private RequestorMassTaskDataService requestorMassTaskData;
     private RequestorDataService requestorData;
+    private ManageUserBLImpl manageUserBL;
 
     public RequestorMassTaskBLImpl() {
         requestorMassTaskData = new RequestorMassTaskDataImpl();
         requestorData = new RequestorDataImpl();
+        manageUserBL = new ManageUserBLImpl();
     }
 
     @Override
-    public Exception uploadMassTaskDetail(MassTaskDetail massTaskDetail) {
-        if (requestorMassTaskData.saveMassTaskDetail(massTaskDetail)){
+    public Exception uploadMassTaskDetail(UserId requestorId, MassTaskDetail massTaskDetail) {
+        boolean r1 = requestorMassTaskData.saveMassTaskDetail(massTaskDetail);
+        boolean r2 = manageUserBL.reduceCash(requestorId, massTaskDetail.getBudget());
+
+        if (r1 && r2){
             return new SuccessException();
         }else {
             return new FailureException();

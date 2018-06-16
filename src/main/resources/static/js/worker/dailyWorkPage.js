@@ -79,12 +79,7 @@ new Vue({
              var str=Number(this.achievementList[i].process*100).toFixed(2)
                 str+="%";
              this.achievementList[i].process=str;
-
          }
-
-
-
-
        }
    }
 
