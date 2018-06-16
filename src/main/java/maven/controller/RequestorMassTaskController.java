@@ -23,14 +23,15 @@ public class RequestorMassTaskController {
 
     /**
      * 发布者上传大任务细节
+     * @param requesotrId 发布者ID
      * @param massTaskDetailVOJson 大任务细节VOJson
      * @return 是否上传成功
      */
     @RequestMapping(value = "/requestorMassTask/uploadMassTaskDetail", method = RequestMethod.GET)
-    Exception uploadMassTaskDetail(String massTaskDetailVOJson){
+    Exception uploadMassTaskDetail(String requesotrId, String massTaskDetailVOJson){
         System.out.println(massTaskDetailVOJson);
         MassTaskDetailVO massTaskDetailVO = (MassTaskDetailVO) JsonConverter.jsonToObject(massTaskDetailVOJson, MassTaskDetailVO.class);
-        return requestorMassTaskBL.uploadMassTaskDetail(new MassTaskDetail(massTaskDetailVO));
+        return requestorMassTaskBL.uploadMassTaskDetail(new UserId(requesotrId), new MassTaskDetail(massTaskDetailVO));
     }
 
     /**

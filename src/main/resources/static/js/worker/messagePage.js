@@ -92,12 +92,6 @@ new Vue({
                     alert("error:fail to confirm cash message");
             });
         }
-
-
-
-
-
-
     }
 });
 
