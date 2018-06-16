@@ -20,7 +20,6 @@ public class WorkerDataImplTest {
 
     private WorkerDataImpl impl = new WorkerDataImpl();
 
-
     public WorkerDataImplTest(){
         TableInitializer initializer = new TableInitializer();
         initializer.cleanAllTable();

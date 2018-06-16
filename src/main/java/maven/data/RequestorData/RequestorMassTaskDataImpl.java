@@ -1,26 +1,20 @@
 package maven.data.RequestorData;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import maven.businessLogic.algorithm.PricingAlgorithm;
 import maven.data.MySQL.MySQLConnector;
 import maven.model.massTask.MassTaskDetail;
 import maven.model.massTask.MassTaskPricingMechanism;
-import maven.model.massTask.WorkerBid;
 import maven.model.primitiveType.Cash;
 import maven.model.primitiveType.TaskId;
 import maven.model.primitiveType.UserId;
-import maven.model.task.PublishedTask;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class RequestorMassTaskDateImpl implements RequestorMassTaskDataService {
+public class RequestorMassTaskDataImpl implements RequestorMassTaskDataService {
     private Connection conn;
 
     /*                  发布者                    */
