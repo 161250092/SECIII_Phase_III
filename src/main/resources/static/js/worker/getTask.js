@@ -102,54 +102,42 @@ new Vue({
                     })
             }
         },
-        upBytaskPrice:function(){
-            for(let i=0;i<this.availableTaskList.length-1;i++){
-                for(let j=i;j<this.availableTaskList.length;j++){
-                    if(this.availableTaskList[i].taskPrice<this.availableTaskList[j].taskPrice){
-                        let temp = this.availableTaskList[i];
-                        this.availableTaskList[i] =  this.availableTaskList[j];
-                        this.availableTaskList[j] = temp;
-                    }
-                }
-            }
-
+        upByTaskPrice:function(){
+            this.availableTaskList.sort(function (a, b) {
+                return b.taskPrice - a.taskPrice;
+            });
         },
-        downBytaskPrice:function () {
-            for(let i=0;i<this.availableTaskList.length-1;i++){
-                for(let j=i;j<this.availableTaskList.length;j++){
-                    if(this.availableTaskList[i].taskPrice>this.availableTaskList[j].taskPrice){
-                        let temp = this.availableTaskList[i];
-                        this.availableTaskList[i] =  this.availableTaskList[j];
-                        this.availableTaskList[j] = temp;
-                    }
-                }
-            }
+        downByTaskPrice:function () {
+            this.availableTaskList.sort(function (a, b) {
+                return a.taskPrice - b.taskPrice;
+            });
         },
         upByImageNum:function(){
-            for(let i=0;i<this.length-1;i++) {
-                for (let j = i; j < this.availableTaskList.length; j++) {
-                    if (this.availableTaskList[i].imageNum <this.availableTaskList[j].imageNum) {
-                        let temp = this.availableTaskList[i];
-                        this.availableTaskList[i] = this.availableTaskList[j];
-                        this.availableTaskList[j] = temp;
-                    }
-                }
-            }
+            this.availableTaskList.sort(function (a, b) {
+                return b.imageNum - a.imageNum;
+            });
         },
         downByImageNum:function(){
-            for(let i=0;i<this.availableTaskList.length-1;i++) {
-                for (let j = i; j < this.availableTaskList.length; j++) {
-                    if (this.availableTaskList[i].imageNum > this.availableTaskList[j].imageNum) {
-                        let temp = this.availableTaskList[i];
-                        this.availableTaskList[i] = this.availableTaskList[j];
-                        this.availableTaskList[j] = temp;
-                    }
-                }
-            }
+            this.availableTaskList.sort(function (a, b) {
+                return a.imageNum - b.imageNum;
+            });
         },
         convertToDate : function (millisecond) {
             let time = new Date(millisecond);
             return time.toLocaleString();
         }
+    }
+});
+
+
+new Vue({
+    el: "#home",
+    data: {
+        username: ""
+    },
+    mounted: function () {
+        this.$nextTick(function () {
+            this.username = getUsername();
+        });
     }
 });
