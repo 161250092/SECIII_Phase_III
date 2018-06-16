@@ -144,7 +144,7 @@ public class WorkerController{
      * @param cash
      * @return
      */
-    @RequestMapping(value="/worker/exhcangeCash",method = RequestMethod.GET)
+    @RequestMapping(value="/worker/exchangeCash",method = RequestMethod.GET)
     public boolean exhcangeCash(String userId, double cash){return workerBL.exchange(new UserId(userId),new Cash(cash));}
 
 }

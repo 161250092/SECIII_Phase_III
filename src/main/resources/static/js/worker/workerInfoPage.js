@@ -279,7 +279,7 @@ new Vue({
         },
         exchange:function(){
             const _this = this;
-            axios.get("/worker/exhcangeCash",{params:{ userId:_this.userId,cash:_this.cashForExchange}})
+            axios.get("/worker/exchangeCash",{params:{ userId:_this.userId,cash:_this.cashForExchange}})
                 .then(function(response){
                     if(response.data === true)
                         alert("兑换成功");
