@@ -136,7 +136,7 @@ public class WorkerBLImpl implements WorkerBLService {
                 break;
             case "FrameLabel":
                 FrameLabelDataService frameLabelDataService = new FrameLabelDataImpl();
-                if(frameLabelDataService.deleteLabel(userId, taskId))
+                if(!frameLabelDataService.deleteLabel(userId, taskId))
                     return new FailureException();
                 break;
             case "AreaLabel":
