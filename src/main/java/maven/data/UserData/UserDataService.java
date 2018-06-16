@@ -44,7 +44,7 @@ public interface UserDataService {
 
     /**
      * 获取所有信息
-     * @return 管理员、用户、工人IDList
+     * @return 管理员、用户、工人IdList
      */
      List<UserId> getAllUserIdList();
 
@@ -64,7 +64,7 @@ public interface UserDataService {
 
     /**'
      * 修改用户电子邮件
-     * @param userId 用户ID
+     * @param userId 用户Id
      * @param email 电子邮件
      * @return 修改是否成功
      */
@@ -72,7 +72,7 @@ public interface UserDataService {
 
     /**'
      * 修改用户电话号码
-     * @param userId 用户ID
+     * @param userId 用户Id
      * @param phone 电话号码
      * @return 修改是否成功
      */
@@ -80,7 +80,7 @@ public interface UserDataService {
 
     /**
      * 修改用户现金
-     * @param userId 用户ID
+     * @param userId 用户Id
      * @param cash 修改后的值
      * @return 修改是否成功
      */
@@ -89,8 +89,17 @@ public interface UserDataService {
     /**
      * 修改用户声望
      * 并根据声望修改用户等级、权限
-     * @param userId 用户ID
+     * @param userId 用户Id
      * @return 修改是否成功
      */
      boolean revisePrestige(UserId userId,Prestige prestige);
+
+    /**
+     * 修改用户最大任务数量
+     * @param userId 用户Id
+     * @param taskNum 任务数量
+     * @return 修改是否成功
+     */
+     boolean reviseTaskNum(UserId userId, TaskNum taskNum);
+     
 }
