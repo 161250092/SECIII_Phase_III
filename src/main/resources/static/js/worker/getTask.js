@@ -8,8 +8,9 @@ new Vue({
     },
     mounted: function () {
         const _this =this;
-        _this.username = this.getUsername();
+
         this.$nextTick(function () {
+            _this.username = getUsername();
             this.userId = getUserId();
             this.acceptedTaskIdSet = new Set();
             this.getAvailableTaskList();

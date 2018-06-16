@@ -11,8 +11,9 @@ new Vue({
    },
     mounted: function () {
        const _this = this;
-        _this.username = getUsername();
+
         this.$nextTick(function () {
+            _this.username = getUsername();
             this.userId = getUserId();
             this.getAllUnfinishedTask();
         });

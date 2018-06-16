@@ -25,10 +25,10 @@ new Vue({
         cashForExchange:0
     },
     mounted: function () {
+        const _this = this;
         this.$nextTick(function () {
-            this.userId = getUserId();
-            this.username=getUsername();
-            const _this = this;
+            _this.userId = getUserId();
+            _this.username=getUsername();
             axios.all([this.getUserInfo(), this.getAcceptedButIncompleteTaskList(), this.getAcceptedAndAccomplishedTaskList()])
                 .then(axios.spread(function (userInfo, incompleteTaskList, accomplishedTaskList) {
                     /* getUserInfo */

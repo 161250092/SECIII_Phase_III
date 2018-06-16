@@ -38,7 +38,7 @@
                     <li><a href="../worker/dailyWorkPage.html">成就</a></li>
                 </ul>
             </li>
-            <li class="headerUsername"><a href="#">用户：{{username}}</a></li>
+            <li class="headerUsername"><a href="#">用户:{{username}}</a></li>
 
         </ul>
     </header>
@@ -61,7 +61,7 @@
             <th>{{info.taskId.value}}</th>
             <th>{{info.acceptedTaskState}}</th>
             <th>{{info.cash.value}}</th>
-            <th><input type="button" v-on:click="confirmTaskMessageInfo(index)"></th>
+            <th><input type="button" v-on:click="confirmTaskMessageInfo(index)" value="确认"></th>
         </tr>
 
 
@@ -101,7 +101,7 @@
             <th>{{info.billType}}</th>
             <th>{{info.cash.value}}</th>
             <th>{{info.billReason}}
-            <th><input type="button" v-on:click="confirmCashMessageInfo(index)">确认</th>
+            <th><input type="button" v-on:click="confirmCashMessageInfo(index)" value="确认"></th>
         </tr>
     </table>
 <hr>
@@ -116,7 +116,7 @@
         <tr v-for="(info,index) in achievementMessageInfo">
             <th>{{info.messageId.value}}</th>
             <th>{{info.AchievementId}}</th>
-            <th><input type="button" v-on:click="confirmAchievementMessageInfo(index)">确认</th>
+            <th><input type="button" v-on:click="confirmAchievementMessageInfo(index)" value="确认"></th>
 
 
     </table>

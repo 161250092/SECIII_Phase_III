@@ -8,8 +8,9 @@ new Vue({
 
     mounted: function () {
         const _this = this;
-        _this.username = this.getUsername();
+
         this.$nextTick(function () {
+            _this.username = getUsername();
             _this.userId = getUserId();
             axios.get("/worker/getAcceptedAndAccomplishedTaskList",
                 { params:{ userId: this.userId } })

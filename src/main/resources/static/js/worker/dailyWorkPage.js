@@ -9,10 +9,11 @@ new Vue({
 
    mounted:function() {
        const _this = this;
-       _this.userId=getUserId();
-       _this.username = getUsername();
+
        console.log(this.userId);
        this.$nextTick(function () {
+           _this.userId=getUserId();
+           _this.username = getUsername();
            axios.get("/worker/getUserAchievement", {params: {userId: this.userId}})
                .then(function (response){
                    _this.achievementList=response.data;

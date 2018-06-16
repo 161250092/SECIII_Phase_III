@@ -13,9 +13,9 @@ new Vue({
 
     mounted:function(){
         const _this = this;
-        _this.username = _this.getUsername();
         this.$nextTick(function () {
             _this.userId = getUserId();
+            _this.username =getUsername();
             axios.get("/message/getAllWorkerMessage",
                 { params:{ userId: this.userId } })
                 .then(function (response) {
