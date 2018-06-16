@@ -9,44 +9,47 @@ new Vue({
    mounted:function() {
        const _this = this;
        _this.userId=getUserId();
+       console.log(this.userId);
        this.$nextTick(function () {
-           axios.all([this.getUserAchievement(), this.updateAchievement()])
+           axios.get("/worker/getUserAchievement", {params: {userId: this.userId}})
+               .then(function (response){
+                   _this.achievementList=response.data;
+               });
+
         })
    },
-
    methods:{
        getUserAchievement:function(){
            const _this = this;
            axios.get("/worker/getUserAchievement",
-               {param: {userId: _this.userId}})
+               {params: {userId: _this.userId}})
                .then(function (response){
-                   achievementList=response.data;
+                   _this.achievementList=response.data;
                })
        },
 
        getCash:function(index){
            const _this = this;
-           axios.get("/worker/getAchievementCash",{param:{userId:_this.userId,achievementId:_this.achievementList[index].achievementId}})
+           axios.get("/worker/getAchievementCash",{params:{userId:_this.userId,achievementId:_this.achievementList[index].achievementId}})
                .then(function(response){
                if(response.data===true) {
                    alert("领取成功");
-                   this.updateAchievement();
+                   _this.updateAchievement();
                }
                else
-                   alert("您可能已经领取过了");
+                   alert("您未完成要求或者已经领取");
            })
        },
 
        updateAchievement:function(){
            const _this =this;
-           axios.get("/worker/updateAchievementCash",{param:{userId:_this.userId}})
+           axios.get("/worker/updateAchievementCash",{params:{userId:_this.userId}})
                .then(function(response){
                    if(response.data===true) {
-                       console.log("更新成功");
-                       this.updateAchievement();
+                       alert("更新成功");
                    }
                    else
-                       alert("您可能已经领取过了");
+                       alert("更新失败");
                })
        },
 

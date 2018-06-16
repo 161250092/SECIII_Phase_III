@@ -41,10 +41,12 @@ new Vue({
         passThisLabel: function (workerIndex) {
             let taskId = this.submittedTaskList[this.selectedTaskIndex].taskId;
             let workerId = this.labelListOfSelectedTask[workerIndex].userId;
+            const _this = this;
             axios.get('/requestor/passTask', {params:{taskId: taskId, userId: workerId}}).then(function (response) {
                 let wrongMessageType = response.data.wrongMessage.type;
                 if (wrongMessageType === "Success"){
                     alert("成功");
+                    _this.getSubmittedTaskList(taskId);
                 } else if (wrongMessageType === "Failure") {
                     alert("失败");
                 }
@@ -53,10 +55,12 @@ new Vue({
         rejectThisLabel: function (workerIndex) {
             let taskId = this.submittedTaskList[this.selectedTaskIndex].taskId;
             let workerId = this.labelListOfSelectedTask[workerIndex].userId;
+            const _this = this;
             axios.get('/requestor/rejectTask', {params:{taskId: taskId, userId: workerId}}).then(function (response) {
                 let wrongMessageType = response.data.wrongMessage.type;
                 if (wrongMessageType === "Success"){
                     alert("成功");
+                    _this.getSubmittedTaskList(taskId);
                 } else if (wrongMessageType === "Failure") {
                     alert("失败");
                 }
@@ -65,10 +69,12 @@ new Vue({
         abandonThisLabel: function (workerIndex) {
             let taskId = this.submittedTaskList[this.selectedTaskIndex].taskId;
             let workerId = this.labelListOfSelectedTask[workerIndex].userId;
+            const _this = this;
             axios.get('/requestor/abandonTaskByRequestor', {params:{taskId: taskId, userId: workerId}}).then(function (response) {
                 let wrongMessageType = response.data.wrongMessage.type;
                 if (wrongMessageType === "Success"){
                     alert("成功");
+                    _this.getSubmittedTaskList(taskId);
                 } else if (wrongMessageType === "Failure") {
                     alert("失败");
                 }
@@ -81,11 +87,14 @@ new Vue({
             }else{
                 this.selectedTaskIndex = taskIndex;
                 let taskId = this.submittedTaskList[taskIndex].taskId;
-                let _this = this;
-                axios.get('/requestor/getSubmittedTaskList', {params:{taskId: taskId}}).then(function (response) {
-                    _this.labelListOfSelectedTask = response.data;
-                });
+                this.getSubmittedTaskList(taskId);
             }
+        },
+        getSubmittedTaskList: function (taskId) {
+            const _this = this;
+            axios.get('/requestor/getSubmittedTaskList', {params:{taskId: taskId}}).then(function (response) {
+                _this.labelListOfSelectedTask = response.data;
+            });
         },
         chineseLabelTypeName: function (labelType) {
             switch (labelType){
