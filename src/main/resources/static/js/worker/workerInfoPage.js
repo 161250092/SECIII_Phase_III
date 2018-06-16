@@ -76,11 +76,6 @@ new Vue({
                 })
 
         },
-        exchange: function () {
-            // const _this = this;
-            // this.phone = "充钱是不可能充钱的，这辈子不可能充钱"
-            alert("换钱是不可能换钱的，这辈子都不可能给你换钱");
-        },
         countLabel: function () {
             const _this = this;
             for (var i = 0; i < _this.AllUnfinishedTasks.length; i++) {
@@ -272,7 +267,6 @@ new Vue({
                 myChart.setOption(option, true);
             }
         },
-
         //用于axios
         getUserInfo: function () {
             return axios.get("/user/getUserInfo", {params:{ userId: this.userId }});
@@ -283,20 +277,16 @@ new Vue({
         getAcceptedAndAccomplishedTaskList: function () {
             return axios.get("/worker/getAcceptedAndAccomplishedTaskList", {params:{userId:this.userId}});
         },
-
         exchange:function(){
             const _this = this;
-            axios.get("/worker/exhcangeCash",{param:{ userId:_this.userId,cash:_this.cashForExchange}}).then(function(response){
-                if(resposne===true)
-                    alert("兑换成功");
-                else
-                     alert("兑换失败");
-            }
-
-            )
-
+            axios.get("/worker/exhcangeCash",{params:{ userId:_this.userId,cash:_this.cashForExchange}})
+                .then(function(response){
+                    if(response.data === true)
+                        alert("兑换成功");
+                    else
+                         alert("兑换失败");
+                });
         }
-
     }
 });
 
