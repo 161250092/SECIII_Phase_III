@@ -5,6 +5,6 @@ import maven.model.statistics.WebsiteStatistics;
 public class AdminBLStub implements AdminBLService{
     @Override
     public WebsiteStatistics getWebsiteStatistics() {
-        return new WebsiteStatistics(10, 9, 8, 7, 0, 0);
+        return new WebsiteStatistics(10, 9, 8, 6,2, 0, 0);
     }
 }
