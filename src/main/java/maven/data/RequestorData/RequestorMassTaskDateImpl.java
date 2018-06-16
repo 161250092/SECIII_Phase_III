@@ -98,7 +98,7 @@ public class RequestorMassTaskDateImpl implements RequestorMassTaskDataService {
 
     /*                  算法                   */
     @Override
-    public List<MassTaskDetail> getAllExpiredAndNotAllocatedMassTaskDetail() {
+    public List<MassTaskDetail> getAllExpiredAndNotAllocatedMassTaskDetail(long allocateTaskDate) {
         conn = new MySQLConnector().getConnection("PublishedTask");
         List<MassTaskDetail> massTaskDetails = null;
 
@@ -106,13 +106,15 @@ public class RequestorMassTaskDateImpl implements RequestorMassTaskDataService {
         String sql;
         ResultSet rs;
         try {
-            sql = "select * from MassTaskDetail where isAllocated = false";
+            sql = "select * from MassTaskDetail where eDate <= ? and isAllocated = false";
             stmt = conn.prepareStatement(sql);
+            stmt.setLong(1, allocateTaskDate);
             rs = stmt.executeQuery();
             massTaskDetails = getMassTaskDetailListFromResultSet(rs);
 
-            sql = "update MassTaskDetail set isAllocated = true where isAllocated = false";
+            sql = "update MassTaskDetail set isAllocated = true where eDate <= ? and isAllocated = false";
             stmt = conn.prepareStatement(sql);
+            stmt.setLong(1, allocateTaskDate);
             stmt.executeUpdate();
 
             stmt.close();

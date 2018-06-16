@@ -38,7 +38,8 @@ public interface RequestorMassTaskDataService {
     /**
     /**
      * 获得所有过了截止日期但没有被分配的大任务
+     * @param allocateTaskDate 分配任务的时间点
      * @return 所有过了截止日期但没有被分配的大任务
      */
-    List<MassTaskDetail> getAllExpiredAndNotAllocatedMassTaskDetail();
+    List<MassTaskDetail> getAllExpiredAndNotAllocatedMassTaskDetail(long allocateTaskDate);
 }

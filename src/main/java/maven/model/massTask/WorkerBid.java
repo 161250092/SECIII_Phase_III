@@ -31,7 +31,7 @@ public class WorkerBid {
     private Cash wantedUnitPrice;
     //工人渴望完成的最大图片数
     private ImageNum maxWantedImageNum;
-
+    //该竞标的状态 {等待，成功，失败}
     private WorkerBidState workerBidState;
 
     public WorkerBid(UserId workerId, TaskId chosenTaskId, double ratioOfArrivedTime, Cash wantedUnitPrice, ImageNum maxWantedImageNum, WorkerBidState workerBidState) {
