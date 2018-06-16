@@ -3,24 +3,18 @@ new Vue({
     data:{
        userId:"",
        achievementList:[],
-        username:""
-
     },
 
    mounted:function() {
        const _this = this;
-
-       console.log(this.userId);
        this.$nextTick(function () {
            _this.userId=getUserId();
-           _this.username = getUsername();
            axios.get("/worker/getUserAchievement", {params: {userId: this.userId}})
                .then(function (response){
                    _this.achievementList=response.data;
                    _this.dealData();
                });
-
-        })
+        });
    },
    methods:{
        getUserAchievement:function(){
@@ -94,4 +88,16 @@ new Vue({
        }
    }
 
+});
+
+new Vue({
+    el: "#home",
+    data: {
+        username: ""
+    },
+    mounted: function () {
+        this.$nextTick(function () {
+            this.username = getUsername();
+        });
+    }
 });
