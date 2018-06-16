@@ -12,7 +12,7 @@ public class AcceptedTask {
     private UserId userId;
     //任务Id
     private TaskId taskId;
-    //创建时间
+    //最后修改的时间
     private Date startTime;
 
     //该用户接任务时，任务的价格

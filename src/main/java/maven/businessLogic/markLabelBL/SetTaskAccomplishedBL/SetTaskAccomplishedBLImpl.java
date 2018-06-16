@@ -20,6 +20,8 @@ import maven.model.task.AcceptedTaskState;
 import maven.model.task.PublishedTaskState;
 import maven.model.user.User;
 
+import java.util.Date;
+
 public class SetTaskAccomplishedBLImpl implements SetTaskAccomplishedBLService{
     private RequestorDataService requestorDataService;
     private WorkerDataService workerDataService;
@@ -55,8 +57,9 @@ public class SetTaskAccomplishedBLImpl implements SetTaskAccomplishedBLService{
                     requestorId, taskId, userId, workername, cash);
             messageDataService.savePublishedTaskMessage(publishedTaskMessage);
 
-            //修改工人任务的状态 并对工人的标注进行评分
+            //修改工人任务的状态、时间 并对工人的标注进行评分
             return workerDataService.reviseAcceptedTaskState(userId, taskId, AcceptedTaskState.SUBMITTED)
+                    && workerDataService.reviseAcceptedTaskTime(userId, taskId, new Date())
                     && evaluateLabelBLService.evaluateLabel(taskId, userId);
         }
 

@@ -8,6 +8,7 @@ import maven.model.task.AcceptedTaskState;
 import maven.model.user.Worker;
 import maven.model.task.PublishedTask;
 
+import java.util.Date;
 import java.util.List;
 
 public interface WorkerDataService {
@@ -34,6 +35,15 @@ public interface WorkerDataService {
      * @return 是否修改成功
      */
     boolean reviseAcceptedTaskState(UserId userId, TaskId taskId, AcceptedTaskState acceptedTaskState);
+
+    /**
+     * 更改任务时间
+     * @param userId 工人Id
+     * @param taskId 任务Id
+     * @param time 时间
+     * @return 是否修改成功
+     */
+    boolean reviseAcceptedTaskTime(UserId userId, TaskId taskId, Date time);
 
     /**
      * 保存标注评分

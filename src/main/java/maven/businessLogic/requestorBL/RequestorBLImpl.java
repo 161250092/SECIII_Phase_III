@@ -25,10 +25,7 @@ import maven.model.user.Worker;
 import maven.model.vo.AcceptedTaskVO;
 import maven.model.vo.PublishedTaskVO;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class RequestorBLImpl implements RequestorBLService{
 
@@ -332,15 +329,16 @@ public class RequestorBLImpl implements RequestorBLService{
         if(workerDataService.reviseAcceptedTaskState(userId, taskId, AcceptedTaskState.PASSED)){
             Worker worker = (Worker) manageUserBLService.getUserByUserId(userId);
             TaskType taskType = requestorDataService.getTaskType(taskId);
-            Cash priceOfTask = workerDataService.getAcceptedTaskById(userId, taskId).getActualTaskPrice();
+            AcceptedTask acceptedTask = workerDataService.getAcceptedTaskById(userId, taskId);
+            Cash priceOfTask = acceptedTask.getActualTaskPrice();
 
             //通过审核后，给工人发奖励
             manageUserBLService.increaseCash(userId, priceOfTask);
             manageUserBLService.revisePrestige(userId, prestigeAlgorithm.renewWorkerPrestige(worker.getPrestige(), LabelQuality.TRUSTFUL, taskType));
 
-            /**
-             * 若发布者及时对工人进行审核，则增长发布者声望
-             */
+            // 若发布者及时对工人进行审核，则增长发布者声望
+            if(isApprovedDuly(new Date(), acceptedTask.getStartTime()))
+                manageUserBLService.increasePrestige(getUserIdFromTaskId(taskId), new Prestige(0.2));
 
 
             //生成工人任务消息，提醒工人 任务通过审核
@@ -370,8 +368,8 @@ public class RequestorBLImpl implements RequestorBLService{
     @Override
     public Exception rejectTask(TaskId taskId, UserId userId) {
         if(workerDataService.reviseAcceptedTaskState(userId, taskId, AcceptedTaskState.REJECTED)){
-
-            Cash priceOfTask = workerDataService.getAcceptedTaskById(userId, taskId).getActualTaskPrice();
+            AcceptedTask acceptedTask = workerDataService.getAcceptedTaskById(userId, taskId);
+            Cash priceOfTask = acceptedTask.getActualTaskPrice();
 
             //生成工人任务消息，提醒工人 任务被驳回
             AcceptedTaskMessage acceptedTaskMessage = new AcceptedTaskMessage(messageDataService.getMessageIdForCreateMessage(),
@@ -381,9 +379,9 @@ public class RequestorBLImpl implements RequestorBLService{
 //            //扣除工人声望
 //            manageUserBLService.reducePrestige(userId, new Prestige(0.5));
 
-            /**
-             * 若发布者及时对工人进行审核，则增长发布者声望
-             */
+            // 若发布者及时对工人进行审核，则增长发布者声望
+            if(isApprovedDuly(new Date(), acceptedTask.getStartTime()))
+                manageUserBLService.increasePrestige(getUserIdFromTaskId(taskId), new Prestige(0.2));
 
             return new SuccessException();
         }
@@ -396,8 +394,8 @@ public class RequestorBLImpl implements RequestorBLService{
         if(workerDataService.reviseAcceptedTaskState(userId, taskId, AcceptedTaskState.ABANDONED_BY_REQUESTOR)){
             Worker worker = (Worker) manageUserBLService.getUserByUserId(userId);
             TaskType taskType = requestorDataService.getTaskType(taskId);
-
-            Cash priceOfTask = workerDataService.getAcceptedTaskById(userId, taskId).getActualTaskPrice();
+            AcceptedTask acceptedTask = workerDataService.getAcceptedTaskById(userId, taskId);
+            Cash priceOfTask = acceptedTask.getActualTaskPrice();
 
             //生成工人任务消息，提醒工人 任务被废弃
             AcceptedTaskMessage acceptedTaskMessage = new AcceptedTaskMessage(messageDataService.getMessageIdForCreateMessage(),
@@ -415,9 +413,10 @@ public class RequestorBLImpl implements RequestorBLService{
                 manageUserBLService.reducePrestige(requestorId, new Prestige(1));
             }
 
-            /**
-             * 若发布者及时对工人进行审核，则增长发布者声望
-             */
+            // 若发布者及时对工人进行审核，则增长发布者声望
+            if(isApprovedDuly(new Date(), acceptedTask.getStartTime()))
+                manageUserBLService.increasePrestige(getUserIdFromTaskId(taskId), new Prestige(0.2));
+
             return new SuccessException();
         }
         else
@@ -486,4 +485,18 @@ public class RequestorBLImpl implements RequestorBLService{
 //        System.out.println(User_Id);
         return new UserId(User_Id);
     }
+
+    //判断发布者是否及时审核
+    private boolean isApprovedDuly(Date approveTime, Date arriveTime){
+        Calendar calendar_1 = new GregorianCalendar();
+        Calendar calendar_2 = new GregorianCalendar();
+        calendar_1.setTime(approveTime);
+        calendar_2.setTime(arriveTime);
+        //把日期向后推一天
+        calendar_2.add(calendar_1.DATE,1);
+
+        //判断发布者是否 在工人提交任务后的一天之内 完成审核的
+        return calendar_1.before(calendar_2);
+    }
+
 }

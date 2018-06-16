@@ -131,6 +131,39 @@ public class WorkerDataImpl implements WorkerDataService {
     }
 
     @Override
+    public boolean reviseAcceptedTaskTime(UserId userId, TaskId taskId, Date time) {
+        conn = new MySQLConnector().getConnection("AcceptedTask");
+
+        boolean result = false;
+
+        PreparedStatement stmt;
+        String sql;
+        Gson gson = new GsonBuilder().create();
+
+        try{
+            sql = "update AcceptedTask set Date = ? where UserId = ? and TaskId = ?";
+
+            stmt = conn.prepareStatement(sql);
+
+            String date = gson.toJson(time);
+
+            stmt.setString(1,date);
+            stmt.setString(2,userId.value);
+            stmt.setString(3,taskId.value);
+
+            stmt.executeUpdate();
+
+            stmt.close();
+            result = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        return result;
+    }
+
+    @Override
     public boolean saveLabelScore(UserId userId, TaskId taskId, LabelScore labelScore) {
         conn = new MySQLConnector().getConnection("AcceptedTask");
 
@@ -185,6 +218,7 @@ public class WorkerDataImpl implements WorkerDataService {
 
 
             while(rs.next()){
+                System.out.println(rs.getString("Date"));
                 Date date = gson.fromJson(rs.getString("Date"),Date.class);
                 Cash cash = new Cash(rs.getDouble("Cash"));
                 WorkerDiscount discount = gson.fromJson(rs.getString("Discount"),WorkerDiscount.class);
