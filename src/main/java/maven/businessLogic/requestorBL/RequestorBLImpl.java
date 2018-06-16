@@ -408,14 +408,13 @@ public class RequestorBLImpl implements RequestorBLService{
             if(labelQualityVerifier.isLabelQualityValid(requestorId, userId, LabelQuality.DISTRUSTFUL)){
                 //若为非恶意评价，则扣除工人的声望
                 manageUserBLService.revisePrestige(userId, prestigeAlgorithm.renewWorkerPrestige(worker.getPrestige(), LabelQuality.DISTRUSTFUL, taskType));
+                // 若发布者及时对工人进行审核，则增长发布者声望
+                if(isApprovedDuly(new Date(), acceptedTask.getStartTime()))
+                    manageUserBLService.increasePrestige(getUserIdFromTaskId(taskId), new Prestige(0.2));
             }else {
                 //若为恶意评价，则扣除发布者的声望
                 manageUserBLService.reducePrestige(requestorId, new Prestige(1));
             }
-
-            // 若发布者及时对工人进行审核，则增长发布者声望
-            if(isApprovedDuly(new Date(), acceptedTask.getStartTime()))
-                manageUserBLService.increasePrestige(getUserIdFromTaskId(taskId), new Prestige(0.2));
 
             return new SuccessException();
         }
