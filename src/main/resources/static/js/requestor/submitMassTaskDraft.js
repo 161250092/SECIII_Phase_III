@@ -1,30 +1,48 @@
+function TaskVO(taskId, taskType, labelType, taskDescription, requiredWorkerNum, imageNum, taskPrice) {
+    this.taskId = taskId;
+    this.taskType = taskType;
+    this.labelType = labelType;
+    this.taskDescription = taskDescription;
+    this.acceptedWorkerNum = 0;
+    this.finishedWorkerNum = 0;
+    this.requiredWorkerNum = requiredWorkerNum;
+    this.imageNum = imageNum;
+    this.taskPrice = taskPrice;
+    this.publishedTaskState = "DRAFT_WITHOUT_SAMPLE";
+}
+function MassTaskDetailVO(taskId, givenUnitPrice, budget, massTaskPricingMechanism, startTime, endTime){
+    this.taskId = taskId;
+    this.givenUnitPrice = givenUnitPrice;
+    this.budget = budget;
+    this.massTaskPricingMechanism = massTaskPricingMechanism;
+    this.startTime = startTime;
+    this.endTime = endTime;
+}
+
 new Vue({
     el:"#inputTaskInfo",
     data:{
         userId:"",
-        selectedSolution:"",
 
-        solutiontype1:true,
-        solutiontype2:false,
-
-        SolutionTypeList:[
-            {solutionType:"maxTaskNum",solutionName:"最大化任务分配"},
-            {solutionType:"leastPay",solutionName:"最小化支出"}
+        pricingMechanismList:[
+            {mechanismType: "MAXIMIZE_TASKS", mechanismName: "最大化分配任务"},
+            {mechanismType: "MINIMIZE_PAYMENTS", mechanismName: "最小化支出"}
         ],
+        selectedMechanismType: "MAXIMIZE_TASKS",
 
         labelTypeList:[
             {labelType: "ImageLabel", labelTypeName: "整体标注"},
             {labelType: "FrameLabel", labelTypeName: "方框标注"},
             {labelType: "AreaLabel", labelTypeName: "区域标注"}
         ],
-        selectedLabelType: "",
+        selectedLabelType: "ImageLabel",
 
         taskTypeList: [
             {taskType: "ORDINARY_LEVEL_LABEL_REQUIRED", taskTypeName: "普通标注质量"},
             {taskType: "HIGH_LEVEL_LABEL_REQUIRED", taskTypeName: "高等级标注质量"},
             {taskType: "VERY_HIGH_LEVEL_LABEL_REQUIRED", taskTypeName: "最高等级标注质量"},
         ],
-        selectedTaskType: "",
+        selectedTaskType: "ORDINARY_LEVEL_LABEL_REQUIRED",
 
         taskId: "",
         requiredWorkerNum: 1,
@@ -32,65 +50,61 @@ new Vue({
 
         imgList: [],
         size: 0,
-        maxTaskNum_budget:0,
-        leastPay_budget:0,
-        leastPay_unitPrice:0.
+        budget:0.0,
+        givenUnitPrice:0.0,
+        endDate: undefined
     },
     mounted:function(){
         this.$nextTick(function () {
-            this.selectedSolution = "maxTaskNum";
-            this.selectedLabelType = "ImageLabel";
-            this.selectedTaskType = "ORDINARY_LEVEL_LABEL_REQUIRED";
-
             this.userId = getUserId();
+            this.refreshTaskId();
+            // this.getMinImageUnitPriceList();
         });
     },
 
     methods: {
-
-        getSolutionType1:function(){
-            if(selectedSolution==="maxTaskNum")
-                return true;
-            else
-                return false;
-        },
-
-        getSolutionType2:function(){
-          if(selectedSolution==="leastPay")
-              return true;
-          else
-              return false;
-        },
         getMinScoreList: function () {
             let _this = this;
             axios.get('/requestor/getTaskUnitPriceList').then(function (response) {
                 _this.minScoreList = response.data;
-                _this.imageUnitPrice = _this.getMinUnitPrice();
+                // _this.imageUnitPrice = _this.getMinUnitPrice();
             });
         },
         submitTaskDraft: function (ev) {
             this.uploadImage(ev);
 
+            //序列化图片名列表
             let imageFileNameList = [];
             for (let i = 0; i < this.imgList.length; i++){
                 imageFileNameList.push(this.imgList[i].name);
             }
 
-            let taskPrice = this.getMinUnitPrice() * this.imgList.length;
+            //序列化PublishTaskVO
+            let taskPrice = 0;
             let taskVO = new TaskVO(this.taskId, this.selectedTaskType, this.selectedLabelType,
                 this.taskDescription, this.requiredWorkerNum, imageFileNameList.length, taskPrice);
             let taskVOJson = JSON.stringify(taskVO);
             let imageFilenameListJSON = JSON.stringify(imageFileNameList);
 
+            //序列化大任务的细节信息 MassTaskDetail
+            let massTaskDetailVO = new MassTaskDetailVO(this.taskId, this.givenUnitPrice, this.budget,
+                this.selectedMechanismType, Date.parse(new Date()), Date.parse(this.endDate));
+            let massTaskDetailVOJson = JSON.stringify(massTaskDetailVO);
+
             let _this = this;
-            axios.get('/requestor/submitTaskDraft', {params: {publishedTaskVOJSON: taskVOJson, imageFilenameListJSON:imageFilenameListJSON}}).then(function (response) {
-                if(response.data.wrongMessage.type === "Success"){
+            axios.all([
+                axios.get('/requestor/submitTaskDraft', {params: {publishedTaskVOJSON: taskVOJson, imageFilenameListJSON:imageFilenameListJSON}}),
+                axios.get('/requestorMassTask/uploadMassTaskDetail', {params: {massTaskDetailVOJson: massTaskDetailVOJson}})
+            ]).then(axios.spread(function (draftResponse, detailResponse) {
+                let draftWrongMessageType = draftResponse.data.wrongMessage.type;
+                let detailWrongMessageType = detailResponse.data.wrongMessage.type;
+                if (draftWrongMessageType === "Success" && detailWrongMessageType === "Success"){
                     alert("保存成功，请标注样本");
                     jumpToAnotherPage(assignTaskPageUrl);
-                }else{
+                } else {
                     alert("保存失败");
                 }
-            });
+            }));
             this.refreshTaskId();
         },
         uploadImage: function (ev) {
@@ -195,42 +209,27 @@ new Vue({
         refreshTaskId: function () {
             let time = Date.parse(new Date());
             this.taskId = this.userId + '_' + this.selectedLabelType +
-                '_' + time;
+                '_' + time + "MASS";
         },
-        getMinUnitPrice: function() {
-            let imageNum = this.imgList.length;
-            let minImageUnitPrice;
-
-            if(this.minScoreList.length === 0) {
-                minImageUnitPrice = 0;
-            }else {
-                switch (this.selectedTaskType) {
-                    case "ORDINARY_LEVEL_LABEL_REQUIRED": minImageUnitPrice = this.minScoreList.ORDINARY_LEVEL_LABEL_REQUIRED.value; break;
-                    case "HIGH_LEVEL_LABEL_REQUIRED": minImageUnitPrice = this.minScoreList.HIGH_LEVEL_LABEL_REQUIRED.value; break;
-                    case "VERY_HIGH_LEVEL_LABEL_REQUIRED": minImageUnitPrice = this.minScoreList.VERY_HIGH_LEVEL_LABEL_REQUIRED.value; break;
-                    default : minImageUnitPrice = -1; break;
-                }
-            }
-
-            return minImageUnitPrice;
-        }
+        // getMinUnitPrice: function() {
+        //     let imageNum = this.imgList.length;
+        //     let minImageUnitPrice;
+        //
+        //     if(this.minScoreList.length === 0) {
+        //         minImageUnitPrice = 0;
+        //     }else {
+        //         switch (this.selectedTaskType) {
+        //             case "ORDINARY_LEVEL_LABEL_REQUIRED": minImageUnitPrice = this.minScoreList.ORDINARY_LEVEL_LABEL_REQUIRED.value; break;
+        //             case "HIGH_LEVEL_LABEL_REQUIRED": minImageUnitPrice = this.minScoreList.HIGH_LEVEL_LABEL_REQUIRED.value; break;
+        //             case "VERY_HIGH_LEVEL_LABEL_REQUIRED": minImageUnitPrice = this.minScoreList.VERY_HIGH_LEVEL_LABEL_REQUIRED.value; break;
+        //             default : minImageUnitPrice = -1; break;
+        //         }
+        //     }
+        //
+        //     return minImageUnitPrice;
+        // }
     },
     watch: {
-
-        selectedSolution:function(newselectedSolution,oldselectedSolution){
-            if(newselectedSolution==="maxTaskNum")
-            {
-                this.solutiontype1=true;
-                this.solutiontype2=false;
-            }
-            else{
-                this.solutiontype1=false;
-                this.solutiontype2=true;
-            }
-
-
-        },
-
         selectedLabelType: function (newSelectedLabelType, oldSelectedLabelType) {
             this.refreshTaskId();
         },
@@ -239,25 +238,23 @@ new Vue({
                 this.requiredWorkerNum = 1;
             }
         },
-        imgList: function (newImgList, oldImgList) {
-            this.imageUnitPrice = this.getMinUnitPrice();
-        },
-        selectedTaskType: function (newSelectedTaskType, oldSelectedTaskType) {
-            this.imageUnitPrice = this.getMinUnitPrice();
-        },
-        imageUnitPrice: function (newTaskUnitPrice, oldTaskUnitPrice) {
-            if(newTaskUnitPrice > this.getMinUnitPrice()){
-                this.imageUnitPrice = newTaskUnitPrice;
-            }else {
-                this.imageUnitPrice = this.getMinUnitPrice();
-            }
-        }
+        // imgList: function (newImgList, oldImgList) {
+        //     this.imageUnitPrice = this.getMinUnitPrice();
+        // },
+        // selectedTaskType: function (newSelectedTaskType, oldSelectedTaskType) {
+        //     this.imageUnitPrice = this.getMinUnitPrice();
+        // },
+        // imageUnitPrice: function (newTaskUnitPrice, oldTaskUnitPrice) {
+        //     if(newTaskUnitPrice > this.getMinUnitPrice()){
+        //         this.imageUnitPrice = newTaskUnitPrice;
+        //     }else {
+        //         this.imageUnitPrice = this.getMinUnitPrice();
+        //     }
+        // },
     },
-
     computed: {
         taskPrice: function () {
             return this.imageUnitPrice * this.imgList.length;
-        }
+        },
     }
-
 });

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<html lang="en" class="no-js" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -55,7 +55,7 @@
 <button v-on:click="downByImageNum">按图片数量降序</button>
 </div>
 <div align="center" id="taskListContainer">
-	<p>可接受的任务</p>
+	<h3>可接受的任务</h3>
 	<table border="1">
 		<tr>
 			<th>任务编号</th>
@@ -78,11 +78,50 @@
             <th><input type="checkbox" v-on:click="operateOnTaskIdSet(index)"><br></th>
         </tr>
 	</table>
-
     <br>
     <br>
     <br>
     <button class="button button-3d button-box button-jumbo" v-on:click="acceptTasks"><i class="fa fa-thumbs-up"> 提 交 </i></button>
+    <br>
+    <br>
+    <br>
+	<h3>可接受的大任务</h3>
+    <p>{{selectedMassTaskIndex}}</p>
+	<table border="1">
+		<tr>
+			<th>任务编号</th>
+			<th>标注类型</th>
+			<th>图片数</th>
+			<th>任务描述</th>
+            <th>预计当前最低图片单价</th>
+            <th>开始时间</th>
+            <th>截止时间</th>
+			<th>是否申请</th>
+		</tr>
+		<tr v-for="(massTask, index) in availableMassTaskList">
+			<td>{{massTask.publishedTaskVO.taskId}}</td>
+			<td>{{massTask.publishedTaskVO.labelType}}</td>
+			<td>{{massTask.publishedTaskVO.imageNum}}</td>
+			<td>{{massTask.publishedTaskVO.taskDescription}}</td>
+            <td>{{massTask.massTaskDetailVO.givenUnitPrice}}</td>
+            <td>{{convertToDate(massTask.massTaskDetailVO.startTime)}}</td>
+            <td>{{convertToDate(massTask.massTaskDetailVO.endTime)}}</td>
+			<td><input type="radio" name="bid" v-on:click="selectedMassTaskIndex = index"><br></td>
+		</tr>
+	</table>
+    <div>
+        <label>
+            期望的单价：<input type="text" v-model="wantedUnitPrice">
+        </label>
+        <label>
+            期望的图片数：<input type="text" v-model="maxWantedImageNum">
+        </label>
+    </div>
+    <br>
+    <br>
+    <br>
+    <button class="button button-3d button-box button-jumbo" v-on:click="bidForThisMassTask"><i class="fa fa-thumbs-up"> 申 请 </i></button>
+
 </div>
 
 <script src="../../js/lib/vue.js"></script>

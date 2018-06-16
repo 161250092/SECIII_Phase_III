@@ -21,14 +21,14 @@ new Vue({
             {labelType: "FrameLabel", labelTypeName: "方框标注"},
             {labelType: "AreaLabel", labelTypeName: "区域标注"}
         ],
-        selectedLabelType: "",
+        selectedLabelType: "ImageLabel",
 
         taskTypeList: [
             {taskType: "ORDINARY_LEVEL_LABEL_REQUIRED", taskTypeName: "普通标注质量"},
             {taskType: "HIGH_LEVEL_LABEL_REQUIRED", taskTypeName: "高等级标注质量"},
             {taskType: "VERY_HIGH_LEVEL_LABEL_REQUIRED", taskTypeName: "最高等级标注质量"},
         ],
-        selectedTaskType: "",
+        selectedTaskType: "ORDINARY_LEVEL_LABEL_REQUIRED",
 
         taskId: "",
         requiredWorkerNum: 1,
@@ -42,15 +42,13 @@ new Vue({
     },
     mounted: function () {
         this.$nextTick(function () {
-            this.selectedLabelType = "ImageLabel";
-            this.selectedTaskType = "ORDINARY_LEVEL_LABEL_REQUIRED";
-
             this.userId = getUserId();
-            this.getminImageUnitPriceList();
+            this.refreshTaskId();
+            this.getMinImageUnitPriceList();
         });
     },
     methods:{
-        getminImageUnitPriceList: function () {
+        getMinImageUnitPriceList: function () {
             let _this = this;
             axios.get('/requestor/getTaskUnitPriceList').then(function (response) {
                 _this.minImageUnitPriceList = response.data;

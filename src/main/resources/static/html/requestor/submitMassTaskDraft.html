@@ -2,7 +2,7 @@
 <html lang="en" class="no-js" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>大批量任务编辑页面</title>
+    <title>大规模任务编辑页面</title>
 
     <link rel="stylesheet" href="../../css/lu.css">
     <link rel="stylesheet" href="../../css/requestor/submitTaskDraft.css">
@@ -60,23 +60,22 @@
             </label>
         </div>
 
-
         <div>
             <label>
-                方案选择
-                <select v-model="selectedSolution">
-                    <option v-for="(item,index) in SolutionTypeList" v-bind:value="item.solutionType">
-                    {{item.solutionName}}
+                方案选择：
+                <select v-model="selectedMechanismType">
+                    <option v-for="(item,index) in pricingMechanismList" v-bind:value="item.mechanismType">
+                    {{item.mechanismName}}
                     </option>
                 </select>
             </label>
         </div>
+
         <div>
             <label>
                 任务编号:
                 <input type="text" disabled="disabled" v-bind:value="taskId">
             </label>
-            <!--<p>taskId: {{taskId}}</p>-->
         </div>
 
         <div>
@@ -94,28 +93,26 @@
                 任务描述:
                 <textarea type="text" v-model="taskDescription"></textarea>
             </label>
-            <!--<p>taskDescription: {{taskDescription}}</p>-->
         </div>
 
-        <div v-if="solutiontype1">
+        <div>
+            <label>
+                截止日期：
+                <input type="date" name="user_date" v-model="endDate">
+            </label>
+        </div>
+
+        <div>
             <label>
                 预算:
-                <input type="text" v-model="maxTaskNum_budget">
+                <input type="text" v-model="budget">
+            </label>
+
+            <label v-if="selectedMechanismType == 'MINIMIZE_PAYMENTS'">
+                期望的图片单价：
+                <input type="text" v-model="givenUnitPrice">
             </label>
         </div>
-
-        <div v-if="solutiontype2">
-            <label>
-                预算
-                <input type="text" v-model="leastPay_budget">
-            </label>
-            <LABEL>
-                期望的单张单价
-                <input type="text" v-model="leastPay_unitPrice">
-            </LABEL>
-        </div>
-
-
 
 
         <div class="upload">

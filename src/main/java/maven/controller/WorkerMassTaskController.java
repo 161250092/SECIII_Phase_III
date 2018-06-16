@@ -2,6 +2,7 @@ package maven.controller;
 
 import maven.businessLogic.workerBL.WorkerMassTaskBLImpl;
 import maven.businessLogic.workerBL.WorkerMassTaskBLService;
+import maven.model.JsonConverter;
 import maven.model.massTask.WorkerBid;
 import maven.model.primitiveType.UserId;
 import maven.model.vo.PublishedMassTaskVO;
@@ -22,19 +23,20 @@ public class WorkerMassTaskController {
     }
 
     @RequestMapping(value = "/workerMassTask/bidForMassTask", method = RequestMethod.GET)
-    public Exception bidForMassTask(WorkerBidVO workerBidVO){
+    public Exception bidForMassTask(String workerBidVOJson){
+        WorkerBidVO workerBidVO = (WorkerBidVO) JsonConverter.jsonToObject(workerBidVOJson, WorkerBidVO.class);
         return workerMassTaskBL.bidForMassTask(workerBidVO);
     }
 
     @RequestMapping(value = "/workerMassTask/getAllAvailableMassTask", method = RequestMethod.GET)
-    public List<PublishedMassTaskVO> getAllAvailableMassTask(long searchDate){
-        return workerMassTaskBL.getAllAvailableMassTask(searchDate);
+    public List<PublishedMassTaskVO> getAllAvailableMassTask(String workerId, long searchDate){
+        return workerMassTaskBL.getAllAvailableMassTask(new UserId(workerId), searchDate);
     }
 
     @RequestMapping(value = "/workerMassTask/getWorkerAllBidsInfo", method = RequestMethod.GET)
-    public List<WorkerBidVO> getWorkerAllBidsInfo(UserId workerId){
+    public List<WorkerBidVO> getWorkerAllBidsInfo(String workerId){
         List<WorkerBidVO> workerBidVOList = new ArrayList<>();
-        List<WorkerBid> workerBids = workerMassTaskBL.getWorkerAllBidsInfo(workerId);
+        List<WorkerBid> workerBids = workerMassTaskBL.getWorkerAllBidsInfo(new UserId(workerId));
         for (WorkerBid workerBid: workerBids){
             workerBidVOList.add(new WorkerBidVO(workerBid));
         }

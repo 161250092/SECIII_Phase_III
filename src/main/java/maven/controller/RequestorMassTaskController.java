@@ -2,6 +2,7 @@ package maven.controller;
 
 import maven.businessLogic.requestorBL.RequestorMassTaskBLImpl;
 import maven.businessLogic.requestorBL.RequestorMassTaskBLService;
+import maven.model.JsonConverter;
 import maven.model.massTask.MassTaskDetail;
 import maven.model.primitiveType.UserId;
 import maven.model.vo.MassTaskDetailVO;
@@ -22,11 +23,13 @@ public class RequestorMassTaskController {
 
     /**
      * 发布者上传大任务细节
-     * @param massTaskDetailVO 大任务细节VO
+     * @param massTaskDetailVOJson 大任务细节VOJson
      * @return 是否上传成功
      */
     @RequestMapping(value = "/requestorMassTask/uploadMassTaskDetail", method = RequestMethod.GET)
-    Exception uploadMassTaskDetail(MassTaskDetailVO massTaskDetailVO){
+    Exception uploadMassTaskDetail(String massTaskDetailVOJson){
+        System.out.println(massTaskDetailVOJson);
+        MassTaskDetailVO massTaskDetailVO = (MassTaskDetailVO) JsonConverter.jsonToObject(massTaskDetailVOJson, MassTaskDetailVO.class);
         return requestorMassTaskBL.uploadMassTaskDetail(new MassTaskDetail(massTaskDetailVO));
     }
 

@@ -7,7 +7,7 @@ import maven.model.primitiveType.TaskId;
 
 public class MassTaskDetailVO {
     //任务Id
-    private String  taskId;
+    private String taskId;
     //发布者给出的单价
     private double givenUnitPrice;
     //总的预算

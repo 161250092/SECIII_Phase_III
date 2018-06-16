@@ -17,11 +17,12 @@ public interface WorkerMassTaskBLService {
     Exception bidForMassTask(WorkerBidVO workerBidVO);
 
     /**
-     * 获得所有可用的大任务
+     * 获得该工人所有可用的大任务
+     * @param workerId 工人ID
      * @param searchDate 搜索日期
      * @return 所有可用的大任务
      */
-    List<PublishedMassTaskVO> getAllAvailableMassTask(long searchDate);
+    List<PublishedMassTaskVO> getAllAvailableMassTask(UserId workerId, long searchDate);
 
     /**
      * 获得工人自己投标的大任务信息

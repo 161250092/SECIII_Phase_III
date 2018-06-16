@@ -19,7 +19,9 @@ import maven.model.vo.PublishedTaskVO;
 import maven.model.vo.WorkerBidVO;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class WorkerMassTaskBLImpl implements WorkerMassTaskBLService{
 
@@ -46,19 +48,27 @@ public class WorkerMassTaskBLImpl implements WorkerMassTaskBLService{
     }
 
     @Override
-    public List<PublishedMassTaskVO> getAllAvailableMassTask(long searchDate) {
+    public List<PublishedMassTaskVO> getAllAvailableMassTask(UserId workerId, long searchDate) {
         List<PublishedMassTaskVO> publishedMassTaskVOList = new ArrayList<>();
+
+        Set<String> biddenTaskIdSet = new HashSet<>();
+        List<WorkerBid> bidsOfThisWorker = workerMassTaskData.getAllBidOfThisWorker(workerId);
+        for (WorkerBid bid: bidsOfThisWorker){
+            biddenTaskIdSet.add(bid.getChosenTaskId().value);
+        }
 
         List<MassTaskDetail> massTaskDetails = requestorMassTaskData.getAllAvailableMassTaskDetail(searchDate);
         for (MassTaskDetail massTaskDetail: massTaskDetails){
-            PublishedTask tempPublishedTask = requestorData.getPublishedTask(massTaskDetail.getTaskId());
+            if (!biddenTaskIdSet.contains(massTaskDetail.getTaskId().value)){
+                PublishedTask tempPublishedTask = requestorData.getPublishedTask(massTaskDetail.getTaskId());
 
-            List<WorkerBid> tempWorkerBids = workerMassTaskData.getAllWorkerBidOfThisTask(massTaskDetail.getTaskId());
-            massTaskDetail.setGivenUnitPrice(pricingAlgorithm.getThresholdPrice(tempWorkerBids, massTaskDetail.getBudget()));
+                List<WorkerBid> tempWorkerBids = workerMassTaskData.getAllWorkerBidOfThisTask(massTaskDetail.getTaskId());
+                massTaskDetail.setGivenUnitPrice(pricingAlgorithm.getThresholdPrice(tempWorkerBids, massTaskDetail.getBudget()));
 
-            publishedMassTaskVOList.add(new PublishedMassTaskVO(
-                    new PublishedTaskVO(tempPublishedTask), new MassTaskDetailVO(massTaskDetail)
-            ));
+                publishedMassTaskVOList.add(new PublishedMassTaskVO(
+                        new PublishedTaskVO(tempPublishedTask), new MassTaskDetailVO(massTaskDetail)
+                ));
+            }
         }
         return publishedMassTaskVOList;
     }
