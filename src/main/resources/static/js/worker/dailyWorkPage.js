@@ -10,22 +10,28 @@ new Vue({
        const _this = this;
        _this.userId=getUserId();
        this.$nextTick(function () {
-           _this.updateAchievement();
-           axios.get("/worker/getUserAchievement",
-               {param: {userId: _this.userId}})
-               .then(function (response){
-                        achievementList=response.data;
-           })
+           axios.all([this.getUserAchievement(), this.updateAchievement()])
         })
    },
 
    methods:{
+       getUserAchievement:function(){
+           const _this = this;
+           axios.get("/worker/getUserAchievement",
+               {param: {userId: _this.userId}})
+               .then(function (response){
+                   achievementList=response.data;
+               })
+       },
+
        getCash:function(index){
            const _this = this;
            axios.get("/worker/getAchievementCash",{param:{userId:_this.userId,achievementId:_this.achievementList[index].achievementId}})
                .then(function(response){
-               if(response.data===true)
+               if(response.data===true) {
                    alert("领取成功");
+                   this.updateAchievement();
+               }
                else
                    alert("您可能已经领取过了");
            })
@@ -35,8 +41,10 @@ new Vue({
            const _this =this;
            axios.get("/worker/updateAchievementCash",{param:{userId:_this.userId}})
                .then(function(response){
-                   if(response.data===true)
+                   if(response.data===true) {
                        console.log("更新成功");
+                       this.updateAchievement();
+                   }
                    else
                        alert("您可能已经领取过了");
                })

@@ -55,8 +55,6 @@ public class WorkerDataImpl implements WorkerDataService {
             }
 
             stmt.close();
-            conn.close();
-
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -93,7 +91,6 @@ public class WorkerDataImpl implements WorkerDataService {
             stmt.executeUpdate();
 
             stmt.close();
-            conn.close();
 
             result = true;
         }catch (Exception e){
@@ -124,7 +121,6 @@ public class WorkerDataImpl implements WorkerDataService {
             stmt.executeUpdate();
 
             stmt.close();
-            conn.close();
             result = true;
         }catch (Exception e){
             e.printStackTrace();
@@ -155,8 +151,6 @@ public class WorkerDataImpl implements WorkerDataService {
             stmt.executeUpdate();
 
             stmt.close();
-
-            conn.close();
 
             result =  true;
 
@@ -202,7 +196,6 @@ public class WorkerDataImpl implements WorkerDataService {
             }
 
             stmt.close();
-            conn.close();
 
         }catch (Exception e){
             e.printStackTrace();
@@ -244,6 +237,7 @@ public class WorkerDataImpl implements WorkerDataService {
                 acceptedTasks.add(acceptedTask);
             }
 
+            stmt.close();
         }catch (Exception e){
             e.printStackTrace();
         }
