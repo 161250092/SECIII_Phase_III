@@ -299,7 +299,7 @@ public class RequestorBLImpl implements RequestorBLService{
 
 
     @Override
-    public List<AcceptedTaskVO> getSubmittedTaskList(TaskId taskId, UserId userId) {
+    public List<AcceptedTaskVO> getSubmittedTaskList(TaskId taskId) {
         List<AcceptedTaskVO> list = new ArrayList<>();
         List<AcceptedTask> acceptedTaskList = workerDataService.getAcceptedTaskList(taskId);
         

@@ -60,16 +60,22 @@ function removeUserCanLabel() {
 }
 
 function isUserCanLabel() {
-    if(sessionStorage.getItem('isUserCanLabel') === "true"){
-        return true;
-    }else{
-        return false;
-    }
+    return sessionStorage.getItem('isUserCanLabel') === "true";
 }
 
-function jumpToTask(url,userId,taskId,userType,isUserCanLabel){
+function setWorkerIdWhenLabel(workerId){
+    sessionStorage.setItem('workerIdWhenLabel',workerId);
+}
+function getWorkerIdWhenLabel(workerId) {
+    return sessionStorage.getItem('workerIdWhenLabel');
+}
+function removeWorkerIdWhenLabel() {
+    sessionStorage.removeItem('workerIdWhenLabel')
+}
+
+function jumpToTask(url,workerId,taskId,userType,isUserCanLabel){
     sendTaskId(taskId);
-    sendUserId(userId);
+    setWorkerIdWhenLabel(workerId);
     sendUserType(userType);
     setUserCanLabel(isUserCanLabel);
     jumpToAnotherPage(url);
@@ -77,7 +83,7 @@ function jumpToTask(url,userId,taskId,userType,isUserCanLabel){
 
 function leaveTheTask() {
     removeTaskId();
-    removeUserType();
+    removeWorkerIdWhenLabel();
     removeUserCanLabel();
 }
 

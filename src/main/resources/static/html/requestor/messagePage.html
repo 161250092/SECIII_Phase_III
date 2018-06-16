@@ -64,11 +64,11 @@
             <th>确认</th>
         </tr>
         <tr v-for="(info, index) in taskMessageInfo">
-            <th>{{info.messageId}}</th>
-            <th>{{info.taskId}}</th>
-            <th>{{info.workId}}</th>
-            <th>{{info.cash}}</th>
-            <th><input type="button" v-on:click="confirmTaskMessageInfo(index)"></th>
+            <th>{{info.messageId.value}}</th>
+            <th>{{info.taskId.value}}</th>
+            <th>{{info.workerId.value}}</th>
+            <th>{{info.cash.value}}</th>
+            <th><input type="button" v-on:click="confirmTaskMessageInfo(index)" value="确认"></th>
         </tr>
 
 
@@ -85,11 +85,11 @@
             <th>确认</th>
         </tr>
         <tr v-for="(info,index) in billMessageInfo">
-            <th>{{info.messageId}}</th>
+            <th>{{info.messageId.value}}</th>
             <th>{{info.billType}}</th>
-            <th>{{info.cash}}</th>
+            <th>{{info.cash.value}}</th>
             <th>{{info.billReason}}
-            <th><input type="button" v-on:click="confirmCashMessageInfo(index)">确认</th>
+            <th><input type="button" v-on:click="confirmCashMessageInfo(index)" value = "确认"></th>
         </tr>
     </table>
     <hr>

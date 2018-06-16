@@ -2,7 +2,7 @@ new Vue({
     el: '#taskInfoContainer',
     data: {
         taskId: "",
-        userId: "",
+        requestorId: "",
 
         submittedTaskList: [],
         selectedTaskIndex: -1,
@@ -10,8 +10,9 @@ new Vue({
     },
     mounted: function () {
         this.$nextTick(function () {
+            this.requestorId = getUserId();
             const _this = this;
-            axios.get('/requestor/getAssignedButIncompleteTaskList', {params:{userId: _this.userId}}).then(function (response) {
+            axios.get('/requestor/getAssignedButIncompleteTaskList', {params:{userId: this.requestorId}}).then(function (response) {
                 _this.submittedTaskList = response.data;
             });
         });
@@ -19,25 +20,18 @@ new Vue({
     methods: {
         checkThisLabel: function (workerIndex) {
             let taskId = this.submittedTaskList[this.selectedTaskIndex].taskId;
-            let userId = this.labelListOfSelectedTask[workerIndex].userId;
+            let workerId = this.labelListOfSelectedTask[workerIndex].userId;
             let labelType = this.labelListOfSelectedTask[workerIndex].labelType;
-
-            //////////////////////////////////////////////////////////
-            //临时用
-            taskId = "testTaskID";
-            userId = "testUserID";
-            labelType = "ImageLabel";
-            //////////////////////////////////////////////////////////
 
             switch (labelType){
                 case "ImageLabel":
-                    jumpToTask(markImageLabelPageUrl, userId, taskId, USERTYPE_REQUESTOR, false);
+                    jumpToTask(markImageLabelPageUrl, workerId, taskId, USERTYPE_REQUESTOR, false);
                     break;
                 case "FrameLabel":
-                    jumpToTask(markFrameLabelPageUrl, userId, taskId, USERTYPE_REQUESTOR, false);
+                    jumpToTask(markFrameLabelPageUrl, workerId, taskId, USERTYPE_REQUESTOR, false);
                     break;
                 case "AreaLabel":
-                    jumpToTask(markAreaLabelPageUrl, userId, taskId, USERTYPE_REQUESTOR, false);
+                    jumpToTask(markAreaLabelPageUrl, workerId, taskId, USERTYPE_REQUESTOR, false);
                     break;
                 default:
                     alert("标注类型错误");
@@ -45,28 +39,40 @@ new Vue({
             }
         },
         passThisLabel: function (workerIndex) {
-            let taskId = "temporary";
-            let userId = "TEMPORARY";
-            axios.get('/requestor/passTask', {params:{taskId: taskId, userId: userId}}).then(function (response) {
-
+            let taskId = this.submittedTaskList[this.selectedTaskIndex].taskId;
+            let workerId = this.labelListOfSelectedTask[workerIndex].userId;
+            axios.get('/requestor/passTask', {params:{taskId: taskId, userId: workerId}}).then(function (response) {
+                let wrongMessageType = response.data.wrongMessage.type;
+                if (wrongMessageType === "Success"){
+                    alert("成功");
+                } else if (wrongMessageType === "Failure") {
+                    alert("失败");
+                }
             });
-            alert(workerIndex)
         },
         rejectThisLabel: function (workerIndex) {
-            let taskId = "temporary";
-            let userId = "TEMPORARY";
-            axios.get('/requestor/rejectTask', {params:{taskId: taskId, userId: userId}}).then(function (response) {
-
+            let taskId = this.submittedTaskList[this.selectedTaskIndex].taskId;
+            let workerId = this.labelListOfSelectedTask[workerIndex].userId;
+            axios.get('/requestor/rejectTask', {params:{taskId: taskId, userId: workerId}}).then(function (response) {
+                let wrongMessageType = response.data.wrongMessage.type;
+                if (wrongMessageType === "Success"){
+                    alert("成功");
+                } else if (wrongMessageType === "Failure") {
+                    alert("失败");
+                }
             });
-            alert(workerIndex)
         },
         abandonThisLabel: function (workerIndex) {
-            let taskId = "temporary";
-            let userId = "TEMPORARY";
-            axios.get('/requestor/abandonTaskByRequestor', {params:{taskId: taskId, userId: userId}}).then(function (response) {
-
+            let taskId = this.submittedTaskList[this.selectedTaskIndex].taskId;
+            let workerId = this.labelListOfSelectedTask[workerIndex].userId;
+            axios.get('/requestor/abandonTaskByRequestor', {params:{taskId: taskId, userId: workerId}}).then(function (response) {
+                let wrongMessageType = response.data.wrongMessage.type;
+                if (wrongMessageType === "Success"){
+                    alert("成功");
+                } else if (wrongMessageType === "Failure") {
+                    alert("失败");
+                }
             });
-            alert(workerIndex)
         },
         showSelectedTask: function (taskIndex) {
             if(this.selectedTaskIndex === taskIndex){
@@ -76,7 +82,7 @@ new Vue({
                 this.selectedTaskIndex = taskIndex;
                 let taskId = this.submittedTaskList[taskIndex].taskId;
                 let _this = this;
-                axios.get('/requestor/getSubmittedTaskList', {params:{taskId: taskId, userId: this.userId}}).then(function (response) {
+                axios.get('/requestor/getSubmittedTaskList', {params:{taskId: taskId}}).then(function (response) {
                     _this.labelListOfSelectedTask = response.data;
                 });
             }

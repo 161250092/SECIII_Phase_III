@@ -60,7 +60,7 @@ new Vue({
             this.canvas.width = rect.width;
             this.canvas.height = rect.height;
 
-            this.userId = getUserId();
+            this.userId = getWorkerIdWhenLabel();
             this.username = getUsername();
             this.taskId = getTaskId();
             this.isUserCanLabel = isUserCanLabel();

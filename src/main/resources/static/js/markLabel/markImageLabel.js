@@ -27,10 +27,10 @@ new Vue({
     },
     mounted: function () {
         this.$nextTick(function () {
-            this.userId = getUserId();
+            this.userId = getWorkerIdWhenLabel();
             this.username = getUsername();
             this.taskId = getTaskId();
-            // this.isUserCanLabel = isUserCanLabel();
+            this.isUserCanLabel = isUserCanLabel();
             //获得这个任务的标注信息
             this.getLabel();
         })
