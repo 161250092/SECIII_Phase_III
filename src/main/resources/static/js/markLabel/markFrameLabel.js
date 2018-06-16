@@ -159,11 +159,7 @@ new Vue({
                 axios.get("/markFrameLabel/setTaskAccomplished", { params: { taskId: _this.taskId, userId: _this.userId } }).then(function (response) {
                     if(response.data === true){
                         alert("提交成功");
-                        if (getUserType() === USERTYPE_REQUESTOR) {
-                            jumpToAnotherPage(requestorMainPageUrl);
-                        }else if (getUserType() === USERTYPE_WORKER){
-                            jumpToAnotherPage(workerMainPageUrl)
-                        }
+                        _this.returnToPreviousPage();
                     }else {
                         alert("提交失败");
                     }
@@ -262,18 +258,18 @@ new Vue({
             }
             return true;
         },
-        returnToMainPage: function () {
+        returnToPreviousPage: function () {
             let userType = getUserType();
-            let isUserCanLabel = isUserCanLabel();
+            let isUserCanLabel = this.isUserCanLabel;
             leaveTheTask();
             if(userType === USERTYPE_WORKER){
+                jumpToAnotherPage(workerMainPageUrl);
+            }else if(userType === USERTYPE_REQUESTOR){
                 if (isUserCanLabel === true){
                     jumpToAnotherPage(assignTaskPageUrl);
                 }else {
                     jumpToAnotherPage(checkSubmittedLabelPageUrl);
                 }
-            }else if(userType === USERTYPE_REQUESTOR){
-                jumpToAnotherPage(requestorMainPageUrl);
             }
         }
     },
