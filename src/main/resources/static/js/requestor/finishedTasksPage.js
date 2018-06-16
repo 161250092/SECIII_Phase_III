@@ -1,6 +1,6 @@
 new Vue({
-        el:"#taskInfoContainer",
-        data:{
+    el:"#taskInfoContainer",
+    data:{
         userId: "",
         AllFinishedTasks:[],
         ParticipatorsInfo:[],
@@ -41,3 +41,14 @@ new Vue({
     }
 });
 
+new Vue({
+    el: "#home",
+    data: {
+        username: ""
+    },
+    mounted: function () {
+        this.$nextTick(function () {
+            this.username = getUsername();
+        });
+    }
+});

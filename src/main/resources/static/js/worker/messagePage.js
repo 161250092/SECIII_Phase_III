@@ -48,7 +48,7 @@ new Vue({
             axios.get("/message/checkWorkerTaskMessage", {params: {messageId: _this.taskMessageInfo[index].messageId.value}}).then(function (response) {
                 if(response.data === true) {
                     alert("已确认");
-                    _this.updateAchievement();
+                    _this.updateMessage();
                 }
                 else
                     alert("error:fail to confirm task message");
@@ -60,7 +60,7 @@ new Vue({
             axios.get("/message/checkGuyMessage", {params: {messageId: _this.guyMessageInfo[index].messageId.value}}).then(function (response) {
                 if(response.data === true) {
                     alert("已确认");
-                    _this.updateAchievement();
+                    _this.updateMessage();
                 }
                 else
                     alert("error:fail to confirm guy message");
@@ -74,7 +74,7 @@ new Vue({
             axios.get("/message/checkBillMessage", {params: {messageId: _this.billMessageInfo[index].messageId.value}}).then(function (response) {
                 if(response.data === true) {
                     alert("已确认");
-                    _this.updateAchievement();
+                    _this.updateMessage();
                 }
                 else
                     alert("error:fail to confirm cash message");
@@ -86,7 +86,7 @@ new Vue({
             axios.get("/message/checkAchievementMessage", {params: {messageId: _this.achievementMessageInfo[index].messageId.value}}).then(function (response) {
                 if(response.data === true) {
                     alert("已确认");
-                    _this.updateAchievement();
+                    _this.updateMessage();
                 }
                 else
                     alert("error:fail to confirm cash message");
@@ -99,6 +99,16 @@ new Vue({
 
 
     }
+});
 
-
+new Vue({
+    el: "#home",
+    data: {
+        username: ""
+    },
+    mounted: function () {
+        this.$nextTick(function () {
+            this.username = getUsername();
+        });
+    }
 });

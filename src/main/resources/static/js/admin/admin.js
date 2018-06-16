@@ -41,7 +41,6 @@ new Vue({
                     legend: {
                         orient: 'vertical',
                         x: 'left',
-                        // data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
                         data:['完成','进行中']
                     },
                     series: [
@@ -80,8 +79,6 @@ new Vue({
                 if (option && typeof option === "object") {
                     myChart.setOption(option, true);
                 }
-
-                //end
             })
         }
     }

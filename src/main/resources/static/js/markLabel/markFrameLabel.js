@@ -264,9 +264,14 @@ new Vue({
         },
         returnToMainPage: function () {
             let userType = getUserType();
+            let isUserCanLabel = isUserCanLabel();
             leaveTheTask();
             if(userType === USERTYPE_WORKER){
-                jumpToAnotherPage(workerMainPageUrl);
+                if (isUserCanLabel === true){
+                    jumpToAnotherPage(assignTaskPageUrl);
+                }else {
+                    jumpToAnotherPage(checkSubmittedLabelPageUrl);
+                }
             }else if(userType === USERTYPE_REQUESTOR){
                 jumpToAnotherPage(requestorMainPageUrl);
             }

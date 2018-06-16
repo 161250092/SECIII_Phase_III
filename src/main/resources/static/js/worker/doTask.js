@@ -54,7 +54,7 @@ new Vue({
         recallTask:function(index){
             let  recallTaskId = this.AllUnfinishedTasks[index].taskId;
             const _this = this;
-            axios.get("/worker/abandonTaskByWorker").then(function (Exception){
+            axios.get("/worker/abandonTaskByWorker",{params:{userId:_this.userId,taskId:recallTaskId}}).then(function (Exception){
 
                 let  message = Exception.data.wrongMessage.type;
                 if(message==="Success") {
@@ -68,4 +68,14 @@ new Vue({
     }
 });
 
-
+new Vue({
+    el: "#home",
+    data: {
+        username: ""
+    },
+    mounted: function () {
+        this.$nextTick(function () {
+            this.username = getUsername();
+        });
+    }
+});
