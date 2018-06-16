@@ -28,20 +28,24 @@ new Vue({
             }
         },
         acceptTasks: function () {
-            let taskIdList = [];
-            this.acceptedTaskIdSet.forEach(function (element, sameElement, set) {
-                taskIdList.push(element);
-            });
+            if (this.acceptedTaskIdSet.length !== 0){
+                let taskIdList = [];
+                this.acceptedTaskIdSet.forEach(function (element, sameElement, set) {
+                    taskIdList.push(element);
+                });
 
-            let taskIdListJson = JSON.stringify(taskIdList);
-            axios.get('/worker/acceptTask', {params: {userId: this.userId, taskIdListJSON: taskIdListJson}}).then(function (response) {
-                if(response.data.wrongMessage.type === 'Success'){
-                    alert("接受成功");
-                    jumpToAnotherPage(workerMainPageUrl);
-                }else{
-                    alert("接受失败");
-                }
-            });
+                let taskIdListJson = JSON.stringify(taskIdList);
+                axios.get('/worker/acceptTask', {params: {userId: this.userId, taskIdListJSON: taskIdListJson}}).then(function (response) {
+                    if(response.data.wrongMessage.type === 'Success'){
+                        alert("接受成功");
+                        jumpToAnotherPage(workerMainPageUrl);
+                    }else{
+                        alert("接受失败");
+                    }
+                });
+            } else {
+                alert("请选择任务");
+            }
         },
 
         upBytaskPrice:function(){
