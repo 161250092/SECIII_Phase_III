@@ -31,7 +31,7 @@ public class RequestorMassTaskDateImpl implements RequestorMassTaskDataService {
         PreparedStatement stmt;
         String sql;
         try{
-            sql = "insert into MassTaskDetail values (?,?,?,?,?,?)";
+            sql = "insert into MassTaskDetail values (?,?,?,?,?,?,?)";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1,massTaskDetail.getTaskId().value);
             stmt.setDouble(2,massTaskDetail.getGivenUnitPrice().value);
@@ -39,6 +39,7 @@ public class RequestorMassTaskDateImpl implements RequestorMassTaskDataService {
             stmt.setString(4,massTaskDetail.getMassTaskPricingMechanism().name());
             stmt.setLong(5,massTaskDetail.getStartTime());
             stmt.setLong(6,massTaskDetail.getEndTime());
+            stmt.setBoolean(7, false);
             stmt.execute();
 
             stmt.close();

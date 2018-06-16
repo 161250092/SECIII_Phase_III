@@ -33,7 +33,7 @@ public class WorkerMassTaskDataImpl implements WorkerMassTaskDataService {
             stmt.setDouble(3,workerBid.getRatioOfArrivedTime());
             stmt.setDouble(4,workerBid.getWantedUnitPrice().value);
             stmt.setInt(5,workerBid.getMaxWantedImageNum().value);
-            stmt.setString(6,workerBid.getWorkerBidState().name());
+            stmt.setString(6,WorkerBidState.WAITING.name());
             stmt.executeUpdate();
 
             stmt.close();
