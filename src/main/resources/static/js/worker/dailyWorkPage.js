@@ -1,16 +1,18 @@
 new Vue({
    el:"#achievement",
     data:{
+       userId:"",
        achievementList:[]
 
     },
 
    mounted:function() {
        const _this = this;
+       _this.userId=getUserId();
        this.$nextTick(function () {
            _this.updateAchievement();
            axios.get("/worker/getUserAchievement",
-               {param: {userId: getUserId()}})
+               {param: {userId: _this.userId}})
                .then(function (response){
                         achievementList=response.data;
            })
@@ -20,7 +22,7 @@ new Vue({
    methods:{
        getCash:function(index){
            const _this = this;
-           axios.get("/worker/getAchievementCash",{param:{userId:getUserId(),achievementId:_this.achievementList[index].achievementId}})
+           axios.get("/worker/getAchievementCash",{param:{userId:_this.userId,achievementId:_this.achievementList[index].achievementId}})
                .then(function(response){
                if(response.data===true)
                    alert("领取成功");
@@ -30,7 +32,8 @@ new Vue({
        },
 
        updateAchievement:function(){
-           axios.get("/worker/updateAchievementCash",{param:{userId:getUserId()}})
+           const _this =this;
+           axios.get("/worker/updateAchievementCash",{param:{userId:_this.userId}})
                .then(function(response){
                    if(response.data===true)
                        console.log("更新成功");
