@@ -24,37 +24,25 @@ public class UserDataImpl implements UserDataService{
         PreparedStatement stmt;
         String sql;
         ResultSet rs;
-
         try{
-
             sql = "select Username from Requestor";
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
-
             while(rs.next()){
                 Username temp = new Username(rs.getString("Username"));
                 userName.add(temp);
             }
 
-            stmt.close();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-        try {
             sql = "select Username from Worker";
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
-
             while (rs.next()) {
                 Username temp = new Username(rs.getString("Username"));
                 userName.add(temp);
             }
 
             stmt.close();
-//            conn.close();
-
-        }catch (Exception e){
+        }catch(Exception e){
             e.printStackTrace();
         }
 
@@ -70,12 +58,10 @@ public class UserDataImpl implements UserDataService{
         PreparedStatement stmt;
         String sql;
         ResultSet rs;
-
         try{
             sql = "select * from Worker";
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
-
             while(rs.next()){
                 UserId userId = new UserId(rs.getString("UserId"));
                 Username username = new Username(rs.getString("Username"));
@@ -91,7 +77,6 @@ public class UserDataImpl implements UserDataService{
             }
 
             stmt.close();
-            conn.close();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -108,12 +93,10 @@ public class UserDataImpl implements UserDataService{
         PreparedStatement stmt;
         String sql;
         ResultSet rs;
-
         try{
             sql = "select * from Requestor";
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
-
             while(rs.next()){
                 UserId userId = new UserId(rs.getString("UserId"));
                 Username username = new Username(rs.getString("Username"));
@@ -129,7 +112,6 @@ public class UserDataImpl implements UserDataService{
             }
 
             stmt.close();
-            conn.close();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -144,11 +126,9 @@ public class UserDataImpl implements UserDataService{
 
         PreparedStatement stmt;
         String sql;
-
         try{
             sql = "insert into Requestor values (?,?,?,?,?,?,?,?)";
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,requestor.getUserId().value);
             stmt.setString(2,requestor.getUsername().value);
             stmt.setString(3,requestor.getPassword().value);
@@ -157,12 +137,9 @@ public class UserDataImpl implements UserDataService{
             stmt.setDouble(6,requestor.getCash().value);
             stmt.setDouble(7,requestor.getPrestige().value);
             stmt.setInt(8,requestor.getMaxPublishedTaskNum().value);
-
             stmt.executeUpdate();
 
             stmt.close();
-            conn.close();
-
             result = true;
         }catch (Exception e){
             e.printStackTrace();
@@ -179,11 +156,9 @@ public class UserDataImpl implements UserDataService{
 
         PreparedStatement stmt;
         String sql;
-
         try{
             sql = "insert into Worker values (?,?,?,?,?,?,?,?)";
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,worker.getUserId().value);
             stmt.setString(2,worker.getUsername().value);
             stmt.setString(3,worker.getPassword().value);
@@ -192,12 +167,9 @@ public class UserDataImpl implements UserDataService{
             stmt.setDouble(6,worker.getCash().value);
             stmt.setDouble(7,worker.getPrestige().value);
             stmt.setInt(8,worker.getMaxAcceptedTaskNum().value);
-
             stmt.executeUpdate();
 
             stmt.close();
-            conn.close();
-
             result = true;
         }catch (Exception e){
             e.printStackTrace();
@@ -216,49 +188,32 @@ public class UserDataImpl implements UserDataService{
         PreparedStatement stmt;
         String sql;
         ResultSet rs;
-
         try{
             sql = "select UserId from Admin";
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
-
             while(rs.next()){
                 UserId userId = new UserId(rs.getString("UserId"));
                 userIds.add(userId);
             }
 
-            stmt.close();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        try{
             sql = "select UserId from Worker";
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
-
             while(rs.next()){
                 UserId userId = new UserId(rs.getString("UserId"));
                 userIds.add(userId);
             }
 
-            stmt.close();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        try{
             sql = "select UserId from Requestor";
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
-
             while(rs.next()){
                 UserId userId = new UserId(rs.getString("UserId"));
                 userIds.add(userId);
             }
 
             stmt.close();
-            conn.close();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -275,40 +230,20 @@ public class UserDataImpl implements UserDataService{
         PreparedStatement stmt;
         String sql;
         ResultSet rs;
-
         try{
             sql = "select UserId from Worker where Username = ?";
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,username.value);
-
             rs = stmt.executeQuery();
-
-            while(rs.next()){
-                result = new UserId(rs.getString("UserId"));
-            }
-
-            stmt.close();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        try{
+            while(rs.next()){ result = new UserId(rs.getString("UserId")); }
 
             sql = "select UserId from Requestor where Username = ?";
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,username.value);
-
             rs = stmt.executeQuery();
-
-
-            while(rs.next()){
-                result = new UserId(rs.getString("UserId"));
-            }
+            while(rs.next()){ result = new UserId(rs.getString("UserId")); }
 
             stmt.close();
-            conn.close();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -328,12 +263,9 @@ public class UserDataImpl implements UserDataService{
 
         try{
             sql = "select * from Worker where UserId = ?";
-
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,userId.value);
             rs = stmt.executeQuery();
-
             while(rs.next()){
                 Username username = new Username(rs.getString("Username"));
                 Password password = new Password(rs.getString("Password"));
@@ -346,20 +278,10 @@ public class UserDataImpl implements UserDataService{
                 result = new Worker(userId,username,password,email,phone,cash,prestige,taskNum);
             }
 
-            stmt.close();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        try{
-
             sql = "select * from Requestor where UserId = ?";
-
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,userId.value);
             rs = stmt.executeQuery();
-
             while(rs.next()){
                 Username username = new Username(rs.getString("Username"));
                 Password password = new Password(rs.getString("Password"));
@@ -373,7 +295,6 @@ public class UserDataImpl implements UserDataService{
             }
 
             stmt.close();
-            conn.close();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -393,31 +314,18 @@ public class UserDataImpl implements UserDataService{
         try{
             sql = "update Worker set  Email = ? where UserId = ?";
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,email.address);
             stmt.setString(2,userId.value);
-
             stmt.executeUpdate();
 
-            stmt.close();
 
-            result = true;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        try{
             sql = "update Requestor set  Email = ? where UserId = ?";
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,email.address);
             stmt.setString(2,userId.value);
-
             stmt.executeUpdate();
 
             stmt.close();
-            conn.close();
-
             result = true;
         }catch (Exception e){
             e.printStackTrace();
@@ -434,40 +342,24 @@ public class UserDataImpl implements UserDataService{
 
         PreparedStatement stmt;
         String sql;
-
         try{
             sql = "update Worker set Phone = ? where UserId = ?";
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,phone.number);
             stmt.setString(2,userId.value);
-
             stmt.executeUpdate();
 
-            stmt.close();
-
-            result = true;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        try{
             sql = "update Requestor set Phone = ? where UserId = ?";
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,phone.number);
             stmt.setString(2,userId.value);
-
             stmt.executeUpdate();
 
             stmt.close();
-            conn.close();
-
             result = true;
         }catch (Exception e){
             e.printStackTrace();
         }
-
 
         return result;
     }
@@ -480,40 +372,24 @@ public class UserDataImpl implements UserDataService{
 
         PreparedStatement stmt;
         String sql;
-
         try{
             sql = "update Worker set Cash = ? where UserId = ?";
             stmt = conn.prepareStatement(sql);
-
             stmt.setDouble(1,cash.value);
             stmt.setString(2,userId.value);
-
             stmt.executeUpdate();
 
-            stmt.close();
-
-            result = true;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        try{
             sql = "update Requestor set Cash = ? where UserId = ?";
             stmt = conn.prepareStatement(sql);
-
             stmt.setDouble(1,cash.value);
             stmt.setString(2,userId.value);
-
             stmt.executeUpdate();
 
             stmt.close();
-            conn.close();
-
             result = true;
         }catch (Exception e){
             e.printStackTrace();
         }
-
 
         return result;
     }
@@ -530,36 +406,21 @@ public class UserDataImpl implements UserDataService{
         try{
             sql = "update Worker set Prestige = ? where UserId = ?";
             stmt = conn.prepareStatement(sql);
-
             stmt.setDouble(1,prestige.value);
             stmt.setString(2,userId.value);
-
             stmt.executeUpdate();
 
-            stmt.close();
-
-            result = true;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        try{
             sql = "update Requestor set Prestige = ? where UserId = ?";
             stmt = conn.prepareStatement(sql);
-
             stmt.setDouble(1,prestige.value);
             stmt.setString(2,userId.value);
-
             stmt.executeUpdate();
 
             stmt.close();
-            conn.close();
-
             result = true;
         }catch (Exception e){
             e.printStackTrace();
         }
-
 
         return result;
     }

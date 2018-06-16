@@ -63,7 +63,8 @@ public class AcceptedTask {
         //***********************************
         //未完成
         //***********************************
-        return new Cash(-1);
+//        return new Cash(-1);
+        return taskPrice;
     }
 
     public WorkerDiscount getWorkerDiscount() {

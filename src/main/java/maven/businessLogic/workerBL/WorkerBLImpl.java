@@ -49,9 +49,10 @@ public class WorkerBLImpl implements WorkerBLService {
         List<AcceptedTaskVO> list = new ArrayList<>();
         List<AcceptedTaskVO> allAcceptedTaskVOList = getAcceptedTaskVOList(userId);
         for(AcceptedTaskVO vo : allAcceptedTaskVOList){
-            //查找状态为 完成、通过、驳回、被发布者废弃 的任务
+            //查找状态为 完成、通过、被发布者废弃、终止 的任务
             if(!vo.getAcceptedTaskState().equals(AcceptedTaskState.ACCEPTED.toString())
-                    && !vo.getAcceptedTaskState().equals(AcceptedTaskState.ABANDONED_BY_WORKER.toString()) ){
+                    && !vo.getAcceptedTaskState().equals(AcceptedTaskState.ABANDONED_BY_WORKER.toString())
+                    && !vo.getAcceptedTaskState().equals(AcceptedTaskState.REJECTED.toString()) ){
                 list.add(vo);
             }
         }
@@ -63,8 +64,9 @@ public class WorkerBLImpl implements WorkerBLService {
         List<AcceptedTaskVO> list = new ArrayList<>();
         List<AcceptedTaskVO> allAcceptedTaskVOList = getAcceptedTaskVOList(userId);
         for(AcceptedTaskVO vo : allAcceptedTaskVOList){
-            //查找状态为 接受 的任务
-            if(vo.getAcceptedTaskState().equals(AcceptedTaskState.ACCEPTED.toString())){
+            //查找状态为 接受、驳回 的任务
+            if(vo.getAcceptedTaskState().equals(AcceptedTaskState.ACCEPTED.toString())
+                || vo.getAcceptedTaskState().equals(AcceptedTaskState.REJECTED.toString())){
                 list.add(vo);
             }
         }
