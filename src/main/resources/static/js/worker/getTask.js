@@ -2,11 +2,13 @@ new Vue({
     el:"#taskListContainer",
     data:{
         userId: "",
-
+        username: "",
         availableTaskList:[],
         acceptedTaskIdSet: [],
     },
     mounted: function () {
+        const _this =this;
+        _this.username = this.getUsername();
         this.$nextTick(function () {
             this.userId = getUserId();
             this.acceptedTaskIdSet = new Set();

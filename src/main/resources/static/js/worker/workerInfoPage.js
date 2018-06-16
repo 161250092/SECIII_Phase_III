@@ -27,7 +27,7 @@ new Vue({
     mounted: function () {
         this.$nextTick(function () {
             this.userId = getUserId();
-
+            this.username=getUsername();
             const _this = this;
             axios.all([this.getUserInfo(), this.getAcceptedButIncompleteTaskList(), this.getAcceptedAndAccomplishedTaskList()])
                 .then(axios.spread(function (userInfo, incompleteTaskList, accomplishedTaskList) {

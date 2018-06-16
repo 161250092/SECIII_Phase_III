@@ -12,6 +12,8 @@ new Vue({
                     {params: {userId: getUserId()}})
                     .then(function (response) {
                         _this.username = response.data.username.value;
+
+
                     })
             })
 
