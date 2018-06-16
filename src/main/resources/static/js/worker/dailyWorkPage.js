@@ -2,15 +2,18 @@ new Vue({
    el:"#achievement",
     data:{
        userId:"",
-       achievementList:[]
+       achievementList:[],
+        username:""
 
     },
 
    mounted:function() {
        const _this = this;
-       _this.userId=getUserId();
+
        console.log(this.userId);
        this.$nextTick(function () {
+           _this.userId=getUserId();
+           _this.username = getUsername();
            axios.get("/worker/getUserAchievement", {params: {userId: this.userId}})
                .then(function (response){
                    _this.achievementList=response.data;

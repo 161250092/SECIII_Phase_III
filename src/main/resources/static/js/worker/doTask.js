@@ -7,9 +7,13 @@ new Vue({
        IMAGE_LABEL_TYPE: "ImageLabel", 
        FRAME_LABEL_TYPE: "FrameLabel",
        AREA_LABEL_TYPE: "AreaLabel",
+       username:""
    },
     mounted: function () {
+       const _this = this;
+
         this.$nextTick(function () {
+            _this.username = getUsername();
             this.userId = getUserId();
             this.getAllUnfinishedTask();
         });

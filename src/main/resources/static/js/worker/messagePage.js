@@ -2,6 +2,7 @@ new Vue({
     el:"#InfoContainer",
     data:{
         userId:"",
+        username:"",
         taskMessageInfo:[],
         guyMessageInfo:[],
         billMessageInfo:[],
@@ -14,6 +15,7 @@ new Vue({
         const _this = this;
         this.$nextTick(function () {
             _this.userId = getUserId();
+            _this.username =getUsername();
             axios.get("/message/getAllWorkerMessage",
                 { params:{ userId: this.userId } })
                 .then(function (response) {

@@ -2,12 +2,15 @@ new Vue({
     el: "#taskInfoContainer",
     data:{
         userId:"",
+        username:"",
         AllFinishedTasks:[]
     },
 
     mounted: function () {
         const _this = this;
+
         this.$nextTick(function () {
+            _this.username = getUsername();
             _this.userId = getUserId();
             axios.get("/worker/getAcceptedAndAccomplishedTaskList",
                 { params:{ userId: this.userId } })

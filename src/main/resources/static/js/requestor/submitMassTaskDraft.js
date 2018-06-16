@@ -30,14 +30,11 @@ new Vue({
         requiredWorkerNum: 1,
         taskDescription: "",
 
-
         imgList: [],
         size: 0,
         maxTaskNum_budget:0,
         leastPay_budget:0,
         leastPay_unitPrice:0.
-
-
     },
     mounted:function(){
         this.$nextTick(function () {
@@ -64,9 +61,6 @@ new Vue({
           else
               return false;
         },
-
-
-
         getMinScoreList: function () {
             let _this = this;
             axios.get('/requestor/getTaskUnitPriceList').then(function (response) {
