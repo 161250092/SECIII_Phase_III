@@ -10,5 +10,7 @@ public enum BillReason {
     //（发布者）充值，
     CHARGE,
     //（工人）提现
-    EXCHANGE
+    EXCHANGE,
+    //领取成就奖励
+    ACHIEVEMENT
 }

@@ -8,8 +8,10 @@ import maven.businessLogic.workerBL.WorkerBLImpl;
 import maven.businessLogic.workerBL.WorkerBLService;
 import maven.data.AchievementData.AchievementDataImpl;
 import maven.data.AchievementData.AchievementDataService;
+import maven.data.MessageData.MessageDataImpl;
+import maven.data.MessageData.MessageDataService;
 import maven.data.WorkerData.WorkerDataService;
-import maven.model.message.Achievement;
+import maven.model.message.*;
 import maven.model.primitiveType.UserId;
 import maven.model.primitiveType.Cash;
 import maven.model.task.AcceptedTask;
@@ -24,12 +26,14 @@ public class AchievementBLImpl implements AchievementBLService {
     private WorkerBLService workerbl;
     private AchievementDataService  dataService;
     private ManageUserBLService mangeuserbl;
+    private MessageDataService messageDataService;
 
 
     public AchievementBLImpl(){
         dataService = new AchievementDataImpl();
         workerbl = new WorkerBLImpl();
         mangeuserbl = new ManageUserBLImpl();
+        messageDataService = new MessageDataImpl();
     }
 
     @Override
@@ -45,8 +49,25 @@ public class AchievementBLImpl implements AchievementBLService {
     @Override
     public boolean getAchievementCash(UserId userId, int achievementId) {
         Cash  reward = AchievementCash(userId,achievementId);
-        if(dataService.testAndGetAchievementReward(userId,achievementId))
-            return mangeuserbl.increaseCash(userId,reward);
+        List<Achievement> userAchievementList = getUserAchievement(userId);
+        String achievementName = "";
+        for(Achievement achievement : userAchievementList){
+            if(achievement.getAchievementId() == achievementId)
+                achievementName = achievement.getAchievementName();
+        }
+        //判断用户是否可以领取奖励（排除未达成成就 或 已领取）
+        if(dataService.testAndGetAchievementReward(userId,achievementId)) {
+            BillMessage billMessage = new BillMessage(messageDataService.getMessageIdForCreateMessage(), userId,
+                    BillType.IN, BillReason.ACHIEVEMENT, reward);
+            AchievementMessage achievementMessage = new AchievementMessage(messageDataService.getMessageIdForCreateMessage(), userId,
+                    achievementName);
+            //保存账单消息
+            messageDataService.saveBillMessage(billMessage);
+            //保存成就消息
+            messageDataService.saveAchievementMessage(achievementMessage);
+            //修改用户金额
+            return mangeuserbl.increaseCash(userId, reward);
+        }
         else
             return false;
     }

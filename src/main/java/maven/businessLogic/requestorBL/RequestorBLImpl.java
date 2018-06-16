@@ -220,6 +220,12 @@ public class RequestorBLImpl implements RequestorBLService{
         UserId userId = getUserIdFromTaskId(taskId);
         //应该返还给发布者的金额
         Cash returnCash = new Cash(paidCashByRequestor - paidForWorker);
+
+        //保存账单信息
+        BillMessage billMessage = new BillMessage(messageDataService.getMessageIdForCreateMessage(), userId,
+                BillType.IN, BillReason.TERMINATE_TASK, returnCash);
+        messageDataService.saveBillMessage(billMessage);
+
         if(requestorDataService.revisePublishedTaskState(taskId, PublishedTaskState.TERMINATED)
                 && manageUserBLService.increaseCash(userId, returnCash))
             return new SuccessException();
