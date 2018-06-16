@@ -54,15 +54,17 @@ new Vue({
                     alert("error:fail to confirm cash message");
             });
         }
-
-
-
-
-
-
     }
+});
 
-
-
-
-})
+new Vue({
+    el: "#home",
+    data: {
+        username: ""
+    },
+    mounted: function () {
+        this.$nextTick(function () {
+            this.username = getUsername();
+        });
+    }
+});

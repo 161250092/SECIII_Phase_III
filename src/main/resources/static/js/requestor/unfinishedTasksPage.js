@@ -65,3 +65,15 @@ new Vue({
         }
     }
 });
+
+new Vue({
+    el: "#home",
+    data: {
+        username: ""
+    },
+    mounted: function () {
+        this.$nextTick(function () {
+            this.username = getUsername();
+        });
+    }
+});
