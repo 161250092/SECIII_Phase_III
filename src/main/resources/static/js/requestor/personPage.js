@@ -35,6 +35,7 @@ new Vue({
                         _this.username = userInfo.data.username.value;
                         _this.prestige = userInfo.data.prestige.value;
                         _this.cash = userInfo.data.cash.value;
+                        _this.cash =_this.cash.toFixed(2);
                         _this.email = userInfo.data.email.address;
                         _this.phone = userInfo.data.phone.number;
                         _this.maxPublishedTaskNum = userInfo.data.taskNum.value;

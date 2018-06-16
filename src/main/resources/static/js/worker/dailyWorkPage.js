@@ -17,6 +17,7 @@ new Vue({
            axios.get("/worker/getUserAchievement", {params: {userId: this.userId}})
                .then(function (response){
                    _this.achievementList=response.data;
+                   _this.dealData();
                });
 
         })
@@ -71,8 +72,26 @@ new Vue({
 
        getTask:function(){
            jumpToAnotherPage(getTaskPageUrl);
-       }
+       },
 
+
+       dealData:function(){
+         for(var i=0;i<this.achievementList.length;i++){
+             if(this.achievementList[i].process>1)
+                 this.achievementList[i].process=1;
+         }
+
+         for(var i=0;i<this.achievementList.length;i++){
+             var str=Number(this.achievementList[i].process*100).toFixed(2)
+                str+="%";
+             this.achievementList[i].process=str;
+
+         }
+
+
+
+
+       }
    }
 
 });
