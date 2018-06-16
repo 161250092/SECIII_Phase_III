@@ -56,7 +56,7 @@
     <br>
 <button v-on:click="doTask()">做任务</button>
     <br>
-
+<button v-on:click="updateAchievement()">刷新成就</button>
 </div>
 
 
@@ -72,11 +72,11 @@
             <th>领取奖励</th>
         </tr>
 
-        <tr v-for="(achieve,index) in achievementList">
-            <th>{{achieve.achievementName}}</th>
-            <th>{{achieve.description}}</th>
-            <th>{{achieve.process}}</th>
-            <th>{{achieve.cash}}</th>
+        <tr v-for="(item,index) in achievementList">
+            <th>{{item.achievementName}}</th>
+            <th>{{item.description}}</th>
+            <th>{{item.process}}</th>
+            <th>{{item.cash.value}}</th>
             <th><input type="button" v-on:click="getCash(index)" value="领取"></th>
         </tr>
     </table>
