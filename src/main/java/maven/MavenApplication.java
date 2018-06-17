@@ -11,10 +11,14 @@ public class MavenApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MavenApplication.class, args);
+
+		MassTaskAllocator allocator = new MassTaskAllocator();
+        allocator.start();
 	}
+
+
 	/**
 	 * 文件上传配置
-	 * @return
 	 */
 	@Bean
 	public MultipartConfigElement multipartConfigElement() {

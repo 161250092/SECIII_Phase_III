@@ -22,7 +22,7 @@ function MassTaskDetailVO(taskId, givenUnitPrice, budget, massTaskPricingMechani
 new Vue({
     el:"#inputTaskInfo",
     data:{
-        requesotrId:"",
+        requestorId:"",
 
         pricingMechanismList:[
             {mechanismType: "MAXIMIZE_TASKS", mechanismName: "最大化分配任务"},
@@ -56,7 +56,7 @@ new Vue({
     },
     mounted:function(){
         this.$nextTick(function () {
-            this.requesotrId = getUserId();
+            this.requestorId = getUserId();
             this.refreshTaskId();
             // this.getMinImageUnitPriceList();
         });
@@ -94,7 +94,7 @@ new Vue({
             let _this = this;
             axios.all([
                 axios.get('/requestor/submitTaskDraft', {params: {publishedTaskVOJSON: taskVOJson, imageFilenameListJSON:imageFilenameListJSON}}),
-                axios.get('/requestorMassTask/uploadMassTaskDetail', {params: {requesotrId: this.requesotrId, massTaskDetailVOJson: massTaskDetailVOJson}})
+                axios.get('/requestorMassTask/uploadMassTaskDetail', {params: {requestorId: this.requestorId, massTaskDetailVOJson: massTaskDetailVOJson}})
             ]).then(axios.spread(function (draftResponse, detailResponse) {
                 let draftWrongMessageType = draftResponse.data.wrongMessage.type;
                 let detailWrongMessageType = detailResponse.data.wrongMessage.type;
@@ -208,7 +208,7 @@ new Vue({
         },
         refreshTaskId: function () {
             let time = Date.parse(new Date());
-            this.taskId = this.requesotrId + '_' + this.selectedLabelType +
+            this.taskId = this.requestorId + '_' + this.selectedLabelType +
                 '_' + time + "MASS";
         },
         // getMinUnitPrice: function() {
