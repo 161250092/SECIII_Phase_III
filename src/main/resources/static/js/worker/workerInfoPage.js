@@ -22,15 +22,17 @@ new Vue({
         AllFinishedTask:[],
         AllUnfinishedTask:[],
         maxAcceptedTaskNum:10,
-        cashForExchange:0
+        cashForExchange:0,
+        ranking:0
+
     },
     mounted: function () {
         const _this = this;
         this.$nextTick(function () {
             _this.userId = getUserId();
             _this.username=getUsername();
-            axios.all([this.getUserInfo(), this.getAcceptedButIncompleteTaskList(), this.getAcceptedAndAccomplishedTaskList()])
-                .then(axios.spread(function (userInfo, incompleteTaskList, accomplishedTaskList) {
+            axios.all([this.getUserInfo(),this.getRanking(),this.getAcceptedButIncompleteTaskList(), this.getAcceptedAndAccomplishedTaskList()])
+                .then(axios.spread(function (userInfo, rank,incompleteTaskList, accomplishedTaskList) {
                     /* getUserInfo */
                     _this.username = userInfo.data.username.value;
                     _this.prestige = userInfo.data.prestige.value;
@@ -39,6 +41,8 @@ new Vue({
                     _this.email = userInfo.data.email.address;
                     _this.phone = userInfo.data.phone.number;
                     _this.maxAcceptedTaskNum = userInfo.data.taskNum.value;
+
+                    _this.ranking = rank.data;
                     /* getAcceptedButIncompleteTaskList */
                     _this.AllUnfinishedTasks = incompleteTaskList.data;
 
@@ -269,6 +273,11 @@ new Vue({
             }
         },
         //用于axios
+
+        getRanking:function(){
+            return axios.get("/worker/getUserRanking",{params:{userId:this.userId}});
+        },
+
         getUserInfo: function () {
             return axios.get("/user/getUserInfo", {params:{ userId: this.userId }});
         },

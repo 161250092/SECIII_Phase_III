@@ -22,16 +22,25 @@
     <table id="statisticsTable" border="1">
         <tr>
             <th>用户数</th>
+            <th>发布者数</th>
+            <th>工人数</th>
             <th>任务数</th>
             <th>进行中</th>
             <th>已完成</th>
+            <th>充值</th>
+            <th>兑换</th>
+
         </tr>
 
         <tr>
             <td>{{numOfUsers}}</td>
+            <td>{{numOfRequestors}}</td>
+            <td>{{numOfWorkers}}</td>
             <td>{{numOfTasks}}</td>
             <td>{{numOfIncompleteTasks}}</td>
             <td>{{numOfAccomplishedTask}}</td>
+            <td>{{chargedCash}}</td>
+            <td>{{exchangedCash}}</td>
         </tr>
     </table>
 
@@ -41,6 +50,10 @@
     <BR>
 
     <div id="container" style="height: 100%"></div>
+    <hr>
+    <div id="inAndout" style="height:100%"></div>
+    <hr>
+    <div id="user" style="height:100%"> </div>
 
     <a href="../login/login.html">登出</a>
 

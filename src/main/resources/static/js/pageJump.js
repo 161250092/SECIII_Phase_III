@@ -97,7 +97,7 @@ function removeAllParameter() {
 
 //各页面URL
 /* admin */
-const adminPageUrl = "../admin/login.html";
+const adminPageUrl = "../admin/index.html";
 
 /* login */
 const loginPageUrl = "../login/login.html";
