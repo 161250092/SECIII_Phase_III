@@ -36,6 +36,7 @@ public class AdminController {
      * @param endDate 结束日期
      * @return 统计信息
      */
+    @RequestMapping(value = "/admin/getWebsiteTrafficStatics", method = RequestMethod.GET)
     public WebsiteTrafficStatics getWebsiteTrafficStatics(String startDate, String endDate){
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date start = null;
