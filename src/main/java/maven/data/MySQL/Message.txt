@@ -37,7 +37,8 @@ create Table `BillMessage`(
 `Type` varchar(10),
 `Reason` varchar(30),
 `Cash` double precision,
-`Confirm` boolean,
+`Date` varchar(100),
+`isChecked` boolean,
 primary key(MessageId)
 );
 
