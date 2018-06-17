@@ -14,8 +14,16 @@ new Vue({
         chargedCash:0,
         exchangedCash:0,
 
-        startDate:"2018-01-01",
-        endDate:"2018-06-01"
+
+
+
+        startDate:"2018-06-12",
+        endDate:"2018-06-24",
+
+        publishTask:[],
+        FinishedTask:[],
+        charge:0,
+        exchange:0
     },
     mounted:function (ev) {
         this.$nextTick(function () {
@@ -25,6 +33,7 @@ new Vue({
     methods: {
         getWebsiteStatistics: function () {
             var _this = this;
+
             axios.get("/admin/getWebsiteStatistics").then(function (response) {
                 _this.numOfRequestors = response.data.numOfRequestors;
                 _this.numOfWorkers = response.data.numOfWorkers;
@@ -35,12 +44,13 @@ new Vue({
                 _this.numOfIncompleteTasks = response.data.numOfIncompleteTasks;
                 _this.numOfAccomplishedTask = response.data.numOfAccomplishedTask;
 
-                _this.chargeCash = response.data.chargeCash;
+                _this.chargedCash = response.data.chargedCash;
                 _this.exchangedCash = response.data.exchangedCash;
                 _this.taskCharts(_this.numOfAccomplishedTask, _this.numOfIncompleteTasks,"container");
                 _this.cashCharts(_this.chargeCash, _this.exchangedCash,"inAndout");
                 _this.userCharts( _this.numOfRequestors,_this.numOfWorkers,"user");
-                _this.flowCharts([820, 932, 901, 934, 1290, 1330, 1320],"flow");
+                _this.flowCharts(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],[820, 932, 901, 934, 1290, 1330, 1320],"flow");
+                _this.flowCharts(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],[820, 932, 901, 934, 1290, 1330, 1320],"flow1");
             })
 
 
@@ -212,7 +222,7 @@ new Vue({
             }
         },
 
-        flowCharts:function(list,container){
+        flowCharts:function(x,y,container){
             var dom = document.getElementById(container);
             var myChart = echarts.init(dom);
             var app = {};
@@ -220,13 +230,13 @@ new Vue({
             option = {
                 xAxis: {
                     type: 'category',
-                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                    data: x
                 },
                 yAxis: {
                     type: 'value'
                 },
                 series: [{
-                    data: list,
+                    data: y,
                     type: 'line'
                 }]
             };
@@ -239,9 +249,59 @@ new Vue({
 
 
         checkFlow:function(){
-            console.log(this.startDate);
-            console.log(this.endDate);
-        }
+
+
+           const _this = this;
+            var xList1=[];
+            var xList2=[];
+
+            if(_this.compareDate(_this.startDate,_this.endDate)===false) {
+                return;
+            }
+            axios.get("/admin/getWebsiteTrafficStatics",{params:{startDate:_this.startDate,endDate:_this.endDate}})
+                .then(function (Statistics){
+                _this.publishTask = Statistics.data.numOfPublishedTask;
+                _this.FinishedTask = Statistics.data.numOfSubmittedAcceptedTask;
+
+                _this.charge  = Statistics.data.chargedCash;
+                _this.exchange = Statistics.data.exchangedCash;
+
+                console.log(_this.publishTask);
+                    xList1[0]=_this.startDate;
+                    for(var i=1;i<_this.publishTask.length-1;i++)
+                        xList1[i] = "~";
+                    xList1[_this.publishTask.length-1] = _this.endDate;
+
+                    xList2[0]=_this.startDate;
+                    for(var i=1;i<_this.FinishedTask.length-1;i++)
+                        xList2[i] = "~";
+                    xList2[_this.FinishedTask.length-1] = _this.endDate;
+                    console.log(xList1);
+
+
+                    _this.flowCharts(xList1, _this.publishTask,"flow");
+
+                    _this.flowCharts(xList2, _this.FinishedTask,"flow1");
+
+                })
+
+        },
+
+
+        compareDate:function(startDate, endDate) {
+            var arrStart = startDate.split("-");
+            var startTime = new Date(arrStart[0], arrStart[1], arrStart[2]);
+            var startTimes = startTime.getTime();
+            var arrEnd = endDate.split("-");
+            var endTime = new Date(arrEnd[0], arrEnd[1], arrEnd[2]);
+            var endTimes = endTime.getTime();
+            if (endTimes<startTimes) {
+                alert("结束时间不能小于开始时间");
+                return false;
+            }
+            return true;
+}
+
 
 
     }
