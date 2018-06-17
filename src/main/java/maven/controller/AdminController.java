@@ -38,6 +38,8 @@ public class AdminController {
      */
     @RequestMapping(value = "/admin/getWebsiteTrafficStatics", method = RequestMethod.GET)
     public WebsiteTrafficStatics getWebsiteTrafficStatics(String startDate, String endDate){
+        System.out.println(startDate);
+        System.out.println(endDate);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date start = null;
         Date end = null;
