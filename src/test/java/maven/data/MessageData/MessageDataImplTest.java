@@ -7,6 +7,7 @@ import maven.model.task.AcceptedTaskState;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -247,6 +248,8 @@ public class MessageDataImplTest {
 
         assertEquals("ASSIGN_TASK",
                 "ASSIGN_TASK", l.get(0).getBillReason().toString());
+        assertEquals("Date",
+                new Date(2018,6,18,1,11,12), l.get(0).getDate());
 
         assertEquals("SUPPLEMENT_TASK_CASH",
                 "SUPPLEMENT_TASK_CASH", l.get(1).getBillReason().toString());
@@ -336,9 +339,8 @@ public class MessageDataImplTest {
 
     private List<BillMessage> getBillMessageForTest(){
         List<BillMessage> list = new ArrayList<>();
-
         list.add(new BillMessage(new MessageId("000000000009"), new UserId("requestor0001"),
-                BillType.OUT, BillReason.ASSIGN_TASK, new Cash(100)));
+                BillType.OUT, BillReason.ASSIGN_TASK, new Cash(100), new Date(2018,6,18,1,11,12)));
         list.add(new BillMessage(new MessageId("000000000010"), new UserId("requestor0001"),
                 BillType.OUT, BillReason.SUPPLEMENT_TASK_CASH, new Cash(200)));
         list.add(new BillMessage(new MessageId("000000000011"), new UserId("requestor0001"),
