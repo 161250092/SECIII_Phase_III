@@ -71,11 +71,11 @@
         </tr>
 
         <tr v-for="(item,index) in achievementList">
-            <th>{{item.achievementName}}</th>
-            <th>{{item.description}}</th>
-            <th>{{item.process}}</th>
-            <th>{{item.cash.value}}</th>
-            <th><input type="button" v-on:click="getCash(index)" value="领取"></th>
+            <td>{{item.achievementName}}</td>
+            <td>{{item.description}}</td>
+            <td>{{item.process}}</td>
+            <td>{{item.cash.value}}</td>
+            <td><input type="button" v-on:click="getCash(index)" value="领取"></td>
         </tr>
     </table>
 

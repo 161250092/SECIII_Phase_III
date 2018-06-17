@@ -20,7 +20,7 @@ public class ImageController {
     private static final Logger log = LoggerFactory.getLogger(ImageController.class);
 
     //保存图片的文件夹路径
-    private static final String ROOT = "taskImage/";
+    private static final String TASK_IMAGE_FILE_ROOT = "./taskImage/";
 
     private final ResourceLoader resourceLoader;
 
@@ -40,9 +40,17 @@ public class ImageController {
             @RequestParam("fileList") MultipartFile[] fileList,
             RedirectAttributes redirectAttributes, HttpServletRequest request){
 
-        String filePath = ROOT + taskId;
+        //创建根目录
+        if(!Files.isDirectory(Paths.get(TASK_IMAGE_FILE_ROOT))){
+            try {
+                Files.createDirectory(Paths.get(TASK_IMAGE_FILE_ROOT));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
-        //创建文件夹
+        String filePath = TASK_IMAGE_FILE_ROOT + taskId;
+        //创建某个任务的文件夹
         if(!Files.isDirectory(Paths.get(filePath))){
             try {
                 Files.createDirectory(Paths.get(filePath));
@@ -51,12 +59,12 @@ public class ImageController {
             }
         }
         //复制文件
-        for(int i = 0; i < fileList.length; i++){
-            if(!fileList[i].isEmpty()) {
-                try{
-                    Files.copy(fileList[i].getInputStream(), Paths.get(filePath, fileList[i].getOriginalFilename()));
+        for (MultipartFile aFileList : fileList) {
+            if (!aFileList.isEmpty()) {
+                try {
+                    Files.copy(aFileList.getInputStream(), Paths.get(filePath, aFileList.getOriginalFilename()));
                     //redirectAttributes.addFlashAttribute("message", "successfully uploaded" + file.getOriginalFilename());
-                }catch (IOException | RuntimeException e){
+                } catch (IOException | RuntimeException e) {
                     e.printStackTrace();
                     //redirectAttributes.addFlashAttribute("message", "Fail to upload" + file.getOriginalFilename() + "=>" + e.getMessage());
                 }
@@ -80,7 +88,7 @@ public class ImageController {
         System.out.println(taskId);
         System.out.println(filename);
         try{
-            return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get((ROOT + taskId), filename).toString()));
+            return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get((TASK_IMAGE_FILE_ROOT + taskId), filename).toString()));
         }catch (Exception e){
             return ResponseEntity.notFound().build();
         }

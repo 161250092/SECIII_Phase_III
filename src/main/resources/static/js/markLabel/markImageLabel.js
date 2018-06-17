@@ -153,7 +153,7 @@ new Vue({
             if(this.filenameList.length > 0){
                 return '/image/getTaskImage/' + this.taskId + '/' + this.filenameList[this.currentLabelIndex];
             }else{
-                return '/image/getTaskImage/errorTaskImage.jpg'
+                return '/image/getTaskImage/errorTaskImage/errorTaskImage.jpg'
             }
         },
         currentLabel: function () {

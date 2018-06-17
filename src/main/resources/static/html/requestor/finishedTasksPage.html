@@ -64,12 +64,12 @@
 		</tr>
 		<!-- incompleted -->
 		<tr v-for="(item, index) in AllFinishedTasks">
-			<th>{{item.taskId}}</th>
-			<th>{{getChineseLabelType(item.labelType)}}</th>
-			<th>{{item.finishedWorkerNum}}</th>
-			<th>{{item.taskPrice}}</th>
+			<td>{{item.taskId}}</td>
+			<td>{{getChineseLabelType(item.labelType)}}</td>
+			<td>{{item.finishedWorkerNum}}</td>
+			<td>{{item.taskPrice}}</td>
 			<!-- 查看任务完成情况 incompleted -->
-			<th><button v-on:click="check(index)">查看</button></th>
+			<td><button v-on:click="check(index)">查看</button></td>
 		</tr>
 	</table>
 
@@ -84,10 +84,10 @@
 		</tr>
 
 		<tr v-for="(item, index) in ParticipatorsInfo">
-			<th>{{item.username}}</th>
-			<th>{{item.labelScore}}</th>
-			<th>{{item.acceptedTaskState}}</th>
-			<th>{{item.taskPrice}}</th>
+			<td>{{item.username}}</td>
+			<td>{{item.labelScore}}</td>
+			<td>{{item.acceptedTaskState}}</td>
+			<td>{{item.taskPrice}}</td>
 		</tr>
 	</table>
 
