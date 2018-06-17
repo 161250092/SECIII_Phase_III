@@ -2,8 +2,11 @@ new Vue({
     el:"#taskInfoContainer",
     data:{
         AllUnfinishedTasks:[],
-        taskDescription:"请点击要查看的任务",
-        reviseTaskId:"无",
+        allUnfinishedMassTasks:[],
+
+        taskDescription:"",
+        massTaskDescription: "",
+        reviseTaskId:"",
         reviseTaskPrice:0,
     },
     mounted: function () {
@@ -16,10 +19,17 @@ new Vue({
     methods:{
         getAssignedButIncompleteTaskList: function () {
             const _this = this;
-            axios.get("/requestor/getAssignedButIncompleteTaskList",
-                { params:{ userId: getUserId() } })
+            axios.get("/requestor/getAssignedButIncompleteTaskList", { params:{ userId: getUserId() } })
                 .then(function (response) {
-                    _this.AllUnfinishedTasks = response.data;
+                    _this.AllUnfinishedTasks = [];
+                    _this.allUnfinishedMassTasks = [];
+                    response.data.forEach(function (item, index) {
+                        if (item.taskId.indexOf("MASS") === -1) {
+                            _this.AllUnfinishedTasks.push(item);
+                        }else {
+                            _this.allUnfinishedMassTasks.push(item);
+                        }
+                    });
                 });
         },
         getChineseLabelType: function (labelType) {
@@ -34,12 +44,21 @@ new Vue({
         detailedInfo:function(index){
             this.taskDescription = this.AllUnfinishedTasks[index].taskDescription;
         },
+        massTaskDetailedInfo: function (index) {
+            this.massTaskDescription = this.allUnfinishedMassTasks[index].taskDescription;
+        },
         changeTaskPrice:function(index){
             this.reviseTaskId = this.AllUnfinishedTasks[index].taskId;
         },
         recallTask:function(index){
+            this.terminateTask(this.AllUnfinishedTasks[index].taskId);
+        },
+        recallMassTask: function (index) {
+            this.terminateTask(this.allUnfinishedMassTasks[index].taskId);
+        },
+        terminateTask : function (taskId) {
             const _this = this;
-            axios.get("/requestor/terminateTask", {params: {taskId:this.AllUnfinishedTasks[index].taskId}})
+            axios.get("/requestor/terminateTask", {params: {taskId: taskId}})
                 .then(function (Exception) {
                     let message = Exception.data.wrongMessage.type;
                     if(message === "Success"){

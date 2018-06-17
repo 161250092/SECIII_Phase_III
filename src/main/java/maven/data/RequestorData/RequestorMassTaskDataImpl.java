@@ -67,6 +67,54 @@ public class RequestorMassTaskDataImpl implements RequestorMassTaskDataService {
         return massTaskDetails;
     }
 
+    @Override
+    public boolean isMassTask(TaskId taskId) {
+        conn = new MySQLConnector().getConnection("PublishedTask");
+
+        boolean result = false;
+
+        PreparedStatement stmt;
+        String sql;
+        ResultSet rs;
+        try{
+            sql = "select * from MassTaskDetail where TaskId = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, taskId.value);
+            rs = stmt.executeQuery();
+
+            while (rs.next()){ result = true; }
+
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    @Override
+    public MassTaskDetail getMassTaskDetailOfThisTask(TaskId taskId) {
+        conn = new MySQLConnector().getConnection("PublishedTask");
+
+        MassTaskDetail massTaskDetail = null;
+
+        PreparedStatement stmt;
+        String sql;
+        ResultSet rs;
+        try {
+            sql = "select * from MassTaskDetail where TaskId = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, taskId.value);
+            rs = stmt.executeQuery();
+
+            massTaskDetail = getMassTaskDetailListFromResultSet(rs).get(0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return massTaskDetail;
+    }
+
     /*                  工人                   */
     @Override
     public List<MassTaskDetail> getAllAvailableMassTaskDetail(long searchDate) {

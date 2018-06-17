@@ -101,6 +101,8 @@ new Vue({
                 if (draftWrongMessageType === "Success" && detailWrongMessageType === "Success"){
                     alert("保存成功，请标注样本");
                     jumpToAnotherPage(assignTaskPageUrl);
+                } else if(detailWrongMessageType === "CashNotEnough") {
+                    alert("余额不足");
                 } else {
                     alert("保存失败");
                 }
