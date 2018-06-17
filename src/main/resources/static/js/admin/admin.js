@@ -12,7 +12,10 @@ new Vue({
         numOfRequestors:0,
         numOfWorkers:0,
         chargedCash:0,
-        exchangedCash:0
+        exchangedCash:0,
+
+        startDate:"2018-01-01",
+        endDate:"2018-06-01"
     },
     mounted:function (ev) {
         this.$nextTick(function () {
@@ -32,12 +35,12 @@ new Vue({
                 _this.numOfIncompleteTasks = response.data.numOfIncompleteTasks;
                 _this.numOfAccomplishedTask = response.data.numOfAccomplishedTask;
 
-
                 _this.chargeCash = response.data.chargeCash;
                 _this.exchangedCash = response.data.exchangedCash;
                 _this.taskCharts(_this.numOfAccomplishedTask, _this.numOfIncompleteTasks,"container");
                 _this.cashCharts(_this.chargeCash, _this.exchangedCash,"inAndout");
                 _this.userCharts( _this.numOfRequestors,_this.numOfWorkers,"user");
+                _this.flowCharts([820, 932, 901, 934, 1290, 1330, 1320],"flow");
             })
 
 
@@ -207,10 +210,42 @@ new Vue({
             if (option && typeof option === "object") {
                 myChart.setOption(option, true);
             }
+        },
+
+        flowCharts:function(list,container){
+            var dom = document.getElementById(container);
+            var myChart = echarts.init(dom);
+            var app = {};
+            option = null;
+            option = {
+                xAxis: {
+                    type: 'category',
+                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    data: list,
+                    type: 'line'
+                }]
+            };
+            ;
+            if (option && typeof option === "object") {
+                myChart.setOption(option, true);
+            }
+
+        },
+
+
+        checkFlow:function(){
+            console.log(this.startDate);
+            console.log(this.endDate);
         }
 
 
     }
+
 });
 
 

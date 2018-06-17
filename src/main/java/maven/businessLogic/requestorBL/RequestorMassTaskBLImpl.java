@@ -5,11 +5,13 @@ import maven.data.RequestorData.RequestorDataImpl;
 import maven.data.RequestorData.RequestorDataService;
 import maven.data.RequestorData.RequestorMassTaskDataImpl;
 import maven.data.RequestorData.RequestorMassTaskDataService;
+import maven.exception.AssignException.CashNotEnoughException;
 import maven.exception.util.FailureException;
 import maven.exception.util.SuccessException;
 import maven.model.massTask.MassTaskDetail;
 import maven.model.primitiveType.UserId;
 import maven.model.task.PublishedTask;
+import maven.model.user.Requestor;
 import maven.model.vo.MassTaskDetailVO;
 import maven.model.vo.PublishedMassTaskVO;
 import maven.model.vo.PublishedTaskVO;
@@ -32,9 +34,9 @@ public class RequestorMassTaskBLImpl implements RequestorMassTaskBLService{
     @Override
     public Exception uploadMassTaskDetail(UserId requestorId, MassTaskDetail massTaskDetail) {
         boolean r1 = requestorMassTaskData.saveMassTaskDetail(massTaskDetail);
-        boolean r2 = manageUserBL.reduceCash(requestorId, massTaskDetail.getBudget());
+        //boolean r2 = manageUserBL.reduceCash(requestorId, massTaskDetail.getBudget());
 
-        if (r1 && r2){
+        if (r1){
             return new SuccessException();
         }else {
             return new FailureException();
