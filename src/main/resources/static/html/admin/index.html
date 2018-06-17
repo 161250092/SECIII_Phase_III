@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html  lang="en" class="no-js" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>网站管理员</title>
@@ -16,10 +16,10 @@
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
 </head>
 <body bgcolor="#f8f8ff">
-<div align="center">
+<div align="center" id="statisticsTable">
     <h1>众包情况</h1>
 
-    <table id="statisticsTable" border="1">
+    <table border="1">
         <tr>
             <th>用户数</th>
             <th>发布者数</th>
@@ -46,23 +46,45 @@
 
 
 
-
     <BR>
 
     <div id="container" style="height: 100%"></div>
-    <hr>
-    <div id="inAndout" style="height:100%"></div>
-    <hr>
-    <div id="user" style="height:100%"> </div>
+    <hr/>
 
-    <a href="../login/login.html">登出</a>
+    <div id="inAndout" style="height:100%"></div>
+    <hr/>
+
+    <div id="user" style="height:100%"> </div>
+    <hr/>
+
+    <div>
+        <label>开始时间</label>
+        <input type="date" v-model="startDate">
+
+        <label>结束时间</label>
+        <input type="date" v-model="endDate" >
+
+        <input type="button" value="查询" v-on:click="checkFlow()">
+        <br>
+        <label> 期间充值</label>
+        <input type="text" value="" v-model="chargedCash">
+
+        <label>期间兑换</label>
+        <input type="text" value=""  v-model="exchangedCash">
+
+    </div>
+    <div id="flow" style="height:300%"></div>
 
 
 </div>
 
+    <a href="../login/login.html">登出</a>
+
+
+
+
 <script src="../../js/lib/vue.js"></script>
 <script src="../../js/lib/axios.js"></script>
-<script src="../../js/lib/jquery-1.11.0.min.js"></script>
 <script src="../../js/admin/admin.js"></script>
 </body>
 </html>
