@@ -37,6 +37,7 @@ public class WorkerMassTaskDataImpl implements WorkerMassTaskDataService {
             stmt.executeUpdate();
 
             stmt.close();
+            conn.close();
             return true;
         }catch (Exception e){
             e.printStackTrace();
@@ -67,6 +68,8 @@ public class WorkerMassTaskDataImpl implements WorkerMassTaskDataService {
 
                 result.add(new WorkerBid(workerId,taskId,radio,cash,imageNum, workerBidState));
             }
+            stmt.close();
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -98,6 +101,7 @@ public class WorkerMassTaskDataImpl implements WorkerMassTaskDataService {
                 result.add(new WorkerBid(workerId,taskId,radio,cash,imageNum, workerBidState));
             }
             stmt.close();
+            conn.close();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -120,6 +124,7 @@ public class WorkerMassTaskDataImpl implements WorkerMassTaskDataService {
             stmt.executeUpdate();
 
             stmt.close();
+            conn.close();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

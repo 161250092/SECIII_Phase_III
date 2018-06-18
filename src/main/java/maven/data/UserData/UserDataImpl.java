@@ -42,6 +42,7 @@ public class UserDataImpl implements UserDataService{
             }
 
             stmt.close();
+            conn.close();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -77,6 +78,7 @@ public class UserDataImpl implements UserDataService{
             }
 
             stmt.close();
+            conn.close();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -112,6 +114,7 @@ public class UserDataImpl implements UserDataService{
             }
 
             stmt.close();
+            conn.close();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -140,6 +143,7 @@ public class UserDataImpl implements UserDataService{
             stmt.executeUpdate();
 
             stmt.close();
+            conn.close();
             result = true;
         }catch (Exception e){
             e.printStackTrace();
@@ -170,6 +174,7 @@ public class UserDataImpl implements UserDataService{
             stmt.executeUpdate();
 
             stmt.close();
+            conn.close();
             result = true;
         }catch (Exception e){
             e.printStackTrace();
@@ -214,6 +219,7 @@ public class UserDataImpl implements UserDataService{
             }
 
             stmt.close();
+            conn.close();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -244,6 +250,7 @@ public class UserDataImpl implements UserDataService{
             while(rs.next()){ result = new UserId(rs.getString("UserId")); }
 
             stmt.close();
+            conn.close();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -295,6 +302,7 @@ public class UserDataImpl implements UserDataService{
             }
 
             stmt.close();
+            conn.close();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -326,6 +334,7 @@ public class UserDataImpl implements UserDataService{
             stmt.executeUpdate();
 
             stmt.close();
+            conn.close();
             result = true;
         }catch (Exception e){
             e.printStackTrace();
@@ -356,6 +365,7 @@ public class UserDataImpl implements UserDataService{
             stmt.executeUpdate();
 
             stmt.close();
+            conn.close();
             result = true;
         }catch (Exception e){
             e.printStackTrace();
@@ -386,6 +396,7 @@ public class UserDataImpl implements UserDataService{
             stmt.executeUpdate();
 
             stmt.close();
+            conn.close();
             result = true;
         }catch (Exception e){
             e.printStackTrace();
@@ -417,6 +428,7 @@ public class UserDataImpl implements UserDataService{
             stmt.executeUpdate();
 
             stmt.close();
+            conn.close();
             result = true;
         }catch (Exception e){
             e.printStackTrace();
@@ -448,6 +460,7 @@ public class UserDataImpl implements UserDataService{
             stmt.executeUpdate();
 
             stmt.close();
+            conn.close();
             result = true;
         }catch (Exception e){
             e.printStackTrace();

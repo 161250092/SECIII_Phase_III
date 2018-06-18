@@ -37,6 +37,7 @@ public class RequestorMassTaskDataImpl implements RequestorMassTaskDataService {
             stmt.execute();
 
             stmt.close();
+            conn.close();
             return true;
         }catch (Exception e){
             e.printStackTrace();
@@ -61,6 +62,7 @@ public class RequestorMassTaskDataImpl implements RequestorMassTaskDataService {
             massTaskDetails = getMassTaskDetailListFromResultSet(rs);
 
             stmt.close();
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -85,6 +87,7 @@ public class RequestorMassTaskDataImpl implements RequestorMassTaskDataService {
             while (rs.next()){ result = true; }
 
             stmt.close();
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -108,6 +111,8 @@ public class RequestorMassTaskDataImpl implements RequestorMassTaskDataService {
             rs = stmt.executeQuery();
 
             massTaskDetail = getMassTaskDetailListFromResultSet(rs).get(0);
+            stmt.close();
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -133,6 +138,7 @@ public class RequestorMassTaskDataImpl implements RequestorMassTaskDataService {
             massTaskDetails = getMassTaskDetailListFromResultSet(rs);
 
             stmt.close();
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -161,6 +167,7 @@ public class RequestorMassTaskDataImpl implements RequestorMassTaskDataService {
             stmt.executeUpdate();
 
             stmt.close();
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
