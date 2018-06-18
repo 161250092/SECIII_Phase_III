@@ -21,18 +21,13 @@ public class LabelQualityDataImpl implements LabelQualityDataService{
         PreparedStatement stmt;
         String sql;
         ResultSet rs;
-
         try {
             sql = "select * from AcceptedTask where State = ? or State = ? or State = ?";
-
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1, AcceptedTaskState.PASSED.toString());
             stmt.setString(2,AcceptedTaskState.ABANDONED_BY_REQUESTOR.toString());
             stmt.setString(3,AcceptedTaskState.REJECTED.toString());
-
             rs = stmt.executeQuery();
-
             while(rs.next()){
                 UserId worker = new UserId(rs.getString("UserId"));
                 String[] taskId = rs.getString("TaskId").split("_");
@@ -45,9 +40,7 @@ public class LabelQualityDataImpl implements LabelQualityDataService{
             }
 
             stmt.close();
-
             conn.close();
-
         }catch (Exception e){
             e.printStackTrace();
         }

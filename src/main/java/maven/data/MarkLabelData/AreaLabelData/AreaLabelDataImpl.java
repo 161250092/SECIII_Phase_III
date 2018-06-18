@@ -198,14 +198,6 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
         int count_aNumber = 0;
         List<String> tagList = new ArrayList<>();
         try {
-            //sql = "select count(distinct aNumber) as count_aNumber from aLabel_tag where userId = ? and taskId = ? and iNumber = ?";
-            //stmt = conn.prepareStatement(sql);
-            //stmt.setString(1,userId.value);
-            //stmt.setString(2,taskId.value);
-            //stmt.setInt(3, iNumber);
-            //rs = stmt.executeQuery();
-            //while (rs.next()){ count_aNumber = rs.getInt("count_aNumber");}
-
             sql = "select tag from aLabel_tag where userId = ? and taskId = ? and iNumber = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1,userId.value);

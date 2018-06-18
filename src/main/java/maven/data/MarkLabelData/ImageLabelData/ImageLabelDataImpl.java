@@ -24,16 +24,12 @@ public class ImageLabelDataImpl implements ImageLabelDataService {
 
        PreparedStatement stmt;
        String sql;
-
        Gson gson = new GsonBuilder().create();
        for(int i = 0;i < imageLabel.size();i++){
            try{
                sql = "insert into iLabel values (?,?,?,?)";
-
                stmt = conn.prepareStatement(sql);
-
                String content = gson.toJson(imageLabel.get(i));
-
                stmt.setString(1,userId.value);
                stmt.setString(2,taskId.value);
                stmt.setInt(3,i);
@@ -70,17 +66,11 @@ public class ImageLabelDataImpl implements ImageLabelDataService {
        boolean exist = false;
        try{
            sql = "select * from iLabel where UserId = ? and TaskId = ?";
-
            stmt = conn.prepareStatement(sql);
-
            stmt.setString(1,userId.value);
            stmt.setString(2,taskId.value);
-
            rs = stmt.executeQuery();
-
-           while(rs.next()){
-               exist = true;
-           }
+           while(rs.next()){ exist = true; }
 
            stmt.close();
        }catch (Exception e){
@@ -91,16 +81,12 @@ public class ImageLabelDataImpl implements ImageLabelDataService {
        if(exist){
            try{
                sql = "delete from iLabel where UserId = ? and TaskId = ?";
-
                stmt = conn.prepareStatement(sql);
-
                stmt.setString(1,userId.value);
                stmt.setString(2,taskId.value);
-
                stmt.executeUpdate();
 
                stmt.close();
-
                result = true;
            }catch (Exception e){
                e.printStackTrace();

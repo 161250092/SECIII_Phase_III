@@ -116,12 +116,10 @@ public class AdminDataImpl implements AdminDataService {
         PreparedStatement stmt;
         String sql;
         ResultSet rs;
-
         try{
             sql = "select * from Admin";
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
-
             while(rs.next()){
                 UserId userId = new UserId(rs.getString("UserId"));
                 Username username = new Username(rs.getString("Username"));
@@ -133,7 +131,6 @@ public class AdminDataImpl implements AdminDataService {
 
             stmt.close();
             conn.close();
-
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -152,23 +149,18 @@ public class AdminDataImpl implements AdminDataService {
 
         try{
             sql = "insert into Admin(UserId, Username, Password) values (?,?,?)";
-
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,admin.getUserId().value);
             stmt.setString(2,admin.getUsername().value);
             stmt.setString(3,admin.getPassword().value);
-
             stmt.executeUpdate();
 
             stmt.close();
             conn.close();
-
             result = true;
         }catch (Exception e){
             e.printStackTrace();
         }
-
 
         return result;
     }

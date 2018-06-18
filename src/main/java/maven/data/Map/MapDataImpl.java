@@ -28,10 +28,8 @@ public class MapDataImpl implements MapDataService{
             sql = "select * from TypeCash";
 
             stmt = conn.prepareStatement(sql);
-
-                rs = stmt.executeQuery();
-
-                while(rs.next()){
+            rs = stmt.executeQuery();
+            while(rs.next()){
                 TaskType taskType = TaskType.valueOf(rs.getString("TaskType"));
                 Cash cash = new Cash(rs.getDouble("Cash"));
                 result.put(taskType,cash);
@@ -39,7 +37,6 @@ public class MapDataImpl implements MapDataService{
 
             stmt.close();
             conn.close();
-
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -56,14 +53,10 @@ public class MapDataImpl implements MapDataService{
         PreparedStatement stmt;
         String sql;
         ResultSet rs;
-
         try{
             sql = "select * from TypePrestige";
-
             stmt = conn.prepareStatement(sql);
-
             rs = stmt.executeQuery();
-
             while(rs.next()){
                 TaskType taskType = TaskType.valueOf(rs.getString("TaskType"));
                 Prestige prestige = new Prestige(rs.getDouble("Prestige"));
@@ -72,7 +65,6 @@ public class MapDataImpl implements MapDataService{
 
             stmt.close();
             conn.close();
-
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -89,26 +81,19 @@ public class MapDataImpl implements MapDataService{
         PreparedStatement stmt;
         String sql;
         ResultSet rs;
-
         try{
             sql = "select * from MaxPrestige";
             stmt = conn.prepareStatement(sql);
-
             rs = stmt.executeQuery();
-
             while(rs.next()){
                 prestige = new Prestige(rs.getDouble("Prestige"));
-
             }
-
 
             stmt.close();
             conn.close();
-
         }catch (Exception e){
             e.printStackTrace();
         }
-
 
         return  prestige;
     }

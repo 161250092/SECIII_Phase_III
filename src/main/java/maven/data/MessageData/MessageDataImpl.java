@@ -230,6 +230,8 @@ public class MessageDataImpl implements  MessageDataService{
                 publishedTaskMessages.add(publishedTaskMessage);
              }
 
+            stmt.close();
+            conn.close();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -267,6 +269,9 @@ public class MessageDataImpl implements  MessageDataService{
                 acceptedTaskMessages.add(acceptedTaskMessage);
 
             }
+
+            stmt.close();
+            conn.close();
         }catch (Exception e){
             e.printStackTrace();
         }

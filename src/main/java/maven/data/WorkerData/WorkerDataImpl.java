@@ -51,7 +51,6 @@ public class WorkerDataImpl implements WorkerDataService {
                 AcceptedTask acceptedTask = new AcceptedTask(userId,taskId,date,cash,discount,state,score);
 
                 acceptedTasks.add(acceptedTask);
-
             }
 
             stmt.close();

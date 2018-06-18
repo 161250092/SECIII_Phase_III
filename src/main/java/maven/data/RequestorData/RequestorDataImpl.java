@@ -57,6 +57,7 @@ public class RequestorDataImpl implements RequestorDataService {
             stmt.setString(7,publishedTask.getPublishedTaskState().toString());
 
             stmt.executeUpdate();
+            conn.close();
             stmt.close();
             r1 = true;
         }catch (Exception e){
@@ -74,9 +75,8 @@ public class RequestorDataImpl implements RequestorDataService {
                 stmt.setString(3,publishedTask.getImageFilenameList().get((i)).value);
 
                 stmt.executeUpdate();
-
+                conn.close();
                 stmt.close();
-
                 r2 = true;
             }catch (Exception e){
                 e.printStackTrace();
@@ -105,7 +105,7 @@ public class RequestorDataImpl implements RequestorDataService {
                 stmt.executeUpdate();
 
                 stmt.close();
-
+                conn.close();
                 if(i == publishedTask.getPublishedTaskDetailList().size() - 1) {
                     conn.close();
                     r3 = true;
@@ -122,7 +122,6 @@ public class RequestorDataImpl implements RequestorDataService {
 
     private boolean deleteTaskInfo(TaskId taskId) {
         conn = new MySQLConnector().getConnection("PublishedTask");
-        boolean result = false;
 
         PreparedStatement stmt;
         String sql;
@@ -131,13 +130,10 @@ public class RequestorDataImpl implements RequestorDataService {
         try{
             sql = "delete from PublishedTask where TaskId = ?";
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,taskId.value);
-
             stmt.executeUpdate();
 
             stmt.close();
-
             r1 = true;
         }catch (Exception e){
             e.printStackTrace();
@@ -146,14 +142,11 @@ public class RequestorDataImpl implements RequestorDataService {
         boolean r2 = false;
         try{
             sql = "delete from FileName where TaskId = ?";
-
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,taskId.value);
-
             stmt.executeUpdate();
-            stmt.close();
 
+            stmt.close();
             r2 = true;
         }catch (Exception e){
             e.printStackTrace();
@@ -161,22 +154,17 @@ public class RequestorDataImpl implements RequestorDataService {
 
         try{
             sql = "delete from Detail where TaskId = ?";
-
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,taskId.value);
-
             stmt.executeUpdate();
-            stmt.close();
 
-            if(r1)
-                if(r2)
-                    result = true;
+            stmt.close();
+            conn.close();
         }catch (Exception e){
             e.printStackTrace();
         }
 
-        return result;
+        return r1 && r2;
     }
 
     @Override
@@ -236,13 +224,9 @@ public class RequestorDataImpl implements RequestorDataService {
 
         try{
             sql = "select * from Sample where TaskId = ?";
-
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,taskId.value);
-
             rs = stmt.executeQuery();
-
             while(rs.next()){
                 Num = rs.getInt("Num");
                 String[] index = rs.getString("Index").split(",");
@@ -251,6 +235,7 @@ public class RequestorDataImpl implements RequestorDataService {
             }
 
             stmt.close();
+            conn.close();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -274,18 +259,15 @@ public class RequestorDataImpl implements RequestorDataService {
 
         try{
             sql = "select max(iNumber) as max_iNumber from Detail where TaskId = ?";
-
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,taskId.value);
-
             rs = stmt.executeQuery();
-
             while(rs.next()){
                 time = rs.getInt("max_iNumber") + 1;
             }
 
             stmt.close();
+            conn.close();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -306,12 +288,10 @@ public class RequestorDataImpl implements RequestorDataService {
             stmt.setString(5,discount);
             stmt.setDouble(6,publishedTaskDetail.getTaskPricePerWorker().value);
 
-
             stmt.executeUpdate();
 
             stmt.close();
             conn.close();
-
             result = true;
         }catch (Exception e){
             e.printStackTrace();
@@ -331,17 +311,13 @@ public class RequestorDataImpl implements RequestorDataService {
 
         try{
             sql = "update PublishedTask set aWorkerNum = ? where TaskId = ?";
-
             stmt = conn.prepareStatement(sql);
-
             stmt.setInt(1,acceptedWorkerNum.value);
             stmt.setString(2,taskId.value);
-
             stmt.executeUpdate();
 
             stmt.close();
             conn.close();
-
             result = true;
         }catch (Exception e){
             e.printStackTrace();
@@ -361,17 +337,13 @@ public class RequestorDataImpl implements RequestorDataService {
 
         try{
             sql = "update PublishedTask set fWorkerNum = ? where TaskId = ?";
-
             stmt = conn.prepareStatement(sql);
-
             stmt.setInt(1,finishedWorkerNum.value);
             stmt.setString(2,taskId.value);
-
             stmt.executeUpdate();
 
             stmt.close();
             conn.close();
-
             result = true;
         }catch (Exception e){
             e.printStackTrace();
@@ -391,17 +363,13 @@ public class RequestorDataImpl implements RequestorDataService {
 
         try{
             sql = "update PublishedTask set State= ? where TaskId = ?";
-
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,publishedTaskState.toString());
             stmt.setString(2,taskId.value);
-
             stmt.executeUpdate();
 
             stmt.close();
             conn.close();
-
             result = true;
         }catch (Exception e){
             e.printStackTrace();
@@ -423,15 +391,15 @@ public class RequestorDataImpl implements RequestorDataService {
         try{
             sql = "select * from PublishedTask where UserId = ?";
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,userId.value);
-
             rs = stmt.executeQuery();
-
             while(rs.next()){
                 TaskId taskId = new TaskId(rs.getString("TaskId"));
                 taskIds.add(taskId);
             }
+
+            stmt.close();
+            conn.close();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -441,16 +409,13 @@ public class RequestorDataImpl implements RequestorDataService {
 
     @Override
     public List<PublishedTask> getPublishedTaskList(UserId userId) {
-
         List<PublishedTask> publishedTasks = new AdminDataImpl().getAllPublishedTask();
-
         List<PublishedTask> result = new ArrayList<>();
 
         for(PublishedTask p : publishedTasks){
             if(p.getUserId().value.equals(userId.value))
                 result.add(p);
         }
-
 
         return result;
     }
@@ -460,12 +425,10 @@ public class RequestorDataImpl implements RequestorDataService {
         List<PublishedTask> publishedTasks = new AdminDataImpl().getAllPublishedTask();
 
         PublishedTask publishedTask = null;
-
         for(PublishedTask p : publishedTasks){
             if(p.getTaskId().value.equals(taskId.value))
                 publishedTask = p;
         }
-
 
         return publishedTask;
     }
@@ -482,20 +445,15 @@ public class RequestorDataImpl implements RequestorDataService {
 
         try{
             sql = "select * from TaskType where TaskId = ?";
-
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,taskId.value);
-
             rs = stmt.executeQuery();
-
             while(rs.next()){
                 taskType = TaskType.valueOf(rs.getString("TaskType"));
             }
 
             stmt.close();
             conn.close();
-
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -514,25 +472,18 @@ public class RequestorDataImpl implements RequestorDataService {
 
         try{
             sql = "insert into TaskType values (?,?)";
-
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,taskId.value);
             stmt.setString(2,taskType.toString());
-
             stmt.executeUpdate();
 
             stmt.close();
             conn.close();
-
             result = true;
-
         }catch (Exception e){
             e.printStackTrace();
         }
 
         return result;
     }
-
-
 }
