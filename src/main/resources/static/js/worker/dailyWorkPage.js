@@ -37,6 +37,7 @@ new Vue({
                .then(function(response){
                    if(response.data===true) {
                        alert("更新成功");
+                       _this.getUserAchievement();
                    }
                    else
                        alert("更新失败");
