@@ -128,8 +128,10 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
             stmt.setString(1,userId.value);
             stmt.setString(2,taskId.value);
             rs = stmt.executeQuery();
-            while(rs.next()){
-                count_iNumber = rs.getInt("max_inumber") + 1;
+            if (rs.next()){
+                if (rs.getObject("max_iNumber") != null){
+                    count_iNumber = rs.getInt("max_iNumber") + 1;
+                }
             }
 
             stmt.close();
