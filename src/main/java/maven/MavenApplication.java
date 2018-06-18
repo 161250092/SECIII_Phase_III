@@ -1,4 +1,5 @@
 package maven;
+import maven.runner.ServerRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
@@ -10,6 +11,9 @@ import javax.servlet.MultipartConfigElement;
 public class MavenApplication {
 
 	public static void main(String[] args) {
+		ServerRunner serverRunner = new ServerRunner();
+		serverRunner.run();
+
 		SpringApplication.run(MavenApplication.class, args);
 
 		MassTaskAllocator allocator = new MassTaskAllocator();
