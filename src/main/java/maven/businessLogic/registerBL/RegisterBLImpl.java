@@ -44,7 +44,7 @@ public class RegisterBLImpl implements RegisterBLService {
         //将id改为 00000000 的形式，在numberOfUser不足八位时 在前面补零，得到id
         String id = String.format("%08d", numberOfUser);
         UserId userId = new UserId(id);
-        Requestor requestor = new Requestor(userId, username, password, email, phone, new Cash(0), new Prestige(80), new TaskNum(5));
+        Requestor requestor = new Requestor(userId, username, password, email, phone, new Cash(0), new Prestige(80), new TaskNum(21));
         if(userDataService.saveRequestorInfo(requestor))
             return new RegisterSuccessException(id);
         else
@@ -61,7 +61,7 @@ public class RegisterBLImpl implements RegisterBLService {
         //将id改为 00000000 的形式，在numberOfUser不足八位时 在前面补零，得到id
         String id = String.format("%08d", numberOfUser);
         UserId userId = new UserId(id);
-        Worker worker = new Worker(userId, username, password, email, phone, new Cash(0), new Prestige(80), new TaskNum(5));
+        Worker worker = new Worker(userId, username, password, email, phone, new Cash(0), new Prestige(80), new TaskNum(21));
         if(userDataService.saveWorkerInfo(worker) && achievementBLService.init_user_achievement(userId))
             return new RegisterSuccessException(id);
         else
