@@ -73,7 +73,7 @@
         <tr v-for="(item,index) in achievementList">
             <td>{{item.achievementName}}</td>
             <td>{{item.description}}</td>
-            <td>{{item.process}}</td>
+            <td>{{getProcessInPercent(item.process)}}</td>
             <td>{{item.cash.value}}</td>
             <td><input type="button" v-on:click="getCash(index)" value="领取"></td>
         </tr>

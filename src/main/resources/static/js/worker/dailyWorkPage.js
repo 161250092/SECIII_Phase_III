@@ -6,26 +6,19 @@ new Vue({
     },
 
    mounted:function() {
-       const _this = this;
        this.$nextTick(function () {
-           _this.userId=getUserId();
-           axios.get("/worker/getUserAchievement", {params: {userId: this.userId}})
-               .then(function (response){
-                   _this.achievementList=response.data;
-                   _this.dealData();
-               });
+           this.userId = getUserId();
+           this.getUserAchievement();
         });
    },
    methods:{
        getUserAchievement:function(){
            const _this = this;
-           axios.get("/worker/getUserAchievement",
-               {params: {userId: _this.userId}})
+           axios.get("/worker/getUserAchievement", {params: {userId: _this.userId}})
                .then(function (response){
                    _this.achievementList=response.data;
                })
        },
-
        getCash:function(index){
            const _this = this;
            axios.get("/worker/getAchievementCash",{params:{userId:_this.userId,achievementId:_this.achievementList[index].achievementId}})
@@ -38,7 +31,6 @@ new Vue({
                    alert("您未完成要求或者已经领取");
            })
        },
-
        updateAchievement:function(){
            const _this =this;
            axios.get("/worker/updateAchievementCash",{params:{userId:_this.userId}})
@@ -50,39 +42,25 @@ new Vue({
                        alert("更新失败");
                })
        },
-
-
        sign_in:function(){
            alert("签到成功");
        },
-
        checkMessage:function(){
            jumpToAnotherPage(messagePagePageUrl);
        },
-
        doTask:function(){
            jumpToAnotherPage(doTaskPageUrl);
        },
-
        getTask:function(){
            jumpToAnotherPage(getTaskPageUrl);
        },
-
-
-       dealData:function(){
-         for(var i=0;i<this.achievementList.length;i++){
-             if(this.achievementList[i].process>1)
-                 this.achievementList[i].process=1;
-         }
-
-         for(var i=0;i<this.achievementList.length;i++){
-             var str=Number(this.achievementList[i].process*100).toFixed(2)
-                str+="%";
-             this.achievementList[i].process=str;
-         }
+       getProcessInPercent: function (processNum) {
+           let num;
+           if (processNum > 1){ num = 1; }
+           else { num = processNum; }
+           return Number(num * 100).toFixed(2) + "%";
        }
    }
-
 });
 
 new Vue({
