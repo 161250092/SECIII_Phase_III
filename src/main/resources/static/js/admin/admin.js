@@ -46,7 +46,7 @@ new Vue({
                 _this.chargedCash = response.data.chargedCash;
                 _this.exchangedCash = response.data.exchangedCash;
                 _this.taskCharts(_this.numOfAccomplishedTask, _this.numOfIncompleteTasks,"container");
-                _this.cashCharts(_this.chargeCash, _this.exchangedCash,"inAndout");
+                _this.cashCharts(_this.chargeCash, _this.exchangedCash,"cash");
                 _this.userCharts( _this.numOfRequestors,_this.numOfWorkers,"user");
                 _this.checkFlow();
             })

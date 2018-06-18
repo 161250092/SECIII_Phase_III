@@ -8,6 +8,8 @@ new Vue({
    mounted:function() {
        this.$nextTick(function () {
            this.userId = getUserId();
+           this.updateAchievement();
+
            this.getUserAchievement();
         });
    },
@@ -36,7 +38,6 @@ new Vue({
            axios.get("/worker/updateAchievementCash",{params:{userId:_this.userId}})
                .then(function(response){
                    if(response.data===true) {
-                       alert("更新成功");
                        _this.getUserAchievement();
                    }
                    else
