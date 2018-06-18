@@ -308,7 +308,7 @@ new Vue({
         },
         getMonthStartStr: function () {
             let date = new Date();
-            date = new Date(date.setDate(0));
+            date = new Date(date.setDate(1));
 
             let monthStr, dateStr;
             if (date.getMonth()+1 < 10){monthStr = "0" + (date.getMonth()+1);}
