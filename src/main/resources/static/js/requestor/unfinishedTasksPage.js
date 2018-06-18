@@ -8,6 +8,7 @@ new Vue({
         massTaskDescription: "",
         reviseTaskId:"",
         reviseTaskPrice:0,
+        selectedTaskPrice: 0,
     },
     mounted: function () {
         const _this = this;
@@ -49,6 +50,8 @@ new Vue({
         },
         changeTaskPrice:function(index){
             this.reviseTaskId = this.AllUnfinishedTasks[index].taskId;
+            this.selectedTaskPrice = this.AllUnfinishedTasks[index].taskPrice;
+            this.reviseTaskPrice = this.AllUnfinishedTasks[index].taskPrice;
         },
         recallTask:function(index){
             this.terminateTask(this.AllUnfinishedTasks[index].taskId);
@@ -70,17 +73,21 @@ new Vue({
                 });
         },
         addTaskPrice:function(){
-            const _this = this;
-            axios.get("/requestor/reviseTaskPrice", {params: {taskId:this.reviseTaskId,cash:this.reviseTaskPrice}})
-                .then(function (Exception) {
-                    let message = Exception.data.wrongMessage.type;
-                    if(message==="Success"){
-                        alert("修改成功");
-                    }else {
-                        alert("修改失败");
-                    }
-                    _this.getAssignedButIncompleteTaskList();
-                });
+            if (this.reviseTaskPrice > this.selectedTaskPrice) {
+                const _this = this;
+                axios.get("/requestor/reviseTaskPrice", {params: {taskId:this.reviseTaskId,cash:this.reviseTaskPrice}})
+                    .then(function (Exception) {
+                        let message = Exception.data.wrongMessage.type;
+                        if(message==="Success"){
+                            alert("修改成功");
+                        }else {
+                            alert("修改失败");
+                        }
+                        _this.getAssignedButIncompleteTaskList();
+                    });
+            }else {
+                alert("赏金不能低于原来的价格");
+            }
         }
     }
 });
