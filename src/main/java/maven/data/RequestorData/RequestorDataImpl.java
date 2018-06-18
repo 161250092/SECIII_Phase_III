@@ -10,6 +10,7 @@ import maven.model.task.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 public class RequestorDataImpl implements RequestorDataService {
@@ -23,22 +24,17 @@ public class RequestorDataImpl implements RequestorDataService {
         PreparedStatement stmt;
         String sql;
         ResultSet rs;
-
         try{
             sql = "select * from PublishedTask where TaskId = ?";
-
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, publishedTask.getTaskId().value);
-
             rs = stmt.executeQuery();
-
             while(rs.next()){
                 //删除任务信息
                 this.deleteTaskInfo(publishedTask.getTaskId());
             }
 
             stmt.close();
-
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -47,7 +43,6 @@ public class RequestorDataImpl implements RequestorDataService {
         try{
             sql = "insert into PublishedTask values (?,?,?,?,?,?,?)";
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,publishedTask.getUserId().value);
             stmt.setString(2,publishedTask.getTaskId().value);
             stmt.setString(3,publishedTask.getLabelType().value);
@@ -68,18 +63,16 @@ public class RequestorDataImpl implements RequestorDataService {
             try{
                 sql = "insert into FileName values (?,?,?)";
                 stmt = conn.prepareStatement(sql);
-
                 stmt.setString(1,publishedTask.getTaskId().value);
                 stmt.setInt(2,i);
                 stmt.setString(3,publishedTask.getImageFilenameList().get((i)).value);
-
                 stmt.executeUpdate();
+
                 stmt.close();
                 r2 = true;
             }catch (Exception e){
                 e.printStackTrace();
             }
-
         }
 
         boolean r3 = false;
@@ -87,30 +80,28 @@ public class RequestorDataImpl implements RequestorDataService {
         for(int i = 0;i < publishedTask.getPublishedTaskDetailList().size();i++){
             try{
                 sql = "insert into Detail values (?,?,?,?,?,?)";
-
                 stmt = conn.prepareStatement(sql);
-
                 String date = gson.toJson(publishedTask.getPublishedTaskDetailList().get(i).getStartTime());
                 String discount = gson.toJson(publishedTask.getPublishedTaskDetailList().get(i).getRequestorDiscount());
-
                 stmt.setString(1,publishedTask.getTaskId().value);
                 stmt.setInt(2,i);
                 stmt.setString(3,date);
                 stmt.setInt(4,publishedTask.getPublishedTaskDetailList().get(i).getRequiredWorkerNum().value);
                 stmt.setString(5,discount);
                 stmt.setDouble(6,publishedTask.getPublishedTaskDetailList().get(i).getTaskPricePerWorker().value);
-
                 stmt.executeUpdate();
 
                 stmt.close();
-                conn.close();
-                if(i == publishedTask.getPublishedTaskDetailList().size() - 1) {
-                    conn.close();
-                    r3 = true;
-                }
+                if(i == publishedTask.getPublishedTaskDetailList().size() - 1) { r3 = true; }
             }catch (Exception e){
                 e.printStackTrace();
             }
+        }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         boolean r4 = saveTaskType(publishedTask.getTaskId(), publishedTask.getTaskType());

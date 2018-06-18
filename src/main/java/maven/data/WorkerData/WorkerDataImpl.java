@@ -35,11 +35,8 @@ public class WorkerDataImpl implements WorkerDataService {
         try{
             sql  = "select * from AcceptedTask where UserId = ?";
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,userId.value);
-
             rs = stmt.executeQuery();
-
             while(rs.next()){
                 TaskId taskId = new TaskId(rs.getString("TaskId"));
                 Date date = gson.fromJson(rs.getString("Date"),Date.class);
@@ -74,12 +71,9 @@ public class WorkerDataImpl implements WorkerDataService {
         Gson gson = new GsonBuilder().create();
         try{
             sql = "insert into AcceptedTask values (?,?,?,?,?,?,?)";
-
             stmt = conn.prepareStatement(sql);
-
             String date = gson.toJson(acceptedTask.getStartTime());
             String discount = gson.toJson(acceptedTask.getWorkerDiscount());
-
             stmt.setString(1,acceptedTask.getUserId().value);
             stmt.setString(2,acceptedTask.getTaskId().value);
             stmt.setString(3,date);
@@ -87,7 +81,6 @@ public class WorkerDataImpl implements WorkerDataService {
             stmt.setString(5,acceptedTask.getAcceptedTaskState().toString());
             stmt.setString(6,discount);
             stmt.setDouble(7,acceptedTask.getLabelScore().value);
-
             stmt.executeUpdate();
 
             stmt.close();
@@ -111,13 +104,10 @@ public class WorkerDataImpl implements WorkerDataService {
 
         try{
             sql = "update AcceptedTask set State = ? where UserId = ? and TaskId = ?";
-
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,acceptedTaskState.toString());
             stmt.setString(2,userId.value);
             stmt.setString(3,taskId.value);
-
             stmt.executeUpdate();
 
             stmt.close();
@@ -126,7 +116,6 @@ public class WorkerDataImpl implements WorkerDataService {
         }catch (Exception e){
             e.printStackTrace();
         }
-
 
         return result;
     }
@@ -140,18 +129,13 @@ public class WorkerDataImpl implements WorkerDataService {
         PreparedStatement stmt;
         String sql;
         Gson gson = new GsonBuilder().create();
-
         try{
             sql = "update AcceptedTask set Date = ? where UserId = ? and TaskId = ?";
-
             stmt = conn.prepareStatement(sql);
-
             String date = gson.toJson(time);
-
             stmt.setString(1,date);
             stmt.setString(2,userId.value);
             stmt.setString(3,taskId.value);
-
             stmt.executeUpdate();
 
             stmt.close();
@@ -160,7 +144,6 @@ public class WorkerDataImpl implements WorkerDataService {
         }catch (Exception e){
             e.printStackTrace();
         }
-
 
         return result;
     }
@@ -173,26 +156,20 @@ public class WorkerDataImpl implements WorkerDataService {
 
         PreparedStatement stmt;
         String sql;
-
         try{
             sql = "update AcceptedTask set LabelScore = ? where UserId = ? and TaskId = ?";
-
             stmt = conn.prepareStatement(sql);
-
             stmt.setDouble(1,labelScore.value);
             stmt.setString(2,userId.value);
             stmt.setString(3,taskId.value);
-
             stmt.executeUpdate();
 
             stmt.close();
             conn.close();
             result =  true;
-
         }catch (Exception e){
             e.printStackTrace();
         }
-
 
         return result;
     }
@@ -210,15 +187,10 @@ public class WorkerDataImpl implements WorkerDataService {
         Gson gson = new GsonBuilder().create();
         try{
             sql = "select * from AcceptedTask where UserId = ? and TaskId = ?";
-
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,userId.value);
             stmt.setString(2,taskId.value);
-
             rs = stmt.executeQuery();
-
-
             while(rs.next()){
                 System.out.println(rs.getString("Date"));
                 Date date = gson.fromJson(rs.getString("Date"),Date.class);
@@ -228,7 +200,6 @@ public class WorkerDataImpl implements WorkerDataService {
                 LabelScore score = new LabelScore(rs.getDouble("LabelScore"));
 
                 acceptedTask = new AcceptedTask(userId,taskId,date,cash,discount,state,score);
-
             }
 
             stmt.close();
@@ -253,13 +224,9 @@ public class WorkerDataImpl implements WorkerDataService {
         Gson gson = new GsonBuilder().create();
         try{
             sql = "select * from AcceptedTask where TaskId = ?";
-
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1,taskId.value);
-
             rs = stmt.executeQuery();
-
             while(rs.next()){
                 UserId userId = new UserId(rs.getString("UserId"));
                 Date date = gson.fromJson(rs.getString("Date"),Date.class);
@@ -281,5 +248,4 @@ public class WorkerDataImpl implements WorkerDataService {
 
         return acceptedTasks;
     }
-
 }

@@ -33,6 +33,8 @@ public class UserDataImpl implements UserDataService{
                 userName.add(temp);
             }
 
+            stmt.close();
+
             sql = "select Username from Worker";
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -201,6 +203,7 @@ public class UserDataImpl implements UserDataService{
                 UserId userId = new UserId(rs.getString("UserId"));
                 userIds.add(userId);
             }
+            stmt.close();
 
             sql = "select UserId from Worker";
             stmt = conn.prepareStatement(sql);
@@ -209,6 +212,7 @@ public class UserDataImpl implements UserDataService{
                 UserId userId = new UserId(rs.getString("UserId"));
                 userIds.add(userId);
             }
+            stmt.close();
 
             sql = "select UserId from Requestor";
             stmt = conn.prepareStatement(sql);
@@ -242,6 +246,7 @@ public class UserDataImpl implements UserDataService{
             stmt.setString(1,username.value);
             rs = stmt.executeQuery();
             while(rs.next()){ result = new UserId(rs.getString("UserId")); }
+            stmt.close();
 
             sql = "select UserId from Requestor where Username = ?";
             stmt = conn.prepareStatement(sql);
@@ -284,6 +289,7 @@ public class UserDataImpl implements UserDataService{
 
                 result = new Worker(userId,username,password,email,phone,cash,prestige,taskNum);
             }
+            stmt.close();
 
             sql = "select * from Requestor where UserId = ?";
             stmt = conn.prepareStatement(sql);
@@ -326,6 +332,7 @@ public class UserDataImpl implements UserDataService{
             stmt.setString(2,userId.value);
             stmt.executeUpdate();
 
+            stmt.close();
 
             sql = "update Requestor set  Email = ? where UserId = ?";
             stmt = conn.prepareStatement(sql);
@@ -358,6 +365,8 @@ public class UserDataImpl implements UserDataService{
             stmt.setString(2,userId.value);
             stmt.executeUpdate();
 
+            stmt.close();
+
             sql = "update Requestor set Phone = ? where UserId = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1,phone.number);
@@ -388,6 +397,8 @@ public class UserDataImpl implements UserDataService{
             stmt.setDouble(1,cash.value);
             stmt.setString(2,userId.value);
             stmt.executeUpdate();
+
+            stmt.close();
 
             sql = "update Requestor set Cash = ? where UserId = ?";
             stmt = conn.prepareStatement(sql);
@@ -421,6 +432,8 @@ public class UserDataImpl implements UserDataService{
             stmt.setString(2,userId.value);
             stmt.executeUpdate();
 
+            stmt.close();
+
             sql = "update Requestor set Prestige = ? where UserId = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setDouble(1,prestige.value);
@@ -452,6 +465,8 @@ public class UserDataImpl implements UserDataService{
             stmt.setDouble(1,taskNum.value);
             stmt.setString(2,userId.value);
             stmt.executeUpdate();
+
+            stmt.close();
 
             sql = "update Requestor set TaskNum = ? where UserId = ?";
             stmt = conn.prepareStatement(sql);
