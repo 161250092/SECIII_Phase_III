@@ -67,14 +67,16 @@
         <input type="button" value="查询" v-on:click="checkFlow()">
         <br>
         <label> 期间充值</label>
-        <input type="text" value="" v-model="charge">
+        <input type="text" value="" v-model="charge" disabled="disabled">
 
         <label>期间兑换</label>
-        <input type="text" value=""  v-model="exchange">
+        <input type="text" value="" v-model="exchange" disabled="disabled">
 
     </div>
+    <h4>发布者发布的任务数量</h4>
     <div id="flow" style="height:300%"></div>
     <hr/>
+    <h4>工人提交的任务数量</h4>
     <div id="flow1" style="height:300%"></div>
 
 

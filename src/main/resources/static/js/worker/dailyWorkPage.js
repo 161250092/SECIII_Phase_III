@@ -40,7 +40,8 @@ new Vue({
                    }
                    else
                        alert("更新失败");
-               })
+               });
+           this.getUserAchievement();
        },
        sign_in:function(){
            alert("签到成功");

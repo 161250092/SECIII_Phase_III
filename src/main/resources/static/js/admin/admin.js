@@ -15,10 +15,8 @@ new Vue({
         exchangedCash:0,
 
 
-
-
-        startDate:"2018-06-12",
-        endDate:"2018-06-24",
+        startDate:"",
+        endDate:"",
 
         publishTask:[],
         FinishedTask:[],
@@ -27,13 +25,14 @@ new Vue({
     },
     mounted:function (ev) {
         this.$nextTick(function () {
+            this.startDate = this.getMonthStartStr();
+            this.endDate = this.getTodayStr();
             this.getWebsiteStatistics();
         })
     },
     methods: {
         getWebsiteStatistics: function () {
-            var _this = this;
-
+            const _this = this;
             axios.get("/admin/getWebsiteStatistics").then(function (response) {
                 _this.numOfRequestors = response.data.numOfRequestors;
                 _this.numOfWorkers = response.data.numOfWorkers;
@@ -49,11 +48,8 @@ new Vue({
                 _this.taskCharts(_this.numOfAccomplishedTask, _this.numOfIncompleteTasks,"container");
                 _this.cashCharts(_this.chargeCash, _this.exchangedCash,"inAndout");
                 _this.userCharts( _this.numOfRequestors,_this.numOfWorkers,"user");
-                _this.flowCharts(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],[820, 932, 901, 934, 1290, 1330, 1320],"flow");
-                _this.flowCharts(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],[820, 932, 901, 934, 1290, 1330, 1320],"flow1");
+                _this.checkFlow();
             })
-
-
         },
 
 
@@ -286,8 +282,6 @@ new Vue({
                 })
 
         },
-
-
         compareDate:function(startDate, endDate) {
             var arrStart = startDate.split("-");
             var startTime = new Date(arrStart[0], arrStart[1], arrStart[2]);
@@ -300,12 +294,31 @@ new Vue({
                 return false;
             }
             return true;
-}
+        },
+        getTodayStr : function () {
+            let date = new Date();
 
+            let monthStr, dateStr;
+            if (date.getMonth()+1 < 10){monthStr = "0" + (date.getMonth()+1);}
+            else {monthStr = (date.getMonth()+1);}
+            if (date.getDate() < 10){dateStr = "0" + (date.getDate());}
+            else {dateStr = (date.getDate()+1);}
 
+            return date.getFullYear() + "-" + monthStr + "-"  + dateStr;
+        },
+        getMonthStartStr: function () {
+            let date = new Date();
+            date = new Date(date.setDate(0));
 
+            let monthStr, dateStr;
+            if (date.getMonth()+1 < 10){monthStr = "0" + (date.getMonth()+1);}
+            else {monthStr = (date.getMonth()+1);}
+            if (date.getDate() < 10){dateStr = "0" + (date.getDate());}
+            else {dateStr = (date.getDate()+1);}
+
+            return date.getFullYear() + "-" + monthStr + "-"  + dateStr;
+        }
     }
-
 });
 
 

@@ -222,7 +222,7 @@ new Vue({
             if (date.getMonth()+1 < 10){monthStr = "0" + (date.getMonth()+1);}
             else {monthStr = (date.getMonth()+1);}
             if (date.getDate() < 10){dateStr = "0" + (date.getDate());}
-            else {dateStr = (date.getMonth()+1);}
+            else {dateStr = (date.getDate()+1);}
 
             return date.getFullYear() + "-" + monthStr + "-"  + dateStr;
         }
