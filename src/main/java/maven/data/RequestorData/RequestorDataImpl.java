@@ -57,7 +57,6 @@ public class RequestorDataImpl implements RequestorDataService {
             stmt.setString(7,publishedTask.getPublishedTaskState().toString());
 
             stmt.executeUpdate();
-            conn.close();
             stmt.close();
             r1 = true;
         }catch (Exception e){
@@ -75,7 +74,6 @@ public class RequestorDataImpl implements RequestorDataService {
                 stmt.setString(3,publishedTask.getImageFilenameList().get((i)).value);
 
                 stmt.executeUpdate();
-                conn.close();
                 stmt.close();
                 r2 = true;
             }catch (Exception e){
@@ -267,7 +265,6 @@ public class RequestorDataImpl implements RequestorDataService {
             }
 
             stmt.close();
-            conn.close();
         }catch (Exception e){
             e.printStackTrace();
         }
