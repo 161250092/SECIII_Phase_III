@@ -21,7 +21,7 @@ public class AchievementDataImpl implements AchievementDataService {
     private static int CASH_INDEX = 2;
 
     @Override
-    public boolean init_user_achievement(UserId userId) {
+    public boolean init_user_achievement(UserId userId){
         conn = new MySQLConnector().getConnection("Achievement");
 
         PreparedStatement stmt;
@@ -44,6 +44,11 @@ public class AchievementDataImpl implements AchievementDataService {
                 result = false;
                 break;
             }
+        }
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return result;
     }
@@ -94,6 +99,7 @@ public class AchievementDataImpl implements AchievementDataService {
                 achievements.add(achievement);
             }
             stmt.close();
+            conn.close();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -140,12 +146,18 @@ public class AchievementDataImpl implements AchievementDataService {
                 stmt.executeUpdate();
 
                 stmt.close();
+                conn.close();
                 return true;
             }catch (Exception e){
                 e.printStackTrace();
                 return false;
             }
         }else {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             return false;
         }
     }
@@ -168,6 +180,7 @@ public class AchievementDataImpl implements AchievementDataService {
             stmt.executeUpdate();
 
             stmt.close();
+            conn.close();
             return true;
         }catch (Exception e){
             e.printStackTrace();

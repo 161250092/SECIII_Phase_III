@@ -10,6 +10,7 @@ import maven.model.primitiveType.UserId;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +48,13 @@ public class ImageLabelDataImpl implements ImageLabelDataService {
            }
        }
 
-        return result;
+       try {
+           conn.close();
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }
+
+       return result;
     }
 
     @Override
@@ -93,7 +100,6 @@ public class ImageLabelDataImpl implements ImageLabelDataService {
                stmt.executeUpdate();
 
                stmt.close();
-               conn.close();
 
                result = true;
            }catch (Exception e){
@@ -103,6 +109,11 @@ public class ImageLabelDataImpl implements ImageLabelDataService {
        else
            result = true;
 
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return result;
     }
 

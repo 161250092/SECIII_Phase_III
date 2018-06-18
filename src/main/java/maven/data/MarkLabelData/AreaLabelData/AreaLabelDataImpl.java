@@ -18,8 +18,6 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
     private Connection conn;
     @Override
     public boolean saveLabelList(UserId userId, TaskId taskId, List<AreaLabel> labelList) {
-        conn = new MySQLConnector().getConnection("Label");
-
         boolean r_tag = false, r_pixel_list = false;
         for(int iNumber = 0;iNumber < labelList.size();iNumber++){
             for(int aNumber = 0;aNumber < labelList.get(iNumber).getAreaList().size(); aNumber++){
@@ -32,6 +30,7 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
         return r_tag && r_pixel_list;
     }
     private boolean saveAreaTag(UserId userId, TaskId taskId, int iNumber, int aNumber, String tag){
+        conn = new MySQLConnector().getConnection("Label");
         String sql;
         PreparedStatement stmt;
         try{
@@ -44,7 +43,7 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
             stmt.setString(5, tag);
             stmt.executeUpdate();
             stmt.close();
-
+            conn.close();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -52,6 +51,7 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
         }
     }
     private boolean saveAreaBorder(UserId userId, TaskId taskId, int iNumber, int aNumber, List<Pixel> areaBorder){
+        conn = new MySQLConnector().getConnection("Label");
         String sql;
         PreparedStatement stmt;
         try {
@@ -70,7 +70,7 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
                 stmt.clearParameters();
             }
             stmt.close();
-
+            conn.close();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,9 +80,7 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
 
     @Override
     public boolean deleteLabel(UserId userId, TaskId taskId) {
-        conn = new MySQLConnector().getConnection("Label");
-
-        boolean r_tag = false, r_pixel_list = false;
+       boolean r_tag = false, r_pixel_list = false;
         if (this.isLabelExist(userId, taskId)) {
             r_tag = this.deleteAllAreaTags(userId, taskId);
             r_pixel_list = this.deleteAllAreaBorders(userId, taskId);
@@ -91,6 +89,7 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
         return r_tag && r_pixel_list;
     }
     private boolean isLabelExist(UserId userId, TaskId taskId){
+        conn = new MySQLConnector().getConnection("Label");
         String sql;
         PreparedStatement stmt;
         ResultSet rs;
@@ -113,6 +112,7 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
             while(rs.next()){ r2 = true; }
 
             stmt.close();
+            conn.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -120,6 +120,7 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
         return r1 && r2;
     }
     private boolean deleteAllAreaTags(UserId userId, TaskId taskId){
+        conn = new MySQLConnector().getConnection("Label");
         String sql;
         PreparedStatement stmt;
         try{
@@ -129,6 +130,7 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
             stmt.setString(2,taskId.value);
             stmt.executeUpdate();
             stmt.close();
+            conn.close();
             return true;
         }catch (SQLException e){
             e.printStackTrace();
@@ -136,6 +138,7 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
         }
     }
     private boolean deleteAllAreaBorders(UserId userId, TaskId taskId){
+        conn = new MySQLConnector().getConnection("Label");
         String sql;
         PreparedStatement stmt;
         try{
@@ -145,6 +148,7 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
             stmt.setString(2,taskId.value);
             stmt.executeUpdate();
             stmt.close();
+            conn.close();
             return true;
         }catch (SQLException e){
             e.printStackTrace();
@@ -173,6 +177,7 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
                 }
             }
             stmt.close();
+            conn.close();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -184,6 +189,7 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
         return areaLabels;
     }
     private List<Area> getAreaList(UserId userId, TaskId taskId, int iNumber){
+        conn = new MySQLConnector().getConnection("Label");
         List<Area> areaList = new ArrayList<>();
         PreparedStatement stmt;
         String sql;
@@ -207,6 +213,8 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
             stmt.setInt(3, iNumber);
             rs = stmt.executeQuery();
             while (rs.next()){ tagList.add(rs.getString("tag")); }
+            stmt.close();
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -218,6 +226,7 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
         return areaList;
     }
     private List<Pixel> getAreaBorder(UserId userId, TaskId taskId, int iNumber, int aNumber){
+        conn = new MySQLConnector().getConnection("Label");
         List<Pixel> areaBorder = new ArrayList<>();
 
         PreparedStatement stmt;
@@ -235,6 +244,8 @@ public class AreaLabelDataImpl implements AreaLabelDataService {
             while (rs.next()){
                 areaBorder.add(new Pixel(rs.getDouble("x"), rs.getDouble("y")));
             }
+            stmt.close();
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

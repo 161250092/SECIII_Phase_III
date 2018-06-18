@@ -11,6 +11,7 @@ import maven.model.primitiveType.UserId;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +52,12 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
                 }
 
             }
+        }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         return result;
@@ -98,7 +105,6 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
                 stmt.executeUpdate();
 
                 stmt.close();
-                conn.close();
 
                 result = true;
             }catch (Exception e){
@@ -107,6 +113,13 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
         }
         else
             result = true;
+
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return result;
     }
@@ -159,6 +172,12 @@ public class FrameLabelDataImpl implements FrameLabelDataService{
             }catch (Exception e){
                 e.printStackTrace();
             }
+        }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         return frameLabels;
