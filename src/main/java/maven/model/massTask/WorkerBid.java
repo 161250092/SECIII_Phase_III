@@ -33,6 +33,10 @@ public class WorkerBid {
     private ImageNum maxWantedImageNum;
     //该竞标的状态 {等待，成功，失败}
     private WorkerBidState workerBidState;
+    //若竞标成功，该工人所分到的第一张图片在任务图片列表的下标
+    private int fileListStartIndex;
+    //若竞标成功，该工人所分到的图片数
+    private int fileListLength;
 
     public WorkerBid(UserId workerId, TaskId chosenTaskId, double ratioOfArrivedTime, Cash wantedUnitPrice, ImageNum maxWantedImageNum, WorkerBidState workerBidState) {
         this.workerId = workerId;
@@ -41,6 +45,20 @@ public class WorkerBid {
         this.wantedUnitPrice = wantedUnitPrice;
         this.maxWantedImageNum = maxWantedImageNum;
         this.workerBidState = workerBidState;
+        this.fileListStartIndex = -1;
+        this.fileListLength = -1;
+    }
+
+    public WorkerBid(UserId workerId, TaskId chosenTaskId, double ratioOfArrivedTime, Cash wantedUnitPrice, ImageNum maxWantedImageNum, WorkerBidState workerBidState,
+                     int fileListStartIndex, int fileListLength) {
+        this.workerId = workerId;
+        this.chosenTaskId = chosenTaskId;
+        this.ratioOfArrivedTime = ratioOfArrivedTime;
+        this.wantedUnitPrice = wantedUnitPrice;
+        this.maxWantedImageNum = maxWantedImageNum;
+        this.workerBidState = workerBidState;
+        this.fileListStartIndex = fileListStartIndex;
+        this.fileListLength = fileListLength;
     }
     public WorkerBid(WorkerBidVO bidVO) {
         this(new UserId(bidVO.getWorkerId()), new TaskId(bidVO.getChosenTaskId()), bidVO.getRatioOfArrivedTime(),
@@ -69,5 +87,21 @@ public class WorkerBid {
 
     public WorkerBidState getWorkerBidState() {
         return workerBidState;
+    }
+
+    public int getFileListStartIndex() {
+        return fileListStartIndex;
+    }
+
+    public void setFileListStartIndex(int fileListStartIndex) {
+        this.fileListStartIndex = fileListStartIndex;
+    }
+
+    public int getFileListLength() {
+        return fileListLength;
+    }
+
+    public void setFileListLength(int fileListLength) {
+        this.fileListLength = fileListLength;
     }
 }

@@ -20,5 +20,7 @@ create table `WorkerBid`(
 `Cash` double precision,
 `ImageNum` Integer,
 `WorkerBidState` varchar(100),
+`FileListStartIndex` Integer,
+`FileListLength` Integer,
 primary key(UserId, TaskId)
 );

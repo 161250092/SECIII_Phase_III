@@ -1,5 +1,6 @@
 package maven.businessLogic.workerBL;
 
+import maven.businessLogic.algorithm.LinearRegression;
 import maven.businessLogic.algorithm.PricingAlgorithm;
 import maven.data.RequestorData.RequestorDataImpl;
 import maven.data.RequestorData.RequestorDataService;
@@ -10,9 +11,12 @@ import maven.data.WorkerData.WorkerMassTaskDataService;
 import maven.exception.util.FailureException;
 import maven.exception.util.SuccessException;
 import maven.model.massTask.MassTaskDetail;
+import maven.model.massTask.MassTaskPricingMechanism;
 import maven.model.massTask.WorkerBid;
+import maven.model.primitiveType.Cash;
 import maven.model.primitiveType.UserId;
 import maven.model.task.PublishedTask;
+import maven.model.task.PublishedTaskState;
 import maven.model.vo.MassTaskDetailVO;
 import maven.model.vo.PublishedMassTaskVO;
 import maven.model.vo.PublishedTaskVO;
@@ -29,13 +33,13 @@ public class WorkerMassTaskBLImpl implements WorkerMassTaskBLService{
     private RequestorMassTaskDataService requestorMassTaskData;
     private RequestorDataService requestorData;
 
-    private PricingAlgorithm pricingAlgorithm;
+    private LinearRegression linearRegression;
 
     public WorkerMassTaskBLImpl(){
         workerMassTaskData = new WorkerMassTaskDataImpl();
         requestorMassTaskData = new RequestorMassTaskDataImpl();
         requestorData = new RequestorDataImpl();
-        pricingAlgorithm = new PricingAlgorithm();
+        linearRegression = new LinearRegression();
     }
 
     @Override
@@ -62,12 +66,26 @@ public class WorkerMassTaskBLImpl implements WorkerMassTaskBLService{
             if (!biddenTaskIdSet.contains(massTaskDetail.getTaskId().value)){
                 PublishedTask tempPublishedTask = requestorData.getPublishedTask(massTaskDetail.getTaskId());
 
-                List<WorkerBid> tempWorkerBids = workerMassTaskData.getAllWorkerBidOfThisTask(massTaskDetail.getTaskId());
-                massTaskDetail.setGivenUnitPrice(pricingAlgorithm.getThresholdPrice(tempWorkerBids, massTaskDetail.getBudget()));
+                if(tempPublishedTask.getPublishedTaskState() == PublishedTaskState.INCOMPLETE){
+                    List<WorkerBid> tempBidsOfThisTask = workerMassTaskData.getAllWorkerBidOfThisTask(tempPublishedTask.getTaskId());
 
-                publishedMassTaskVOList.add(new PublishedMassTaskVO(
-                        new PublishedTaskVO(tempPublishedTask), new MassTaskDetailVO(massTaskDetail)
-                ));
+                    double estimateUnitPrice;
+                    if(tempBidsOfThisTask.size() <= 1){
+                        if(massTaskDetail.getMassTaskPricingMechanism() == MassTaskPricingMechanism.MAXIMIZE_TASKS){
+                            estimateUnitPrice = massTaskDetail.getBudget().value / (double)( 2 * tempPublishedTask.getImageFilenameList().size() );
+                        }else {
+                            estimateUnitPrice = massTaskDetail.getGivenUnitPrice().value;
+                        }
+                    }else {
+                        estimateUnitPrice = linearRegression.getEstimateUnitPrice(tempBidsOfThisTask, tempPublishedTask.getImageFilenameList().size());
+                    }
+
+                    massTaskDetail.setGivenUnitPrice(new Cash(estimateUnitPrice));
+
+                    publishedMassTaskVOList.add(new PublishedMassTaskVO(
+                            new PublishedTaskVO(tempPublishedTask), new MassTaskDetailVO(massTaskDetail)
+                    ));
+                }
             }
         }
         return publishedMassTaskVOList;

@@ -151,24 +151,12 @@ public class LabelQualityVerifier {
         t_dot01_map.put(29, 2.4620213601503833);
     }
 
-    private double mean(List<Double> data){
-        int n = data.size();
-        if (n == 0) return 0.0;
-
-        double sum = 0.0;
-        for (Double num: data){
-            sum += num;
-        }
-
-        return sum / (double)n;
-    }
-
     private double sampleVariance(List<Double> data){
         int n = data.size();
         if (n == 0) return 0.0;
         if (n == 1) return data.get(0);
 
-        double mean = this.mean(data);
+        double mean = MathMethods.mean(data);
 
         double squareSum = 0.0;
         for (Double num: data){
@@ -182,7 +170,7 @@ public class LabelQualityVerifier {
         int n = data.size();
         if (n == 0) return 0.0;
 
-        double mean = this.mean(data);
+        double mean = MathMethods.mean(data);
 
         double squareSum = 0.0;
         for (Double num: data){
@@ -254,7 +242,7 @@ public class LabelQualityVerifier {
     private double getEstimate(List<Double> distrustfulRateList, double requiredDistrustfulRateList){
         //假设发布者的消极评价服从正态分布，X ～ N（μ, σ^2）
         //μ的最大似然估计值为平均值
-        double mu_hat = this.mean(distrustfulRateList);
+        double mu_hat = MathMethods.mean(distrustfulRateList);
         //σ^2的最大似然估计值为方差
         double sigma_hat = Math.pow(this.variance(distrustfulRateList), 0.5);
 

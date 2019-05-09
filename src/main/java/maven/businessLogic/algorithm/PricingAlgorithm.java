@@ -95,7 +95,7 @@ public class PricingAlgorithm {
         double allocatedBudget = this.findMinCost(bidsArrivedAtAndBeforeThisTimeStep, 2 * totalImageNumOfThisTask.value);
         //p = GetThreshold( S(t), B ) , t = q1
         double thresholdPrice = this.getThresholdPrice(bidsArrivedAtAndBeforeThisTimeStep, allocatedBudget);
-        
+
         //找 max{a∈S(t)|ci≤p} wi , t = q1
         int maxOfWantedImageNum = 0;
         for(WorkerBid bid: bidsArrivedAtAndBeforeThisTimeStep){
@@ -107,7 +107,7 @@ public class PricingAlgorithm {
         //w* = min{ max{a∈S(t)|ci≤p} wi, low_bound(B/p) }
         int estimateOfMaxImageNumAWorkerCanPerform = Math.min(maxOfWantedImageNum, (int)(allocatedBudget / thresholdPrice));
 
-        if (Math.random() <= 1/4){
+        if (Math.random() <= 1.0/4.0){
             //有1/4的概率...
             for (WorkerBid bid: workerBidList){
                 //在最后一个时间段到达的所有工人中，找到满足 bi ≤ p 的
@@ -254,7 +254,7 @@ public class PricingAlgorithm {
             //B' = 2B'
             allocatedBudget = 2 * allocatedBudget;
 
-            if (Math.random() <= 1/3){
+            if (Math.random() <= 1.0/3.0){
                 //有1/3的概率...
                 for (WorkerBid bid: bidsArrivedAtAndBeforeThisTimeStep){
                     //在时间段t到达的所有工人中，找到满足 bi ≤ p 的

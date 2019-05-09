@@ -6,21 +6,6 @@ drop database Message;
 drop database PublishedTask;
 drop database User;
 
-create database AcceptedTask;
-
-use AcceptedTask;
-
-create table `AcceptedTask`(
-`UserId` varchar(20),
-`TaskId` varchar(100),
-`Date` varchar(100),
-`Cash` double precision,
-`State` varchar(30),
-`Discount` varchar(100),
-`LabelScore` double precision,
-primary key(UserId, TaskId)
-);
-
 create table `WorkerBid`(
 `UserId` varchar(20),
 `TaskId` varchar(100),

@@ -236,7 +236,7 @@ new Vue({
                     type: 'line'
                 }]
             };
-            ;
+
             if (option && typeof option === "object") {
                 myChart.setOption(option, true);
             }

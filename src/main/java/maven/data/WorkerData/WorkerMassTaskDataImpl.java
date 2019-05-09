@@ -26,7 +26,7 @@ public class WorkerMassTaskDataImpl implements WorkerMassTaskDataService {
         PreparedStatement stmt;
         String sql;
         try{
-            sql = "insert into WorkerBid values (?,?,?,?,?,?)";
+            sql = "insert into WorkerBid values (?,?,?,?,?,?,?,?)";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1,workerBid.getWorkerId().value);
             stmt.setString(2,workerBid.getChosenTaskId().value);
@@ -34,6 +34,8 @@ public class WorkerMassTaskDataImpl implements WorkerMassTaskDataService {
             stmt.setDouble(4,workerBid.getWantedUnitPrice().value);
             stmt.setInt(5,workerBid.getMaxWantedImageNum().value);
             stmt.setString(6,WorkerBidState.WAITING.name());
+            stmt.setInt(7,workerBid.getFileListStartIndex());
+            stmt.setInt(8,workerBid.getFileListLength());
             stmt.executeUpdate();
 
             stmt.close();
@@ -112,6 +114,41 @@ public class WorkerMassTaskDataImpl implements WorkerMassTaskDataService {
     }
 
     @Override
+    public WorkerBid getWorkerBidOfThisTask(TaskId taskId, UserId workerId) {
+        conn = new MySQLConnector().getConnection("AcceptedTask");
+
+        WorkerBid workerBid = null;
+
+        PreparedStatement stmt;
+        String sql;
+        ResultSet rs;
+        try {
+            sql = "select * from WorkerBid where TaskId = ? and UserId = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, taskId.value);
+            stmt.setString(2, workerId.value);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                double radio = rs.getDouble("Radio");
+                Cash cash = new Cash(rs.getDouble("Cash"));
+                ImageNum imageNum = new ImageNum(rs.getInt("ImageNum"));
+                WorkerBidState workerBidState = WorkerBidState.valueOf(rs.getString("WorkerBidState"));
+                int fileListStartIndex = rs.getInt("FileListStartIndex");
+                int fileListLength = rs.getInt("fileListLength");
+
+                workerBid = new WorkerBid(workerId,taskId,radio,cash,imageNum, workerBidState, fileListStartIndex, fileListLength);
+            }
+
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return workerBid;
+    }
+
+    @Override
     public boolean updateWorkerBidState(UserId workerId, TaskId taskId, WorkerBidState workerBidState) {
         conn = new MySQLConnector().getConnection("AcceptedTask");
 
@@ -123,6 +160,30 @@ public class WorkerMassTaskDataImpl implements WorkerMassTaskDataService {
             stmt.setString(1, workerBidState.name());
             stmt.setString(2, workerId.value);
             stmt.setString(3, taskId.value);
+            stmt.executeUpdate();
+
+            stmt.close();
+            conn.close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateWorkerBidImageAllocation(UserId workerId, TaskId taskId, int fileListStartIndex, int fileListLength) {
+        conn = new MySQLConnector().getConnection("AcceptedTask");
+
+        PreparedStatement stmt;
+        String sql;
+        try {
+            sql = "update WorkerBid set FileListStartIndex = ?, FileListLength = ? where UserId = ? and TaskId = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, fileListStartIndex);
+            stmt.setInt(2, fileListLength);
+            stmt.setString(3, workerId.value);
+            stmt.setString(4, taskId.value);
             stmt.executeUpdate();
 
             stmt.close();

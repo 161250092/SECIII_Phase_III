@@ -63,6 +63,7 @@ public class AllocateMassTaskBLImpl implements AllocateMassTaskBLService{
             //竞标成功的工人ID集合
             Set<String> allocatedWorkerIdSet = new HashSet<>();
             //给工人分配任务，并把他们的竞标状态改为成功
+            int fileListStartIndex = 0;
             for (AllocatedTask allocatedTask: allocatedTasks){
                 AcceptedTask tempAcceptedTask = new AcceptedTask(
                         allocatedTask.getWorkerId(),massTaskDetail.getTaskId(),new Date(),
@@ -73,7 +74,11 @@ public class AllocateMassTaskBLImpl implements AllocateMassTaskBLService{
                 result = workerData.acceptTask(tempAcceptedTask);
 
                 result = workerMassTaskData.updateWorkerBidState(allocatedTask.getWorkerId(), massTaskDetail.getTaskId(), WorkerBidState.SUCCESSFUL);
+                result = workerMassTaskData.updateWorkerBidImageAllocation(allocatedTask.getWorkerId(), massTaskDetail.getTaskId(),
+                        fileListStartIndex, allocatedTask.getImageNum().value);
                 allocatedWorkerIdSet.add(allocatedTask.getWorkerId().value);
+
+                fileListStartIndex += allocatedTask.getImageNum().value;
             }
 
             //把失败竞标的状态改为失败
